@@ -82,7 +82,7 @@ This system has two distinct layers that must coexist: the **installable skills 
 The current repo puts all installable skill content at the root. The site needs to be a separate directory that does NOT get installed by users. A `site/` subdirectory keeps the two concerns cleanly separated.
 
 ```
-claude-code-skills/
+dgtldept/
 │
 ├── skills/                          # Individual installable skills (unchanged for users)
 │   └── {skill-name}/
@@ -314,7 +314,7 @@ Dependencies determine order. Nothing can be skipped.
 
 | Service | Integration Pattern | Notes |
 |---------|---------------------|-------|
-| GitHub Pages | Astro's `withastro/action` GitHub Action builds and deploys `dist/` automatically | Set `site` in astro.config.ts to the GitHub Pages URL; set `base` if deploying to a sub-path like /claude-code-skills |
+| GitHub Pages | Astro's `withastro/action` GitHub Action builds and deploys `dist/` automatically | Set `site` in astro.config.ts to the GitHub Pages URL; set `base` if deploying to a sub-path like /dgtldept |
 | Pagefind | CLI run post-build: `pagefind --site dist/` | Add `astro-pagefind` npm package for local dev; run CLI in CI |
 
 ### Internal Boundaries

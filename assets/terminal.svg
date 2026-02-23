@@ -28,14 +28,14 @@
     <!-- Clone -->
     <text x="20" y="68">
       <tspan fill="#565f89">$</tspan>
-      <tspan fill="#c0caf5"> git clone https://github.com/thatrebeccarae/claude-code-skills.git</tspan>
+      <tspan fill="#c0caf5"> git clone https://github.com/thatrebeccarae/dgtldept.git</tspan>
     </text>
-    <text x="20" y="86" fill="#565f89">Cloning into 'claude-code-skills'...</text>
+    <text x="20" y="86" fill="#565f89">Cloning into 'dgtldept'...</text>
 
     <!-- Setup -->
     <text x="20" y="114">
       <tspan fill="#565f89">$</tspan>
-      <tspan fill="#c0caf5"> cd claude-code-skills/skill-packs/dtc-skill-pack</tspan>
+      <tspan fill="#c0caf5"> cd dgtldept/skill-packs/dtc-skill-pack</tspan>
     </text>
     <text x="20" y="138">
       <tspan fill="#565f89">$</tspan>

@@ -5,7 +5,7 @@
 ## Directory Layout
 
 ```
-claude-code-skills/
+dgtldept/
 ├── .git/                           # Git repository
 ├── .gitignore                      # Ignore .env, node_modules, etc.
 ├── .planning/                      # Planning documents (generated)

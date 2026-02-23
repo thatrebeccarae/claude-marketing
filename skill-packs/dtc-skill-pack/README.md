@@ -4,18 +4,18 @@
 
 **6 skills that give Claude Code deep expertise in DTC e-commerce marketing.**
 
-[![GitHub stars](https://img.shields.io/github/stars/thatrebeccarae/claude-code-skills?style=for-the-badge&logo=github&color=181717)](https://github.com/thatrebeccarae/claude-code-skills/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/thatrebeccarae/dgtldept?style=for-the-badge&logo=github&color=181717)](https://github.com/thatrebeccarae/dgtldept/stargazers)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](../../LICENSE)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Rebecca%20Rae%20Barton-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/rebeccaraebarton)
 [![Substack](https://img.shields.io/badge/Substack-dgtl%20dept*-FF6719?style=for-the-badge&logo=substack&logoColor=white)](https://dgtldept.substack.com/welcome)
 
 Audit Klaviyo flows, diagnose Shopify conversion drop-offs, analyze GA4 traffic, build Looker Studio dashboards, and generate polished slide decks — all from natural language prompts in your terminal.
 
-[**Live Demo**](https://thatrebeccarae.github.io/claude-code-skills/skill-packs/dtc-skill-pack/demo/) · [**Getting Started**](GETTING_STARTED.md) · [**Back to Repo**](../../README.md)
+[**Live Demo**](https://thatrebeccarae.github.io/dgtldept/skill-packs/dtc-skill-pack/demo/) · [**Getting Started**](GETTING_STARTED.md) · [**Back to Repo**](../../README.md)
 
 <br>
 
-<a href="https://thatrebeccarae.github.io/claude-code-skills/skill-packs/dtc-skill-pack/demo/">
+<a href="https://thatrebeccarae.github.io/dgtldept/skill-packs/dtc-skill-pack/demo/">
   <img src="../../assets/terminal.svg" alt="DTC Skill Pack installation" width="720">
 </a>
 
@@ -60,8 +60,8 @@ Each skill works independently — install only the ones you need. But they comp
 ### Option 1: Interactive Wizard (Recommended)
 
 ```bash
-git clone https://github.com/thatrebeccarae/claude-code-skills.git
-cd claude-code-skills/skill-packs/dtc-skill-pack
+git clone https://github.com/thatrebeccarae/dgtldept.git
+cd dgtldept/skill-packs/dtc-skill-pack
 python scripts/setup.py
 ```
 

@@ -1,6 +1,6 @@
 <div align="center">
 
-# Claude Code Skills
+# dgtl dept*
 
 **Production-tested skill packs that give Claude Code deep expertise in DTC marketing, data visualization, and presentation generation.**
 
@@ -8,14 +8,14 @@
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Rebecca%20Rae%20Barton-007EC6?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/rebeccaraebarton)
 [![X](https://img.shields.io/badge/X-@rebeccarae-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/rebeccarae)
 [![Website](https://img.shields.io/badge/rebeccaraebarton.com-1C1C1C?style=for-the-badge&logo=google-chrome&logoColor=white)](https://rebeccaraebarton.com)
-[![GitHub stars](https://img.shields.io/github/stars/thatrebeccarae/claude-code-skills?style=for-the-badge&logo=github&color=181717)](https://github.com/thatrebeccarae/claude-code-skills/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/thatrebeccarae/dgtldept?style=for-the-badge&logo=github&color=181717)](https://github.com/thatrebeccarae/dgtldept/stargazers)
 [![License](https://img.shields.io/badge/License-MIT-007EC6?style=for-the-badge)](LICENSE)
-[![Clone](https://img.shields.io/badge/Clone-git%20clone-f78166?style=for-the-badge&logo=git&logoColor=white)](https://github.com/thatrebeccarae/claude-code-skills)
+[![Clone](https://img.shields.io/badge/Clone-git%20clone-f78166?style=for-the-badge&logo=git&logoColor=white)](https://github.com/thatrebeccarae/dgtldept)
 
 <br>
 
 ```bash
-git clone https://github.com/thatrebeccarae/claude-code-skills.git
+git clone https://github.com/thatrebeccarae/dgtldept.git
 ```
 
 <br>
@@ -26,7 +26,7 @@ git clone https://github.com/thatrebeccarae/claude-code-skills.git
 
 <br>
 
-<a href="https://thatrebeccarae.github.io/claude-code-skills/skill-packs/dtc-skill-pack/demo/">
+<a href="https://thatrebeccarae.github.io/dgtldept/skill-packs/dtc-skill-pack/demo/">
   <img src="assets/terminal.svg" alt="DTC Skill Pack installation" width="760">
 </a>
 
@@ -74,8 +74,8 @@ If you want implementation-ready answers — not tutorials, not blog-post-level 
 ### Setup Wizard (Recommended)
 
 ```bash
-git clone https://github.com/thatrebeccarae/claude-code-skills.git
-cd claude-code-skills/skill-packs/dtc-skill-pack
+git clone https://github.com/thatrebeccarae/dgtldept.git
+cd dgtldept/skill-packs/dtc-skill-pack
 python scripts/setup.py
 ```
 
@@ -90,7 +90,7 @@ The wizard checks prerequisites, walks you through API key setup, installs depen
 ```bash
 # Copy all 6 skills to Claude Code
 for skill in klaviyo-analyst klaviyo-developer google-analytics shopify looker-studio pro-deck-builder; do
-  cp -r claude-code-skills/skill-packs/dtc-skill-pack/$skill ~/.claude/skills/
+  cp -r dgtldept/skill-packs/dtc-skill-pack/$skill ~/.claude/skills/
 done
 ```
 
@@ -102,8 +102,8 @@ See [GETTING_STARTED.md](skill-packs/dtc-skill-pack/GETTING_STARTED.md) for deta
 <summary><strong>LinkedIn Data Viz install</strong></summary>
 
 ```bash
-git clone https://github.com/thatrebeccarae/claude-code-skills.git
-cp -r claude-code-skills/skills/linkedin-data-viz ~/.claude/skills/
+git clone https://github.com/thatrebeccarae/dgtldept.git
+cp -r dgtldept/skills/linkedin-data-viz ~/.claude/skills/
 ```
 
 Then say: **"Analyze my LinkedIn data export"**
@@ -138,7 +138,7 @@ Claude Code skills are structured knowledge packs that load automatically when y
 
 ### [DTC Skill Pack](skill-packs/dtc-skill-pack/) — 6 skills for e-commerce marketing
 
-> [**View Live Demo**](https://thatrebeccarae.github.io/claude-code-skills/skill-packs/dtc-skill-pack/demo/) — See all 6 skills in action with example terminal output.
+> [**View Live Demo**](https://thatrebeccarae.github.io/dgtldept/skill-packs/dtc-skill-pack/demo/) — See all 6 skills in action with example terminal output.
 
 | Skill | What Claude Can Do |
 |-------|-------------------|
@@ -151,13 +151,13 @@ Claude Code skills are structured knowledge packs that load automatically when y
 
 ### [LinkedIn Data Viz](skills/linkedin-data-viz/) — Interactive career visualizations
 
-> [**View Live Demo**](https://thatrebeccarae.github.io/claude-code-skills/skills/linkedin-data-viz/demo/)
+> [**View Live Demo**](https://thatrebeccarae.github.io/dgtldept/skills/linkedin-data-viz/demo/)
 
 Turn a LinkedIn data export into 9 interactive visualizations: D3.js network graphs, Chart.js charts, career timelines. Includes onboarding wizard, dark theme, and privacy-safe sanitization for publishing.
 
 ### Coming Soon
 
-Additional marketing skill packs are in development — covering paid media, content strategy, and multi-channel attribution. [Star the repo](https://github.com/thatrebeccarae/claude-code-skills/stargazers) to get notified when they drop.
+Additional marketing skill packs are in development — covering paid media, content strategy, and multi-channel attribution. [Star the repo](https://github.com/thatrebeccarae/dgtldept/stargazers) to get notified when they drop.
 
 ## Example Prompts
 

@@ -1,10 +1,10 @@
 # Contributing
 
-Thanks for your interest in contributing to Claude Code Skills. Whether it's a bug report, a new skill idea, or a documentation improvement — it all helps.
+Thanks for your interest in contributing to dgtl dept*. Whether it's a bug report, a new skill idea, or a documentation improvement — it all helps.
 
 ## What We're Looking For
 
-- **Bug reports** — something broken? [Open an issue](https://github.com/thatrebeccarae/claude-code-skills/issues/new?template=bug_report.md)
+- **Bug reports** — something broken? [Open an issue](https://github.com/thatrebeccarae/dgtldept/issues/new?template=bug_report.md)
 - **Skill suggestions** — ideas for new skills or improvements to existing ones
 - **Documentation fixes** — typos, unclear instructions, missing steps
 - **New skills** — production-tested skills for marketing platforms, analytics, or data visualization
@@ -14,8 +14,8 @@ Thanks for your interest in contributing to Claude Code Skills. Whether it's a b
 1. **Fork** the repository
 2. **Clone** your fork:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/claude-code-skills.git
-   cd claude-code-skills
+   git clone https://github.com/YOUR_USERNAME/dgtldept.git
+   cd dgtldept
    ```
 3. **Create a branch** for your changes:
    ```bash

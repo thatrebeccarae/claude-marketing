@@ -187,7 +187,7 @@ Features to defer until the catalog has validated its audience and value proposi
 ## Sources
 
 - [SkillsMP — Agent Skills Marketplace](https://skillsmp.com) — Direct observation of catalog features, category structure, quality signal approach. Confidence: MEDIUM (WebSearch verified; site observed via search snippets, not direct fetch).
-- [SkillsMP: 87,427+ Claude Code Skills Directory — Medium](https://medium.com/ai-software-engineer/skillsmp-this-87-427-claude-code-skills-directory-just-exploded-but-with-one-annoying-problem-ec4af66b78cb) — Documented criticism of signal-to-noise ratio and quality control gap. Confidence: MEDIUM (secondary source; corroborated by vibecoding.app review).
+- [SkillsMP: 87,427+ Claude Code Skills Directory — Medium](https://medium.com/ai-software-engineer/skillsmp-this-87-427-dgtldept-directory-just-exploded-but-with-one-annoying-problem-ec4af66b78cb) — Documented criticism of signal-to-noise ratio and quality control gap. Confidence: MEDIUM (secondary source; corroborated by vibecoding.app review).
 - [Skills.sh Review (2026) — Vibe Coding](https://vibecoding.app/blog/skills-sh-review) — Comparative review noting quality control and filtering differences across skills directories. Confidence: MEDIUM.
 - [awesome-claude-code — GitHub](https://github.com/hesreallyhim/awesome-claude-code) — Structure: CSV source of truth, auto-generated README, categories.yaml, minimal quality gate. Confidence: HIGH (direct repo observation).
 - [Extend Claude with skills — Claude Code official docs](https://code.claude.com/docs/en/skills) — SKILL.md frontmatter fields, name/description validation rules, user-invocable vs. disable-model-invocation flags. Confidence: HIGH (official Anthropic documentation).
@@ -196,7 +196,7 @@ Features to defer until the catalog has validated its audience and value proposi
 - [npm Search Experience Updates — Socket.dev](https://socket.dev/blog/npm-updates-search-experience) — npm retiring popularity/quality/maintenance scoring in favor of objective sorting. Quality signals historically included: README presence, tests, up-to-date dependencies, release frequency. Confidence: HIGH (news source covering official npm change).
 - [Homebrew Taps — official docs](https://docs.brew.sh/Taps) — Formula structure: formula_renames.json, Casks directory, cmd subdirectory. Metadata: URL, checksum, dependencies, build instructions. Confidence: HIGH (official Homebrew documentation).
 - [Raycast — Prepare an Extension for Store](https://developers.raycast.com/basics/prepare-an-extension-for-store) — Screenshots (max 6), categories, extension details screen. Confidence: HIGH (official Raycast developer documentation).
-- [Existing repo — dtc-skill-pack README](https://github.com/thatrebeccarae/claude-code-skills/blob/main/skill-packs/dtc-skill-pack/README.md) — Direct read of existing skill pack structure. Confidence: HIGH (primary source).
+- [Existing repo — dtc-skill-pack README](https://github.com/thatrebeccarae/dgtldept/blob/main/skill-packs/dtc-skill-pack/README.md) — Direct read of existing skill pack structure. Confidence: HIGH (primary source).
 
 ---
 
