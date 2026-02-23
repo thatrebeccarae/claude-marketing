@@ -1,6 +1,15 @@
 ---
 name: klaviyo-developer
 description: Klaviyo API and developer integration expertise. Event tracking, SDKs, webhooks, rate limits, OAuth, catalog sync, and code patterns. Use when the user asks about Klaviyo API, integrating with Klaviyo, tracking events, building custom integrations, webhook handling, or developer implementation. For marketing strategy, flow optimization, and campaign auditing, see the klaviyo-analyst skill.
+license: MIT
+origin: custom
+author: Rebecca Rae Barton
+author_url: https://github.com/thatrebeccarae
+metadata:
+  version: 1.0.0
+  category: dtc-marketing
+  domain: klaviyo
+  updated: 2026-02-23
 ---
 
 # Klaviyo Developer

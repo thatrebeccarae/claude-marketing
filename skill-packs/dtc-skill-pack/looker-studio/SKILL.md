@@ -1,6 +1,15 @@
 ---
 name: looker-studio
 description: Looker Studio (formerly Google Data Studio) expertise. Build dashboards, design data visualizations, connect data sources, and create marketing reports. Use when the user asks about Looker Studio, Data Studio, marketing dashboards, data visualization, report building, or connecting analytics data sources.
+license: MIT
+origin: custom
+author: Rebecca Rae Barton
+author_url: https://github.com/thatrebeccarae
+metadata:
+  version: 1.0.0
+  category: dtc-marketing
+  domain: looker-studio
+  updated: 2026-02-23
 ---
 
 # Looker Studio (Google Data Studio)

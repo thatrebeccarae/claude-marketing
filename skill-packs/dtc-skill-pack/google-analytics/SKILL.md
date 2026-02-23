@@ -1,6 +1,15 @@
 ---
 name: google-analytics
 description: Analyze Google Analytics data, review website performance metrics, identify traffic patterns, and suggest data-driven improvements. Use when the user asks about analytics, website metrics, traffic analysis, conversion rates, user behavior, or performance optimization.
+license: MIT
+origin: custom
+author: Rebecca Rae Barton
+author_url: https://github.com/thatrebeccarae
+metadata:
+  version: 1.0.0
+  category: dtc-marketing
+  domain: google-analytics
+  updated: 2026-02-23
 ---
 
 # Google Analytics Analysis

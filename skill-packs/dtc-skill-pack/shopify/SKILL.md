@@ -1,6 +1,15 @@
 ---
 name: shopify
 description: Shopify e-commerce platform marketing expertise. Audit store performance, optimize conversion funnels, configure tracking, and integrate marketing tools. Use when the user asks about Shopify, e-commerce optimization, Shopify analytics, store conversion, product feeds, or Shopify app integrations.
+license: MIT
+origin: custom
+author: Rebecca Rae Barton
+author_url: https://github.com/thatrebeccarae
+metadata:
+  version: 1.0.0
+  category: dtc-marketing
+  domain: shopify
+  updated: 2026-02-23
 ---
 
 # Shopify Marketing & E-commerce

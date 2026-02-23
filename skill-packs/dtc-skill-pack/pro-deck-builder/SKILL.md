@@ -1,6 +1,15 @@
 ---
 name: pro-deck-builder
-description: "Create world-class PowerPoint presentations with VC-backed SaaS design quality (Linear, Attio, Vercel aesthetic). Handles all PPTX tasks: creating slide decks, pitch decks, keynotes, business reports, investor pitches; reading or extracting content from .pptx files; editing or updating existing presentations. Trigger on: 'deck', 'slides', 'presentation', 'PowerPoint', 'PPTX', 'pitch deck', 'keynote', or any .pptx filename. Uses PptxGenJS (Node.js) for creation."
+description: Create polished HTML slide decks and PDF-ready documents for consulting deliverables. Uses the RRBC design system with warm light mode, dark mode cover pages, Lora/Inter/Roboto Mono typography, and data visualization palette. Trigger on 'deck', 'slides', 'presentation', 'pitch deck', 'keynote', 'report', or 'PDF'.
+license: MIT
+origin: custom
+author: Rebecca Rae Barton
+author_url: https://github.com/thatrebeccarae
+metadata:
+  version: 1.0.0
+  category: dtc-marketing
+  domain: presentations
+  updated: 2026-02-23
 ---
 
 # Presentation Designer
