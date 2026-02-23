@@ -1,4 +1,4 @@
-<svg width="800" height="440" viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg">
+<svg width="800" height="420" viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#1A1A1A"/>
@@ -7,7 +7,7 @@
   </defs>
 
   <!-- Window -->
-  <rect width="800" height="440" rx="12" fill="url(#bg)"/>
+  <rect width="800" height="420" rx="12" fill="url(#bg)"/>
 
   <!-- Title bar -->
   <rect width="800" height="40" rx="12" fill="#242424"/>
@@ -20,47 +20,44 @@
   <circle cx="60" cy="20" r="6" fill="#28c840"/>
 
   <!-- Title -->
-  <text x="400" y="25" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" fill="#7d8590">claude-code — klaviyo-analyst</text>
+  <text x="400" y="25" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" fill="#7d8590">Terminal</text>
 
   <!-- Terminal content -->
   <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
 
-    <!-- User prompt -->
-    <text x="20" y="72">
-      <tspan fill="#7074A0">&gt; </tspan>
-      <tspan fill="#fdfdfe">Audit my Klaviyo flows and identify which essential flows I'm missing</tspan>
+    <!-- Clone -->
+    <text x="20" y="68">
+      <tspan fill="#7d8590">$</tspan>
+      <tspan fill="#e6e6e6"> git clone https://github.com/thatrebeccarae/claude-code-skills.git</tspan>
+    </text>
+    <text x="20" y="86" fill="#7d8590">Cloning into 'claude-code-skills'...</text>
+
+    <!-- Setup -->
+    <text x="20" y="114">
+      <tspan fill="#7d8590">$</tspan>
+      <tspan fill="#e6e6e6"> cd claude-code-skills/skill-packs/dtc-skill-pack</tspan>
+    </text>
+    <text x="20" y="138">
+      <tspan fill="#7d8590">$</tspan>
+      <tspan fill="#e6e6e6"> python scripts/setup.py</tspan>
     </text>
 
-    <!-- Response heading -->
-    <text x="36" y="104" fill="#fdfdfe" font-weight="600">Flow Inventory</text>
-    <text x="36" y="122" fill="#7d8590">Scanning account... found 8 active flows, 3 draft, 2 archived.</text>
+    <!-- Wizard output -->
+    <text x="20" y="166" fill="#fdfdfe" font-weight="600">DTC Skill Pack — Setup Wizard</text>
 
-    <!-- Checklist heading -->
-    <text x="36" y="152" fill="#fdfdfe" font-weight="600">Essential Flow Checklist</text>
+    <text x="20" y="194" fill="#9BB29E">  [1/6] klaviyo-analyst ............ installed</text>
+    <text x="20" y="214" fill="#9BB29E">  [2/6] klaviyo-developer .......... installed</text>
+    <text x="20" y="234" fill="#9BB29E">  [3/6] shopify .................... installed</text>
+    <text x="20" y="254" fill="#9BB29E">  [4/6] google-analytics ........... installed</text>
+    <text x="20" y="274" fill="#9BB29E">  [5/6] looker-studio .............. installed</text>
+    <text x="20" y="294" fill="#9BB29E">  [6/6] pro-deck-builder ........... installed</text>
 
-    <!-- Good flows -->
-    <text x="44" y="174" fill="#9BB29E">  Welcome Series .................. Active</text>
-    <text x="44" y="194" fill="#9BB29E">  Abandoned Cart .................. Active</text>
-    <text x="44" y="214" fill="#9BB29E">  Browse Abandonment .............. Active</text>
-    <text x="44" y="234" fill="#9BB29E">  Post-Purchase Thank You ......... Active</text>
+    <text x="20" y="322" fill="#FCC560">  Checking API connections...</text>
+    <text x="20" y="342" fill="#9BB29E">  Klaviyo MCP .................... connected</text>
+    <text x="20" y="362" fill="#9BB29E">  Shopify Admin API .............. connected</text>
+    <text x="20" y="382" fill="#9BB29E">  GA4 Data API ................... connected</text>
 
-    <!-- Critical flows -->
-    <text x="44" y="254" fill="#DA6B51">  Sunset / Re-engagement .......... Missing</text>
-    <text x="44" y="274" fill="#DA6B51">  Price Drop Alert ................ Missing</text>
-    <text x="44" y="294" fill="#DA6B51">  Back in Stock ................... Missing</text>
-
-    <!-- Warning flows -->
-    <text x="44" y="314" fill="#FCC560">  VIP / Loyalty Tier .............. Draft</text>
-    <text x="44" y="334" fill="#FCC560">  Birthday / Anniversary .......... Draft</text>
-
-    <!-- Recommendation -->
-    <text x="36" y="364" fill="#fdfdfe" font-weight="600">Priority Recommendation</text>
-    <text x="36" y="384" fill="#DA6B51">Finding: No sunset/re-engagement flow</text>
-    <text x="36" y="404" fill="#8b949e">Without a sunset flow, unengaged profiles accumulate and</text>
-    <text x="36" y="422" fill="#8b949e">hurt deliverability. Benchmark: suppress after 90 days inactive.</text>
+    <text x="20" y="410" fill="#fdfdfe" font-weight="600">Ready. Open Claude Code and start asking.</text>
 
   </g>
-
-  <!-- Left border accent -->
-  <rect x="28" y="96" width="2" height="336" rx="1" fill="rgba(255,255,255,0.08)"/>
 </svg>

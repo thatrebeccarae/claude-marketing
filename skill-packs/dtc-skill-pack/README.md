@@ -4,13 +4,10 @@
 
 **6 skills that give Claude Code deep expertise in DTC e-commerce marketing.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](../../LICENSE)
-[![Skills](https://img.shields.io/badge/Skills-6-5B5F8D)](./)
-[![Klaviyo](https://img.shields.io/badge/Klaviyo-Analyst%20%2B%20Developer-DA6B51)](klaviyo-analyst/)
-[![Shopify](https://img.shields.io/badge/Shopify-Store%20Audit-9BB29E)](shopify/)
-[![GA4](https://img.shields.io/badge/GA4-Traffic%20Analysis-8FB1BE)](google-analytics/)
-[![Looker](https://img.shields.io/badge/Looker%20Studio-Dashboards-FCC560)](looker-studio/)
-[![Decks](https://img.shields.io/badge/Pro%20Deck-HTML%20%2F%20PDF-5B5F8D)](pro-deck-builder/)
+[![GitHub stars](https://img.shields.io/github/stars/thatrebeccarae/claude-code-skills?style=for-the-badge&logo=github&color=181717)](https://github.com/thatrebeccarae/claude-code-skills/stargazers)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](../../LICENSE)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Rebecca%20Rae%20Barton-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/rebeccaraebarton)
+[![Substack](https://img.shields.io/badge/Substack-dgtl%20dept*-FF6719?style=for-the-badge&logo=substack&logoColor=white)](https://dgtldept.substack.com/welcome)
 
 Audit Klaviyo flows, diagnose Shopify conversion drop-offs, analyze GA4 traffic, build Looker Studio dashboards, and generate polished slide decks — all from natural language prompts in your terminal.
 
@@ -19,7 +16,7 @@ Audit Klaviyo flows, diagnose Shopify conversion drop-offs, analyze GA4 traffic,
 <br>
 
 <a href="https://thatrebeccarae.github.io/claude-code-skills/skill-packs/dtc-skill-pack/demo/">
-  <img src="../../assets/terminal.svg" alt="DTC Skill Pack — Klaviyo flow audit example" width="720">
+  <img src="../../assets/terminal.svg" alt="DTC Skill Pack installation" width="720">
 </a>
 
 </div>
