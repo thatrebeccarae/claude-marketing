@@ -2,6 +2,8 @@
 
 A complete DTC (direct-to-consumer) e-commerce marketing toolkit for [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Six skills covering Klaviyo email/SMS, Shopify analytics, Google Analytics, Looker Studio dashboards, and presentation generation -- all designed to work together.
 
+**[View Live Demo](https://thatrebeccarae.github.io/claude-code-skills/skill-packs/dtc-skill-pack/demo/)** — See all 6 skills in action with example outputs.
+
 > **New to this pack?** Start with [GETTING_STARTED.md](GETTING_STARTED.md) for a step-by-step setup guide, or run `python scripts/setup.py` for the interactive wizard.
 
 ## What's Included
@@ -13,7 +15,7 @@ A complete DTC (direct-to-consumer) e-commerce marketing toolkit for [Claude Cod
 | **shopify** | Audit store performance: orders, products, customers, conversion funnels, revenue trends. | SKILL + REFERENCE + EXAMPLES + scripts |
 | **google-analytics** | Analyze GA4 data: traffic sources, engagement, content performance, conversion funnels, device comparison. | SKILL + REFERENCE + EXAMPLES + scripts |
 | **looker-studio** | Build cross-platform dashboards with Klaviyo + Shopify + GA4 data via Google Sheets pipeline. DTC dashboard templates and calculated field library. | SKILL + REFERENCE + EXAMPLES + scripts |
-| **pro-deck-builder** | Create polished PowerPoint decks using PptxGenJS. VC-backed SaaS design quality with dark/light modes, icon pipelines, and chart formatting. | SKILL + REFERENCE |
+| **pro-deck-builder** | Create polished HTML slide decks and PDF-ready reports. Dark cover pages, warm light content slides, data visualization palette. | SKILL + REFERENCE |
 
 ## How the Skills Connect
 
@@ -26,7 +28,7 @@ Shopify (orders, products, customers)
     |        |
     |        +--> Looker Studio (cross-platform dashboards)
     |
-    +--> Pro Deck Builder (polished presentations from any analysis)
+    +--> Pro Deck Builder (HTML slide decks and PDF reports from any analysis)
 ```
 
 The skills work independently, but they complement each other:
