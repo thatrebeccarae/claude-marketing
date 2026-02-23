@@ -4,26 +4,31 @@
 
 **Production-tested skill packs that give Claude Code deep expertise in DTC marketing, data visualization, and presentation generation.**
 
+[![Substack](https://img.shields.io/badge/Substack-dgtl%20dept*-5865F2?style=for-the-badge&logo=substack&logoColor=white)](https://dgtldept.substack.com/welcome)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Rebecca%20Rae%20Barton-007EC6?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/rebeccaraebarton)
+[![X](https://img.shields.io/badge/X-@rebeccarae-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/rebeccarae)
+[![Website](https://img.shields.io/badge/rebeccaraebarton.com-1C1C1C?style=for-the-badge&logo=google-chrome&logoColor=white)](https://rebeccaraebarton.com)
 [![GitHub stars](https://img.shields.io/github/stars/thatrebeccarae/claude-code-skills?style=for-the-badge&logo=github&color=181717)](https://github.com/thatrebeccarae/claude-code-skills/stargazers)
-[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Rebecca%20Rae%20Barton-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/rebeccaraebarton)
-[![Substack](https://img.shields.io/badge/Substack-dgtl%20dept*-FF6719?style=for-the-badge&logo=substack&logoColor=white)](https://dgtldept.substack.com/welcome)
-[![X](https://img.shields.io/badge/X-@thatrebeccarae-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/thatrebeccarae)
-[![Website](https://img.shields.io/badge/rebeccaraebarton.com-4A90D9?style=for-the-badge&logo=google-chrome&logoColor=white)](https://rebeccaraebarton.com)
+[![License](https://img.shields.io/badge/License-MIT-007EC6?style=for-the-badge)](LICENSE)
+[![Clone](https://img.shields.io/badge/Clone-git%20clone-f78166?style=for-the-badge&logo=git&logoColor=white)](https://github.com/thatrebeccarae/claude-code-skills)
+
+<br>
 
 ```bash
 git clone https://github.com/thatrebeccarae/claude-code-skills.git
 ```
 
+<br>
+
 **Works on Mac, Windows, and Linux.**
+
+<br>
 
 <br>
 
 <a href="https://thatrebeccarae.github.io/claude-code-skills/skill-packs/dtc-skill-pack/demo/">
   <img src="assets/terminal.svg" alt="DTC Skill Pack installation" width="760">
 </a>
-
-<br>
 
 <!--
 ### What people are saying
@@ -35,7 +40,10 @@ git clone https://github.com/thatrebeccarae/claude-code-skills.git
 > "Quote here" — **Name**, Role at Company
 -->
 
-[Why I Built This](#why-i-built-this) · [Skill Packs](#skill-packs) · [Quick Start](#quick-start) · [How It Works](#how-it-works) · [Contributing](CONTRIBUTING.md)
+<br>
+<br>
+
+[Why I Built This](#why-i-built-this) · [Who This Is For](#who-this-is-for) · [Getting Started](#getting-started) · [How It Works](#how-it-works) · [Skill Packs](#skill-packs) · [Contributing](CONTRIBUTING.md)
 
 </div>
 
@@ -61,32 +69,7 @@ That's what these skills add. Real benchmarks. Real frameworks. The same diagnos
 
 If you want implementation-ready answers — not tutorials, not blog-post-level overviews — these skills are for you.
 
-## Skill Packs
-
-### [DTC Skill Pack](skill-packs/dtc-skill-pack/) — 6 skills for e-commerce marketing
-
-> [**View Live Demo**](https://thatrebeccarae.github.io/claude-code-skills/skill-packs/dtc-skill-pack/demo/) — See all 6 skills in action with example terminal output.
-
-| Skill | What Claude Can Do |
-|-------|-------------------|
-| **[Klaviyo Analyst](skill-packs/dtc-skill-pack/klaviyo-analyst/)** | 4-phase account audit, flow gap analysis, segment health, deliverability diagnostics, revenue attribution, three-tier recommendations with implementation specs |
-| **[Klaviyo Developer](skill-packs/dtc-skill-pack/klaviyo-developer/)** | Event schema design, SDK integration, webhook handling, rate limit strategy, catalog sync, integration health audit |
-| **[Shopify](skill-packs/dtc-skill-pack/shopify/)** | 12-step store audit, conversion funnel analysis, site speed diagnostics, marketing stack integration |
-| **[Google Analytics](skill-packs/dtc-skill-pack/google-analytics/)** | GA4 traffic analysis, channel comparison, conversion funnels, content performance |
-| **[Looker Studio](skill-packs/dtc-skill-pack/looker-studio/)** | Cross-platform dashboards via Google Sheets pipeline, DTC dashboard templates, calculated field library |
-| **[Pro Deck Builder](skill-packs/dtc-skill-pack/pro-deck-builder/)** | Polished HTML slide decks and PDF-ready reports with dark cover pages and warm light content slides |
-
-### [LinkedIn Data Viz](skills/linkedin-data-viz/) — Interactive career visualizations
-
-> [**View Live Demo**](https://thatrebeccarae.github.io/claude-code-skills/skills/linkedin-data-viz/demo/)
-
-Turn a LinkedIn data export into 9 interactive visualizations: D3.js network graphs, Chart.js charts, career timelines. Includes onboarding wizard, dark theme, and privacy-safe sanitization for publishing.
-
-### Coming Soon
-
-Additional marketing skill packs are in development — covering paid media, content strategy, and multi-channel attribution. [Star the repo](https://github.com/thatrebeccarae/claude-code-skills/stargazers) to get notified when they drop.
-
-## Quick Start
+## Getting Started
 
 ### Setup Wizard (Recommended)
 
@@ -97,6 +80,9 @@ python scripts/setup.py
 ```
 
 The wizard checks prerequisites, walks you through API key setup, installs dependencies, and tests connections.
+
+> [!TIP]
+> The setup wizard validates API keys as you enter them and tests live connections before finishing. If something is misconfigured, it tells you exactly what to fix.
 
 <details>
 <summary><strong>Manual install (skip the wizard)</strong></summary>
@@ -124,22 +110,6 @@ Then say: **"Analyze my LinkedIn data export"**
 
 </details>
 
-## Example Prompts
-
-```
-"Audit my Klaviyo flows and identify which essential flows I'm missing"
-
-"My checkout completion rate is 31% — what's causing the drop-off?"
-
-"Which traffic sources are driving the most conversions this month?"
-
-"Plan a CRM dashboard reconciling Klaviyo and Shopify data"
-
-"Create a dark-mode deck summarizing this month's email performance"
-
-"Debug why my webhook events aren't triggering flows"
-```
-
 ## How It Works
 
 Claude Code skills are structured knowledge packs that load automatically when you invoke them. Each skill gives Claude specific domain expertise it doesn't have out of the box.
@@ -161,7 +131,49 @@ Claude Code skills are structured knowledge packs that load automatically when y
 4. If an MCP server is configured (e.g., Klaviyo), Claude pulls live data from your account
 5. Claude delivers structured analysis with specific recommendations — not generic advice
 
-Skills work without MCP servers too. You can paste data, share screenshots, or use the included scripts to export data manually. The MCP server just makes it seamless.
+> [!NOTE]
+> Skills work without MCP servers too. You can paste data, share screenshots, or use the included scripts to export data manually. The MCP server just makes it seamless.
+
+## Skill Packs
+
+### [DTC Skill Pack](skill-packs/dtc-skill-pack/) — 6 skills for e-commerce marketing
+
+> [**View Live Demo**](https://thatrebeccarae.github.io/claude-code-skills/skill-packs/dtc-skill-pack/demo/) — See all 6 skills in action with example terminal output.
+
+| Skill | What Claude Can Do |
+|-------|-------------------|
+| **[Klaviyo Analyst](skill-packs/dtc-skill-pack/klaviyo-analyst/)** | 4-phase account audit, flow gap analysis, segment health, deliverability diagnostics, revenue attribution, three-tier recommendations with implementation specs |
+| **[Klaviyo Developer](skill-packs/dtc-skill-pack/klaviyo-developer/)** | Event schema design, SDK integration, webhook handling, rate limit strategy, catalog sync, integration health audit |
+| **[Shopify](skill-packs/dtc-skill-pack/shopify/)** | 12-step store audit, conversion funnel analysis, site speed diagnostics, marketing stack integration |
+| **[Google Analytics](skill-packs/dtc-skill-pack/google-analytics/)** | GA4 traffic analysis, channel comparison, conversion funnels, content performance |
+| **[Looker Studio](skill-packs/dtc-skill-pack/looker-studio/)** | Cross-platform dashboards via Google Sheets pipeline, DTC dashboard templates, calculated field library |
+| **[Pro Deck Builder](skill-packs/dtc-skill-pack/pro-deck-builder/)** | Polished HTML slide decks and PDF-ready reports with dark cover pages and warm light content slides |
+
+### [LinkedIn Data Viz](skills/linkedin-data-viz/) — Interactive career visualizations
+
+> [**View Live Demo**](https://thatrebeccarae.github.io/claude-code-skills/skills/linkedin-data-viz/demo/)
+
+Turn a LinkedIn data export into 9 interactive visualizations: D3.js network graphs, Chart.js charts, career timelines. Includes onboarding wizard, dark theme, and privacy-safe sanitization for publishing.
+
+### Coming Soon
+
+Additional marketing skill packs are in development — covering paid media, content strategy, and multi-channel attribution. [Star the repo](https://github.com/thatrebeccarae/claude-code-skills/stargazers) to get notified when they drop.
+
+## Example Prompts
+
+```
+"Audit my Klaviyo flows and identify which essential flows I'm missing"
+
+"My checkout completion rate is 31% — what's causing the drop-off?"
+
+"Which traffic sources are driving the most conversions this month?"
+
+"Plan a CRM dashboard reconciling Klaviyo and Shopify data"
+
+"Create a dark-mode deck summarizing this month's email performance"
+
+"Debug why my webhook events aren't triggering flows"
+```
 
 ## Configuration
 
@@ -182,6 +194,9 @@ Skills work without MCP servers too. You can paste data, share screenshots, or u
 | **Google Analytics** | Service account JSON + Property ID | Google Cloud Console > IAM > Service Accounts |
 | **Shopify** | Admin API access token | Shopify Admin > Apps > Develop Apps |
 | **Looker Studio** | Google Sheets API credentials | Google Cloud Console > APIs & Services |
+
+> [!IMPORTANT]
+> API keys are stored in `.env` files which are gitignored by default. Never hardcode keys in skill files or commit them to version control. See [SECURITY.md](SECURITY.md) for full credential handling guidance.
 
 <details>
 <summary><strong>Klaviyo MCP server setup</strong></summary>
@@ -289,12 +304,12 @@ Contributions are welcome — bug reports, documentation fixes, skill suggestion
 
 ## License
 
-[MIT](LICENSE) — built by [Rebecca Rae Barton](https://rebeccaraebarton.com)
+MIT License. See [LICENSE](LICENSE) for details.
 
 <div align="center">
 
 ---
 
-**Domain expertise > general intelligence.** Install the skills. Ask in plain English. Get answers that actually know your stack.
+**Domain expertise > general intelligence.**<br>Install the skills. Ask in plain English. Get answers that actually know your stack.
 
 </div>
