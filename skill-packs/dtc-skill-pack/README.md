@@ -6,11 +6,21 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](../../LICENSE)
 [![Skills](https://img.shields.io/badge/Skills-6-5B5F8D)](./)
-[![Platforms](https://img.shields.io/badge/Platforms-Klaviyo%20·%20Shopify%20·%20GA4%20·%20Looker-9BB29E)](./)
+[![Klaviyo](https://img.shields.io/badge/Klaviyo-Analyst%20%2B%20Developer-DA6B51)](klaviyo-analyst/)
+[![Shopify](https://img.shields.io/badge/Shopify-Store%20Audit-9BB29E)](shopify/)
+[![GA4](https://img.shields.io/badge/GA4-Traffic%20Analysis-8FB1BE)](google-analytics/)
+[![Looker](https://img.shields.io/badge/Looker%20Studio-Dashboards-FCC560)](looker-studio/)
+[![Decks](https://img.shields.io/badge/Pro%20Deck-HTML%20%2F%20PDF-5B5F8D)](pro-deck-builder/)
 
 Audit Klaviyo flows, diagnose Shopify conversion drop-offs, analyze GA4 traffic, build Looker Studio dashboards, and generate polished slide decks — all from natural language prompts in your terminal.
 
 [**Live Demo**](https://thatrebeccarae.github.io/claude-code-skills/skill-packs/dtc-skill-pack/demo/) · [**Getting Started**](GETTING_STARTED.md) · [**Back to Repo**](../../README.md)
+
+<br>
+
+<a href="https://thatrebeccarae.github.io/claude-code-skills/skill-packs/dtc-skill-pack/demo/">
+  <img src="../../assets/terminal.svg" alt="DTC Skill Pack — Klaviyo flow audit example" width="720">
+</a>
 
 </div>
 
