@@ -56,10 +56,9 @@ GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json
 
 ### Claude Code Deny List
 
-Add sensitive paths to your Claude Code settings to prevent accidental reads:
+Add sensitive paths to your Claude Code settings (`~/.claude/settings.json`) to prevent accidental reads:
 
 ```json
-// ~/.claude/settings.json
 {
   "permissions": {
     "deny": [

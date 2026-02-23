@@ -4,12 +4,12 @@
 
 **A full marketing department for Claude Code.** Klaviyo, Shopify, GA4, Looker Studio, paid media, content strategy — install the skills you need and get expert-level analysis from your terminal.
 
-[![Substack](https://img.shields.io/badge/Substack-dgtl%20dept*-5865F2?style=for-the-badge&logo=substack&logoColor=white)](https://dgtldept.substack.com/welcome)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Rebecca%20Rae%20Barton-007EC6?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/rebeccaraebarton)
+[![Substack](https://img.shields.io/badge/Substack-dgtl%20dept*-FF6719?style=for-the-badge&logo=substack&logoColor=white)](https://dgtldept.substack.com/welcome)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Rebecca%20Rae%20Barton-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/rebeccaraebarton)
 [![X](https://img.shields.io/badge/X-@rebeccarae-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/rebeccarae)
 [![Website](https://img.shields.io/badge/rebeccaraebarton.com-1C1C1C?style=for-the-badge&logo=google-chrome&logoColor=white)](https://rebeccaraebarton.com)
 [![GitHub stars](https://img.shields.io/github/stars/thatrebeccarae/dgtldept?style=for-the-badge&logo=github&color=181717)](https://github.com/thatrebeccarae/dgtldept/stargazers)
-[![License](https://img.shields.io/badge/License-MIT-007EC6?style=for-the-badge)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-0A66C2?style=for-the-badge)](LICENSE)
 [![Clone](https://img.shields.io/badge/Clone-git%20clone-f78166?style=for-the-badge&logo=git&logoColor=white)](https://github.com/thatrebeccarae/dgtldept)
 
 <br>
