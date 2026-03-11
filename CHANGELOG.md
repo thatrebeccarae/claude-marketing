@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ### Added
 
-- **Analytics Agents** — autonomous GA4 monitoring + GTM implementation pipeline (`agent-workflows/analytics-agents/`)
+- **Analytics Agents** — autonomous GA4 monitoring + GTM implementation pipeline (`workflows/analytics-agents/`)
   - Daily GA4 event monitoring with tracking spec comparison
   - Claude Sonnet gap analysis with GTM implementation recommendations
   - Claude Haiku anomaly detection for event volume drops/spikes
@@ -17,7 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
   - Multi-tenant design (one pipeline, multiple GA4 properties)
   - JSON schemas for client config and event spec validation
   - Comprehensive getting-started guide for non-technical users
-- New top-level `agent-workflows/` category for autonomous n8n + Claude pipelines
+- New top-level `workflows/` category for autonomous n8n + Claude pipelines
 
 ### Changed
 
@@ -42,5 +42,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
   - Pro Deck Builder: Polished HTML slide decks and PDF-ready reports
 - **LinkedIn Data Viz** — 9 interactive visualizations from LinkedIn data exports (D3.js, Chart.js)
 - Interactive setup wizard with API key validation and health checks
-- Live demos for [DTC Skill Pack](https://thatrebeccarae.github.io/dgtldept/skill-packs/dtc-skill-pack/demo/) and [LinkedIn Data Viz](https://thatrebeccarae.github.io/dgtldept/skills/linkedin-data-viz/demo/)
+- Live demos for [DTC Skill Pack](https://thatrebeccarae.github.io/dgtldept/skills/dtc-skill-pack/demo/) and [LinkedIn Data Viz](https://thatrebeccarae.github.io/dgtldept/skills/linkedin-data-viz/demo/)
 - SECURITY.md, CONTRIBUTING.md, and GitHub issue/PR templates

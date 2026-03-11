@@ -29,7 +29,7 @@ git clone https://github.com/thatrebeccarae/dgtldept.git
 <br>
 <br>
 
-<a href="https://thatrebeccarae.github.io/dgtldept/skill-packs/dtc-skill-pack/demo/">
+<a href="https://thatrebeccarae.github.io/dgtldept/skills/dtc-skill-pack/demo/">
   <img src="assets/terminal.png" alt="dgtldept terminal preview" width="760">
 </a>
 
@@ -84,8 +84,8 @@ If you want implementation-ready answers — not tutorials, not blog-post-level 
 
 | Category | What It Is | What's Available |
 |----------|-----------|------------------|
-| **[Skill Packs](skill-packs/)** | Claude Code skills that give Claude specialist marketing expertise | [DTC Skill Pack](skill-packs/dtc-skill-pack/) — 6 skills for e-commerce (Klaviyo, Shopify, GA4, Looker Studio, Pro Deck Builder) |
-| **[Agent Workflows](agent-workflows/)** | Autonomous pipelines that run on n8n + Claude, monitoring and acting without manual intervention | [Analytics Agents](agent-workflows/analytics-agents/) — GA4 monitoring → Claude analysis → GTM implementation |
+| **[Skill Packs](skills/)** | Claude Code skills that give Claude specialist marketing expertise | [DTC Skill Pack](skills/dtc-skill-pack/) — 6 skills for e-commerce (Klaviyo, Shopify, GA4, Looker Studio, Pro Deck Builder) |
+| **[Agent Workflows](workflows/)** | Autonomous pipelines that run on n8n + Claude, monitoring and acting without manual intervention | [Analytics Agents](workflows/analytics-agents/) — GA4 monitoring → Claude analysis → GTM implementation |
 
 ## Getting Started
 
@@ -93,7 +93,7 @@ If you want implementation-ready answers — not tutorials, not blog-post-level 
 
 ```bash
 git clone https://github.com/thatrebeccarae/dgtldept.git
-cd dgtldept/skill-packs/dtc-skill-pack
+cd dgtldept/skills/dtc-skill-pack
 python scripts/setup.py
 ```
 
@@ -109,11 +109,11 @@ The wizard checks prerequisites, walks you through API key setup, installs depen
 # Run from the directory where you cloned the repo
 cd dgtldept
 for skill in klaviyo-analyst klaviyo-developer google-analytics shopify looker-studio pro-deck-builder; do
-  cp -r skill-packs/dtc-skill-pack/$skill ~/.claude/skills/
+  cp -r skills/dtc-skill-pack/$skill ~/.claude/skills/
 done
 ```
 
-See [GETTING_STARTED.md](skill-packs/dtc-skill-pack/GETTING_STARTED.md) for detailed API key setup per platform.
+See [GETTING_STARTED.md](skills/dtc-skill-pack/GETTING_STARTED.md) for detailed API key setup per platform.
 
 </details>
 
@@ -160,24 +160,24 @@ Workflows use Claude via the Anthropic API (not Claude Code) — Claude Sonnet f
 
 ## Skill Packs
 
-### [DTC Skill Pack](skill-packs/dtc-skill-pack/) — 6 skills for e-commerce marketing
+### [DTC Skill Pack](skills/dtc-skill-pack/) — 6 skills for e-commerce marketing
 
-> [**View Live Demo**](https://thatrebeccarae.github.io/dgtldept/skill-packs/dtc-skill-pack/demo/) — See all 6 skills in action with example terminal output.
+> [**View Live Demo**](https://thatrebeccarae.github.io/dgtldept/skills/dtc-skill-pack/demo/) — See all 6 skills in action with example terminal output.
 
 | Skill | What Claude Can Do |
 |-------|-------------------|
-| **[Klaviyo Analyst](skill-packs/dtc-skill-pack/klaviyo-analyst/)** | Full Klaviyo audit — 4-phase account review, flow gap analysis, segment health, deliverability diagnostics, revenue attribution, three-tier recommendations with implementation specs |
-| **[Klaviyo Developer](skill-packs/dtc-skill-pack/klaviyo-developer/)** | Event schema design, SDK integration, webhook handling, rate limit strategy, catalog sync, integration health audit |
-| **[Shopify](skill-packs/dtc-skill-pack/shopify/)** | 12-step store audit, conversion funnel analysis, site speed diagnostics, marketing stack integration |
-| **[Google Analytics](skill-packs/dtc-skill-pack/google-analytics/)** | GA4 traffic analysis, channel comparison, conversion funnels, content performance |
-| **[Looker Studio](skill-packs/dtc-skill-pack/looker-studio/)** | Cross-platform dashboards via Google Sheets pipeline, DTC dashboard templates, calculated field library |
-| **[Pro Deck Builder](skill-packs/dtc-skill-pack/pro-deck-builder/)** | Polished HTML slide decks and PDF-ready reports with dark cover pages and warm light content slides |
+| **[Klaviyo Analyst](skills/dtc-skill-pack/klaviyo-analyst/)** | Full Klaviyo audit — 4-phase account review, flow gap analysis, segment health, deliverability diagnostics, revenue attribution, three-tier recommendations with implementation specs |
+| **[Klaviyo Developer](skills/dtc-skill-pack/klaviyo-developer/)** | Event schema design, SDK integration, webhook handling, rate limit strategy, catalog sync, integration health audit |
+| **[Shopify](skills/dtc-skill-pack/shopify/)** | 12-step store audit, conversion funnel analysis, site speed diagnostics, marketing stack integration |
+| **[Google Analytics](skills/dtc-skill-pack/google-analytics/)** | GA4 traffic analysis, channel comparison, conversion funnels, content performance |
+| **[Looker Studio](skills/dtc-skill-pack/looker-studio/)** | Cross-platform dashboards via Google Sheets pipeline, DTC dashboard templates, calculated field library |
+| **[Pro Deck Builder](skills/dtc-skill-pack/pro-deck-builder/)** | Polished HTML slide decks and PDF-ready reports with dark cover pages and warm light content slides |
 
 ## Agent Workflows
 
 Agent workflows are autonomous pipelines built on [n8n](https://n8n.io) + Claude that run on a schedule without manual intervention. They monitor, analyze, and act — then notify you with results.
 
-### [Analytics Agents](agent-workflows/analytics-agents/) — Autonomous GA4 monitoring + GTM implementation
+### [Analytics Agents](workflows/analytics-agents/) — Autonomous GA4 monitoring + GTM implementation
 
 Your GA4 property monitored daily, gaps analyzed by Claude, and fixes implemented in GTM — automatically.
 
@@ -190,7 +190,7 @@ Your GA4 property monitored daily, gaps analyzed by Claude, and fixes implemente
 
 Handles multiple GA4 properties — configure once per property, runs hands-off from there.
 
-See the [Analytics Agents README](agent-workflows/analytics-agents/README.md) and [Getting Started guide](agent-workflows/analytics-agents/GETTING_STARTED.md) for setup.
+See the [Analytics Agents README](workflows/analytics-agents/README.md) and [Getting Started guide](workflows/analytics-agents/GETTING_STARTED.md) for setup.
 
 ### Coming Soon
 
@@ -261,7 +261,7 @@ The [Klaviyo MCP server](https://developers.klaviyo.com/en/docs/klaviyo_mcp_serv
 
 3. Restart Claude Code and verify with `/mcp`
 
-See the [DTC Skill Pack README](skill-packs/dtc-skill-pack/README.md) for recommended Klaviyo API scopes.
+See the [DTC Skill Pack README](skills/dtc-skill-pack/README.md) for recommended Klaviyo API scopes.
 
 </details>
 
@@ -327,10 +327,10 @@ On macOS, `python` may point to Python 2. Use `python3` explicitly or install vi
 
 | Resource | Description |
 |----------|-------------|
-| [DTC Skill Pack README](skill-packs/dtc-skill-pack/README.md) | Skill details, architecture, MCP server setup, example prompts, FAQ |
-| [DTC Getting Started](skill-packs/dtc-skill-pack/GETTING_STARTED.md) | Step-by-step setup for each platform |
-| [Analytics Agents README](agent-workflows/analytics-agents/README.md) | GA4 monitoring pipeline architecture, setup, and security model |
-| [Analytics Agents Getting Started](agent-workflows/analytics-agents/GETTING_STARTED.md) | Step-by-step n8n + GA4 + GTM setup |
+| [DTC Skill Pack README](skills/dtc-skill-pack/README.md) | Skill details, architecture, MCP server setup, example prompts, FAQ |
+| [DTC Getting Started](skills/dtc-skill-pack/GETTING_STARTED.md) | Step-by-step setup for each platform |
+| [Analytics Agents README](workflows/analytics-agents/README.md) | GA4 monitoring pipeline architecture, setup, and security model |
+| [Analytics Agents Getting Started](workflows/analytics-agents/GETTING_STARTED.md) | Step-by-step n8n + GA4 + GTM setup |
 | [CHANGELOG](CHANGELOG.md) | Version history and release notes |
 | [SECURITY](SECURITY.md) | Security design and vulnerability reporting |
 | [CONTRIBUTING](CONTRIBUTING.md) | How to contribute skills, report bugs, submit PRs |

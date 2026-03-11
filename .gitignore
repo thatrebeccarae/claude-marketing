@@ -32,4 +32,4 @@ __pycache__/
 dist/
 build/
 **/*.zip
-skill-packs/marketing-skills/
+skills/marketing-skills/

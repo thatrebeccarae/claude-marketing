@@ -11,11 +11,11 @@
 
 Audit Klaviyo flows, diagnose Shopify conversion drop-offs, analyze GA4 traffic, build Looker Studio dashboards, and generate polished slide decks — all from natural language prompts in your terminal.
 
-[**Live Demo**](https://thatrebeccarae.github.io/dgtldept/skill-packs/dtc-skill-pack/demo/) · [**Getting Started**](GETTING_STARTED.md) · [**Back to Repo**](../../README.md)
+[**Live Demo**](https://thatrebeccarae.github.io/dgtldept/skills/dtc-skill-pack/demo/) · [**Getting Started**](GETTING_STARTED.md) · [**Back to Repo**](../../README.md)
 
 <br>
 
-<a href="https://thatrebeccarae.github.io/dgtldept/skill-packs/dtc-skill-pack/demo/">
+<a href="https://thatrebeccarae.github.io/dgtldept/skills/dtc-skill-pack/demo/">
   <img src="../../assets/terminal.png" alt="dgtldept terminal preview" width="720">
 </a>
 
@@ -61,7 +61,7 @@ Each skill works independently — install only the ones you need. But they comp
 
 ```bash
 git clone https://github.com/thatrebeccarae/dgtldept.git
-cd dgtldept/skill-packs/dtc-skill-pack
+cd dgtldept/skills/dtc-skill-pack
 python scripts/setup.py
 ```
 

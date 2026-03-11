@@ -24,9 +24,11 @@ CREDENTIALS
 CONVENTIONS
 CONTRIBUTING
 CUSTOM_EVENT
-# Example phone numbers
+# Example phone numbers (in Klaviyo REFERENCE.md docs)
 1555\d+
-\+1555
+\+1555\d+
 555-0
+# Epoch timestamps that look like phone numbers
+1700000000
 # GA property IDs
 properties/\d+
