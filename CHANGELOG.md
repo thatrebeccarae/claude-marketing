@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] - 2026-03-11
+
+### Added
+
+- **Paid Media Pack** — 4 skills for paid advertising (`skill-packs/paid-media-pack.md`)
+  - Google Ads: Campaign auditing, Quality Score optimization, PMax, Shopping, bidding strategies, GAQL queries
+  - Meta Ads (Facebook & Instagram): Account audit, creative fatigue diagnosis, pixel/CAPI health, Advantage+ evaluation, iOS 14.5+ attribution
+  - Microsoft Ads (Bing): Google import optimization, LinkedIn Profile Targeting, UET tracking, Shopping campaigns, Clarity integration
+  - Account Structure Review: Cross-platform structural audit with conversion volume thresholds, budget fragmentation analysis, targeting overlap detection, consolidation roadmaps
+- **Braze** — Standalone skill for Braze customer engagement (`skills/braze/`)
+  - Canvas audit, segmentation review, cross-channel orchestration, data architecture, deliverability and IP warming
+- Interactive setup wizard for Paid Media Pack (`skill-packs/scripts/setup-paid-media.py`)
+- Getting started guide for paid media platforms (`skill-packs/paid-media-getting-started.md`)
+
+### Changed
+
+- **Restructured repo layout**: flat `skills/` for all 11 individual skills, `skill-packs/` for curated collection docs and setup wizards, `agents/` for standalone agent logic, `workflows/` for n8n orchestration
+- Extracted 3 standalone agents from analytics-agents workflow: GA4 Monitor, GA4 Gap Analyzer, GTM Implementer — each usable independently without n8n
+- Renamed `workflows/analytics-agents/` → `workflows/ga4-gtm-pipeline/` for platform-clear naming
+- Updated root README with Paid Media Pack in "What's Inside" table and new "Skill Packs" section
+- Updated "Coming Soon" — Google Ads and Meta Ads are now shipped
+
 ## [1.1.0] - 2026-03-09
 
 ### Added

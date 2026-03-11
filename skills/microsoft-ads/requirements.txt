@@ -1,0 +1,4 @@
+# Microsoft Ads skill dependencies
+# Install with: pip install -r requirements.txt
+bingads>=13.0.0,<15.0.0
+python-dotenv>=1.0.0,<2.0.0

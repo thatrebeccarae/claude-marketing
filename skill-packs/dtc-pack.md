@@ -5,18 +5,18 @@
 **6 skills that give Claude Code deep expertise in DTC e-commerce marketing.**
 
 [![GitHub stars](https://img.shields.io/github/stars/thatrebeccarae/dgtldept?style=for-the-badge&logo=github&color=181717)](https://github.com/thatrebeccarae/dgtldept/stargazers)
-[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](../../LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](../LICENSE)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Rebecca%20Rae%20Barton-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/rebeccaraebarton)
 [![Substack](https://img.shields.io/badge/Substack-dgtl%20dept*-FF6719?style=for-the-badge&logo=substack&logoColor=white)](https://dgtldept.substack.com/welcome)
 
 Audit Klaviyo flows, diagnose Shopify conversion drop-offs, analyze GA4 traffic, build Looker Studio dashboards, and generate polished slide decks — all from natural language prompts in your terminal.
 
-[**Live Demo**](https://thatrebeccarae.github.io/dgtldept/skills/dtc-skill-pack/demo/) · [**Getting Started**](GETTING_STARTED.md) · [**Back to Repo**](../../README.md)
+[**Live Demo**](https://thatrebeccarae.github.io/dgtldept/skill-packs/demo/) · [**Getting Started**](dtc-getting-started.md) · [**Back to Repo**](../README.md)
 
 <br>
 
-<a href="https://thatrebeccarae.github.io/dgtldept/skills/dtc-skill-pack/demo/">
-  <img src="../../assets/terminal.png" alt="dgtldept terminal preview" width="720">
+<a href="https://thatrebeccarae.github.io/dgtldept/skill-packs/demo/">
+  <img src="../assets/terminal.png" alt="dgtldept terminal preview" width="720">
 </a>
 
 </div>
@@ -27,12 +27,12 @@ Audit Klaviyo flows, diagnose Shopify conversion drop-offs, analyze GA4 traffic,
 
 | Skill | What It Does | Includes |
 |-------|-------------|----------|
-| **[klaviyo-analyst](klaviyo-analyst/)** | 4-phase deep audit of flows, segments, campaigns, deliverability, and revenue attribution. Industry benchmarks and three-tier recommendation format. | SKILL + REFERENCE + EXAMPLES + scripts |
-| **[klaviyo-developer](klaviyo-developer/)** | Event tracking, SDK integration, webhooks, rate limits, catalog sync, OAuth. Integration health audit with event schema best practices. | SKILL + REFERENCE + EXAMPLES + scripts |
-| **[shopify](shopify/)** | 12-step store audit: conversion funnels, site speed, product pages, tracking setup, marketing stack integration. | SKILL + REFERENCE + EXAMPLES + scripts |
-| **[google-analytics](google-analytics/)** | GA4 traffic analysis: sources, engagement, content performance, conversion funnels, device comparison. | SKILL + REFERENCE + EXAMPLES + scripts |
-| **[looker-studio](looker-studio/)** | Cross-platform dashboards via Google Sheets pipeline. DTC dashboard templates and calculated field library. | SKILL + REFERENCE + EXAMPLES + scripts |
-| **[pro-deck-builder](pro-deck-builder/)** | Polished HTML slide decks and PDF-ready reports. Dark cover pages, warm light content slides, data visualization palette. | SKILL + REFERENCE |
+| **[klaviyo-analyst](../skills/klaviyo-analyst/)** | 4-phase deep audit of flows, segments, campaigns, deliverability, and revenue attribution. Industry benchmarks and three-tier recommendation format. | SKILL + REFERENCE + EXAMPLES + scripts |
+| **[klaviyo-developer](../skills/klaviyo-developer/)** | Event tracking, SDK integration, webhooks, rate limits, catalog sync, OAuth. Integration health audit with event schema best practices. | SKILL + REFERENCE + EXAMPLES + scripts |
+| **[shopify](../skills/shopify/)** | 12-step store audit: conversion funnels, site speed, product pages, tracking setup, marketing stack integration. | SKILL + REFERENCE + EXAMPLES + scripts |
+| **[google-analytics](../skills/google-analytics/)** | GA4 traffic analysis: sources, engagement, content performance, conversion funnels, device comparison. | SKILL + REFERENCE + EXAMPLES + scripts |
+| **[looker-studio](../skills/looker-studio/)** | Cross-platform dashboards via Google Sheets pipeline. DTC dashboard templates and calculated field library. | SKILL + REFERENCE + EXAMPLES + scripts |
+| **[pro-deck-builder](../skills/pro-deck-builder/)** | Polished HTML slide decks and PDF-ready reports. Dark cover pages, warm light content slides, data visualization palette. | SKILL + REFERENCE |
 
 ## How the Skills Connect
 
@@ -61,8 +61,8 @@ Each skill works independently — install only the ones you need. But they comp
 
 ```bash
 git clone https://github.com/thatrebeccarae/dgtldept.git
-cd dgtldept/skills/dtc-skill-pack
-python scripts/setup.py
+cd dgtldept
+python skill-packs/scripts/setup-dtc.py
 ```
 
 The wizard checks prerequisites, walks you through API key setup, installs dependencies, and tests connections.
@@ -70,13 +70,14 @@ The wizard checks prerequisites, walks you through API key setup, installs depen
 ### Option 2: Copy Skills Directly
 
 ```bash
+cd dgtldept
 for skill in klaviyo-analyst klaviyo-developer google-analytics shopify looker-studio pro-deck-builder; do
-  cp -r "$skill" ~/.claude/skills/
+  cp -r "skills/$skill" ~/.claude/skills/
 done
 ```
 
 > [!TIP]
-> See [GETTING_STARTED.md](GETTING_STARTED.md) for detailed step-by-step instructions and API key setup per platform.
+> See [dtc-getting-started.md](dtc-getting-started.md) for detailed step-by-step instructions and API key setup per platform.
 
 ## Prerequisites
 
@@ -221,4 +222,4 @@ Klaviyo's AI features work within the Klaviyo UI for specific tasks (subject lin
 
 ## License
 
-MIT — see [LICENSE](../../LICENSE) for details.
+MIT — see [LICENSE](../LICENSE) for details.

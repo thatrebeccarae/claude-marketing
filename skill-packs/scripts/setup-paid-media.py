@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """
-DTC Skill Pack Setup Wizard
+Paid Media Pack Setup Wizard
 
-Interactive setup tool for configuring the DTC Skill Pack.
+Interactive setup tool for configuring the Paid Media Pack.
 Guides non-technical users through API key setup, environment
 configuration, dependency installation, and health checks.
 
 Usage:
     python scripts/setup.py
     python scripts/setup.py --skip-install
-    python scripts/setup.py --skills klaviyo,shopify
+    python scripts/setup.py --skills google-ads,facebook-ads
     python scripts/setup.py --non-interactive
 """
 
@@ -33,104 +33,102 @@ class Colors:
 
 
 SKILLS = {
-    "klaviyo-analyst": {
-        "label": "Klaviyo (Analyst)",
+    "google-ads": {
+        "label": "Google Ads",
         "env_vars": {
-            "KLAVIYO_API_KEY": {
-                "prompt": "Klaviyo Private API Key (starts with pk_)",
+            "GOOGLE_ADS_CUSTOMER_ID": {
+                "prompt": "Google Ads Customer ID (10-digit number, no dashes)",
                 "instructions": (
-                    "Get your key: Klaviyo > Settings > API Keys > "
-                    "Create Private API Key (read-only scopes)"
+                    "Find in Google Ads UI: top-right corner, "
+                    "format XXX-XXX-XXXX (enter without dashes)"
                 ),
-                "validation": lambda v: v.startswith("pk_") and len(v) > 10,
-                "error": "Key should start with 'pk_' and be 36+ characters",
+                "validation": lambda v: v.replace("-", "").isdigit() and len(v.replace("-", "")) == 10,
+                "error": "Customer ID should be a 10-digit number (e.g., 1234567890)",
             },
-        },
-        "requirements": "requirements.txt",
-        "health_check": None,  # Needs MCP server, not a script
-    },
-    "klaviyo-developer": {
-        "label": "Klaviyo (Developer)",
-        "env_vars": {
-            "KLAVIYO_API_KEY": {
-                "prompt": "Klaviyo Private API Key (same key as Analyst)",
-                "instructions": "Uses the same key as klaviyo-analyst",
-                "validation": lambda v: v.startswith("pk_") and len(v) > 10,
-                "error": "Key should start with 'pk_' and be 36+ characters",
+            "GOOGLE_ADS_DEVELOPER_TOKEN": {
+                "prompt": "Google Ads Developer Token",
+                "instructions": (
+                    "Apply at: Google Ads > Tools & Settings > API Center > "
+                    "Developer Token"
+                ),
+                "validation": lambda v: len(v) > 10,
+                "error": "Developer token should be a long alphanumeric string",
+            },
+            "GOOGLE_APPLICATION_CREDENTIALS": {
+                "prompt": "Path to Google OAuth2 credentials JSON file",
+                "instructions": (
+                    "Google Cloud Console > APIs & Services > Credentials > "
+                    "OAuth 2.0 Client > Download JSON"
+                ),
+                "validation": lambda v: os.path.exists(v),
+                "error": "File not found at that path",
             },
         },
         "requirements": "requirements.txt",
         "health_check": None,
     },
-    "google-analytics": {
-        "label": "Google Analytics (GA4)",
+    "facebook-ads": {
+        "label": "Meta Ads (Facebook & Instagram)",
         "env_vars": {
-            "GOOGLE_ANALYTICS_PROPERTY_ID": {
-                "prompt": "GA4 Property ID (numeric, found in Admin > Property Settings)",
+            "META_ACCESS_TOKEN": {
+                "prompt": "Meta Access Token (System User token recommended)",
                 "instructions": (
-                    "In GA4: Admin > Property Settings > Property ID (number only)"
+                    "Facebook Business Settings > Users > System Users > "
+                    "Generate Token (with ads_management, ads_read permissions)"
                 ),
-                "validation": lambda v: v.isdigit(),
-                "error": "Property ID should be a number (e.g., 123456789)",
+                "validation": lambda v: len(v) > 20,
+                "error": "Access token should be a long string",
             },
-            "GOOGLE_APPLICATION_CREDENTIALS": {
-                "prompt": "Path to Google service account JSON file",
+            "META_AD_ACCOUNT_ID": {
+                "prompt": "Meta Ad Account ID (starts with act_)",
                 "instructions": (
-                    "Google Cloud Console > IAM & Admin > Service Accounts > "
-                    "Create > Download JSON key"
+                    "Business Settings > Accounts > Ad Accounts > "
+                    "Copy the account ID"
                 ),
-                "validation": lambda v: os.path.exists(v),
-                "error": "File not found at that path",
+                "validation": lambda v: v.startswith("act_"),
+                "error": "Ad Account ID should start with 'act_'",
             },
         },
         "requirements": "requirements.txt",
-        "health_check": "scripts/ga_client.py --days 7 --metrics sessions",
+        "health_check": None,
     },
-    "shopify": {
-        "label": "Shopify",
+    "microsoft-ads": {
+        "label": "Microsoft Ads (Bing)",
         "env_vars": {
-            "SHOPIFY_STORE_URL": {
-                "prompt": "Shopify store URL (e.g., https://my-store.myshopify.com)",
+            "MICROSOFT_ADS_CUSTOMER_ID": {
+                "prompt": "Microsoft Ads Customer ID",
                 "instructions": (
-                    "Your .myshopify.com URL (not your custom domain)"
+                    "Microsoft Ads > Settings > Account > Customer ID"
                 ),
-                "validation": lambda v: "myshopify.com" in v or v.startswith("https://"),
-                "error": "Should be your .myshopify.com URL",
+                "validation": lambda v: len(v) > 0,
+                "error": "Customer ID is required",
             },
-            "SHOPIFY_ACCESS_TOKEN": {
-                "prompt": "Shopify Admin API access token (starts with shpat_)",
+            "MICROSOFT_ADS_DEVELOPER_TOKEN": {
+                "prompt": "Microsoft Ads Developer Token",
                 "instructions": (
-                    "Shopify Admin > Settings > Apps > Develop apps > "
-                    "Create app > Install > Copy Admin API access token"
+                    "Apply at: Microsoft Advertising API Center"
                 ),
-                "validation": lambda v: v.startswith("shpat_") and len(v) > 10,
-                "error": "Token should start with 'shpat_'",
+                "validation": lambda v: len(v) > 5,
+                "error": "Developer token should be a non-empty string",
+            },
+            "MICROSOFT_ADS_CLIENT_ID": {
+                "prompt": "Azure AD Client ID",
+                "instructions": (
+                    "Azure Portal > App registrations > Your app > "
+                    "Application (client) ID"
+                ),
+                "validation": lambda v: len(v) > 10,
+                "error": "Client ID should be a UUID-format string",
             },
         },
         "requirements": "requirements.txt",
-        "health_check": "scripts/shopify_client.py --resource shop",
-    },
-    "looker-studio": {
-        "label": "Looker Studio",
-        "env_vars": {
-            "GOOGLE_SHEETS_CREDENTIALS_PATH": {
-                "prompt": "Path to Google service account JSON file (for Sheets API)",
-                "instructions": (
-                    "Google Cloud Console > Enable Sheets API + Drive API > "
-                    "Service Accounts > Create > Download JSON key"
-                ),
-                "validation": lambda v: os.path.exists(v),
-                "error": "File not found at that path",
-            },
-        },
-        "requirements": "requirements.txt",
-        "health_check": "scripts/data_pipeline.py --action list-templates",
+        "health_check": None,
     },
 }
 
 
 class SkillPackSetup:
-    """Interactive setup wizard for the DTC Skill Pack."""
+    """Interactive setup wizard for the Paid Media Pack."""
 
     def __init__(self, pack_dir: Path, skills_filter: list = None, non_interactive: bool = False):
         self.pack_dir = pack_dir
@@ -156,6 +154,8 @@ class SkillPackSetup:
 
         if not self.configured_skills:
             self._print_warning("No skills were configured. Run again when you have API keys ready.")
+            print(f"\n  {Colors.BLUE}Note:{Colors.END} account-structure-review needs no API keys — "
+                  "it works with data you paste or export from your ad platforms.")
             return
 
         # Step 3: Create .env files
@@ -211,9 +211,6 @@ class SkillPackSetup:
 
     def collect_api_keys(self):
         """Interactively collect API keys for each skill."""
-        # Reuse Klaviyo key across analyst + developer
-        klaviyo_key = None
-
         for skill_name, skill_config in SKILLS.items():
             # Skip if not in filter
             if self.skills_filter and skill_name not in self.skills_filter:
@@ -226,7 +223,6 @@ class SkillPackSetup:
             print(f"\n{Colors.BOLD}--- {skill_config['label']} ---{Colors.END}")
 
             if self.non_interactive:
-                # In non-interactive mode, skip skills that need keys
                 self.skipped_skills.append(skill_name)
                 print("  Skipped (non-interactive mode)")
                 continue
@@ -240,19 +236,13 @@ class SkillPackSetup:
             skip_skill = False
 
             for var_name, var_config in skill_config["env_vars"].items():
-                # Reuse Klaviyo key
-                if var_name == "KLAVIYO_API_KEY" and klaviyo_key:
-                    if self._confirm(f"  Reuse Klaviyo key from earlier?"):
-                        skill_keys[var_name] = klaviyo_key
-                        continue
-
                 print(f"\n  {Colors.BLUE}{var_config['instructions']}{Colors.END}")
-                # Use masked input for secrets (API keys, tokens)
+                # Use masked input for secrets (API keys, tokens, secrets)
                 is_secret = any(kw in var_name.upper() for kw in ["KEY", "TOKEN", "SECRET"])
                 value = self._prompt(f"  {var_config['prompt']}", secret=is_secret)
 
                 if not value:
-                    self._print_warning(f"  Skipping {skill_config['label']} (no key provided)")
+                    self._print_warning(f"  Skipping {skill_config['label']} (no value provided)")
                     skip_skill = True
                     break
 
@@ -263,9 +253,6 @@ class SkillPackSetup:
                         break
 
                 skill_keys[var_name] = value
-
-                if var_name == "KLAVIYO_API_KEY":
-                    klaviyo_key = value
 
             if skip_skill:
                 self.skipped_skills.append(skill_name)
@@ -291,20 +278,23 @@ class SkillPackSetup:
         """Install Python packages for configured skills."""
         installed = set()
         for skill_name in self.configured_skills:
-            req_file = self.pack_dir / skill_name / SKILLS[skill_name]["requirements"]
+            skill_config = SKILLS[skill_name]
+            if not skill_config.get("requirements"):
+                continue
+            req_file = self.pack_dir / skill_name / skill_config["requirements"]
             if req_file.exists() and str(req_file) not in installed:
-                print(f"  Installing packages for {SKILLS[skill_name]['label']}...")
+                print(f"  Installing packages for {skill_config['label']}...")
                 try:
                     subprocess.run(
                         [sys.executable, "-m", "pip", "install", "-r", str(req_file), "-q"],
                         check=True,
                         capture_output=True,
                     )
-                    self._print_success(f"  Packages installed for {SKILLS[skill_name]['label']}")
+                    self._print_success(f"  Packages installed for {skill_config['label']}")
                     installed.add(str(req_file))
                 except subprocess.CalledProcessError as e:
                     self._print_error(
-                        f"  Failed to install packages for {SKILLS[skill_name]['label']}: "
+                        f"  Failed to install packages for {skill_config['label']}: "
                         f"{e.stderr.decode() if e.stderr else str(e)}"
                     )
                     self.errors.append(f"pip install failed for {skill_name}")
@@ -314,7 +304,7 @@ class SkillPackSetup:
         for skill_name in self.configured_skills:
             health_cmd = SKILLS[skill_name]["health_check"]
             if not health_cmd:
-                print(f"  {SKILLS[skill_name]['label']}: No CLI health check (uses MCP server)")
+                print(f"  {SKILLS[skill_name]['label']}: No automated health check (verify manually in Claude Code)")
                 continue
 
             skill_dir = self.pack_dir / skill_name
@@ -361,6 +351,10 @@ class SkillPackSetup:
                 if skill in SKILLS:
                     print(f"  - {SKILLS[skill]['label']}")
 
+        # Always mention account-structure-review (no API needed)
+        print(f"\n{Colors.BLUE}No setup needed:{Colors.END}")
+        print("  * Account Structure Review (analysis-only, no API keys required)")
+
         if self.errors:
             print(f"\n{Colors.RED}Issues:{Colors.END}")
             for error in self.errors:
@@ -368,26 +362,27 @@ class SkillPackSetup:
 
         print(f"\n{Colors.BOLD}Next Steps:{Colors.END}")
         print("  1. Copy skills to Claude Code:")
-        print(f"     cp -r {self.pack_dir}/klaviyo-analyst ~/.claude/skills/")
-        print(f"     cp -r {self.pack_dir}/shopify ~/.claude/skills/")
-        print("     (repeat for each skill you want to use)")
+        print(f"     for skill in google-ads facebook-ads microsoft-ads account-structure-review; do")
+        print(f"       cp -r {self.pack_dir}/$skill ~/.claude/skills/")
+        print(f"     done")
         print()
         print("  2. Try your first audit:")
-        if "shopify" in self.configured_skills:
-            print(f"     python {self.pack_dir}/shopify/scripts/analyze.py --analysis-type full-audit")
-        elif "google-analytics" in self.configured_skills:
-            print(f"     python {self.pack_dir}/google-analytics/scripts/analyze.py --days 30 --compare")
+        if "google-ads" in self.configured_skills:
+            print('     "Audit my Google Ads account and find wasted spend"')
+        elif "facebook-ads" in self.configured_skills:
+            print('     "Audit my Facebook Ads account performance"')
+        else:
+            print('     "Audit my paid media account structure"')
         print()
-        print("  3. Or just ask Claude:")
-        print('     "Audit my Shopify store and tell me what needs fixing"')
-        print('     "Review our email marketing performance in Klaviyo"')
+        print("  3. Or try a cross-platform review:")
+        print('     "Review my account structure across Google and Meta — $30K/month budget"')
         print()
 
     def _print_banner(self):
         """Print welcome banner."""
         print()
         print(f"{Colors.BOLD}{'='*50}")
-        print("  DTC Skill Pack Setup Wizard")
+        print("  Paid Media Pack Setup Wizard")
         print(f"{'='*50}{Colors.END}")
         print()
         print("This wizard will help you configure the skill pack.")
@@ -435,7 +430,7 @@ class SkillPackSetup:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="DTC Skill Pack Setup Wizard",
+        description="Paid Media Pack Setup Wizard",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -446,7 +441,7 @@ Examples:
   python scripts/setup.py --skip-install
 
   # Set up only specific skills
-  python scripts/setup.py --skills klaviyo-analyst,shopify
+  python scripts/setup.py --skills google-ads,facebook-ads
 
   # Non-interactive mode (for CI/testing)
   python scripts/setup.py --non-interactive
@@ -470,9 +465,9 @@ Examples:
 
     args = parser.parse_args()
 
-    # Determine pack directory (script is in scripts/ subdirectory)
+    # Determine skills directory (script is in skill-packs/scripts/)
     script_dir = Path(__file__).resolve().parent
-    pack_dir = script_dir.parent
+    pack_dir = script_dir.parent.parent / "skills"
 
     # Parse skills filter
     skills_filter = None

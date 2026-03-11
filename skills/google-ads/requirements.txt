@@ -1,0 +1,4 @@
+# Google Ads skill dependencies
+# Install with: pip install -r requirements.txt
+google-ads>=24.0.0,<26.0.0
+python-dotenv>=1.0.0,<2.0.0

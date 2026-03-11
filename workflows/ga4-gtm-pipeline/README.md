@@ -1,15 +1,15 @@
 <div align="center">
 
-# Analytics Agents
+# GA4-GTM Pipeline
 
-**Autonomous GA4 monitoring and GTM implementation pipeline, built on n8n + Claude.**
+**Autonomous n8n workflow that orchestrates GA4 monitoring, Claude-powered gap analysis, and GTM implementation — daily, hands-off.**
 
 [![GitHub stars](https://img.shields.io/github/stars/thatrebeccarae/dgtldept?style=for-the-badge&logo=github&color=181717)](https://github.com/thatrebeccarae/dgtldept/stargazers)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](../../LICENSE)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Rebecca%20Rae%20Barton-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/rebeccaraebarton)
 [![Substack](https://img.shields.io/badge/Substack-dgtl%20dept*-FF6719?style=for-the-badge&logo=substack&logoColor=white)](https://dgtldept.substack.com/welcome)
 
-A daily pipeline that watches your GA4 event data, compares it against your tracking spec, flags anomalies, uses Claude to diagnose gaps, and auto-creates GTM tags, triggers, and variables in an unpublished workspace for human review.
+An n8n workflow that wires together three agents — [GA4 Monitor](../../agents/ga4-monitor/), [GA4 Gap Analyzer](../../agents/ga4-gap-analyzer/), and [GTM Implementer](../../agents/gtm-implementer/) — into a daily pipeline with Slack notifications and human approval gates.
 
 Works for in-house teams monitoring a single property or agencies and consultants managing multiple GA4 properties and GTM containers.
 
@@ -31,6 +31,16 @@ This pipeline flips that. It runs daily, compares your live GA4 event data again
 - Push code to any repository (dataLayer changes are flagged for eng teams)
 - Skip the human approval gate
 
+## Agents Used
+
+This workflow orchestrates three standalone agents:
+
+| Agent | Role in Pipeline | Can Use Standalone? |
+|-------|-----------------|-------------------|
+| **[GA4 Monitor](../../agents/ga4-monitor/)** | Compares GA4 events against tracking spec, flags gaps and anomalies | Yes — one-time audits, validation scripts |
+| **[GA4 Gap Analyzer](../../agents/ga4-gap-analyzer/)** | Claude diagnoses gaps (Sonnet) and anomalies (Haiku) | Yes — manual analysis from any comparison data |
+| **[GTM Implementer](../../agents/gtm-implementer/)** | Creates GTM resources from analysis output | Yes — manual GTM provisioning from specs |
+
 ## Architecture Overview
 
 ```
@@ -43,16 +53,16 @@ Read property config JSON
 GA4 Data API ──► Fetch current event inventory + counts
     │
     ▼
-Compare events vs tracking spec (Code node)
+GA4 Monitor: compare events vs tracking spec
     │
     ├── All Clear ──► Slack: "100% coverage" ──► Write report ──► END
     │
     └── Issues Found
             │
             ├── Anomalies? ──► Slack URGENT alert
-            │                  Claude Haiku: root cause analysis
+            │                  GA4 Gap Analyzer (Haiku): root cause analysis
             │
-            └── Gaps? ──► Claude Sonnet: gap analysis + GTM specs
+            └── Gaps? ──► GA4 Gap Analyzer (Sonnet): gap analysis + GTM specs
                            │
                            ▼
                       Slack: "Found N gaps. Proposed changes: ..."
@@ -65,13 +75,7 @@ Compare events vs tracking spec (Code node)
                  APPROVED   REJECTED ──► END
                       │
                       ▼
-                 Preflight: check GTM workspace availability
-                      │
-                      ▼
-                 Create GTM workspace
-                 Create variables (rate-limited)
-                 Create triggers  (rate-limited)
-                 Create tags      (rate-limited)
+                 GTM Implementer: preflight + create workspace + write resources
                       │
                       ▼
                  Slack: "Workspace ready. Review in GTM UI."
@@ -83,39 +87,27 @@ Compare events vs tracking spec (Code node)
 ## What's Included
 
 ```
-analytics-agents/
-├── schemas/
-│   ├── client-config.schema.json     # Per-property configuration schema
-│   └── event-spec.schema.json        # Tracking spec schema (expected events)
+ga4-gtm-pipeline/
 ├── scripts/
-│   ├── validate-client-config.py     # Config validation script
-│   ├── validate-event-spec.py        # Event spec validation script
-│   ├── n8n-nodes/                    # Individual n8n Code node scripts
-│   │   ├── ga4-auth.js               # GA4 service account authentication
-│   │   ├── gtm-auth.js               # GTM service account authentication
-│   │   ├── compare-events.js         # Event inventory vs spec comparison
-│   │   ├── build-gap-analysis-prompt.js
-│   │   ├── build-anomaly-prompt.js
-│   │   ├── parse-gap-analysis-response.js
-│   │   ├── parse-anomaly-response.js
-│   │   ├── build-gtm-resources.js    # Constructs GTM tag/trigger/variable payloads
-│   │   ├── workspace-preflight.js    # Checks workspace availability
-│   │   ├── execute-gtm-writes.js     # Rate-limited GTM API writes
-│   │   ├── format-slack-messages.js
-│   │   ├── format-gtm-slack.js
-│   │   ├── slack-templates.json
-│   │   ├── write-monitoring-report.js
-│   │   ├── write-implementation-prd.js
-│   │   └── write-gtm-implementation-doc.js
-│   └── n8n-workflows/               # Importable n8n workflow JSONs
-│       ├── main-pipeline.json        # Core pipeline (shared across properties)
-│       ├── triggers.json             # Per-property schedule triggers
-│       └── error-workflow.json       # Global error handler
+│   ├── n8n-nodes/                      # n8n-specific Code node scripts
+│   │   ├── ga4-auth.js                 # GA4 service account authentication
+│   │   ├── gtm-auth.js                 # GTM service account authentication
+│   │   ├── format-slack-messages.js    # Slack notification formatting
+│   │   ├── format-gtm-slack.js         # GTM-specific Slack formatting
+│   │   ├── slack-templates.json        # Slack Block Kit templates
+│   │   ├── write-monitoring-report.js  # Daily report generation
+│   │   ├── write-implementation-prd.js # PRD generation
+│   │   └── write-gtm-implementation-doc.js  # GTM doc generation
+│   └── n8n-workflows/                  # Importable n8n workflow JSONs
+│       ├── main-pipeline.json          # Core pipeline (shared across properties)
+│       ├── triggers.json               # Per-property schedule triggers
+│       └── error-workflow.json         # Global error handler
 ├── templates/
-│   ├── implementation-doc.md.tmpl    # GTM implementation doc template
-│   └── monitoring-status.md.tmpl    # Daily monitoring report template
-├── test-data/
-│   └── ga4-sample-response.json     # Sample GA4 API response for testing
+│   ├── implementation-doc.md.tmpl      # GTM implementation doc template
+│   └── monitoring-status.md.tmpl       # Daily monitoring report template
+├── architecture.md                     # Detailed technical design
+├── GETTING_STARTED.md                  # Step-by-step setup guide
+├── project-roadmap.md                  # Feature roadmap
 └── README.md
 ```
 
@@ -144,20 +136,20 @@ The service account needs two API scopes:
 
 ### 1. Create a Property Config
 
-Define a JSON config per GA4 property following `schemas/client-config.schema.json`. This specifies the GA4 property ID, GTM container ID, schedule, Slack channel, and approvers. (One config per property — whether that's your own property or a client's.) Store config files outside version control in a directory your n8n instance can access — the trigger node references the config by file path.
+Define a JSON config per GA4 property following the schema in [`agents/ga4-monitor/schemas/client-config.schema.json`](../../agents/ga4-monitor/schemas/client-config.schema.json). This specifies the GA4 property ID, GTM container ID, schedule, Slack channel, and approvers.
 
 ```bash
 # Validate your config
-python scripts/validate-client-config.py path/to/client-config.json
+python agents/ga4-monitor/scripts/validate-client-config.py path/to/client-config.json
 ```
 
 ### 2. Create an Event Spec
 
-Define the expected events for the property following `schemas/event-spec.schema.json`. This is the source of truth the pipeline compares against.
+Define the expected events for the property following the schema in [`agents/ga4-monitor/schemas/event-spec.schema.json`](../../agents/ga4-monitor/schemas/event-spec.schema.json). This is the source of truth the pipeline compares against.
 
 ```bash
 # Validate your spec
-python scripts/validate-event-spec.py path/to/event-spec.json
+python agents/ga4-monitor/scripts/validate-event-spec.py path/to/event-spec.json
 ```
 
 ### 3. Import n8n Workflows
@@ -178,7 +170,7 @@ Set up the following credentials in n8n:
 
 ### 5. Test with Sample Data
 
-Use `test-data/ga4-sample-response.json` to dry-run the pipeline without hitting live APIs.
+Use [`agents/ga4-monitor/test-data/ga4-sample-response.json`](../../agents/ga4-monitor/test-data/ga4-sample-response.json) to dry-run the pipeline without hitting live APIs.
 
 ## How It Works
 
@@ -186,12 +178,12 @@ Use `test-data/ga4-sample-response.json` to dry-run the pipeline without hitting
 
 1. **Scheduled trigger fires** (per property, configurable cadence)
 2. **GA4 fetch** pulls the current event inventory with counts from the last 7 days
-3. **Comparison engine** checks events against the tracking spec — identifies missing events, unexpected events, and count anomalies (volume drops/spikes)
+3. **GA4 Monitor** checks events against the tracking spec — identifies missing events, unexpected events, and count anomalies (volume drops/spikes)
 4. **If all clear:** Slack gets a green status message, a monitoring report is written, done
-5. **If anomalies detected:** Slack gets an urgent alert, Claude Haiku analyzes root cause patterns
-6. **If gaps detected:** Claude Sonnet generates a full gap analysis with GTM implementation specs (tag type, trigger conditions, variable dependencies)
+5. **If anomalies detected:** Slack gets an urgent alert, **GA4 Gap Analyzer** (Haiku) analyzes root cause patterns
+6. **If gaps detected:** **GA4 Gap Analyzer** (Sonnet) generates a full gap analysis with GTM implementation specs
 7. **Human reviews** the proposed changes in Slack, approves or rejects
-8. **If approved:** the pipeline runs a preflight check on GTM workspace availability, then creates the workspace and writes all resources (variables first, then triggers, then tags) with 4-second delays between API calls
+8. **If approved:** **GTM Implementer** runs a preflight check, creates the workspace, and writes all resources with rate limiting
 9. **Implementation docs** are generated from templates and saved alongside the monitoring report
 10. **Final Slack message** includes a direct link to the GTM workspace for review before publishing
 
@@ -267,15 +259,15 @@ The preflight check detects this and sends a Slack alert instead of failing. Fre
 <details>
 <summary><strong>Can I run this without the GTM implementation step?</strong></summary>
 
-Yes. The monitoring and gap analysis stages work independently. You can use this purely for daily tracking health checks — just skip the approval step and the pipeline ends after the Slack notification with gap analysis results.
+Yes. The monitoring and gap analysis stages work independently. You can use this purely for daily tracking health checks — just skip the approval step and the pipeline ends after the Slack notification with gap analysis results. You can also use the [GA4 Monitor](../../agents/ga4-monitor/) agent standalone for one-time audits.
 
 </details>
 
 <details>
 <summary><strong>How do I add a new property?</strong></summary>
 
-1. Create a property config JSON (validate with `scripts/validate-client-config.py`)
-2. Create an event spec JSON (validate with `scripts/validate-event-spec.py`)
+1. Create a property config JSON (validate with `agents/ga4-monitor/scripts/validate-client-config.py`)
+2. Create an event spec JSON (validate with `agents/ga4-monitor/scripts/validate-event-spec.py`)
 3. Add a schedule trigger in n8n pointing to the new config
 4. Set up the Google service account with GA4 read + GTM write access for the property
 

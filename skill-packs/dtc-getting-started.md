@@ -30,7 +30,7 @@ You do NOT need all API keys. Set up only the skills for platforms you actually 
 The fastest way to get set up is the interactive wizard:
 
 ```bash
-python scripts/setup.py
+python skill-packs/scripts/setup-dtc.py
 ```
 
 The wizard will:
@@ -86,17 +86,17 @@ For each skill you want to use, copy the example file:
 
 ```bash
 # Klaviyo (same key for both analyst and developer)
-cp klaviyo-analyst/.env.example klaviyo-analyst/.env
-cp klaviyo-developer/.env.example klaviyo-developer/.env
+cp skills/klaviyo-analyst/.env.example skills/klaviyo-analyst/.env
+cp skills/klaviyo-developer/.env.example skills/klaviyo-developer/.env
 
 # Shopify
-cp shopify/.env.example shopify/.env
+cp skills/shopify/.env.example skills/shopify/.env
 
 # Google Analytics
-cp google-analytics/.env.example google-analytics/.env
+cp skills/google-analytics/.env.example skills/google-analytics/.env
 
 # Looker Studio
-cp looker-studio/.env.example looker-studio/.env
+cp skills/looker-studio/.env.example skills/looker-studio/.env
 ```
 
 Open each `.env` file and paste your API keys where indicated. The `.env.example` files contain comments explaining each value.
@@ -107,10 +107,10 @@ Install the Python packages each skill needs:
 
 ```bash
 # Install for all skills at once
-pip install -r klaviyo-analyst/requirements.txt
-pip install -r google-analytics/requirements.txt
-pip install -r shopify/requirements.txt
-pip install -r looker-studio/requirements.txt
+pip install -r skills/klaviyo-analyst/requirements.txt
+pip install -r skills/google-analytics/requirements.txt
+pip install -r skills/shopify/requirements.txt
+pip install -r skills/looker-studio/requirements.txt
 ```
 
 Or install everything with one command:
@@ -125,7 +125,7 @@ Copy the skills to Claude Code's skill directory:
 
 ```bash
 for skill in klaviyo-analyst klaviyo-developer google-analytics shopify looker-studio pro-deck-builder; do
-  cp -r "$skill" ~/.claude/skills/
+  cp -r "skills/$skill" ~/.claude/skills/
 done
 ```
 
@@ -135,13 +135,13 @@ Test each skill's API connection:
 
 ```bash
 # Shopify: should return your store info
-python shopify/scripts/shopify_client.py --resource shop
+python skills/shopify/scripts/shopify_client.py --resource shop
 
 # Google Analytics: should return session data
-python google-analytics/scripts/ga_client.py --days 7 --metrics sessions
+python skills/google-analytics/scripts/ga_client.py --days 7 --metrics sessions
 
 # Looker Studio: list available templates
-python looker-studio/scripts/data_pipeline.py --action list-templates
+python skills/looker-studio/scripts/data_pipeline.py --action list-templates
 ```
 
 For Klaviyo, the MCP server handles the connection. Verify with `/mcp` in Claude Code.
@@ -151,7 +151,7 @@ For Klaviyo, the MCP server handles the connection. Verify with `/mcp` in Claude
 Try a complete Shopify store audit:
 
 ```bash
-python shopify/scripts/analyze.py --analysis-type full-audit
+python skills/shopify/scripts/analyze.py --analysis-type full-audit
 ```
 
 Or ask Claude directly:
@@ -182,52 +182,20 @@ in the skill directory. If `pip` doesn't work, try `pip3`.
 ### "Permission denied" on macOS
 If you get permission errors running scripts:
 ```bash
-chmod +x scripts/*.py
+chmod +x skill-packs/scripts/*.py
 ```
 
 ### "SHOPIFY_STORE_URL not set"
 Your `.env` file isn't configured. Copy the example and fill in your values:
 ```bash
-cp .env.example .env
+cp skills/shopify/.env.example skills/shopify/.env
 ```
 
 ### Klaviyo MCP server not connecting
 1. Check that `KLAVIYO_API_KEY` is exported in your shell (`echo $KLAVIYO_API_KEY`)
-2. Verify `~/.mcp.json` has the klaviyo server entry (see [README.md](README.md))
+2. Verify `~/.mcp.json` has the klaviyo server entry (see [dtc-pack.md](dtc-pack.md))
 3. Restart Claude Code after changing MCP configuration
 4. Run `/mcp` in Claude Code to verify the server is connected
-
-## What's in the Pack
-
-```
-dtc-skill-pack/
-  GETTING_STARTED.md          <- You are here
-  README.md                   <- Overview and MCP setup
-  scripts/setup.py            <- Interactive setup wizard
-
-  klaviyo-analyst/             <- Email/SMS marketing audit
-    SKILL.md, REFERENCE.md, EXAMPLES.md
-    scripts/ (klaviyo_client.py, analyze.py)
-
-  klaviyo-developer/           <- API integration and development
-    SKILL.md, REFERENCE.md, EXAMPLES.md
-    scripts/ (klaviyo_client.py, dev_tools.py)
-
-  google-analytics/            <- GA4 analytics
-    SKILL.md, REFERENCE.md, EXAMPLES.md
-    scripts/ (ga_client.py, analyze.py)
-
-  shopify/                     <- Shopify store analytics
-    SKILL.md, REFERENCE.md, EXAMPLES.md
-    scripts/ (shopify_client.py, analyze.py)
-
-  looker-studio/               <- Cross-platform dashboards
-    SKILL.md, REFERENCE.md, EXAMPLES.md
-    scripts/ (data_pipeline.py)
-
-  pro-deck-builder/            <- Presentation creation
-    SKILL.md, REFERENCE.md
-```
 
 ## Getting Help
 

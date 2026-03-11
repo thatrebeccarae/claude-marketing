@@ -32,3 +32,31 @@ CUSTOM_EVENT
 1700000000
 # GA property IDs
 properties/\d+
+# Paid media pack — example placeholder IDs and tokens in docs
+\+11234567890
+1234567890
+act_\d+
+customer@example
+fbevents\.js
+access_token
+CONVERSION_ID
+CONVERSION_LABEL
+YOUR_PIXEL_ID
+YOUR_TAG_ID
+YOUR_PROJECT_ID
+YOUR_ACCESS_TOKEN
+# Infrastructure paths in docs (example paths, not real)
+/path/to/
+# Example ad account and API placeholders
+AW-CONVERSION
+graph\.facebook\.com
+rest\.iad-\d+\.braze
+rest\.fra-\d+\.braze
+bingads\.microsoft\.com
+googleads\.googleapis\.com
+connect\.facebook\.net
+bat\.bing\.com
+clarity\.ms
+your-.*-here
+your-.*-token
+security@rebeccaraebarton\.com

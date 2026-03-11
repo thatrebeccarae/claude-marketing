@@ -2,7 +2,7 @@
 
 # dgtl dept*
 
-**A collection of Claude Code skill packs, specialized agents, and automated n8n agent workflows that give solo marketers and small DTC teams specialist-level expertise in Klaviyo, Shopify, GA4, Looker Studio, and GTM.** Vetted, tested, and verified — specialist depth without specialist headcount.
+**A collection of Claude Code skill packs, specialized agents, and automated n8n agent workflows that give solo marketers and small DTC teams specialist-level expertise in Klaviyo, Shopify, GA4, Looker Studio, Google Ads, Meta Ads, Microsoft Ads, Braze, and GTM.** Vetted, tested, and verified — specialist depth without specialist headcount.
 
 <br>
 <br>
@@ -29,7 +29,7 @@ git clone https://github.com/thatrebeccarae/dgtldept.git
 <br>
 <br>
 
-<a href="https://thatrebeccarae.github.io/dgtldept/skills/dtc-skill-pack/demo/">
+<a href="https://thatrebeccarae.github.io/dgtldept/skill-packs/demo/">
   <img src="assets/terminal.png" alt="dgtldept terminal preview" width="760">
 </a>
 
@@ -46,7 +46,7 @@ git clone https://github.com/thatrebeccarae/dgtldept.git
 <br>
 <br>
 
-[Why I Built This](#why-i-built-this) · [Who This Is For](#who-this-is-for) · [What's Inside](#whats-inside) · [Skill Packs](#skill-packs) · [Agent Workflows](#agent-workflows) · [Getting Started](#getting-started) · [How It Works](#how-it-works) · [Example Prompts](#example-prompts) · [Configuration](#configuration) · [Security](#security) · [Troubleshooting](#troubleshooting) · [Documentation](#documentation) · [Contributing](#contributing) · [License](#license)
+[Why I Built This](#why-i-built-this) · [Who This Is For](#who-this-is-for) · [What's Inside](#whats-inside) · [Skill Packs](#skill-packs) · [Agents](#agents) · [Workflows](#workflows) · [Getting Started](#getting-started) · [How It Works](#how-it-works) · [Example Prompts](#example-prompts) · [Configuration](#configuration) · [Security](#security) · [Troubleshooting](#troubleshooting) · [Documentation](#documentation) · [Contributing](#contributing) · [License](#license)
 
 </div>
 
@@ -84,38 +84,37 @@ If you want implementation-ready answers — not tutorials, not blog-post-level 
 
 | Category | What It Is | What's Available |
 |----------|-----------|------------------|
-| **[Skill Packs](skills/)** | Claude Code skills that give Claude specialist marketing expertise | [DTC Skill Pack](skills/dtc-skill-pack/) — 6 skills for e-commerce (Klaviyo, Shopify, GA4, Looker Studio, Pro Deck Builder) |
-| **[Agent Workflows](workflows/)** | Autonomous pipelines that run on n8n + Claude, monitoring and acting without manual intervention | [Analytics Agents](workflows/analytics-agents/) — GA4 monitoring → Claude analysis → GTM implementation |
+| **[Skills](skills/)** | 11 Claude Code skills — install individually or as curated packs | Klaviyo, Shopify, GA4, Looker Studio, Google Ads, Meta Ads, Microsoft Ads, Account Structure, Braze, Pro Deck Builder |
+| **[Skill Packs](skill-packs/)** | Curated collections with setup guides and install wizards | [DTC Pack](skill-packs/dtc-pack.md) (6 skills) · [Paid Media Pack](skill-packs/paid-media-pack.md) (4 skills) |
+| **[Agents](agents/)** | 3 standalone agents — portable analysis logic, usable with or without n8n | [GA4 Monitor](agents/ga4-monitor/) · [GA4 Gap Analyzer](agents/ga4-gap-analyzer/) · [GTM Implementer](agents/gtm-implementer/) |
+| **[Workflows](workflows/)** | Autonomous n8n pipelines that wire agents together on a schedule | [GA4-GTM Pipeline](workflows/ga4-gtm-pipeline/) — daily monitoring → Claude analysis → GTM implementation |
 
 ## Getting Started
 
-### Setup Wizard (Recommended)
+### Copy Individual Skills
 
 ```bash
 git clone https://github.com/thatrebeccarae/dgtldept.git
-cd dgtldept/skills/dtc-skill-pack
-python scripts/setup.py
+cd dgtldept
+cp -r skills/google-ads ~/.claude/skills/
+```
+
+Install only the skills you need — each one works independently.
+
+### Setup Wizard (for a full pack)
+
+```bash
+# DTC e-commerce pack
+python skill-packs/scripts/setup-dtc.py
+
+# Paid media pack
+python skill-packs/scripts/setup-paid-media.py
 ```
 
 The wizard checks prerequisites, walks you through API key setup, installs dependencies, and tests connections.
 
 > [!TIP]
-> The setup wizard validates API keys as you enter them and tests live connections before finishing. If something is misconfigured, it tells you exactly what to fix.
-
-<details>
-<summary><strong>Manual install (skip the wizard)</strong></summary>
-
-```bash
-# Run from the directory where you cloned the repo
-cd dgtldept
-for skill in klaviyo-analyst klaviyo-developer google-analytics shopify looker-studio pro-deck-builder; do
-  cp -r skills/dtc-skill-pack/$skill ~/.claude/skills/
-done
-```
-
-See [GETTING_STARTED.md](skills/dtc-skill-pack/GETTING_STARTED.md) for detailed API key setup per platform.
-
-</details>
+> See [DTC Getting Started](skill-packs/dtc-getting-started.md) or [Paid Media Getting Started](skill-packs/paid-media-getting-started.md) for detailed setup per platform.
 
 ## How It Works
 
@@ -143,58 +142,75 @@ Claude Code skills are structured knowledge packs that load automatically when y
 > [!NOTE]
 > Skills work without MCP servers too. You can paste data, share screenshots, or use the included scripts to export data manually. The MCP server just makes it seamless.
 
-### Agent Workflows
+### Agents and Workflows
 
-Agent workflows are autonomous n8n pipelines that use Claude as their reasoning engine - I run local to save on costs, but do what's best for you. Unlike skills (which respond when you ask), workflows run on a schedule and act independently.
+Agents are standalone analysis modules with portable logic — comparison engines, prompt builders, response parsers. Each agent works independently and can be used without n8n.
 
-Each workflow includes:
-
-| Component | Purpose |
-|-----------|---------|
-| **n8n workflow JSON** | The pipeline definition — import into your n8n instance |
-| **Code node scripts** | JavaScript that handles API auth, data comparison, prompt construction, and API writes |
-| **JSON schemas** | Validation schemas for config files and event specs |
-| **Templates** | Report and documentation templates for generated output |
+Workflows are autonomous n8n pipelines that wire agents together on a schedule. I run n8n local to save on costs, but do what's best for you. Unlike skills (which respond when you ask), workflows run on a schedule and act independently.
 
 Workflows use Claude via the Anthropic API (not Claude Code) — Claude Sonnet for deep analysis, Claude Haiku for fast classification.
 
-## Skill Packs
+## Skills
 
-### [DTC Skill Pack](skills/dtc-skill-pack/) — 6 skills for e-commerce marketing
+All 11 skills live in [`skills/`](skills/) — install individually or use a [skill pack](skill-packs/) to set up a curated group.
 
-> [**View Live Demo**](https://thatrebeccarae.github.io/dgtldept/skills/dtc-skill-pack/demo/) — See all 6 skills in action with example terminal output.
+> [**View Live Demo**](https://thatrebeccarae.github.io/dgtldept/skill-packs/demo/) — See skills in action with example terminal output.
 
 | Skill | What Claude Can Do |
 |-------|-------------------|
-| **[Klaviyo Analyst](skills/dtc-skill-pack/klaviyo-analyst/)** | Full Klaviyo audit — 4-phase account review, flow gap analysis, segment health, deliverability diagnostics, revenue attribution, three-tier recommendations with implementation specs |
-| **[Klaviyo Developer](skills/dtc-skill-pack/klaviyo-developer/)** | Event schema design, SDK integration, webhook handling, rate limit strategy, catalog sync, integration health audit |
-| **[Shopify](skills/dtc-skill-pack/shopify/)** | 12-step store audit, conversion funnel analysis, site speed diagnostics, marketing stack integration |
-| **[Google Analytics](skills/dtc-skill-pack/google-analytics/)** | GA4 traffic analysis, channel comparison, conversion funnels, content performance |
-| **[Looker Studio](skills/dtc-skill-pack/looker-studio/)** | Cross-platform dashboards via Google Sheets pipeline, DTC dashboard templates, calculated field library |
-| **[Pro Deck Builder](skills/dtc-skill-pack/pro-deck-builder/)** | Polished HTML slide decks and PDF-ready reports with dark cover pages and warm light content slides |
+| **[Klaviyo Analyst](skills/klaviyo-analyst/)** | Full Klaviyo audit — 4-phase account review, flow gap analysis, segment health, deliverability diagnostics, revenue attribution |
+| **[Klaviyo Developer](skills/klaviyo-developer/)** | Event schema design, SDK integration, webhook handling, rate limit strategy, catalog sync |
+| **[Shopify](skills/shopify/)** | 12-step store audit, conversion funnel analysis, site speed diagnostics, marketing stack integration |
+| **[Google Analytics](skills/google-analytics/)** | GA4 traffic analysis, channel comparison, conversion funnels, content performance |
+| **[Looker Studio](skills/looker-studio/)** | Cross-platform dashboards via Google Sheets pipeline, DTC dashboard templates, calculated field library |
+| **[Pro Deck Builder](skills/pro-deck-builder/)** | Polished HTML slide decks and PDF-ready reports with dark cover pages and warm light content slides |
+| **[Google Ads](skills/google-ads/)** | Campaign auditing, Quality Score optimization, PMax, Shopping, bidding strategies, wasted spend identification |
+| **[Meta Ads](skills/facebook-ads/)** | Creative fatigue diagnosis, pixel/CAPI health, iOS 14.5+ attribution, Advantage+ readiness |
+| **[Microsoft Ads](skills/microsoft-ads/)** | Google import optimization, LinkedIn Profile Targeting, UET tracking, Shopping campaigns, Clarity |
+| **[Account Structure Review](skills/account-structure-review/)** | Cross-platform structural audit — conversion volume thresholds, budget fragmentation, consolidation roadmaps |
+| **[Braze](skills/braze/)** | Canvas audit, segmentation, cross-channel orchestration, data architecture, deliverability, IP warming |
 
-## Agent Workflows
+### Skill Packs
 
-Agent workflows are autonomous pipelines built on [n8n](https://n8n.io) + Claude that run on a schedule without manual intervention. They monitor, analyze, and act — then notify you with results.
+Curated collections with setup wizards and guides for getting a group of related skills running together:
 
-### [Analytics Agents](workflows/analytics-agents/) — Autonomous GA4 monitoring + GTM implementation
+- **[DTC Pack](skill-packs/dtc-pack.md)** — 6 skills for e-commerce (Klaviyo Analyst, Klaviyo Developer, Shopify, Google Analytics, Looker Studio, Pro Deck Builder)
+- **[Paid Media Pack](skill-packs/paid-media-pack.md)** — 4 skills for paid advertising (Google Ads, Meta Ads, Microsoft Ads, Account Structure Review)
+
+## Agents
+
+Standalone agents with portable analysis logic — usable independently or wired together by a workflow.
+
+| Agent | What It Does |
+|-------|-------------|
+| **[GA4 Monitor](agents/ga4-monitor/)** | Compares GA4 event data against a tracking spec, flags gaps, unexpected events, and volume anomalies |
+| **[GA4 Gap Analyzer](agents/ga4-gap-analyzer/)** | Claude diagnoses tracking gaps (Sonnet) and anomalies (Haiku), generates GTM implementation specs |
+| **[GTM Implementer](agents/gtm-implementer/)** | Creates GTM variables, triggers, and tags — rate-limited, idempotent, workspace-isolated |
+
+Each agent works independently. Use GA4 Monitor for one-time audits without Claude or GTM. Use GA4 Gap Analyzer to diagnose issues from any comparison data. Use GTM Implementer to provision resources from any spec.
+
+## Workflows
+
+Autonomous n8n pipelines that wire agents together on a schedule. They monitor, analyze, and act — then notify you with results.
+
+### [GA4-GTM Pipeline](workflows/ga4-gtm-pipeline/) — Daily GA4 monitoring + GTM implementation
 
 Your GA4 property monitored daily, gaps analyzed by Claude, and fixes implemented in GTM — automatically.
 
-| Stage | What Happens |
-|-------|-------------|
-| **Monitor** | Fetches all GA4 events daily, compares against your event spec |
-| **Analyze** | Claude Sonnet identifies gaps and recommends GTM implementations; Claude Haiku detects anomalies |
-| **Implement** | Creates GTM variables, triggers, and tags in an isolated workspace (unpublished until you review) |
-| **Notify** | Slack messages at every stage — all-clear, gaps found, anomalies detected, GTM resources created |
+| Stage | Agent | What Happens |
+|-------|-------|-------------|
+| **Monitor** | [GA4 Monitor](agents/ga4-monitor/) | Fetches all GA4 events daily, compares against your event spec |
+| **Analyze** | [GA4 Gap Analyzer](agents/ga4-gap-analyzer/) | Claude Sonnet identifies gaps and recommends GTM implementations; Claude Haiku detects anomalies |
+| **Implement** | [GTM Implementer](agents/gtm-implementer/) | Creates GTM variables, triggers, and tags in an isolated workspace (unpublished until you review) |
+| **Notify** | — | Slack messages at every stage — all-clear, gaps found, anomalies detected, GTM resources created |
 
 Handles multiple GA4 properties — configure once per property, runs hands-off from there.
 
-See the [Analytics Agents README](workflows/analytics-agents/README.md) and [Getting Started guide](workflows/analytics-agents/GETTING_STARTED.md) for setup.
+See the [GA4-GTM Pipeline README](workflows/ga4-gtm-pipeline/README.md) and [Getting Started guide](workflows/ga4-gtm-pipeline/GETTING_STARTED.md) for setup.
 
 ### Coming Soon
 
-The department is growing. Skill packs for Google Ads, Meta Ads, content strategy, and multi-channel attribution are in development. [Star the repo](https://github.com/thatrebeccarae/dgtldept/stargazers) to get notified when they drop.
+The department is growing. Skill packs for content strategy and multi-channel attribution are in development. [Star the repo](https://github.com/thatrebeccarae/dgtldept/stargazers) to get notified when they drop.
 
 ## Example Prompts
 
@@ -261,7 +277,7 @@ The [Klaviyo MCP server](https://developers.klaviyo.com/en/docs/klaviyo_mcp_serv
 
 3. Restart Claude Code and verify with `/mcp`
 
-See the [DTC Skill Pack README](skills/dtc-skill-pack/README.md) for recommended Klaviyo API scopes.
+See the [DTC Pack guide](skill-packs/dtc-pack.md) for recommended Klaviyo API scopes.
 
 </details>
 
@@ -327,10 +343,12 @@ On macOS, `python` may point to Python 2. Use `python3` explicitly or install vi
 
 | Resource | Description |
 |----------|-------------|
-| [DTC Skill Pack README](skills/dtc-skill-pack/README.md) | Skill details, architecture, MCP server setup, example prompts, FAQ |
-| [DTC Getting Started](skills/dtc-skill-pack/GETTING_STARTED.md) | Step-by-step setup for each platform |
-| [Analytics Agents README](workflows/analytics-agents/README.md) | GA4 monitoring pipeline architecture, setup, and security model |
-| [Analytics Agents Getting Started](workflows/analytics-agents/GETTING_STARTED.md) | Step-by-step n8n + GA4 + GTM setup |
+| [DTC Pack](skill-packs/dtc-pack.md) | 6 e-commerce skills — overview, MCP setup, example prompts, FAQ |
+| [DTC Getting Started](skill-packs/dtc-getting-started.md) | Step-by-step setup for DTC platforms |
+| [Paid Media Pack](skill-packs/paid-media-pack.md) | 4 paid media skills — overview, example prompts, FAQ |
+| [Paid Media Getting Started](skill-packs/paid-media-getting-started.md) | Step-by-step setup for paid media platforms |
+| [GA4-GTM Pipeline README](workflows/ga4-gtm-pipeline/README.md) | Pipeline architecture, agent orchestration, setup, and security model |
+| [GA4-GTM Pipeline Getting Started](workflows/ga4-gtm-pipeline/GETTING_STARTED.md) | Step-by-step n8n + GA4 + GTM setup |
 | [CHANGELOG](CHANGELOG.md) | Version history and release notes |
 | [SECURITY](SECURITY.md) | Security design and vulnerability reporting |
 | [CONTRIBUTING](CONTRIBUTING.md) | How to contribute skills, report bugs, submit PRs |
