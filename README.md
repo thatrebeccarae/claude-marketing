@@ -12,14 +12,14 @@
 [![X](https://img.shields.io/badge/X-@rebeccarae-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/rebeccarae)
 [![Substack](https://img.shields.io/badge/Substack-dgtl%20dept*-FF6719?style=for-the-badge&logo=substack&logoColor=white)](https://dgtldept.substack.com/welcome)
 [![Website](https://img.shields.io/badge/rebeccaraebarton.com-000000?style=for-the-badge&logo=google--chrome&logoColor=white)](https://rebeccaraebarton.com)
-[![GitHub stars](https://img.shields.io/github/stars/thatrebeccarae/dgtldept?style=for-the-badge&logo=github&color=181717)](https://github.com/thatrebeccarae/dgtldept/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/thatrebeccarae/claude-marketing?style=for-the-badge&logo=github&color=181717)](https://github.com/thatrebeccarae/claude-marketing/stargazers)
 [![License](https://img.shields.io/badge/License-MIT-353535?style=for-the-badge)](LICENSE)
-[![Clone](https://img.shields.io/badge/Clone-git%20clone-F05032?style=for-the-badge&logo=git&logoColor=white)](https://github.com/thatrebeccarae/dgtldept)
+[![Clone](https://img.shields.io/badge/Clone-git%20clone-F05032?style=for-the-badge&logo=git&logoColor=white)](https://github.com/thatrebeccarae/claude-marketing)
 
 <br>
 
 ```bash
-git clone https://github.com/thatrebeccarae/dgtldept.git
+git clone https://github.com/thatrebeccarae/claude-marketing.git
 ```
 
 <br>
@@ -29,8 +29,8 @@ git clone https://github.com/thatrebeccarae/dgtldept.git
 <br>
 <br>
 
-<a href="https://thatrebeccarae.github.io/dgtldept/skill-packs/demo/">
-  <img src="assets/terminal.png" alt="dgtldept terminal preview" width="760">
+<a href="https://thatrebeccarae.github.io/claude-marketing/skill-packs/demo/">
+  <img src="assets/terminal.png" alt="claude-marketing terminal preview" width="760">
 </a>
 
 <!--
@@ -93,7 +93,7 @@ Implementation-ready answers — not tutorials, not blog-post-level overviews.
 
 All 25 skills live in [`skills/`](skills/) — install individually or use a [skill pack](skill-packs/) to set up a related group.
 
-> [**View Live Demo**](https://thatrebeccarae.github.io/dgtldept/skill-packs/demo/) — See skills in action with example terminal output.
+> [**View Live Demo**](https://thatrebeccarae.github.io/claude-marketing/skill-packs/demo/) — See skills in action with example terminal output.
 
 ### DTC & E-commerce
 
@@ -171,8 +171,8 @@ Grouped collections with setup wizards for installing related skills together:
 ### Copy Individual Skills
 
 ```bash
-git clone https://github.com/thatrebeccarae/dgtldept.git
-cd dgtldept
+git clone https://github.com/thatrebeccarae/claude-marketing.git
+cd claude-marketing
 cp -r skills/google-ads ~/.claude/skills/
 ```
 

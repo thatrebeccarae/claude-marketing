@@ -4,19 +4,19 @@
 
 **6 skills that give Claude Code deep expertise in DTC e-commerce marketing.**
 
-[![GitHub stars](https://img.shields.io/github/stars/thatrebeccarae/dgtldept?style=for-the-badge&logo=github&color=181717)](https://github.com/thatrebeccarae/dgtldept/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/thatrebeccarae/claude-marketing?style=for-the-badge&logo=github&color=181717)](https://github.com/thatrebeccarae/claude-marketing/stargazers)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](../LICENSE)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Rebecca%20Rae%20Barton-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/rebeccaraebarton)
 [![Substack](https://img.shields.io/badge/Substack-dgtl%20dept*-FF6719?style=for-the-badge&logo=substack&logoColor=white)](https://dgtldept.substack.com/welcome)
 
 Audit Klaviyo flows, diagnose Shopify conversion drop-offs, analyze GA4 traffic, build Looker Studio dashboards, and generate polished slide decks — all from natural language prompts in your terminal.
 
-[**Live Demo**](https://thatrebeccarae.github.io/dgtldept/skill-packs/demo/) · [**Getting Started**](dtc-getting-started.md) · [**Back to Repo**](../README.md)
+[**Live Demo**](https://thatrebeccarae.github.io/claude-marketing/skill-packs/demo/) · [**Getting Started**](dtc-getting-started.md) · [**Back to Repo**](../README.md)
 
 <br>
 
-<a href="https://thatrebeccarae.github.io/dgtldept/skill-packs/demo/">
-  <img src="../assets/terminal.png" alt="dgtldept terminal preview" width="720">
+<a href="https://thatrebeccarae.github.io/claude-marketing/skill-packs/demo/">
+  <img src="../assets/terminal.png" alt="claude-marketing terminal preview" width="720">
 </a>
 
 </div>
@@ -60,8 +60,8 @@ Each skill works independently — install only the ones you need. But they comp
 ### Option 1: Interactive Wizard (Recommended)
 
 ```bash
-git clone https://github.com/thatrebeccarae/dgtldept.git
-cd dgtldept
+git clone https://github.com/thatrebeccarae/claude-marketing.git
+cd claude-marketing
 python skill-packs/scripts/setup-dtc.py
 ```
 
@@ -70,7 +70,7 @@ The wizard checks prerequisites, walks you through API key setup, installs depen
 ### Option 2: Copy Skills Directly
 
 ```bash
-cd dgtldept
+cd claude-marketing
 for skill in klaviyo-analyst klaviyo-developer google-analytics shopify looker-studio pro-deck-builder; do
   cp -r "skills/$skill" ~/.claude/skills/
 done

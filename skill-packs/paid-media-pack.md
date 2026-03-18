@@ -4,7 +4,7 @@
 
 **6 skills for cross-platform paid media — Google Ads, Meta Ads, Microsoft Ads, competitive analysis, waste detection, and account structure review.**
 
-[![GitHub stars](https://img.shields.io/github/stars/thatrebeccarae/dgtldept?style=for-the-badge&logo=github&color=181717)](https://github.com/thatrebeccarae/dgtldept/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/thatrebeccarae/claude-marketing?style=for-the-badge&logo=github&color=181717)](https://github.com/thatrebeccarae/claude-marketing/stargazers)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](../LICENSE)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Rebecca%20Rae%20Barton-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/rebeccaraebarton)
 [![Substack](https://img.shields.io/badge/Substack-dgtl%20dept*-FF6719?style=for-the-badge&logo=substack&logoColor=white)](https://dgtldept.substack.com/welcome)
@@ -63,8 +63,8 @@ Platform-native optimization tools work within their own ecosystem. This skill p
 ### Option 1: Interactive Wizard (Recommended)
 
 ```bash
-git clone https://github.com/thatrebeccarae/dgtldept.git
-cd dgtldept
+git clone https://github.com/thatrebeccarae/claude-marketing.git
+cd claude-marketing
 python skill-packs/scripts/setup-paid-media.py
 ```
 
@@ -73,7 +73,7 @@ The wizard checks prerequisites, walks through API key setup, installs dependenc
 ### Option 2: Copy Skills Directly
 
 ```bash
-cd dgtldept
+cd claude-marketing
 for skill in google-ads facebook-ads microsoft-ads competitor-ads-analyst wasted-spend-finder account-structure-review; do
   cp -r "skills/$skill" ~/.claude/skills/
 done

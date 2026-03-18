@@ -69,9 +69,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ### Changed
 
-- Repositioned dgtldept from "Claude Code skills" to a broader toolkit: skills, agent workflows, and automation pipelines for solo marketers and small teams
+- Repositioned claude-marketing from "Claude Code skills" to a broader toolkit: skills, agent workflows, and automation pipelines for solo marketers and small teams
 - Updated root README with new positioning, "What's Inside" overview, and Agent Workflows section
-- Private development repo (`dgtldept-dev`) with `sync-public.sh` for PII-safe downstream sync
+- Private development repo (`claude-marketing-dev`) with `sync-public.sh` for PII-safe downstream sync
 
 ### Removed
 
@@ -90,5 +90,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
   - Pro Deck Builder: Polished HTML slide decks and PDF-ready reports
 - **LinkedIn Data Viz** — 9 interactive visualizations from LinkedIn data exports (D3.js, Chart.js)
 - Interactive setup wizard with API key validation and health checks
-- Live demos for [DTC Skill Pack](https://thatrebeccarae.github.io/dgtldept/skills/dtc-skill-pack/demo/) and [LinkedIn Data Viz](https://thatrebeccarae.github.io/dgtldept/skills/linkedin-data-viz/demo/)
+- Live demos for [DTC Skill Pack](https://thatrebeccarae.github.io/claude-marketing/skills/dtc-skill-pack/demo/) and [LinkedIn Data Viz](https://thatrebeccarae.github.io/claude-marketing/skills/linkedin-data-viz/demo/)
 - SECURITY.md, CONTRIBUTING.md, and GitHub issue/PR templates
