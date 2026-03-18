@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.5.0] - 2026-03-18
+
+### Added
+
+- **Multi-Tool Support** — Skills now work with Cursor, Aider, Windsurf, GitHub Copilot, and Gemini CLI in addition to Claude Code
+- **convert.sh** — Transforms all skills into 5 tool-specific formats; handles YAML frontmatter extraction, Windsurf size limits, and Gemini @import structure without external dependencies
+- **install.sh** — Interactive installer with auto-detection for installed tools; installs to correct location per tool
+- **integrations/** — Pre-built converted output for all 5 tools, committed and ready to copy into any project
+- **CI validation** — Workflow checks integrations/ for drift from source skills and validates format compliance on every push
+
 ## [1.4.0] - 2026-03-16
 
 ### Added

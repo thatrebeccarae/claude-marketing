@@ -1,0 +1,300 @@
+# wasted-spend-finder
+
+
+# Wasted Spend Finder
+
+Identify and categorize wasted ad spend across Google Ads and Meta platforms. Produces uploadable exclusion lists with thematic categorization.
+
+## Core Capabilities
+
+### Google Ads Waste Detection
+
+1. **Search Term Waste** — zero-conversion terms above spend threshold
+2. **Placement Waste** — Display Network sites/apps and YouTube channels with no conversions
+3. **Keyword-Level Waste** — low conversion rate keywords relative to spend
+
+### Meta Ads Waste Detection
+
+1. **Placement Waste** — Audience Network apps, low-quality inventory
+2. **Audience Segment Waste** — lookalike/interest targeting with poor performance
+3. **Creative Waste** — high frequency + zero conversions, creative fatigue
+
+## Waste Thresholds
+
+### Spend Threshold Formula
+
+```
+Waste threshold = Average CPA x Multiplier
+
+Multiplier by campaign type:
+- Search (branded): 2x CPA
+- Search (non-brand): 3x CPA
+- Display: 3x CPA
+- Meta (all): 2.5x CPA
+```
+
+A search term, placement, or audience segment is flagged as waste when:
+- Spend exceeds the threshold AND
+- Conversions = 0 AND
+- Minimum click threshold is met
+
+### Minimum Click Thresholds
+
+| Campaign Type | Min Clicks Before Flagging |
+|---------------|---------------------------|
+| Search (branded) | 50 |
+| Search (non-brand) | 25 |
+| Display / GDN | 15 |
+| YouTube | 20 |
+| Meta Feed | 20 |
+| Meta Stories | 15 |
+| Meta Audience Network | 10 |
+
+### Conversion Rate Minimums
+
+Flag keywords/placements performing below these floors:
+
+| Campaign Type | Min Conversion Rate |
+|---------------|-------------------|
+| Search (branded) | 8% |
+| Search (non-brand) | 1.5% |
+| Display | 0.3% |
+| YouTube | 0.2% |
+| Meta Feed | 0.5% |
+| Meta Stories | 0.3% |
+
+## Negative Keyword Categorization
+
+Classify wasted search terms into themes for organized exclusion:
+
+| Theme | Pattern | Match Type |
+|-------|---------|------------|
+| Competitor terms | Brand names, product names | Exact / Phrase |
+| Informational intent | how to, what is, tutorial, guide, definition | Phrase |
+| Wrong product/service | Related but non-target products | Phrase / Exact |
+| Geographic irrelevance | Wrong cities, states, countries | Exact |
+| Job/career searches | jobs, salary, hiring, career, resume | Phrase |
+| Free/cheap intent | free, cheap, discount, coupon, deal | Phrase |
+| Irrelevant modifiers | DIY, homemade, kids, old, used | Phrase |
+
+## Placement Exclusion Categories
+
+### Google Display Network
+- Low-quality apps (game apps, utility apps, kids apps)
+- Parked domains and MFA (made-for-advertising) sites
+- Irrelevant content categories
+
+### YouTube
+- Music videos and lyrics channels
+- Kids and animation content
+- Gaming content (unless relevant)
+- Clickbait and low-quality channels
+
+### Meta Audience Network
+- Game apps
+- Utility and calculator apps
+- Foreign language apps
+- Apps with under 100 reviews
+
+## Workflow
+
+### 1. Data Collection
+
+Pull data for the analysis period (typically 30-90 days):
+
+**Google Ads:**
+- Search terms report
+- Placement report (Display + YouTube)
+- Keyword performance report
+- Campaign/ad group settings for CPA benchmarks
+
+**Meta Ads:**
+- Placement breakdown report
+- Audience breakdown report
+- Ad-level report with frequency data
+
+### 2. Apply Thresholds
+
+Calculate waste threshold per campaign using the formula above. Flag items exceeding thresholds.
+
+### 3. Categorize
+
+Assign each flagged item to a theme category. Group for batch exclusion.
+
+### 4. Generate Exclusion Lists
+
+Output CSV files ready for upload:
+- `negative-keywords.csv` — with match type and campaign/ad group scope
+- `placement-exclusions.csv` — with reason and spend wasted
+- `audience-exclusions.csv` — with segment details and waste amount
+
+### 5. Validate
+
+- Cross-check that exclusions do not remove converting terms
+- Verify match types will not over-exclude
+- Estimate savings from the proposed exclusions
+
+## Safety Rules
+
+1. **Analysis only.** Never make live account changes without human review.
+2. **Projections are estimates.** Label all savings projections clearly.
+3. **Check for false positives.** Some high-spend zero-conversion terms may be in a consideration window.
+4. **Consider attribution.** View-through and assisted conversions may justify some "wasted" spend.
+5. **Preserve data.** Export current state before applying any exclusions.
+
+For GAQL query patterns and CSV formats, see [REFERENCE.md](REFERENCE.md).
+
+---
+
+# Wasted Spend Finder — Reference
+
+## GAQL Queries (Google Ads Query Language)
+
+### Search Terms Report
+
+```sql
+SELECT
+  search_term_view.search_term,
+  campaign.name,
+  ad_group.name,
+  metrics.impressions,
+  metrics.clicks,
+  metrics.cost_micros,
+  metrics.conversions,
+  metrics.conversions_value
+FROM search_term_view
+WHERE segments.date DURING LAST_30_DAYS
+  AND metrics.cost_micros > 0
+ORDER BY metrics.cost_micros DESC
+```
+
+### Placement Report (Display + YouTube)
+
+```sql
+SELECT
+  detail_placement_view.display_name,
+  detail_placement_view.target_url,
+  detail_placement_view.placement_type,
+  campaign.name,
+  metrics.impressions,
+  metrics.clicks,
+  metrics.cost_micros,
+  metrics.conversions
+FROM detail_placement_view
+WHERE segments.date DURING LAST_30_DAYS
+  AND metrics.cost_micros > 0
+ORDER BY metrics.cost_micros DESC
+```
+
+### Keyword Performance
+
+```sql
+SELECT
+  ad_group_criterion.keyword.text,
+  ad_group_criterion.keyword.match_type,
+  campaign.name,
+  ad_group.name,
+  metrics.impressions,
+  metrics.clicks,
+  metrics.cost_micros,
+  metrics.conversions,
+  metrics.conversions_value
+FROM keyword_view
+WHERE segments.date DURING LAST_30_DAYS
+  AND metrics.cost_micros > 0
+ORDER BY metrics.cost_micros DESC
+```
+
+### Campaign CPA Benchmark
+
+```sql
+SELECT
+  campaign.name,
+  campaign.id,
+  metrics.cost_micros,
+  metrics.conversions
+FROM campaign
+WHERE segments.date DURING LAST_30_DAYS
+  AND metrics.conversions > 0
+```
+
+## Meta Ads API Queries
+
+### Placement Breakdown
+
+```
+GET /{ad_account_id}/insights
+?level=ad
+&breakdowns=publisher_platform,platform_position
+&fields=spend,impressions,clicks,actions,cost_per_action_type
+&time_range={"since":"2026-02-13","until":"2026-03-13"}
+```
+
+### Audience Breakdown
+
+```
+GET /{ad_account_id}/insights
+?level=adset
+&fields=spend,impressions,clicks,actions,cost_per_action_type,frequency
+&time_range={"since":"2026-02-13","until":"2026-03-13"}
+```
+
+### Creative Fatigue Detection
+
+```
+GET /{ad_account_id}/insights
+?level=ad
+&fields=ad_name,spend,impressions,frequency,actions,cost_per_action_type
+&filtering=[{"field":"frequency","operator":"GREATER_THAN","value":"3"}]
+&time_range={"since":"2026-02-13","until":"2026-03-13"}
+```
+
+## CSV Output Formats
+
+### Negative Keywords CSV
+
+```csv
+Keyword,Match Type,Campaign,Ad Group,Spend Wasted,Clicks,Theme
+"competitor product name",Exact,Search - Non-Brand,General,[cost],[clicks],Competitor
+"how to do it yourself",Phrase,Search - Non-Brand,General,[cost],[clicks],Informational
+"free alternative",Phrase,Search - Non-Brand,General,[cost],[clicks],Free Intent
+```
+
+### Placement Exclusions CSV
+
+```csv
+Placement,Type,Campaign,Spend Wasted,Impressions,Clicks,Conversions,Category
+"game-app.example.com",App,Display - Prospecting,[cost],[impr],[clicks],0,Low-Quality App
+"lyrics-channel",YouTube,Video - Awareness,[cost],[impr],[clicks],0,Music/Lyrics
+```
+
+### Audience Exclusions CSV
+
+```csv
+Audience,Type,Campaign,Spend,Impressions,Conversions,CPA,Recommendation
+"Lookalike 5%",Lookalike,Prospecting,[spend],[impr],0,N/A,Exclude or narrow
+"Interest: Cooking",Interest,Awareness,[spend],[impr],0,N/A,Exclude
+```
+
+## Savings Estimation
+
+```
+Estimated Monthly Savings = Sum of waste spend over analysis period / months
+
+Confidence levels:
+- HIGH: Zero conversions, 3x CPA threshold exceeded, 50+ clicks
+- MEDIUM: Zero conversions, 2x CPA threshold exceeded, 25+ clicks
+- LOW: Low conversion rate but some conversions present
+```
+
+## Common False Positives
+
+| Scenario | Why It Looks Like Waste | Why It Might Not Be |
+|----------|------------------------|-------------------|
+| Brand terms from competitors | Zero direct conversions | May drive brand awareness |
+| Broad educational queries | No immediate conversion | Top-of-funnel consideration |
+| High-ticket items | Long conversion window | Attribution window too short |
+| New campaigns (<14 days) | Insufficient data | Learning phase |
+| View-through heavy platforms | Low click conversions | View-through conversions not counted |
+
+Always check assisted conversions and extend the attribution window before excluding.

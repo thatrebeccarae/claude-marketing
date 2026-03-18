@@ -46,7 +46,7 @@ git clone https://github.com/thatrebeccarae/claude-marketing.git
 <br>
 <br>
 
-[Why This Exists](#why-this-exists) · [Who This Is For](#who-this-is-for) · [Why Depth Over Breadth](#why-depth-over-breadth) · [What's Inside](#whats-inside) · [Skills](#skills) · [Skill Packs](#skill-packs) · [Agents](#agents) · [Workflows](#workflows) · [Getting Started](#getting-started) · [How Skills Work](#how-skills-work) · [Composing Skills](#composing-skills) · [Example Prompts](#example-prompts) · [Configuration](#configuration) · [Security](#security) · [Troubleshooting](#troubleshooting) · [Documentation](#documentation) · [Contributing](#contributing) · [License](#license)
+[Why This Exists](#why-this-exists) · [Who This Is For](#who-this-is-for) · [Why Depth Over Breadth](#why-depth-over-breadth) · [What's Inside](#whats-inside) · [Skills](#skills) · [Skill Packs](#skill-packs) · [Agents](#agents) · [Workflows](#workflows) · [Getting Started](#getting-started) · [Multi-Tool Support](#multi-tool-support) · [How Skills Work](#how-skills-work) · [Composing Skills](#composing-skills) · [Example Prompts](#example-prompts) · [Configuration](#configuration) · [Security](#security) · [Troubleshooting](#troubleshooting) · [Documentation](#documentation) · [Contributing](#contributing) · [License](#license)
 
 </div>
 
@@ -211,6 +211,72 @@ The wizard checks prerequisites, walks you through API key setup, installs depen
 
 > [!TIP]
 > See [DTC Getting Started](skill-packs/dtc-getting-started.md) or [Paid Media Getting Started](skill-packs/paid-media-getting-started.md) for detailed setup per platform.
+
+## Multi-Tool Support
+
+Skills work with 5 AI coding tools beyond Claude Code — Cursor, Aider, Windsurf, GitHub Copilot, and Gemini CLI. Run `install.sh` for interactive setup, or follow the per-tool instructions below.
+
+### Quick Install
+
+```bash
+bash scripts/install.sh
+```
+
+Auto-detects your installed tools, lets you choose which to install for.
+
+### Per-Tool Quick-Start
+
+**Cursor** — One rule file per skill, auto-suggested by Cursor agent.
+
+```bash
+cp integrations/cursor/*.mdc your-project/.cursor/rules/
+```
+
+**Aider** — Skills load every session via config.
+
+```bash
+cp integrations/aider/CONVENTIONS.md your-project/
+echo "read: CONVENTIONS.md" >> your-project/.aider.conf.yml
+```
+
+**Windsurf** — All skills in one file, always active.
+
+```bash
+cp integrations/windsurf/.windsurfrules your-project/
+```
+
+**GitHub Copilot** — Works in VS Code and on GitHub.com.
+
+```bash
+cp integrations/copilot/*.instructions.md your-project/.github/instructions/
+```
+
+**Gemini CLI** — Modular loading via `@import`.
+
+```bash
+cp -r integrations/gemini/* your-project/
+```
+
+### Compatibility Matrix
+
+Not all skill content translates across formats — some tools have size limits or don't support file references.
+
+| Content | Claude Code | Cursor | Aider | Windsurf | Copilot | Gemini CLI |
+|---------|:-----------:|:------:|:-----:|:--------:|:-------:|:----------:|
+| Core capabilities | Full | Full | Summary | Summary | Full | Full |
+| Reference data | Full | Partial | — | — | — | Full (@import) |
+| Examples | Full | — | — | — | — | Optional |
+| Install command | Full | — | — | — | — | — |
+
+### Advanced Usage
+
+To regenerate `integrations/` after editing skills:
+
+```bash
+bash scripts/convert.sh
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for adding new skills and keeping converted output in sync.
 
 ## How Skills Work
 

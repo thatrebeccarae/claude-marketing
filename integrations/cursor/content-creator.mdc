@@ -1,0 +1,257 @@
+---
+description: "Comprehensive content marketing toolkit with brand voice analysis, SEO optimization scripts, content frameworks, social media strategy, and content calendar planning. Use when writing blog posts, creating social media content, analyzing brand voice, optimizing SEO, planning content calendars, or developing content strategy. For deep SEO writing optimization, see the seo-content-writer skill."
+globs: []
+alwaysApply: false
+---
+
+# Content Creator
+
+Professional-grade brand voice analysis, SEO optimization, and platform-specific content frameworks with executable Python tools.
+
+## Core Workflows
+
+### Brand Voice Development
+
+1. **Analyze Existing Content** (if available)
+   ```bash
+   python scripts/brand_voice_analyzer.py existing_content.txt
+   ```
+
+2. **Define Voice Attributes**
+   - Review brand personality archetypes in REFERENCE.md
+   - Select primary and secondary archetypes
+   - Choose 3-5 tone attributes
+   - Document in brand guidelines
+
+3. **Create Voice Sample**
+   - Write 3 sample pieces in chosen voice
+   - Test consistency using analyzer
+   - Refine based on results
+
+### Creating SEO-Optimized Blog Posts
+
+1. **Keyword Research**
+   - Identify primary keyword (search volume 500-5000/month)
+   - Find 3-5 secondary keywords
+   - List 10-15 LSI keywords
+
+2. **Content Structure**
+   - Use blog template from REFERENCE.md
+   - Include keyword in title, first paragraph, and 2-3 H2s
+   - Aim for 1,500-2,500 words for comprehensive coverage
+
+3. **Optimization Check**
+   ```bash
+   python scripts/seo_optimizer.py blog_post.md "primary keyword" "secondary,keywords,list"
+   ```
+
+4. **Apply SEO Recommendations**
+   - Adjust keyword density to 1-3%
+   - Ensure proper heading structure
+   - Add internal and external links
+   - Optimize meta description
+
+### Social Media Content Creation
+
+1. **Platform Selection** — Identify primary platforms based on audience
+2. **Content Adaptation** — Start with core message, use repurposing matrix from REFERENCE.md
+3. **Optimization** — Platform-appropriate length, optimal posting time, correct image dimensions
+
+### Content Calendar Planning
+
+1. **Monthly Planning** — Set goals and KPIs, identify key themes
+2. **Weekly Distribution** — Follow 40/25/25/10 content pillar ratio
+3. **Batch Creation** — Create all weekly content in one session
+
+## Key Scripts
+
+### brand_voice_analyzer.py
+
+Analyzes text content for voice characteristics, readability, and consistency.
+
+**Usage**: `python scripts/brand_voice_analyzer.py <file> [json|text]`
+
+**Returns**: Voice profile (formality, tone, perspective), readability score, sentence structure analysis, improvement recommendations.
+
+### seo_optimizer.py
+
+Analyzes content for SEO optimization and provides actionable recommendations.
+
+**Usage**: `python scripts/seo_optimizer.py <file> [primary_keyword] [secondary_keywords]`
+
+**Returns**: SEO score (0-100), keyword density analysis, structure assessment, meta tag suggestions, specific optimization recommendations.
+
+## Quality Indicators
+
+- SEO score above 75/100
+- Readability appropriate for audience
+- Consistent brand voice throughout
+- Clear value proposition
+- Actionable takeaways
+- Platform-optimized
+
+## Performance Metrics
+
+### Content Metrics
+- Organic traffic growth
+- Average time on page
+- Bounce rate, social shares, backlinks
+
+### Engagement Metrics
+- Comments, email CTR, engagement rate, downloads
+
+### Business Metrics
+- Leads generated, conversion rate, CAC, revenue attribution, ROI per piece
+
+---
+
+# Content Creator — Reference
+
+## Brand Voice Archetypes
+
+| Archetype | Traits | Best For |
+|-----------|--------|----------|
+| The Expert | Authoritative, data-driven, precise | B2B, SaaS, professional services |
+| The Friend | Conversational, warm, relatable | DTC, lifestyle, community brands |
+| The Innovator | Forward-thinking, bold, disruptive | Tech startups, thought leadership |
+| The Guide | Helpful, patient, educational | Education, how-to, documentation |
+| The Rebel | Provocative, contrarian, direct | Challenger brands, opinion pieces |
+| The Storyteller | Narrative-driven, emotional, vivid | Personal brands, case studies |
+
+### Tone Matrix
+
+| Dimension | Scale |
+|-----------|-------|
+| Formality | Casual ←→ Formal |
+| Energy | Calm ←→ Energetic |
+| Humor | Serious ←→ Playful |
+| Confidence | Humble ←→ Bold |
+| Perspective | Personal (I/we) ←→ Objective (it/they) |
+
+## Content Frameworks
+
+### Blog Post Template
+
+```markdown
+# [Title with Primary Keyword] (50-60 chars)
+
+Meta description: [155 chars with primary keyword, benefit, CTA]
+
+## Introduction (100-150 words)
+- Hook: question, statistic, or bold statement
+- Context: why this matters now
+- Promise: what the reader will learn
+
+## [H2 with Secondary Keyword] (200-400 words)
+- Key point with supporting evidence
+- Example or case study
+- Practical takeaway
+
+## [H2 with Secondary Keyword] (200-400 words)
+[Repeat pattern]
+
+## [H2: Practical Application] (200-400 words)
+- Step-by-step instructions
+- Code snippets or templates
+- Common pitfalls to avoid
+
+## Conclusion (100-150 words)
+- Summarize key takeaways (3 bullets)
+- CTA: what to do next
+- Internal link to related content
+```
+
+### LinkedIn Post Framework
+
+```
+[Hook — first 2 lines visible before "see more"] (max 210 chars)
+
+[Story or insight — 3-5 short paragraphs]
+[Use line breaks between each thought]
+[One idea per paragraph]
+
+[Key takeaway — bold or formatted differently]
+
+[CTA — question or prompt for engagement]
+
+[Hashtags — 3-5 relevant tags]
+```
+
+### Twitter/X Thread Framework
+
+```
+1/ [Hook tweet — must stand alone] (max 280 chars)
+
+2/ [Context — why this matters]
+
+3/ [Key insight #1]
+
+4/ [Key insight #2 — with data if possible]
+
+5/ [Counter-argument or nuance]
+
+6/ [Practical takeaway]
+
+7/ [CTA + link to full content]
+```
+
+### Newsletter Framework
+
+```
+Subject: [Curiosity gap or specific benefit] (40-60 chars)
+Preview: [Extends subject, adds context] (40-90 chars)
+
+## [Main Story]
+- 300-500 words
+- One key insight
+- Personal angle or opinion
+
+## [Quick Hits / Links] (3-5 items)
+- [Title]: [One-line summary + link]
+
+## [CTA]
+- Reply prompt or resource link
+```
+
+## Social Media Platform Specs
+
+| Platform | Optimal Length | Best Times (EST) | Image Size |
+|----------|---------------|-------------------|------------|
+| LinkedIn | 1,200-1,500 chars | Tue-Thu 8-10am | 1200x627 |
+| Twitter/X | 100-200 chars (threads: 5-7) | Mon-Fri 9am-12pm | 1200x675 |
+| Instagram | 125-150 chars (caption) | Tue-Fri 11am-1pm | 1080x1080 |
+| Newsletter | 300-500 words | Tue-Thu 6-10am | 600px wide |
+
+## Content Calendar Template
+
+```markdown
+# Content Calendar — [Month Year]
+
+## Monthly Goals
+- [ ] [Goal 1 with metric]
+- [ ] [Goal 2 with metric]
+
+## Theme: [Monthly theme]
+
+## Week 1 (MM/DD - MM/DD)
+| Day | Platform | Type | Topic | Status |
+|-----|----------|------|-------|--------|
+| Mon | Blog | How-to | [Topic] | Draft |
+| Tue | LinkedIn | Insight | [Topic] | Scheduled |
+| Thu | Newsletter | Digest | [Topic] | Planned |
+
+## Content Pillar Ratio (40/25/25/10)
+- 40% Educational (how-tos, guides, tutorials)
+- 25% Thought Leadership (opinions, predictions, analysis)
+- 25% Social Proof (case studies, results, testimonials)
+- 10% Promotional (products, services, offers)
+```
+
+## Repurposing Matrix
+
+| Source | LinkedIn | Twitter | Newsletter | Instagram |
+|--------|----------|---------|------------|-----------|
+| Blog post | Key insight + CTA | Thread (5-7 tweets) | Summary + link | Carousel (5-7 slides) |
+| Case study | Results highlight | Before/after stat | Featured story | Quote graphic |
+| Webinar | 3 takeaways | Live-tweet thread | Replay link + summary | Speaker quote |
+| Data report | Chart + insight | Key stat thread | Deep dive section | Infographic |

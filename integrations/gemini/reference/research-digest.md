@@ -1,0 +1,253 @@
+# research-digest
+
+
+# Research Digest
+
+Generate structured research briefs from RSS feeds, web sources, and industry publications.
+
+## Core Capabilities
+
+- Pull from RSS feeds, web search, and curated sources
+- Assess source credibility and recency
+- Cross-reference findings across multiple sources
+- Extract trends, data points, and expert opinions
+- Identify counter-arguments and nuance
+- Produce actionable research briefs
+
+## Workflow
+
+### 1. Source Collection
+
+Gather raw material from:
+- **RSS feeds** — industry blogs, news sites, newsletters (via any RSS reader/API)
+- **Web search** — targeted queries for recent coverage
+- **Industry reports** — analyst reports, whitepapers, earnings calls
+- **Social/community** — Reddit, Twitter/X, LinkedIn discussions
+
+### 2. Source Assessment
+
+Evaluate each source on:
+
+| Criterion | Weight | Scale |
+|-----------|--------|-------|
+| Credibility | 30% | Original research > analysis > aggregation > opinion |
+| Recency | 25% | Last 7 days > 30 days > 90 days > older |
+| Relevance | 25% | Directly on topic > adjacent > tangential |
+| Uniqueness | 20% | Novel data > unique angle > common knowledge |
+
+### 3. Synthesis
+
+- Identify convergent themes (3+ sources saying the same thing)
+- Flag divergent views (contradictions between sources)
+- Extract specific data points with citations
+- Note the "so what" — why this matters for the target audience
+
+### 4. Brief Generation
+
+Produce a structured markdown brief.
+
+## Brief Structure
+
+```markdown
+# Research Brief: [Topic]
+**Date:** YYYY-MM-DD
+**Depth:** Quick scan / Standard / Deep dive
+**Sources reviewed:** [count]
+
+## Executive Summary
+- [Key finding 1]
+- [Key finding 2]
+- [Key finding 3]
+
+## Key Findings
+
+### Finding 1: [Headline]
+[2-3 paragraph analysis with source citations]
+
+### Finding 2: [Headline]
+[2-3 paragraph analysis with source citations]
+
+## Data Points
+| Metric | Value | Source | Date |
+|--------|-------|--------|------|
+
+## Expert Perspectives
+- "[Quote]" — [Name, Title, Source]
+
+## Counter-Arguments & Nuance
+- [Opposing view with source]
+
+## Content Angles
+- [Angle 1: how to use this research in content]
+- [Angle 2]
+
+## Sources
+1. [Source name] — [URL] — [Credibility: High/Medium/Low]
+```
+
+## Options
+
+| Option | Values | Default |
+|--------|--------|---------|
+| Time range | 24h, 7d, 30d, 90d | 7d |
+| Depth | quick, standard, deep | standard |
+| Focus | topic keyword or category | required |
+| Output | brief, report, raw-notes | brief |
+
+## Quality Standards
+
+1. **Minimum 3 independent sources** per key finding
+2. **Recency bias** toward last 30 days unless historical context is needed
+3. **Always include counter-arguments** — at least one contrarian or skeptical view
+4. **Separate facts from opinions** — clearly label which is which
+5. **Link to original sources** — never cite without attribution
+6. **No speculation** — if data is missing, say so rather than guessing
+
+For source credibility framework and synthesis methodology, see [REFERENCE.md](REFERENCE.md).
+
+---
+
+# Research Digest — Reference
+
+## Source Credibility Framework
+
+### Tier 1: Primary Research (Highest credibility)
+- Peer-reviewed studies and academic papers
+- Government/regulatory data (Census, BLS, SEC filings)
+- Company earnings reports and SEC filings
+- Original surveys with disclosed methodology
+- Patent filings
+
+### Tier 2: Professional Analysis
+- Analyst reports (Gartner, Forrester, McKinsey, etc.)
+- Industry association reports
+- Major business publications (WSJ, Bloomberg, Reuters)
+- Expert interviews and conference talks
+- Well-sourced investigative journalism
+
+### Tier 3: Industry Commentary
+- Industry blogs and newsletters with track record
+- Trade publications
+- LinkedIn posts from verified practitioners
+- Podcast interviews with industry leaders
+- Company case studies (note: inherently biased)
+
+### Tier 4: Community & Social (Lowest credibility)
+- Reddit discussions and Twitter threads
+- Quora answers
+- YouTube commentary
+- Anonymous forum posts
+- User reviews and testimonials
+
+**Rule:** Key findings should be supported by Tier 1 or 2 sources. Tier 3-4 sources are useful for sentiment and emerging trends but should not be cited as primary evidence.
+
+## Synthesis Methodology
+
+### Convergence Analysis
+
+When 3+ independent sources report the same finding:
+1. Note the convergence (strong signal)
+2. Check if sources are truly independent (not citing each other)
+3. Look for the original primary source
+4. Assess if the finding has become "conventional wisdom" (may need challenge)
+
+### Divergence Analysis
+
+When sources contradict each other:
+1. Identify the specific point of disagreement
+2. Check data sources and methodology differences
+3. Note potential biases (company-funded research, platform advocacy)
+4. Present both views with evidence quality assessment
+5. Do NOT resolve the contradiction — present it honestly
+
+### Trend Identification
+
+| Signal | Confidence |
+|--------|-----------|
+| Quantitative data showing consistent direction | High |
+| 3+ independent expert opinions aligned | Medium-High |
+| Emerging theme in community discussions | Medium |
+| Single analyst prediction | Low |
+| Anecdotal evidence only | Very Low |
+
+## Search Templates
+
+### Industry Scan
+
+```
+"[industry] trends 2026"
+"[industry] market report"
+"[industry] challenges" site:reddit.com
+"[technology] adoption" "[industry]"
+"[competitor 1] OR [competitor 2]" announcement OR launch
+```
+
+### Topic Deep Dive
+
+```
+"[topic]" research OR study OR data
+"[topic]" expert OR analyst
+"[topic]" "according to" OR "reported that"
+"[topic]" criticism OR challenge OR limitation
+"[topic]" case study OR example
+```
+
+### Competitive Intelligence
+
+```
+"[company]" announcement OR launch OR partnership
+"[company]" revenue OR funding OR valuation
+"[company]" review OR alternative
+"[company]" vs "[competitor]"
+site:linkedin.com "[company]" hiring OR role
+```
+
+## Citation Format
+
+### In-Brief Citation
+
+```
+According to Gartner's 2025 Magic Quadrant report, the CDP market reached $4.2B...
+```
+
+### Source List Entry
+
+```
+1. **Gartner** — "Magic Quadrant for Customer Data Platforms, 2025" — https://gartner.com/... — Credibility: Tier 2 (Analyst Report) — Published: 2025-09-15
+```
+
+### Data Point Citation
+
+```
+| Market size | $4.2B (2024) | Gartner MQ 2025 | 2025-09 |
+| Growth rate | 25% CAGR | IDC Tracker | 2025-06 |
+```
+
+## Brief Depth Guide
+
+### Quick Scan (15-20 min)
+
+- 5-8 sources reviewed
+- 3-5 key findings
+- Minimal counter-arguments
+- No expert quotes
+- Use case: staying current, identifying emerging topics
+
+### Standard (30-45 min)
+
+- 10-15 sources reviewed
+- 5-8 key findings with analysis
+- 2-3 data points per finding
+- At least 1 counter-argument
+- 2-3 content angles
+- Use case: content research, market monitoring
+
+### Deep Dive (60-90 min)
+
+- 20+ sources reviewed
+- 8-12 key findings with detailed analysis
+- 5+ data points with cross-referencing
+- Multiple counter-arguments and nuance
+- Expert perspectives section
+- 4-6 content angles with audience mapping
+- Use case: strategic planning, market entry, investment research

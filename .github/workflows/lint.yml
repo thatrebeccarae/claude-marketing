@@ -111,3 +111,124 @@ jobs:
               dirs = set(os.path.dirname(s) for s in skill_files)
               print(f"All required files present in {len(dirs)} skill directory(ies).")
           PYEOF
+
+  validate-integrations:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run convert.sh
+        run: bash scripts/convert.sh
+
+      - name: Drift detection
+        run: |
+          if ! git diff --exit-code integrations/; then
+            echo ""
+            echo "ERROR: integrations/ is out of sync with skills/."
+            echo "Run 'bash scripts/convert.sh' and commit the result."
+            exit 1
+          fi
+
+      - name: Windsurf size check
+        if: always()
+        run: |
+          SIZE=$(wc -c < integrations/windsurf/.windsurfrules)
+          echo "integrations/windsurf/.windsurfrules: ${SIZE} chars"
+          if [ "$SIZE" -ge 12000 ]; then
+            echo "ERROR: .windsurfrules is ${SIZE} chars, exceeds 12,000 char limit."
+            exit 1
+          fi
+          echo "OK: under 12,000 chars"
+
+      - name: Cursor frontmatter validation
+        if: always()
+        run: |
+          ERRORS=0
+          for f in integrations/cursor/*.mdc; do
+            [ -f "$f" ] || continue
+            FIRST=$(head -1 "$f")
+            if [ "$FIRST" != "---" ]; then
+              echo "ERROR: $f missing opening --- delimiter"
+              ERRORS=$((ERRORS + 1))
+              continue
+            fi
+            if ! awk '/^---$/{delim++; if(delim==2) exit} delim==1 && /^description:/{found=1} END{exit !found}' "$f"; then
+              echo "ERROR: $f missing description: field in frontmatter"
+              ERRORS=$((ERRORS + 1))
+            fi
+          done
+          if [ "$ERRORS" -gt 0 ]; then
+            echo "Cursor frontmatter validation failed: ${ERRORS} error(s)"
+            exit 1
+          fi
+          echo "OK: all Cursor .mdc files have valid frontmatter"
+
+      - name: File count consistency
+        if: always()
+        run: |
+          SKILL_COUNT=$(ls -1 skills/ | grep -v '^shared$' | while read -r d; do [ -f "skills/$d/SKILL.md" ] && echo "$d"; done | wc -l | tr -d ' ')
+          CURSOR_COUNT=$(ls -1 integrations/cursor/*.mdc 2>/dev/null | wc -l | tr -d ' ')
+          COPILOT_COUNT=$(ls -1 integrations/copilot/*.instructions.md 2>/dev/null | wc -l | tr -d ' ')
+          GEMINI_COUNT=$(ls -1 integrations/gemini/reference/*.md 2>/dev/null | wc -l | tr -d ' ')
+          echo "Skills with SKILL.md: ${SKILL_COUNT}"
+          echo "Cursor .mdc files:    ${CURSOR_COUNT}"
+          echo "Copilot .instructions.md files: ${COPILOT_COUNT}"
+          echo "Gemini reference .md files:     ${GEMINI_COUNT}"
+          ERRORS=0
+          if [ "$CURSOR_COUNT" -ne "$SKILL_COUNT" ]; then
+            echo "ERROR: Cursor file count (${CURSOR_COUNT}) does not match skill count (${SKILL_COUNT})"
+            ERRORS=$((ERRORS + 1))
+          fi
+          if [ "$COPILOT_COUNT" -ne "$SKILL_COUNT" ]; then
+            echo "ERROR: Copilot file count (${COPILOT_COUNT}) does not match skill count (${SKILL_COUNT})"
+            ERRORS=$((ERRORS + 1))
+          fi
+          if [ "$GEMINI_COUNT" -ne "$SKILL_COUNT" ]; then
+            echo "ERROR: Gemini reference count (${GEMINI_COUNT}) does not match skill count (${SKILL_COUNT})"
+            ERRORS=$((ERRORS + 1))
+          fi
+          if [ "$ERRORS" -gt 0 ]; then
+            exit 1
+          fi
+          echo "OK: all per-tool file counts match skill count (${SKILL_COUNT})"
+
+      - name: Gemini import validation
+        if: always()
+        run: |
+          ERRORS=0
+          while IFS= read -r line; do
+            REL="${line#@./}"
+            FULL="integrations/gemini/${REL}"
+            if [ ! -f "$FULL" ]; then
+              echo "ERROR: Gemini @import not found: ${FULL}"
+              ERRORS=$((ERRORS + 1))
+            fi
+          done < <(grep -E '^@\.\/' integrations/gemini/GEMINI.md || true)
+          if [ "$ERRORS" -gt 0 ]; then
+            echo "Gemini import validation failed: ${ERRORS} missing file(s)"
+            exit 1
+          fi
+          echo "OK: all Gemini @import references resolve"
+
+      - name: Install shellcheck
+        if: always()
+        run: sudo apt-get install -y shellcheck
+
+      - name: shellcheck on scripts
+        if: always()
+        run: |
+          ERRORS=0
+          for script in scripts/convert.sh scripts/install.sh; do
+            if [ -f "$script" ]; then
+              echo "Checking $script ..."
+              if ! shellcheck --severity=warning "$script"; then
+                ERRORS=$((ERRORS + 1))
+              fi
+            else
+              echo "SKIP: $script not found"
+            fi
+          done
+          if [ "$ERRORS" -gt 0 ]; then
+            exit 1
+          fi
