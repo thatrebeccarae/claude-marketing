@@ -95,3 +95,7 @@ Follow the appropriate framework from REFERENCE.md. Ensure:
 5. **Scannable structure.** Headers, bullets, bold key phrases. Most readers skim.
 
 For detailed platform specs, SEO checklists, and content frameworks, see [REFERENCE.md](REFERENCE.md).
+
+## Brand Context (Optional)
+
+If `brand-profile.json` exists in the working directory, read it before drafting content. Use the voice axes and descriptors to calibrate tone, the target audience to frame pain points and aspirations, and brand values to weave into messaging naturally. This profile is produced by the `brand-dna` skill.

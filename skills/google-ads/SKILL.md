@@ -143,3 +143,20 @@ Ask me questions like:
 - "Review my Google Merchant Center feed for issues"
 
 For detailed Google Ads API reference, script templates, and advanced configurations, see [REFERENCE.md](REFERENCE.md).
+
+## Hard Rules
+
+These constraints must never be violated in recommendations:
+
+1. **Never recommend Broad Match without Smart Bidding.** Broad Match + Manual CPC = uncontrolled spend.
+2. **3x Kill Rule:** Flag any campaign/ad group with CPA >3x target for immediate pause or restructuring.
+3. **Enhanced Conversions must be recommended** if not already active. Foundation for data quality.
+4. **Consent Mode v2 required** for any account serving EU/EEA traffic.
+5. **Negative keyword lists required** — minimum 3 themed lists (Competitor, Jobs, Free, Irrelevant).
+6. **Never recommend edits during active learning phase** — wait for learning to complete or reset intentionally.
+7. **Brand and non-brand must be separated** into distinct campaigns with independent budgets and bidding.
+8. **PMax must have brand exclusions** when a brand Search campaign exists.
+
+## Scored Audit
+
+When performing an account audit, load `skills/shared/scoring-system.md` for the weighted scoring algorithm and `CHECKS.md` for the 74-check Google Ads audit checklist. Produce a health score (0-100, grade A-F) with Quick Wins and a prioritized action plan.

@@ -4,6 +4,40 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.4.0] - 2026-03-16
+
+### Added
+
+- **Unified Scoring System** — Weighted audit scoring algorithm with severity multipliers (Critical 5.0, High 2.5, Medium 1.5, Low 0.5), A-F health grades, Quick Wins identification, and cross-platform budget-weighted aggregation
+  - New `skills/shared/scoring-system.md` — shared scoring methodology for all audit skills
+  - New `skills/shared/README.md` — index for shared cross-skill references
+- **Google Ads CHECKS.md** — 74 numbered, severity-tagged audit checks across 6 categories (Conversion Tracking 25%, Wasted Spend 20%, Structure 15%, Keywords 15%, Ads 15%, Settings 10%)
+- **Meta Ads CHECKS.md** — 46 numbered, severity-tagged audit checks across 4 categories (Pixel/CAPI 30%, Creative 30%, Structure 20%, Audience 20%)
+- **Microsoft Ads CHECKS.md** — 30 numbered, severity-tagged audit checks across 5 categories (Technical 25%, Syndication 20%, Structure 20%, Creative 20%, Settings 15%)
+- **Hard Rules** sections added to Google Ads, Meta Ads, and Microsoft Ads SKILL.md — non-negotiable constraints Claude must never violate in recommendations
+- **Scored Audit examples** added to all three paid media EXAMPLES.md — health score output with category breakdown, Quick Wins, and prioritized action plans
+- **CHECKS.md convention** documented in CONTRIBUTING.md — standardized format for audit skills with check IDs, severity tags, and Pass/Warning/Fail criteria
+- **Shared References convention** documented in CONTRIBUTING.md — cross-skill reference loading pattern
+- **Cross-Platform Audit** — New orchestrator skill that spawns parallel scored audits across Google Ads, Meta Ads, and Microsoft Ads, merges into budget-weighted aggregate health score (A-F), adds cross-platform analysis (budget allocation, tracking consistency, creative alignment, attribution overlap, kill list, scaling opportunities), and optionally generates client-ready decks via pro-deck-builder
+  - New `skills/cross-platform-audit/SKILL.md` — orchestration workflow with context intake, parallel task spawning, result merging, and cross-platform intelligence
+  - New `skills/cross-platform-audit/REFERENCE.md` — cross-platform benchmarks, attribution setup, budget allocation frameworks, kill list criteria
+  - New `skills/cross-platform-audit/EXAMPLES.md` — full worked example with 3-platform audit, cross-platform analysis, and 90-day action plan
+- **Brand DNA** — New skill that extracts brand identity (voice, colors, typography, imagery, values, audience) from a website URL into a structured `brand-profile.json` consumed by downstream skills
+  - New `skills/brand-dna/SKILL.md` — extraction workflow using WebFetch (zero external dependencies)
+  - New `skills/brand-dna/REFERENCE.md` — brand-profile.json schema with field reference and CSS extraction targets
+  - New `skills/brand-dna/EXAMPLES.md` — full extraction, quick mode, downstream usage, and competitor comparison examples
+- **Brand Context sections** added to seo-content-writer, email-composer, frontend-design, and pro-deck-builder — each skill now reads brand-profile.json when present for brand-consistent output
+- **Cross-Platform Audit** — New orchestrator skill that spawns parallel scored audits across Google Ads, Meta Ads, and Microsoft Ads, merges into budget-weighted aggregate health score (A-F), adds cross-platform analysis (budget allocation, tracking consistency, creative alignment, attribution overlap, kill list, scaling opportunities), and optionally generates client-ready decks via pro-deck-builder
+  - New  — orchestration workflow with context intake, parallel task spawning, result merging, and cross-platform intelligence
+  - New  — cross-platform benchmarks, attribution setup, budget allocation frameworks, kill list criteria
+  - New  — full worked example with 3-platform audit, cross-platform analysis, and 90-day action plan
+
+### Changed
+
+- Updated README skill descriptions for Google Ads, Meta Ads, and Microsoft Ads to reflect scored audit capabilities
+- Fixed remaining dgtl dept* references in README.md and CONTRIBUTING.md
+
+
 ## [1.3.0] - 2026-03-13
 
 ### Added

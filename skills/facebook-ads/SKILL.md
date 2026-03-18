@@ -133,3 +133,21 @@ Ask me questions like:
 - "Plan a lead gen campaign for B2B on Facebook/Instagram"
 
 For detailed Meta Ads API reference, pixel implementation, and advanced configurations, see [REFERENCE.md](REFERENCE.md).
+
+## Hard Rules
+
+These constraints must never be violated in recommendations:
+
+1. **Pixel + CAPI both required.** Post-iOS 14.5, browser-only tracking loses 30-40% of conversion data.
+2. **Event deduplication must be active** (event_id matching) — without it, conversions are double-counted.
+3. **Event Match Quality ≥8.0** for Purchase event. Below 6.0 is critical.
+4. **Budget must be ≥5x target CPA per ad set** — below this, the algorithm cannot exit learning phase.
+5. **Never recommend edits during active learning phase** — wait for ~50 conversions/week or intentional reset.
+6. **Creative fatigue = action required.** CTR decline >20% over 14 days with frequency >3 = replace creative immediately.
+7. **<30% of ad sets in Learning Limited** — above this threshold, consolidation is mandatory.
+8. **Purchasers/converters must be excluded** from prospecting campaigns.
+9. **Special Ad Categories must be declared** before campaign creation for Housing, Employment, Credit, and Financial Products.
+
+## Scored Audit
+
+When performing an account audit, load `skills/shared/scoring-system.md` for the weighted scoring algorithm and `CHECKS.md` for the 46-check Meta Ads audit checklist. Produce a health score (0-100, grade A-F) with Quick Wins and a prioritized action plan.

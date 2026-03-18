@@ -1,6 +1,6 @@
 <div align="center">
 
-# dgtl dept*
+# claude-marketing
 
 **25 open source Claude Code skills, specialized agents, and autonomous workflows for marketing teams.** Paid media, e-commerce, content, strategy, creative, reporting, and development — specialist depth without specialist headcount.
 
@@ -10,7 +10,7 @@
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Tools-D97757?style=for-the-badge&logo=anthropic&logoColor=white)](https://docs.anthropic.com/en/docs/claude-code)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Rebecca%20Rae%20Barton-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/rebeccaraebarton)
 [![X](https://img.shields.io/badge/X-@rebeccarae-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/rebeccarae)
-[![Substack](https://img.shields.io/badge/Substack-dgtl%20dept*-FF6719?style=for-the-badge&logo=substack&logoColor=white)](https://dgtldept.substack.com/welcome)
+[![Substack](https://img.shields.io/badge/Substack-claude--marketing-FF6719?style=for-the-badge&logo=substack&logoColor=white)](https://dgtldept.substack.com/welcome)
 [![Website](https://img.shields.io/badge/rebeccaraebarton.com-000000?style=for-the-badge&logo=google--chrome&logoColor=white)](https://rebeccaraebarton.com)
 [![GitHub stars](https://img.shields.io/github/stars/thatrebeccarae/claude-marketing?style=for-the-badge&logo=github&color=181717)](https://github.com/thatrebeccarae/claude-marketing/stargazers)
 [![License](https://img.shields.io/badge/License-MIT-353535?style=for-the-badge)](LICENSE)
@@ -58,7 +58,7 @@ git clone https://github.com/thatrebeccarae/claude-marketing.git
 
 Most "AI marketing" tools launching lately are wrappers with an up-charge — skills that don't work, agents that are anything but "autonomous," or repackaged capabilities your platforms already ship natively, sold back to you with a dashboard and a subscription fee.
 
-**dgtl dept is a complete digital marketing skill set with built-in domain expertise.** No wrappers, no subscriptions, no dashboards selling you capabilities you already own. The focused knowledge, benchmarks, and diagnostic frameworks that make Claude Code useful for lean marketing teams — open source, free, and built from years inside Klaviyo, Shopify, GA4, GTM, analytics stacks, and orchestration layers.
+**claude-marketing is a complete digital marketing skill set with built-in domain expertise.** No wrappers, no subscriptions, no dashboards selling you capabilities you already own. The focused knowledge, benchmarks, and diagnostic frameworks that make Claude Code useful for lean marketing teams — open source, free, and built from years inside Klaviyo, Shopify, GA4, GTM, analytics stacks, and orchestration layers.
 
 - **Skill packs** give Claude Code the same platform expertise a senior marketing consultant brings to an audit
 - **Agent workflows** are autonomous pipelines that monitor GA4 properties, detect anomalies, and implement fixes via GTM — without anyone lifting a finger
@@ -84,14 +84,14 @@ Implementation-ready answers — not tutorials, not blog-post-level overviews.
 
 | Category | What It Is | Count |
 |----------|-----------|-------|
-| **[Skills](skills/)** | Claude Code skills — install individually or as packs | 25 skills |
+| **[Skills](skills/)** | Claude Code skills — install individually or as packs | 27 skills |
 | **[Skill Packs](skill-packs/)** | Grouped collections with setup guides and install wizards | 6 packs |
 | **[Agents](agents/)** | Standalone agents — portable analysis logic, usable with or without n8n | 3 agents |
 | **[Workflows](workflows/)** | Autonomous n8n pipelines that wire agents together on a schedule | 1 pipeline |
 
 ## Skills
 
-All 25 skills live in [`skills/`](skills/) — install individually or use a [skill pack](skill-packs/) to set up a related group.
+All 27 skills live in [`skills/`](skills/) — install individually or use a [skill pack](skill-packs/) to set up a related group.
 
 > [**View Live Demo**](https://thatrebeccarae.github.io/claude-marketing/skill-packs/demo/) — See skills in action with example terminal output.
 
@@ -110,12 +110,13 @@ All 25 skills live in [`skills/`](skills/) — install individually or use a [sk
 
 | Skill | What Claude Can Do |
 |-------|-------------------|
-| **[Google Ads](skills/google-ads/)** | Campaign auditing, Quality Score optimization, Performance Max, Shopping, bidding strategies, wasted spend identification |
-| **[Meta Ads](skills/facebook-ads/)** | Creative fatigue diagnosis, pixel/CAPI health, iOS 14.5+ attribution, Advantage+ campaign readiness |
-| **[Microsoft Ads](skills/microsoft-ads/)** | Google import optimization, LinkedIn Profile Targeting, UET tracking, Shopping campaigns, Clarity integration |
+| **[Google Ads](skills/google-ads/)** | Scored account audits (74 checks, A-F health grade), Quality Score optimization, Performance Max, Shopping, bidding strategies, wasted spend identification |
+| **[Meta Ads](skills/facebook-ads/)** | Scored account audits (46 checks, A-F health grade), creative fatigue diagnosis, pixel/CAPI health, iOS 14.5+ attribution, Advantage+ readiness |
+| **[Microsoft Ads](skills/microsoft-ads/)** | Scored account audits (30 checks, A-F health grade), Google import optimization, LinkedIn Profile Targeting, UET tracking, Clarity integration |
 | **[Account Structure Review](skills/account-structure-review/)** | Cross-platform structural audit — conversion volume thresholds, budget fragmentation, consolidation roadmaps |
 | **[Competitor Ads Analyst](skills/competitor-ads-analyst/)** | Competitor ad creative analysis from public ad libraries — messaging patterns, creative formats, positioning gaps |
 | **[Wasted Spend Finder](skills/wasted-spend-finder/)** | Systematic Google Ads and Meta waste analysis — produces uploadable exclusion lists with thematic categorization |
+| **[Cross-Platform Audit](skills/cross-platform-audit/)** | Unified multi-platform scored audit — parallel execution across Google, Meta, and Microsoft with budget-weighted aggregate health score (A-F), cross-platform analysis, and optional deck generation |
 
 ### Content
 
@@ -130,6 +131,7 @@ All 25 skills live in [`skills/`](skills/) — install individually or use a [sk
 | Skill | What Claude Can Do |
 |-------|-------------------|
 | **[Market Research](skills/market-research/)** | Consulting-grade research reports (50+ pages) — Porter's Five Forces, PESTLE, SWOT, TAM/SAM/SOM, competitive positioning |
+| **[Brand DNA](skills/brand-dna/)** | Extract brand identity from a URL — voice, colors, typography, imagery, values, audience — into brand-profile.json for downstream skill consumption |
 | **[Research Digest](skills/research-digest/)** | Structured research briefs from RSS feeds and web sources — source synthesis, credibility assessment, content angles |
 | **[ICP Research](skills/icp-research/)** | Ideal customer profiles with pain points, objections, buying triggers, community research, and voice-of-customer extraction |
 
@@ -269,7 +271,7 @@ See the [GA4-GTM Pipeline README](workflows/ga4-gtm-pipeline/README.md) and [Get
 ```
 "Analyze my Google Ads search terms and find wasted spend"
 "Pull competitor ads from Meta Ad Library for these 3 brands and find messaging gaps"
-"Run a cross-platform account structure review for Google, Meta, and Bing"
+"Run a full cross-platform audit across Google, Meta, and Microsoft — give me a unified health score and deck"
 ```
 
 ### Content & Strategy

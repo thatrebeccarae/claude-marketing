@@ -464,3 +464,55 @@ Instead of asking **"How do I fix my ROAS?"** ask **"ROAS is 2.1x on prospecting
 Instead of asking **"Set up CAPI for me"** ask **"We're on Shopify Plus with a headless Hydrogen frontend. What's the best CAPI implementation path — platform integration, partner integration, or custom Gateway API?"** Platform details determine the right approach.
 
 Instead of asking **"What's a good CTR?"** ask **"Our Feed CTR is 1.8% but Stories CTR is 0.6%. Is the Stories CTR concerning or is that expected given placement behavior differences?"** Benchmarks vary dramatically by placement, objective, and industry.
+
+---
+
+## 8. Scored Account Audit (Health Score)
+
+**User Request:**
+> "Score my Meta Ads account health and tell me what to fix first."
+
+**Analysis Steps:**
+1. Load `skills/shared/scoring-system.md` for scoring algorithm and `CHECKS.md` for the 46-check audit
+2. Evaluate each applicable check as PASS, WARNING, or FAIL based on account data
+3. Calculate category scores using severity multipliers and category weights
+4. Identify Quick Wins (Critical/High severity, ≤15 min fix time)
+5. Produce health score, grade, and prioritized action plan
+
+**Sample Output:**
+
+## Account Health Score: 71/100 (Grade C — Needs Improvement)
+
+### Quick Wins (fix in ≤15 min, high impact)
+1. **[Critical]** Deploy CAPI via Gateway — M-PX2 (15 min)
+2. **[High]** Verify domain in Business Manager — M-PX5 (5 min)
+3. **[High]** Set attribution to 7-day click / 1-day view — M-PX9 (2 min)
+4. **[High]** Exclude purchasers from prospecting — M-AU5 (10 min)
+5. **[Critical]** Add video/carousel formats — M-CR1 (15 min)
+
+### Category Breakdown
+
+| Category | Weight | Score | Grade | Top Issue |
+|----------|--------|-------|-------|-----------|
+| Pixel / CAPI Health | 30% | 55 | D | No CAPI active, EMQ at 5.8 |
+| Creative Diversity & Fatigue | 30% | 74 | C | Only static images, no video |
+| Account Structure | 20% | 82 | B | 2 ad sets in Learning Limited |
+| Audience & Targeting | 20% | 78 | B | No purchaser exclusions |
+
+### Prioritized Action Plan
+
+**Immediate (This Week)**
+1. Deploy CAPI via Gateway and verify event deduplication
+2. Verify domain in Business Manager
+3. Set 7-day click / 1-day view attribution on all campaigns
+4. Create purchaser Custom Audience and exclude from prospecting
+
+**This Month**
+5. Produce video creatives in 9:16 vertical for Reels/Stories
+6. Add UGC content to creative mix (target ≥30%)
+7. Test Advantage+ Audience vs manual targeting
+8. Upload and refresh Customer Match list
+
+**Next Quarter**
+9. Test Advantage+ Shopping Campaign with product catalog
+10. Build A/B testing cadence using Meta Experiments

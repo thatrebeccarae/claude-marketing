@@ -549,3 +549,58 @@ For each campaign:
 | "Fix my quality scores" | "I have 153 keywords with quality score below 6 spending $1,100/month. Diagnose whether the issue is ad relevance, landing page, or expected CTR — and prioritize the fixes by spend." |
 | "Import my Google Ads" | "I just imported Google Ads into Microsoft. Walk me through the post-import checklist: what broke, what's missing, and what Microsoft-specific features should I add." |
 | "Help with Shopping campaigns" | "I have 2,000 SKUs across 8 categories with varying margins. Design a 3-tier priority Shopping structure with starting bids benchmarked against my Google Shopping CPCs." |
+
+---
+
+## 8. Scored Account Audit (Health Score)
+
+**User Request:**
+> "Score my Microsoft Ads account. We imported from Google 3 months ago but haven't optimized it."
+
+**Analysis Steps:**
+1. Load `skills/shared/scoring-system.md` for scoring algorithm and `CHECKS.md` for the 30-check audit
+2. Evaluate each applicable check as PASS, WARNING, or FAIL based on account data
+3. Calculate category scores using severity multipliers and category weights
+4. Identify Quick Wins (Critical/High severity, ≤15 min fix time)
+5. Produce health score, grade, and prioritized action plan
+
+**Sample Output:**
+
+## Account Health Score: 58/100 (Grade D — Poor)
+
+### Quick Wins (fix in ≤15 min, high impact)
+1. **[Critical]** Enable MSCLKID auto-tagging — MS-TE2 (2 min)
+2. **[Critical]** Exclude syndication from brand campaigns — MS-SB1 (2 min)
+3. **[High]** Exclude underperforming search partners — MS-SB2 (5 min)
+4. **[High]** Add Microsoft-specific negative keywords — MS-SP3 (10 min)
+5. **[High]** Enable LinkedIn Profile Targeting — MS-SA1 (10 min)
+
+### Category Breakdown
+
+| Category | Weight | Score | Grade | Top Issue |
+|----------|--------|-------|-------|-----------|
+| Technical Setup | 25% | 62 | C | Auto-tagging disabled, no Clarity |
+| Syndication & Bidding | 20% | 45 | D | Brand on syndication network |
+| Structure & Audience | 20% | 55 | D | No LinkedIn targeting, no remarketing |
+| Creative & Extensions | 20% | 68 | C | No Multimedia Ads, missing Action Extensions |
+| Settings & Performance | 15% | 52 | D | CPCs same as Google (no advantage captured) |
+
+### Prioritized Action Plan
+
+**Immediate (This Week)**
+1. Enable MSCLKID auto-tagging
+2. Exclude syndication partners from all brand campaigns
+3. Review Microsoft-specific search terms and add negatives
+4. Exclude underperforming search partners
+
+**This Month**
+5. Enable LinkedIn Profile Targeting for B2B campaigns
+6. Set up UET-based remarketing lists
+7. Install Microsoft Clarity for behavioral analysis
+8. Test Multimedia Ads format on top campaigns
+9. Add Action Extensions and Filter Link Extensions
+
+**Next Quarter**
+10. Set up Microsoft Merchant Center (separate from Google)
+11. Build Microsoft-specific campaign structure (not just Google mirror)
+12. Implement Enhanced Conversions

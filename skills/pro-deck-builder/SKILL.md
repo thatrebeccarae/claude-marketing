@@ -543,3 +543,7 @@ pip install "markitdown[pptx]" Pillow             # Reading + QA
 ## Implementation
 
 Read [REFERENCE.md](REFERENCE.md) for PptxGenJS API patterns and complete slide composition code for both light and dark modes.
+
+## Brand Context (Optional)
+
+If `brand-profile.json` exists in the working directory, read it before building decks. Override the default RRBC palette with the brand's colors (primary, secondary, background), use brand fonts when available (fall back to system fonts), and include the brand name on title slides and headers. This profile is produced by the `brand-dna` skill.

@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>claude-marketing — Marketing expertise layer for Claude Code</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-00XHYRHCX4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-00XHYRHCX4');
+</script>
+<meta name="description" content="27 open-source Claude Code skills and 3 specialized agents for paid media audits, brand intelligence, content creation, and analytics. 150+ weighted audit checks with A-F health grades. Free, no subscriptions.">
+<meta property="og:title" content="claude-marketing — Marketing expertise layer for Claude Code">
+<meta property="og:description" content="27 open-source Claude Code skills and 3 specialized agents for paid media audits, brand intelligence, content creation, and analytics. 150+ weighted audit checks with A-F health grades. Free, no subscriptions.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="claude-marketing — Marketing expertise layer for Claude Code">
+<meta name="twitter:description" content="27 open-source Claude Code skills and 3 specialized agents for paid media audits, brand intelligence, content creation, and analytics. 150+ weighted audit checks with A-F health grades.">
+<link rel="canonical" href="https://thatrebeccarae.github.io/claude-marketing/">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "claude-marketing — Marketing expertise layer for Claude Code",
+    "description": "27 open-source Claude Code skills and 3 specialized agents for paid media audits, brand intelligence, content creation, and analytics. 150+ weighted audit checks with A-F health grades. Free, no subscriptions.",
+    "url": "https://thatrebeccarae.github.io/claude-marketing/",
+    "inLanguage": "en",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "claude-marketing",
+      "url": "https://github.com/thatrebeccarae/claude-marketing"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "claude-marketing",
+    "description": "27 open-source Claude Code skills and 3 specialized agents for paid media audits, brand intelligence, content creation, and analytics.",
+    "url": "https://github.com/thatrebeccarae/claude-marketing",
+    "applicationCategory": "DeveloperApplication",
+    "applicationSubCategory": "Marketing Tools",
+    "operatingSystem": "macOS, Windows, Linux",
+    "softwareRequirements": "Claude Code CLI",
+    "license": "https://opensource.org/licenses/MIT",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "150+ weighted audit checks with A-F health grades",
+      "Cross-platform paid media audits (Google, Meta, Microsoft)",
+      "Brand DNA extraction from any URL",
+      "Klaviyo, Shopify, GA4, Braze, and Looker Studio expertise",
+      "SEO content creation and email composition",
+      "GA4-to-GTM autonomous agent pipeline"
+    ],
+    "author": {
+      "@type": "Person",
+      "@id": "https://rebeccaraebarton.com/#person"
+    },
+    "codeRepository": "https://github.com/thatrebeccarae/claude-marketing"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://rebeccaraebarton.com/#person",
+    "name": "Rebecca Rae Barton",
+    "url": "https://rebeccaraebarton.com",
+    "sameAs": [
+      "https://github.com/thatrebeccarae",
+      "https://linkedin.com/in/rebeccaraebarton",
+      "https://instagram.com/index.html",
+      "https://dgtldept.substack.com"
+    ],
+    "jobTitle": "Digital Marketing Strategist",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Brooklyn",
+      "addressRegion": "NY"
+    }
+  }
+]
+</script>
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700&display=swap" rel="stylesheet">
+<style>
+/* ─── FONTS ─── */
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('fonts/PPEditorialNew-Ultralight.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('fonts/PPEditorialNew-UltralightItalic.woff2') format('woff2');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('fonts/PPEditorialNew-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('fonts/PPEditorialNew-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('fonts/PPEditorialNew-Ultrabold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('fonts/PPEditorialNew-UltraboldItalic.woff2') format('woff2');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cartograph CF';
+  src: url('fonts/CartographCF-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── RESET & BASE ─── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --accent: #5B5F8D;
+  --black: #000000;
+  --white: #ffffff;
+  --terminal-bg: #0d0f14;
+  --terminal-green: #4ade80;
+  --terminal-red: #ef4444;
+  --terminal-amber: #f59e0b;
+  --terminal-text: #e4e4e7;
+  --border-width: 2px;
+  --section-pad-y: clamp(80px, 12vw, 200px);
+  --section-pad-x: clamp(40px, 5vw, 80px);
+  --ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --grid-cols: 12;
+  --grid-gap: 20px;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: 60px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Switzer', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(15px, 1.1vw, 17px);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── SELECTION ─── */
+::selection {
+  background: var(--theme-color);
+  color: var(--theme-bg);
+}
+
+/* ─── THEME (page-level, Locomotive-style) ─── */
+html {
+  background-color: var(--theme-bg);
+  color: var(--theme-color);
+  transition: background-color 0.4s cubic-bezier(0.215, 0.61, 0.355, 1),
+              color 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+html[data-theme="dark"] {
+  --theme-bg: #000000;
+  --theme-color: #ffffff;
+  --theme-bg-rgb: 0,0,0;
+}
+
+html[data-theme="light"] {
+  --theme-bg: #ffffff;
+  --theme-color: #000000;
+  --theme-bg-rgb: 255,255,255;
+}
+
+/* ─── GRID ─── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+  gap: var(--grid-gap);
+  padding-left: var(--section-pad-x);
+  padding-right: var(--section-pad-x);
+}
+
+/* ─── TYPOGRAPHY ─── */
+.display {
+  font-family: 'PP Editorial New', 'Georgia', serif;
+  font-size: clamp(2rem, 4.5vw, 6.5rem);
+  font-weight: 200;
+  line-height: 1.12;
+  letter-spacing: -0.014em;
+}
+
+.subtitle {
+  font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+  font-weight: 300;
+  line-height: 1.55;
+}
+
+.section-label {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  margin-bottom: 2rem;
+}
+
+.muted {
+  opacity: 0.5;
+}
+
+/* ─── LINKS ─── */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ─── SECTION ─── */
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: clamp(100px, 15vw, 200px);
+  padding-bottom: clamp(100px, 15vw, 200px);
+  scroll-snap-align: start;
+}
+
+.section > .grid {
+  
+  width: 100%;
+}
+
+
+/* ─── HEADER ─── */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1.2rem var(--section-pad-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.3s var(--ease), background-color 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
+}
+
+.site-header.scrolled {
+  background-color: rgba(var(--theme-bg-rgb), 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.header-logo {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--theme-color);
+}
+
+.header-nav {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.header-nav a {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--theme-color);
+  text-transform: uppercase;
+  transition: opacity 0.2s var(--ease), color 0.4s var(--ease);
+}
+.header-nav a:hover {
+  opacity: 0.7;
+}
+
+.header-github {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--theme-color);
+  text-transform: uppercase;
+  transition: opacity 0.2s var(--ease), color 0.4s var(--ease);
+}
+.header-github:hover {
+  opacity: 0.7;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--theme-color);
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+.hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--black);
+  z-index: 999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.mobile-nav.open {
+  display: flex;
+}
+.mobile-nav a {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--white);
+}
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 120px;
+  padding-bottom: 80px;
+  scroll-snap-align: start;
+}
+
+.hero > .grid {
+  align-items: stretch;
+  flex: 1;
+}
+
+.hero-text {
+  grid-column: 1 / 7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 25vh;
+}
+
+.hero-terminal {
+  grid-column: 7 / 13;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 3000px;
+}
+
+.hero-terminal .terminal {
+  transform:
+    rotateX(0deg)
+    rotateY(-19.5deg)
+    rotateZ(0deg)
+    scale(1.25);
+  transform-style: preserve-3d;
+}
+
+.hero .display {
+  margin-bottom: 1.5rem;
+  max-width: 100%;
+}
+
+.hero .subtitle {
+  margin-bottom: 4rem;
+}
+
+/* ─── TERMINAL ─── */
+.terminal {
+  background: var(--terminal-bg);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  font-family: 'Cartograph CF', 'SF Mono', monospace;
+  font-size: clamp(0.7rem, 1vw, 1rem);
+  line-height: 1.65;
+  width: clamp(280px, 50vw, 900px);
+  aspect-ratio: 1031 / 706;
+  margin: 0 auto;
+  box-shadow: 0 0 40px rgba(91, 95, 141, 0.08);
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.terminal-dot.red { background: #ff5f57; }
+.terminal-dot.yellow { background: #febc2e; }
+.terminal-dot.green { background: #28c840; }
+
+.terminal-body {
+  padding: 1.25rem 1.5rem;
+  height: calc(100% - 41px);
+  overflow-y: auto;
+  color: var(--terminal-text);
+  white-space: pre;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+
+.terminal-body::-webkit-scrollbar {
+  width: 4px;
+}
+.terminal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.terminal-body::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.15);
+  border-radius: 2px;
+}
+
+.terminal-body .prompt {
+  color: var(--accent);
+}
+
+.terminal-body .cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.1em;
+  background: var(--accent);
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.terminal-body .line {
+  opacity: 0;
+  transition: opacity 0.15s var(--ease);
+}
+.terminal-body .line.visible {
+  opacity: 1;
+}
+
+.terminal-body .green { color: var(--terminal-green); }
+.terminal-body .red { color: var(--terminal-red); }
+.terminal-body .amber { color: var(--terminal-amber); }
+.terminal-body .accent { color: var(--accent); }
+.terminal-body .bold { font-weight: 700; }
+.terminal-body .dim { opacity: 0.5; }
+
+/* ─── STATIC TERMINAL ─── */
+.terminal-static .terminal-body {
+  white-space: pre;
+  overflow-x: hidden;
+}
+
+/* ─── CAPABILITIES ─── */
+.capabilities-heading {
+  grid-column: 1 / -1;
+  margin-bottom: 2rem;
+}
+
+.cap-grid {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 12px;
+  row-gap: 22px;
+}
+
+.cap-card {
+  padding: 1.5rem 2.5rem;
+  border: 1px solid var(--theme-color);
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: border-color 0.4s var(--ease);
+}
+
+.cap-card-name {
+  font-size: clamp(1.25rem, 2.3vw, 2.125rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.cap-card-count {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 1rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  opacity: 0.6;
+}
+
+.cap-card-desc {
+  font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+}
+
+.cap-card-skills {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 1rem;
+  opacity: 0.5;
+  line-height: 1.8;
+}
+
+.cap-extra {
+  grid-column: 1 / -1;
+  margin-top: 2rem;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+/* ─── DEMO ─── */
+.demo-terminal-col {
+  grid-column: 1 / 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 3000px;
+}
+
+.demo-terminal-col .terminal {
+  transform: rotateY(19.5deg) scale(1.25);
+  transform-style: preserve-3d;
+}
+
+.demo-text-col {
+  grid-column: 8 / 13;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 25vh;
+}
+
+.demo-text-col .tab-bar {
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-bottom: none;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.demo-text-col .tab-btn {
+  text-align: center;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #ffffff;
+  opacity: 1;
+  background: transparent;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.demo-text-col .tab-btn:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.demo-text-col .tab-btn.active {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+.demo-text-col .tab-btn.active:hover {
+  background: rgba(255,255,255,0.85);
+}
+
+.tab-bar {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  margin-bottom: 0;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-family: 'Switzer', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.2s var(--ease);
+  border-bottom: 2px solid transparent;
+  position: relative;
+}
+.tab-btn:hover {
+  opacity: 0.7;
+}
+.tab-btn.active {
+  opacity: 1;
+  border-bottom-color: var(--accent);
+}
+
+.tab-panel {
+  display: none;
+  width: 100%;
+}
+.tab-panel.active {
+  display: block;
+}
+
+/* ─── NUMBERS ─── */
+.numbers-grid {
+  grid-column: 1 / -1;
+  display: flex;
+  text-align: center;
+}
+
+.number-item {
+  flex: 1;
+}
+
+.number-item-value {
+  font-family: 'PP Editorial New', 'Georgia', serif;
+  font-size: clamp(4rem, 10vw, 10rem);
+  font-weight: 200;
+  line-height: 0.85;
+  letter-spacing: -0.014em;
+}
+
+.number-item-label {
+  font-family: 'Cartograph CF', monospace;
+  font-size: clamp(0.75rem, 1.1vw, 1.25rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  opacity: 0.6;
+  margin-top: 0.75rem;
+}
+
+/* ─── INSTALL ─── */
+.install-text-col {
+  grid-column: 1 / 6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.install-terminal-col {
+  grid-column: 7 / 13;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.install-terminal-col .terminal {
+  transform: scale(1.25);
+}
+
+.install-desc {
+  font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+  font-weight: 300;
+  line-height: 1.55;
+  margin-top: 1.75rem;
+}
+
+.install-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.install-feature {
+  font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+  font-weight: 300;
+  line-height: 1.55;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.install-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.install-btn {
+  display: inline-block;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+  color: #ffffff;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.install-btn:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.install-btn.active {
+  background: #ffffff;
+  color: #000000;
+}
+
+.install-btn.active:hover {
+  opacity: 0.9;
+}
+
+/* ─── FOOTER ─── */
+.site-footer {
+  padding: clamp(40px, 4vw, 60px) clamp(40px, 5vw, 80px) 2rem;
+  background: #000000;
+  color: #ffffff;
+  scroll-snap-align: start;
+}
+
+.footer-handle {
+  width: calc(100% + clamp(80px, 10vw, 160px));
+  margin-left: calc(-1 * clamp(40px, 5vw, 80px));
+  margin-bottom: 3rem;
+}
+.footer-handle svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.footer-handle svg path {
+  fill: #ffffff;
+}
+
+.footer-bottom {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--grid-gap);
+  align-items: start;
+  margin-bottom: 2.5rem;
+}
+
+.footer-socials {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.footer-socials a {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #ffffff;
+  text-transform: uppercase;
+  line-height: 1.3;
+  transition: opacity 0.2s var(--ease);
+}
+.footer-socials a:hover {
+  opacity: 0.7;
+}
+
+.footer-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+}
+.footer-cta-text {
+  font-family: 'Switzer', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: #ffffff;
+  text-align: right;
+  line-height: 1.2;
+}
+.footer-cta-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding: 1.25rem 1.5rem;
+  background: #ffffff;
+  color: #0d0f14;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+  text-transform: uppercase;
+  transition: opacity 0.2s var(--ease);
+}
+.footer-cta-btn:hover {
+  opacity: 0.8;
+}
+
+.footer-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #ffffff;
+  text-transform: uppercase;
+  padding-top: 1.5rem;
+}
+.footer-bar span:nth-child(2) {
+  text-align: center;
+}
+.footer-bar span:last-child {
+  text-align: right;
+}
+
+/* ─── SCROLL REVEAL ─── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+[data-reveal].revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (max-width: 700px) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ─── REDUCED MOTION ─── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ─── RESPONSIVE: TABLET (1280px) ─── */
+@media (max-width: 1280px) {
+  :root {
+    --grid-cols: 8;
+    --border-width: 1px;
+  }
+
+  /* Scroll-snap: proximity, account for fixed header */
+  html {
+    scroll-snap-type: none;
+    scroll-padding-top: 60px;
+  }
+
+  /* Force dark mode on tablet/mobile — no theme switching */
+  html, html[data-theme="light"] {
+    --theme-bg: #000000;
+    --theme-color: #ffffff;
+    --theme-bg-rgb: 0,0,0;
+    background-color: #000000;
+    color: #ffffff;
+  }
+
+  .section-label {
+    font-size: 12px;
+    margin-bottom: 0.75rem;
+  }
+  #numbers {
+    display: none;
+  }
+
+  /* Sections: auto height, reduced padding, still snap targets */
+  .section, .hero {
+    min-height: auto;
+    overflow: hidden;
+    padding-top: clamp(60px, 8vw, 120px);
+    padding-bottom: clamp(60px, 8vw, 120px);
+  }
+  .site-footer {
+    scroll-snap-align: start;
+  }
+
+  .hero {
+    padding-top: 100px;
+    padding-bottom: 60px;
+  }
+  .hero-text {
+    grid-column: 1 / -1;
+    padding-top: 0;
+  }
+  .hero-terminal {
+    grid-column: 1 / -1;
+    overflow: hidden;
+    perspective: none;
+  }
+  .hero .display {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .hero .display br,
+  .hero .subtitle br,
+  .demo-text-col .subtitle br {
+    display: none;
+  }
+  .hero-terminal .terminal,
+  .demo-terminal-col .terminal,
+  .install-terminal-col .terminal {
+    transform: none;
+  }
+  .demo-terminal-col {
+    perspective: none;
+  }
+  .terminal {
+    width: 100%;
+    max-width: 600px;
+    overflow: hidden;
+  }
+
+  /* Terminal: pre-wrap, vertical scroll only, fixed container */
+  .terminal-body {
+    white-space: pre-wrap;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .cap-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .demo-terminal-col { grid-column: 1 / -1; }
+  .demo-text-col {
+    grid-column: 1 / -1;
+    padding-top: 0;
+    order: -1;
+  }
+  .install-text-col { grid-column: 1 / -1; }
+  .install-terminal-col { grid-column: 1 / -1; margin-top: 1.5rem; }
+  .numbers-grid {
+    flex-wrap: wrap;
+    gap: clamp(1rem, 3vw, 2rem);
+  }
+  .number-item {
+    flex: 1 1 18%;
+  }
+}
+
+/* ─── RESPONSIVE: MOBILE (700px) ─── */
+@media (max-width: 700px) {
+  :root {
+    --grid-cols: 4;
+    --border-width: 1px;
+    --section-pad-x: 20px;
+    --section-pad-y: clamp(48px, 8vw, 80px);
+  }
+
+  .section, .hero {
+    overflow: hidden;
+    padding-top: clamp(32px, 5vw, 60px);
+    padding-bottom: clamp(32px, 5vw, 60px);
+  }
+
+  .header-nav { display: none; }
+  .header-github { display: none; }
+  .hamburger { display: flex; }
+
+  /* Hero: single column, tight vertical */
+  .hero {
+    padding-top: 100px;
+    padding-bottom: 32px;
+  }
+  .hero .subtitle {
+    margin-bottom: 1.5rem;
+  }
+  .hero-text {
+    grid-column: 1 / -1;
+    padding-top: 0;
+  }
+  .display {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+  }
+  .section-label {
+    font-size: 11px;
+    margin-bottom: 0.5rem;
+  }
+  .hero .display {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .hero .display br,
+  .hero .subtitle br,
+  .demo-text-col .subtitle br {
+    display: none;
+  }
+  .hero .subtitle {
+    max-width: none;
+  }
+  .hero > .grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .hero-text {
+    display: contents;
+  }
+  .hero .section-label {
+    order: 1;
+  }
+  .hero .display {
+    order: 2;
+    margin-bottom: 1rem;
+  }
+  .hero-terminal {
+    order: 3;
+    perspective: none;
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+  }
+  .hero .subtitle {
+    order: 4;
+    margin-bottom: 0;
+  }
+  .hero-terminal .terminal,
+  .demo-terminal-col .terminal,
+  .install-terminal-col .terminal {
+    transform: none;
+  }
+  .demo-terminal-col {
+    perspective: none;
+  }
+
+  /* Terminal: full width, fixed height — never grows with content */
+  .terminal {
+    width: 100%;
+    aspect-ratio: auto;
+    height: 340px;
+    max-height: 340px;
+    overflow: hidden;
+  }
+  .terminal-body {
+    font-size: 0.6rem;
+    padding: 0.875rem 1rem;
+    height: calc(100% - 41px);
+    max-height: calc(340px - 41px);
+    white-space: pre-wrap;
+    overflow-x: hidden;
+    overflow-y: auto;
+    line-height: 1.55;
+  }
+
+  /* Capabilities */
+  .cap-grid {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
+  .capabilities-heading {
+    margin-bottom: 1.25rem;
+  }
+  .cap-card {
+    padding: 1.25rem 1.5rem;
+    min-height: auto;
+  }
+  .cap-card-skills {
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  .cap-extra {
+    margin-top: 1.25rem;
+    font-size: 0.8rem;
+  }
+
+  /* Numbers */
+  .numbers-grid {
+    flex-wrap: wrap;
+    gap: 1rem 0;
+    text-align: center;
+  }
+  .number-item {
+    flex: 1 1 40%;
+  }
+  .number-item-value {
+    font-size: clamp(3rem, 15vw, 5rem);
+  }
+
+  /* Demo + Install: single column */
+  .demo-terminal-col,
+  .demo-text-col,
+  .install-text-col,
+  .install-terminal-col {
+    grid-column: 1 / -1;
+  }
+  .demo-text-col {
+    padding-top: 0;
+    order: -1;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Demo tabs: horizontal scroll strip */
+  .demo-text-col .tab-bar {
+    margin-top: 1rem;
+    flex-direction: row;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+  }
+  .demo-text-col .tab-bar::-webkit-scrollbar { display: none; }
+  .demo-text-col .tab-btn {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border: 1px solid #ffffff;
+    border-radius: 45px;
+  }
+  .demo-text-col .tab-btn.active {
+    background: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+  }
+
+  /* Install: tighten text spacing + reorder */
+  #install .display {
+    font-size: clamp(2rem, 7vw, 3rem);
+  }
+  .install-desc {
+    margin-top: 0.5rem;
+  }
+  .install-features {
+    margin-top: 0.5rem;
+    gap: 0.25rem;
+  }
+
+  /* Install: reorder — h1+desc+bullets, terminal, then buttons */
+  #install > .grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .install-text-col {
+    display: contents;
+  }
+  .install-buttons {
+    display: flex;
+    flex-direction: column;
+    order: 3;
+    margin-top: 1.5rem;
+    width: 100%;
+    gap: 0.5rem;
+  }
+  .install-btn {
+    width: 100%;
+    text-align: center;
+  }
+  .install-terminal-col {
+    margin-top: 1.5rem;
+    order: 2;
+  }
+
+  /* Footer — left-aligned, matching rebeccaraebarton.com */
+  .site-footer {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 2rem;
+  }
+  .footer-handle {
+    width: calc(100% + 40px);
+    margin-left: -20px;
+  }
+  .footer-bottom {
+    grid-template-columns: 1fr;
+    text-align: left;
+    gap: 2rem;
+  }
+  .footer-socials {
+    align-items: flex-start;
+  }
+  .footer-cta {
+    align-items: flex-start;
+  }
+  .footer-cta-text {
+    text-align: left;
+    font-size: 1.35rem;
+  }
+  .footer-cta-btn {
+    width: auto;
+    font-size: 0.9rem;
+    padding: 0.9rem 1.5rem;
+  }
+  .footer-bar {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+    text-align: left;
+    font-size: 0.75rem;
+  }
+  .footer-bar span:nth-child(2),
+  .footer-bar span:last-child {
+    text-align: left;
+  }
+  .tab-btn {
+    font-size: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* ─── RESPONSIVE: SMALL PHONE (390px) ─── */
+@media (max-width: 390px) {
+  :root {
+    --section-pad-x: 16px;
+  }
+
+  .hero {
+    padding-top: 72px;
+    padding-bottom: 36px;
+  }
+
+  .terminal {
+    height: 280px;
+    max-height: 280px;
+  }
+  .terminal-body {
+    font-size: 0.55rem;
+    padding: 0.75rem;
+    height: calc(100% - 37px);
+    max-height: calc(280px - 37px);
+    line-height: 1.5;
+  }
+  .terminal-header {
+    padding: 10px 12px;
+  }
+  .terminal-dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .cap-card {
+    padding: 1rem 1.25rem;
+  }
+  .cap-card-name {
+    font-size: clamp(1rem, 5vw, 1.5rem);
+  }
+  .cap-card-skills {
+    font-size: 0.75rem;
+  }
+
+  .number-item {
+    flex: 1 1 45%;
+  }
+
+  .install-btn {
+    font-size: 0.7rem;
+    padding: 0.65rem 1rem;
+  }
+
+  .footer-cta-btn {
+    font-size: 1rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .demo-text-col .tab-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.65rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<header class="site-header" id="siteHeader">
+  <a href="#" class="header-logo">claude-marketing</a>
+  <nav class="header-nav">
+    <a href="#capabilities">Skills</a>
+    <a href="#capabilities">Capabilities</a>
+    <a href="#demo">Demo</a>
+    <a href="#install">Install</a>
+  </nav>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener" class="header-github">View on GitHub &#8599;</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<nav class="mobile-nav" id="mobileNav">
+  <a href="#capabilities" onclick="closeMobileNav()">Skills</a>
+  <a href="#capabilities" onclick="closeMobileNav()">Capabilities</a>
+  <a href="#demo" onclick="closeMobileNav()">Demo</a>
+  <a href="#install" onclick="closeMobileNav()">Install</a>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener">GitHub &#8599;</a>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="section hero" data-theme-trigger="dark">
+  <div class="grid">
+    <div class="hero-text">
+      <p class="section-label" data-reveal>Open source</p>
+      <h1 class="display" data-reveal>The marketing expertise <br>layer for Claude Code</h1>
+      <p class="subtitle" data-reveal>27 skills, 3 specialized agents, and a complete GA4-to-GTM <br>pipeline. Paid media audits, brand intelligence, content creation, and <br>analytics — all inside your terminal.</p>
+    </div>
+    <div class="hero-terminal" data-reveal>
+      <div class="terminal" id="heroTerminal">
+        <div class="terminal-header">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+        </div>
+        <div class="terminal-body" id="heroTerminalBody"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CAPABILITIES ═══════════════════ -->
+<section class="section" id="capabilities" data-theme-trigger="light">
+  <div class="grid">
+    <div class="capabilities-heading" data-reveal>
+      <p class="section-label">Capabilities</p>
+      <h2 class="display">What's inside</h2>
+    </div>
+    <div class="cap-grid" data-reveal data-reveal-stagger>
+      <div class="cap-card" data-shuffle>
+        <div class="cap-card-name">Paid Media Audits</div>
+        <div class="cap-card-count">7 skills</div>
+        <div class="cap-card-desc">Scored audits with 150+ weighted checks, A-F health grades, Quick Wins, and cross-platform orchestration.</div>
+        <div class="cap-card-skills">Google Ads · Meta Ads · Microsoft Ads · Cross-Platform Audit · Account Structure · Competitor Ads · Wasted Spend</div>
+      </div>
+      <div class="cap-card" data-shuffle>
+        <div class="cap-card-name">Brand &amp; Strategy</div>
+        <div class="cap-card-count">4 skills</div>
+        <div class="cap-card-desc">Extract brand identity from any URL. Research markets, build ICPs, and synthesize intelligence from RSS and web sources.</div>
+        <div class="cap-card-skills">Brand DNA · Market Research · ICP Research · Research Digest</div>
+      </div>
+      <div class="cap-card" data-shuffle>
+        <div class="cap-card-name">Content &amp; Creative</div>
+        <div class="cap-card-count">6 skills</div>
+        <div class="cap-card-desc">SEO content, email composition, frontend design, technical diagrams, video production, and end-to-end content workflows.</div>
+        <div class="cap-card-skills">SEO Content Writer · Email Composer · Content Workflow · Enhanced Frontend Design · Tech Diagram · Remotion Video</div>
+      </div>
+      <div class="cap-card" data-shuffle>
+        <div class="cap-card-name">DTC &amp; Analytics</div>
+        <div class="cap-card-count">8 skills</div>
+        <div class="cap-card-desc">Deep Klaviyo, Shopify, GA4, Braze, and Looker Studio expertise with API-ready scripts and autonomous monitoring agents.</div>
+        <div class="cap-card-skills">Klaviyo Analyst · Klaviyo Developer · Shopify Analyst · Google Analytics · Looker Studio · HTML Report Builder + more</div>
+      </div>
+    </div>
+    <div class="cap-extra" data-reveal>Plus 3 agents: GA4 Monitor · GA4 Gap Analyzer · GTM Implementer — a complete tracking-to-implementation pipeline.</div>
+  </div>
+</section>
+
+<!-- ═══════════════════ DEMO ═══════════════════ -->
+<section class="section" id="demo" data-theme-trigger="dark">
+  <div class="grid" style="align-items: stretch; flex: 1;">
+    <div class="demo-terminal-col">
+      <div class="tab-panel active" id="tab-xplatform">
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+          </div>
+          <div class="terminal-body" id="demoTerminal1"></div>
+        </div>
+      </div>
+      <div class="tab-panel" id="tab-branddna">
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+          </div>
+          <div class="terminal-body" id="demoTerminal2"></div>
+        </div>
+      </div>
+      <div class="tab-panel" id="tab-google">
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+          </div>
+          <div class="terminal-body" id="demoTerminal3"></div>
+        </div>
+      </div>
+    </div>
+    <div class="demo-text-col">
+      <p class="section-label" data-reveal>Demo</p>
+      <h2 class="display" data-reveal>How it works</h2>
+      <p class="subtitle" data-reveal style="margin-top: 1rem;">Paid media audits. Brand intelligence. Content creation. <br>All inside your terminal.</p>
+      <div class="tab-bar" data-reveal>
+        <button class="tab-btn active" data-tab="tab-xplatform">Klaviyo Audit</button>
+        <button class="tab-btn" data-tab="tab-branddna">Brand DNA</button>
+        <button class="tab-btn" data-tab="tab-google">Google Ads Audit</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ NUMBERS ═══════════════════ -->
+<section class="section" id="numbers" data-theme-trigger="light">
+  <div class="grid">
+    <div class="numbers-grid" data-reveal data-reveal-stagger>
+      <div class="number-item">
+        <div class="number-item-value">3</div>
+        <div class="number-item-label">Agents</div>
+      </div>
+      <div class="number-item">
+        <div class="number-item-value">27</div>
+        <div class="number-item-label">Skills</div>
+      </div>
+      <div class="number-item">
+        <div class="number-item-value">150+</div>
+        <div class="number-item-label">Audit Checks</div>
+      </div>
+      <div class="number-item">
+        <div class="number-item-value">7</div>
+        <div class="number-item-label">Categories</div>
+      </div>
+      <div class="number-item">
+        <div class="number-item-value">&infin;</div>
+        <div class="number-item-label">Hours Saved</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ INSTALL ═══════════════════ -->
+<section class="section" id="install" data-theme-trigger="dark">
+  <div class="grid">
+    <div class="install-text-col">
+      <p class="section-label" data-reveal>Get started</p>
+      <h2 class="display" data-reveal>Install in 60 seconds</h2>
+      <p class="install-desc" data-reveal>Take it all or just what you need.</p>
+      <div class="install-features" data-reveal>
+        <div class="install-feature">&rarr; Works without MCP servers</div>
+        <div class="install-feature">&rarr; No API keys required to start — just clone and ask</div>
+        <div class="install-feature">&rarr; MIT licensed, free forever</div>
+      </div>
+      <div class="install-buttons" data-reveal>
+        <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener" class="install-btn active">Install &#8599;</a>
+        <a href="https://github.com/thatrebeccarae/claude-marketing#readme" target="_blank" rel="noopener" class="install-btn">Documentation &#8599;</a>
+        <a href="https://github.com/thatrebeccarae/claude-marketing/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" class="install-btn">Contributing &#8599;</a>
+      </div>
+    </div>
+    <div class="install-terminal-col">
+      <div class="terminal terminal-static">
+        <div class="terminal-header">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+        </div>
+        <div class="terminal-body"><span class="dim"># Clone the repo</span>
+git clone https://github.com/thatrebeccarae/claude-marketing.git
+
+<span class="dim"># Copy individual skills</span>
+cp -r claude-marketing/skills/google-ads ~/.claude/skills/
+
+<span class="dim"># Or install a full pack with the setup wizard</span>
+python claude-marketing/skill-packs/scripts/setup-paid-media.py
+
+<span class="dim"># Then just ask Claude Code anything</span>
+<span class="accent">"Run a scored audit of my Google Ads account"</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="site-footer" data-theme-trigger="dark">
+  <div class="footer-handle">
+    <svg width="3008" height="304" viewBox="0 0 3008 304" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="@thatrebeccarae">
+      <path d="M234.459 243.23C204.772 243.23 190.266 230.748 184.868 212.868C170.7 234.459 147.422 243.567 124.145 243.567C91.4221 243.567 65.4461 225.35 65.4461 191.615C65.4461 166.651 79.6148 148.097 108.29 137.977C131.904 130.217 154.507 127.856 182.507 127.519V123.133C182.507 102.892 173.398 92.4342 154.507 92.4342C136.29 92.4342 127.181 102.555 124.82 116.723H73.2051C78.6028 75.904 109.976 50.94 156.531 50.94C207.471 50.94 234.122 81.3016 234.122 123.47V191.615C234.122 205.109 239.856 215.23 252.338 215.23C273.929 215.23 288.098 192.627 288.098 145.736C288.098 73.2051 232.097 17.5423 154.844 17.5423C77.2534 17.5423 20.9158 76.2413 20.9158 152.145C20.9158 230.748 76.2413 285.736 154.844 285.736C180.82 285.736 204.097 282.363 225.688 273.254L232.435 290.122C208.82 299.905 183.182 303.616 154.844 303.616C63.422 303.616 0 239.857 0 152.145C0 64.0967 64.7714 0 154.844 0C244.579 0 309.013 61.0605 309.013 144.724C309.013 209.832 280.001 243.23 234.459 243.23ZM116.723 186.892C116.723 199.712 125.832 208.146 141.35 208.146C163.615 208.146 182.507 190.266 182.507 165.977V156.868C130.217 157.88 116.723 170.7 116.723 186.892Z" fill="currentColor"/>
+      <path d="M361.677 189.254V105.928H339.412V66.7955H361.677V24.6266H413.292V66.7955H450.4V105.928H413.292V182.844C413.292 200.386 418.015 210.17 440.28 210.17H450.063V248.965C444.328 251.664 432.858 253.688 419.027 253.688C380.231 253.688 361.677 231.423 361.677 189.254Z" fill="currentColor"/>
+      <path d="M489.343 248.29V5.39763H540.958V90.7474C552.765 70.5064 571.32 61.0605 593.585 61.0605C628.332 61.0605 654.308 82.3136 654.308 127.181V248.29H602.693V137.639C602.693 114.699 593.585 102.892 574.693 102.892C554.115 102.892 540.958 120.772 540.958 144.049V248.29H489.343Z" fill="currentColor"/>
+      <path d="M755.732 126.844H704.117C709.515 86.0245 740.888 61.0605 787.443 61.0605C839.395 61.0605 866.383 91.4221 866.383 133.591V203.085C866.383 226.7 868.407 238.844 871.443 248.29H818.142C816.455 242.218 815.443 234.459 815.106 225.688C800.937 245.254 779.346 253.688 757.756 253.688C723.346 253.688 697.708 236.146 697.708 201.399C697.708 176.772 711.876 157.88 740.551 147.76C764.166 140.001 786.768 137.639 814.768 137.302V133.254C814.768 113.35 804.985 102.892 785.081 102.892C767.539 102.892 758.093 112.675 755.732 126.844ZM749.322 198.025C749.322 210.17 758.431 217.929 773.611 217.929C796.551 217.929 814.768 199.374 814.768 174.41V167.326C762.479 168.338 749.322 181.157 749.322 198.025Z" fill="currentColor"/>
+      <path d="M925.686 189.254V105.928H903.42V66.7955H925.686V24.6266H977.3V66.7955H1014.41V105.928H977.3V182.844C977.3 200.386 982.023 210.17 1004.29 210.17H1014.07V248.965C1008.34 251.664 996.867 253.688 983.035 253.688C944.24 253.688 925.686 231.423 925.686 189.254Z" fill="currentColor"/>
+      <path d="M1053.35 248.29V66.7955H1104.97V92.0968C1116.44 70.5064 1133.98 61.0605 1152.53 61.0605C1159.95 61.0605 1166.7 63.0846 1170.41 66.7955V110.314C1164.34 108.964 1157.93 108.29 1149.83 108.29C1118.8 108.29 1104.97 125.832 1104.97 154.507V248.29H1053.35Z" fill="currentColor"/>
+      <path d="M1374.62 188.579C1365.17 230.411 1331.43 253.688 1286.9 253.688C1230.57 253.688 1195.82 217.254 1195.82 157.543C1195.82 95.8077 1230.9 61.0605 1284.88 61.0605C1339.19 61.0605 1373.27 97.1571 1373.27 156.531V168.001H1248.45C1251.14 197.013 1264.64 212.531 1286.9 212.531C1303.77 212.531 1315.24 205.109 1320.64 188.579H1374.62ZM1284.88 102.217C1265.65 102.217 1253.51 114.699 1249.46 138.314H1319.96C1315.92 114.699 1303.77 102.217 1284.88 102.217Z" fill="currentColor"/>
+      <path d="M1469 248.29H1417.39V5.39763H1469V85.3498C1480.14 69.4943 1495.65 61.0605 1514.54 61.0605C1561.44 61.0605 1590.45 97.8318 1590.45 157.206C1590.45 218.941 1560.76 253.688 1514.54 253.688C1495.32 253.688 1479.8 245.591 1469 230.411V248.29ZM1503.41 102.892C1480.81 102.892 1469 122.121 1469 157.206C1469 192.29 1481.15 211.856 1503.41 211.856C1525.68 211.856 1537.82 192.627 1537.82 157.206C1537.82 122.121 1525.68 102.892 1503.41 102.892Z" fill="currentColor"/>
+      <path d="M1804.54 188.579C1795.09 230.411 1761.36 253.688 1716.83 253.688C1660.49 253.688 1625.74 217.254 1625.74 157.543C1625.74 95.8077 1660.83 61.0605 1714.8 61.0605C1769.12 61.0605 1803.19 97.1571 1803.19 156.531V168.001H1678.37C1681.07 197.013 1694.56 212.531 1716.83 212.531C1733.7 212.531 1745.17 205.109 1750.56 188.579H1804.54ZM1714.8 102.217C1695.58 102.217 1683.43 114.699 1679.38 138.314H1749.89C1745.84 114.699 1733.7 102.217 1714.8 102.217Z" fill="currentColor"/>
+      <path d="M2009.24 132.242H1957.63C1954.25 110.988 1942.11 102.892 1927.26 102.892C1904.32 102.892 1892.52 122.121 1892.52 157.543C1892.52 192.627 1905 211.856 1928.61 211.856C1944.13 211.856 1954.93 203.085 1958.64 186.218H2010.25C2002.49 231.76 1969.77 253.688 1927.6 253.688C1873.29 253.688 1839.55 216.917 1839.55 157.543C1839.55 95.8077 1873.96 61.0605 1927.26 61.0605C1969.43 61.0605 2002.83 84.6751 2009.24 132.242Z" fill="currentColor"/>
+      <path d="M2214.16 132.242H2162.54C2159.17 110.988 2147.02 102.892 2132.18 102.892C2109.24 102.892 2097.43 122.121 2097.43 157.543C2097.43 192.627 2109.91 211.856 2133.53 211.856C2149.05 211.856 2159.84 203.085 2163.55 186.218H2215.17C2207.41 231.76 2174.69 253.688 2132.52 253.688C2078.2 253.688 2044.47 216.917 2044.47 157.543C2044.47 95.8077 2078.88 61.0605 2132.18 61.0605C2174.35 61.0605 2207.75 84.6751 2214.16 132.242Z" fill="currentColor"/>
+      <path d="M2307.74 126.844H2256.13C2261.53 86.0245 2292.9 61.0605 2339.45 61.0605C2391.41 61.0605 2418.39 91.4221 2418.39 133.591V203.085C2418.39 226.7 2420.42 238.844 2423.45 248.29H2370.15C2368.47 242.218 2367.45 234.459 2367.12 225.688C2352.95 245.254 2331.36 253.688 2309.77 253.688C2275.36 253.688 2249.72 236.146 2249.72 201.399C2249.72 176.772 2263.89 157.88 2292.56 147.76C2316.18 140.001 2338.78 137.639 2366.78 137.302V133.254C2366.78 113.35 2357 102.892 2337.09 102.892C2319.55 102.892 2310.11 112.675 2307.74 126.844ZM2301.33 198.025C2301.33 210.17 2310.44 217.929 2325.62 217.929C2348.56 217.929 2366.78 199.374 2366.78 174.41V167.326C2314.49 168.338 2301.33 181.157 2301.33 198.025Z" fill="currentColor"/>
+      <path d="M2470.95 248.29V66.7955H2522.57V92.0968C2534.04 70.5064 2551.58 61.0605 2570.13 61.0605C2577.55 61.0605 2584.3 63.0846 2588.01 66.7955V110.314C2581.94 108.964 2575.53 108.29 2567.43 108.29C2536.4 108.29 2522.57 125.832 2522.57 154.507V248.29H2470.95Z" fill="currentColor"/>
+      <path d="M2673.76 126.844H2622.14C2627.54 86.0245 2658.91 61.0605 2705.47 61.0605C2757.42 61.0605 2784.41 91.4221 2784.41 133.591V203.085C2784.41 226.7 2786.43 238.844 2789.47 248.29H2736.17C2734.48 242.218 2733.47 234.459 2733.13 225.688C2718.96 245.254 2697.37 253.688 2675.78 253.688C2641.37 253.688 2615.73 236.146 2615.73 201.399C2615.73 176.772 2629.9 157.88 2658.58 147.76C2682.19 140.001 2704.79 137.639 2732.79 137.302V133.254C2732.79 113.35 2723.01 102.892 2703.11 102.892C2685.56 102.892 2676.12 112.675 2673.76 126.844ZM2667.35 198.025C2667.35 210.17 2676.45 217.929 2691.64 217.929C2714.58 217.929 2732.79 199.374 2732.79 174.41V167.326C2680.5 168.338 2667.35 181.157 2667.35 198.025Z" fill="currentColor"/>
+      <path d="M3008 188.579C2998.55 230.411 2964.82 253.688 2920.29 253.688C2863.95 253.688 2829.2 217.254 2829.2 157.543C2829.2 95.8077 2864.29 61.0605 2918.26 61.0605C2972.58 61.0605 3006.65 97.1571 3006.65 156.531V168.001H2881.83C2884.53 197.013 2898.02 212.531 2920.29 212.531C2937.16 212.531 2948.63 205.109 2954.02 188.579H3008ZM2918.26 102.217C2899.04 102.217 2886.89 114.699 2882.84 138.314H2953.35C2949.3 114.699 2937.16 102.217 2918.26 102.217Z" fill="currentColor"/>
+    </svg>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-socials">
+      <a href="https://github.com/thatrebeccarae" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://dgtldept.substack.com" target="_blank" rel="noopener">Substack</a>
+      <a href="https://instagram.com/index.html" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://linkedin.com/in/rebeccaraebarton" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://rebeccaraebarton.com" target="_blank" rel="noopener">More Links &#8599;</a>
+    </div>
+    <div class="footer-cta">
+      <div class="footer-cta-text">Do you like<br>what you see?</div>
+      <a href="https://www.rebeccaraebarton.com/connect" target="_blank" rel="noopener" class="footer-cta-btn">Connect &#8599;</a>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <span>Brooklyn, NY</span>
+    <span>Thanks! I made it myself &#10024;</span>
+    <span>2026 &reg; Rebecca Rae Barton</span>
+  </div>
+</footer>
+
+<!-- ═══════════════════ JAVASCRIPT ═══════════════════ -->
+<script>
+/* ─── MOBILE NAV ─── */
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileNav.classList.toggle('open');
+  document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+});
+
+function closeMobileNav() {
+  hamburger.classList.remove('open');
+  mobileNav.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ─── SMART HEADER ─── */
+(function() {
+  const header = document.getElementById('siteHeader');
+  let lastScroll = 0;
+  let ticking = false;
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const currentScroll = window.scrollY;
+        if (currentScroll > 80) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+        /* header stays visible — sticky nav */
+        lastScroll = currentScroll;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+})();
+
+/* ─── SCROLL REVEAL ─── */
+(function() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) {
+    document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('revealed'));
+    return;
+  }
+
+  const isMobileReveal = window.innerWidth <= 700;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        el.classList.add('revealed');
+
+        if (el.hasAttribute('data-reveal-stagger') && !isMobileReveal) {
+          const children = el.children;
+          Array.from(children).forEach((child, i) => {
+            child.style.opacity = '0';
+            child.style.transform = 'translateY(20px)';
+            child.style.transition = `opacity 0.5s ${i * 0.1}s var(--ease), transform 0.5s ${i * 0.1}s var(--ease)`;
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                child.style.opacity = '1';
+                child.style.transform = 'translateY(0)';
+              });
+            });
+          });
+        }
+
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+
+  document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+})();
+
+/* ─── LETTER SHUFFLE ─── */
+function letterShuffle(element) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const original = element.textContent;
+  let iterations = 0;
+  const interval = setInterval(() => {
+    element.textContent = original.split('').map((char, i) => {
+      if (char === ' ') return ' ';
+      if (i < iterations) return original[i];
+      return chars[Math.floor(Math.random() * chars.length)];
+    }).join('');
+    iterations += 1 / 3;
+    if (iterations >= original.length) {
+      element.textContent = original;
+      clearInterval(interval);
+    }
+  }, 30);
+}
+
+/* Letter shuffle on hover removed — plays once on reveal only */
+
+/* ─── TERMINAL ANIMATION ENGINE ─── */
+class TerminalAnimation {
+  constructor(element, config) {
+    this.el = element;
+    this.prompt = config.prompt;
+    this.lines = config.lines;
+    this.typingSpeed = config.typingSpeed || 40;
+    this.lineDelay = config.lineDelay || 80;
+    this.pauseBetweenLoops = config.pauseBetweenLoops || 3500;
+    this.running = false;
+    this.aborted = false;
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => {
+      const id = setTimeout(resolve, ms);
+      const check = setInterval(() => {
+        if (this.aborted) { clearTimeout(id); clearInterval(check); resolve(); }
+      }, 50);
+    });
+  }
+
+  async typePrompt() {
+    if (this.aborted) return;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let html = '<span class="prompt">&gt; </span>';
+    this.el.innerHTML = html + '<span class="cursor"></span>';
+
+    if (prefersReducedMotion) {
+      this.el.innerHTML = '<span class="prompt">&gt; </span>' + this.escapeHtml(this.prompt) + '\n';
+      return;
+    }
+
+    for (let i = 0; i < this.prompt.length; i++) {
+      if (this.aborted) return;
+      html += this.escapeHtml(this.prompt[i]);
+      this.el.innerHTML = html + '<span class="cursor"></span>';
+      await this.sleep(this.typingSpeed);
+    }
+    this.el.innerHTML = html + '\n';
+  }
+
+  async showLines() {
+    if (this.aborted) return;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    for (let i = 0; i < this.lines.length; i++) {
+      if (this.aborted) return;
+      const line = this.lines[i];
+      const lineEl = document.createElement('div');
+      lineEl.className = 'line';
+      lineEl.innerHTML = this.colorize(line);
+
+      if (prefersReducedMotion) {
+        lineEl.classList.add('visible');
+      }
+
+      this.el.appendChild(lineEl);
+
+      if (!prefersReducedMotion) {
+        await this.sleep(this.lineDelay);
+        lineEl.classList.add('visible');
+        this.el.scrollTop = this.el.scrollHeight;
+      } else {
+        this.el.scrollTop = this.el.scrollHeight;
+      }
+    }
+  }
+
+  colorize(text) {
+    if (text.startsWith('\u2713') || text.startsWith('✓')) {
+      return '<span class="green">' + this.escapeHtml(text) + '</span>';
+    }
+    if (text.includes('[Critical]')) {
+      return text.replace(/(\[Critical\])/, '<span class="red">$1</span>');
+    }
+    if (text.includes('[High]')) {
+      return text.replace(/(\[High\])/, '<span class="amber">$1</span>');
+    }
+    if (text.startsWith('AGGREGATE HEALTH SCORE') || text.startsWith('ACCOUNT HEALTH SCORE')) {
+      return '<span class="bold accent">' + this.escapeHtml(text) + '</span>';
+    }
+    if (text.startsWith('QUICK WINS') || text.startsWith('MONTHLY WASTE') || text.startsWith('Action:')) {
+      return '<span class="bold">' + this.escapeHtml(text) + '</span>';
+    }
+    if (text.startsWith('EST. REVENUE IMPACT')) {
+      return '<span class="bold accent">' + this.escapeHtml(text) + '</span>';
+    }
+    if (text.startsWith('Brand DNA extracted') || text.startsWith('Ready for:')) {
+      return '<span class="accent">' + this.escapeHtml(text) + '</span>';
+    }
+    if (/^(Platform|Category)\s/.test(text) && text.includes('Score')) {
+      return '<span class="bold">' + this.escapeHtml(text) + '</span>';
+    }
+    if (text.startsWith('───') || text.startsWith('────')) {
+      return '<span class="dim">' + this.escapeHtml(text) + '</span>';
+    }
+    if (text.includes('████████')) {
+      return this.colorizeBar(text);
+    }
+    if (text.startsWith('Primary:') || text.startsWith('Background:') || text.startsWith('Text:')) {
+      return this.colorizeColorSwatch(text);
+    }
+    return this.escapeHtml(text);
+  }
+
+  colorizeBar(text) {
+    const parts = text.split(/(\s{2,})/);
+    return this.escapeHtml(text).replace(/(████+░*)/g, '<span class="accent">$1</span>');
+  }
+
+  colorizeColorSwatch(text) {
+    return this.escapeHtml(text).replace(/(██)/, '<span class="accent">$1</span>');
+  }
+
+  escapeHtml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  stop() {
+    this.aborted = true;
+    this.running = false;
+  }
+
+  async run() {
+    if (this.running) return;
+    this.running = true;
+    this.aborted = false;
+
+    while (!this.aborted) {
+      this.el.innerHTML = '';
+      await this.typePrompt();
+      if (this.aborted) break;
+      await this.sleep(500);
+      if (this.aborted) break;
+      await this.showLines();
+      if (this.aborted) break;
+      await this.sleep(this.pauseBetweenLoops);
+      if (this.aborted) break;
+    }
+    this.running = false;
+  }
+}
+
+/* ─── TERMINAL CONFIGS ─── */
+const heroConfig = {
+  prompt: 'Run a cross-platform audit across Google, Meta, and Microsoft.',
+  typingSpeed: 30,
+  lines: [
+    '',
+    'Analyzing 150 checks across 3 platforms...',
+    '✓ Google Ads audit complete (74 checks)',
+    '✓ Meta Ads audit complete (46 checks)',
+    '✓ Microsoft Ads audit complete (30 checks)',
+    '',
+    'AGGREGATE HEALTH SCORE: 68/100 (Grade C — Needs Improvement)',
+    '',
+    'Platform        Budget      Share    Score   Grade   Top Issue',
+    '──────────────────────────────────────────────────────────────',
+    'Google Ads      $20,000/mo  50.0%    72      C       Enhanced Conversions OFF',
+    'Meta Ads        $15,000/mo  37.5%    65      C       No CAPI, creative fatigue',
+    'Microsoft Ads   $5,000/mo   12.5%    58      D       No Microsoft optimization',
+    '',
+    'QUICK WINS (Fix This Week)',
+    ' 1. [Critical] Deploy Meta CAPI via Gateway         15 min',
+    ' 2. [Critical] Enable Google Enhanced Conversions   5 min',
+    ' 3. [Critical] Enable Microsoft MSCLKID auto-tag    2 min',
+    ' 4. [High]     Create negative keyword lists        10 min',
+    '',
+    'MONTHLY WASTE: $5,400 (13.5% of spend)',
+    'Action: Reallocate from waste → scale winners. Est. 90-day improvement: 18-22%',
+  ]
+};
+
+const demo1Config = {
+  prompt: 'Audit our Klaviyo account — flows, deliverability, and revenue attribution.',
+  typingSpeed: 30,
+  lines: [
+    '',
+    'Connecting to Klaviyo API...',
+    '✓ 24 active flows loaded',
+    '✓ 18 segments analyzed',
+    '✓ 90-day deliverability data pulled',
+    '',
+    'ACCOUNT HEALTH SCORE: 71/100 (Grade C — Needs Improvement)',
+    '',
+    'Category                  Score   Grade   Top Issue',
+    '─────────────────────────────────────────────────────',
+    'Flow Architecture         82      B       Welcome series lacks SMS branch',
+    'Deliverability            58      D       Gmail placement 61%, target 85%+',
+    'List Hygiene              65      C       22% 90-day unengaged, no sunset',
+    'Revenue Attribution       78      B       Post-purchase flow missing',
+    'Segmentation              72      C       No RFM or predictive segments',
+    '',
+    'QUICK WINS',
+    ' 1. [Critical] Sunset 90-day unengaged profiles     10 min',
+    ' 2. [Critical] Add SMS to welcome series            15 min',
+    ' 3. [High]     Create win-back flow at 60 days       5 min',
+    ' 4. [High]     Enable Smart Sending (24hr window)    2 min',
+    '',
+    'EST. REVENUE IMPACT: +$4,200/mo from flow fixes alone',
+  ]
+};
+
+const demo2Config = {
+  prompt: 'Extract the brand DNA from https://linear.app',
+  typingSpeed: 40,
+  lines: [
+    '',
+    'Fetching homepage + about + product pages...',
+    'Extracting: colors | typography | voice | imagery | audience',
+    '',
+    'Brand DNA extracted → brand-profile.json',
+    '',
+    'Brand:          Linear',
+    'Voice:          precise, confident, opinionated',
+    'Primary Color:  #5E6AD2',
+    'Typography:     Inter / Inter',
+    'Audience:       25-40, engineering & product teams',
+    '',
+    'VOICE DIMENSIONS',
+    '────────────────────────────────────────────────',
+    'Formal–Casual:           ████░░░░░░  4',
+    'Rational–Emotional:      ███░░░░░░░  3',
+    'Playful–Serious:         ███░░░░░░░  3',
+    'Bold–Subtle:             ████████░░  8',
+    'Traditional–Innovative:  ████████░░  8',
+    'Expert–Accessible:       ████░░░░░░  4',
+    '',
+    'COLOR PALETTE',
+    '────────────────────────────────────────────────',
+    'Primary:     ██ #5E6AD2  (vibrant indigo)',
+    'Background:  ██ #000000',
+    'Text:        ██ #FFFFFF',
+    '',
+    'Ready for: seo-content-writer | frontend-design | pro-deck-builder',
+  ]
+};
+
+const demo3Config = {
+  prompt: 'Give me a scored audit of our Google Ads account with a health grade.',
+  typingSpeed: 35,
+  lines: [
+    '',
+    'Loading 74-check audit framework...',
+    'Evaluating across 6 categories...',
+    '',
+    'ACCOUNT HEALTH SCORE: 64/100 (Grade C — Needs Improvement)',
+    '',
+    'Category                  Weight  Score  Grade  Top Issue',
+    '─────────────────────────────────────────────────────────',
+    'Conversion Tracking       25%     52     D      Enhanced Conversions OFF',
+    'Wasted Spend / Negatives  20%     38     F      No negative lists, 18% waste',
+    'Account Structure         15%     75     B      PMax brand overlap',
+    'Keywords & Quality Score  15%     71     C      QS avg 5.8, target 7',
+    'Ads & Assets              15%     78     B      PMax needs more video',
+    'Settings & Targeting      10%     82     B      Missing RLSA lists',
+    '',
+    'QUICK WINS',
+    ' 1. [Critical] Enable Enhanced Conversions       5 min   G-CT2',
+    ' 2. [Critical] Add negative keyword lists        10 min  G-WS2',
+    ' 3. [Critical] Fix Broad Match + Manual CPC      5 min   G-WS5',
+    ' 4. [High]     Switch location to "People in"    2 min   G-ST11',
+    ' 5. [High]     Add brand exclusions to PMax      5 min   G-ST7',
+  ]
+};
+
+/* ─── INIT TERMINALS ─── */
+let heroAnim, demoAnims = {}, activeDemo = null;
+
+function initHeroTerminal() {
+  const el = document.getElementById('heroTerminalBody');
+  if (!el) return;
+  heroAnim = new TerminalAnimation(el, heroConfig);
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        heroAnim.run();
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  observer.observe(el.closest('.terminal'));
+}
+
+function initDemoTerminals() {
+  demoAnims['tab-xplatform'] = new TerminalAnimation(document.getElementById('demoTerminal1'), demo1Config);
+  demoAnims['tab-branddna'] = new TerminalAnimation(document.getElementById('demoTerminal2'), demo2Config);
+  demoAnims['tab-google'] = new TerminalAnimation(document.getElementById('demoTerminal3'), demo3Config);
+
+  const demoSection = document.getElementById('demo');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        activateTab('tab-xplatform');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  observer.observe(demoSection);
+}
+
+function activateTab(tabId) {
+  if (activeDemo) {
+    demoAnims[activeDemo].stop();
+  }
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tab === tabId);
+  });
+  document.querySelectorAll('.tab-panel').forEach(panel => {
+    panel.classList.toggle('active', panel.id === tabId);
+  });
+
+  activeDemo = tabId;
+  const termEl = demoAnims[tabId].el;
+  termEl.innerHTML = '';
+  setTimeout(() => {
+    demoAnims[tabId].aborted = false;
+    demoAnims[tabId].running = false;
+    demoAnims[tabId].run();
+  }, 100);
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activateTab(btn.dataset.tab);
+  });
+});
+
+/* ─── THEME SWITCHING ON SCROLL (Locomotive-style) ─── */
+(function() {
+  const themeTriggers = document.querySelectorAll('[data-theme-trigger]');
+  const root = document.documentElement;
+
+  const themeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const newTheme = entry.target.dataset.themeTrigger;
+        root.setAttribute('data-theme', newTheme);
+      }
+    });
+  }, {
+    rootMargin: '-50% 0px -50% 0px'
+  });
+
+  themeTriggers.forEach(trigger => themeObserver.observe(trigger));
+})();
+
+/* ─── BOOT ─── */
+document.addEventListener('DOMContentLoaded', () => {
+  initHeroTerminal();
+  initDemoTerminals();
+});
+</script>
+</body>
+</html>

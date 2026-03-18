@@ -100,3 +100,7 @@ Subject: [Specific, not generic — include key value or action]
 - Sending when emotional — draft, wait, re-read
 
 For templates and follow-up cadence, see [REFERENCE.md](REFERENCE.md).
+
+## Brand Context (Optional)
+
+If `brand-profile.json` exists in the working directory, read it before composing emails. Use the `formal_casual` axis to set salutation and sign-off style, voice descriptors to guide subject line personality, and colors for email template accent recommendations. This profile is produced by the `brand-dna` skill.

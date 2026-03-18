@@ -420,3 +420,72 @@ When conversion data looks off:
 
 **Instead of:** "Help with bidding"
 **Ask:** "We have 5 campaigns: 2 have 50+ conversions/month, 2 have 15-20, and 1 has under 10. All are on Maximize Conversions. Which should move to Target CPA and at what targets?"
+
+---
+
+## 8. Scored Account Audit (Health Score)
+
+**User Request:**
+> "Give me a scored audit of our Google Ads account with a health grade."
+
+**Analysis Steps:**
+1. Load `skills/shared/scoring-system.md` for scoring algorithm and `CHECKS.md` for the 74-check audit
+2. Evaluate each applicable check as PASS, WARNING, or FAIL based on account data
+3. Calculate category scores using severity multipliers and category weights
+4. Identify Quick Wins (Critical/High severity, ≤15 min fix time)
+5. Produce health score, grade, and prioritized action plan
+
+**Sample Output:**
+
+## Account Health Score: 64/100 (Grade C — Needs Improvement)
+
+### Quick Wins (fix in ≤15 min, high impact)
+1. **[Critical]** Enable Enhanced Conversions — G-CT2 (5 min)
+2. **[Critical]** Add negative keyword lists — G-WS2 (10 min)
+3. **[Critical]** Fix Broad Match + Manual CPC — G-WS5 (5 min)
+4. **[High]** Switch location targeting to "People in" — G-ST11 (2 min)
+5. **[High]** Disable Display Network on Search campaigns — G-ST12 (2 min)
+6. **[High]** Add brand exclusions to PMax — G-ST7 (5 min)
+
+### Category Breakdown
+
+| Category | Weight | Score | Grade | Top Issue |
+|----------|--------|-------|-------|-----------|
+| Conversion Tracking | 25% | 52 | D | Enhanced Conversions inactive (G-CT2) |
+| Wasted Spend / Negatives | 20% | 38 | F | No negative keyword lists, 18% irrelevant spend |
+| Account Structure | 15% | 75 | B | PMax brand overlap not addressed |
+| Keywords & Quality Score | 15% | 71 | C | Average QS at 5.8, below 7 target |
+| Ads & Assets | 15% | 78 | B | PMax asset groups need more video |
+| Settings & Targeting | 10% | 82 | B | Missing Customer Match lists |
+
+### Detailed Findings
+
+**Conversion Tracking (52/100 — Grade D)**
+| Check | Result | Finding |
+|-------|--------|---------|
+| G-CT1 Primary conversion action | PASS | Purchase action active, 186 conversions/month |
+| G-CT2 Enhanced conversions | FAIL | Not enabled — estimated 15-20% data loss |
+| G-CT3 Server-side tracking | WARNING | Planned Q2 but not deployed |
+| G-CT5 Conversion window | PASS | 30-day window appropriate for this business |
+| G-CT6 Macro/micro separation | FAIL | AddToCart set as Primary (inflating bidding signals) |
+| G-CT9 No duplicate counting | PASS | GA4 import disabled, using native tag only |
+| G-CT11 Google Tag firing | PASS | Tag verified on all pages |
+
+*[Additional categories follow same format...]*
+
+### Prioritized Action Plan
+
+**Immediate (This Week)**
+1. Enable Enhanced Conversions for Purchase action
+2. Remove AddToCart from Primary conversion actions (set to Secondary)
+3. Create 3 themed negative keyword lists and apply account-wide
+4. Fix Broad Match + Manual CPC on NB-Category campaign
+
+**This Month**
+5. Address Quality Score: rewrite headlines for top 20 keywords with QS ≤5
+6. Add Customer Match list and remarketing audiences in Observation mode
+7. Deploy server-side tracking (GTM server container)
+
+**Next Quarter**
+8. Restructure PMax asset groups with full video coverage
+9. Test portfolio bid strategies for low-volume campaigns

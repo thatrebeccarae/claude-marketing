@@ -198,3 +198,7 @@ document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(e
 - Dark mode with neon accents (overdone)
 
 For typography pairings, color construction, animation library, and accessibility checklist, see [REFERENCE.md](REFERENCE.md).
+
+## Brand Context (Optional)
+
+If `brand-profile.json` exists in the working directory, read it before designing. Use colors (primary, secondary, background, text) for the design system, typography (heading and body fonts) for type selections, aesthetic (mood keywords, texture, negative space) for layout decisions, and imagery (style, composition) for hero sections and visual elements. This profile is produced by the `brand-dna` skill.

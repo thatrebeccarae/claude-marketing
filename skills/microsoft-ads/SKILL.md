@@ -124,3 +124,18 @@ Ask me questions like:
 - "Plan a Performance Max campaign on Microsoft"
 
 For detailed Microsoft Ads API reference, UET implementation, and advanced configurations, see [REFERENCE.md](REFERENCE.md).
+
+## Hard Rules
+
+These constraints must never be violated in recommendations:
+
+1. **UET tag must be verified and firing** before any optimization recommendations.
+2. **Auto-tagging (MSCLKID) must be enabled** — without it, conversion tracking and analytics break.
+3. **Brand syndication must be excluded** from brand campaigns — syndication network delivers low-quality traffic for brand terms.
+4. **Google imports must be reviewed and adjusted** — raw imports without Microsoft-specific optimization waste the CPC advantage.
+5. **Microsoft search terms must be reviewed independently** — different query patterns than Google, Google-imported negatives are insufficient.
+6. **LinkedIn Profile Targeting must be tested** for any B2B account — it is Microsoft's unique differentiator.
+
+## Scored Audit
+
+When performing an account audit, load `skills/shared/scoring-system.md` for the weighted scoring algorithm and `CHECKS.md` for the 30-check Microsoft Ads audit checklist. Produce a health score (0-100, grade A-F) with Quick Wins and a prioritized action plan.
