@@ -29,6 +29,9 @@ CATEGORIES = {
     "creative": {"label": "Creative & Design", "order": 6},
     "reporting": {"label": "Reporting & Deliverables", "order": 7},
     "dev-tools": {"label": "Developer Tools", "order": 8},
+    "seo": {"label": "SEO & AI Search", "order": 9},
+    "growth": {"label": "Growth & Conversion", "order": 10},
+    "analytics": {"label": "Analytics & Measurement", "order": 11},
 }
 
 

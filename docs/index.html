@@ -12,13 +12,13 @@
   gtag('js', new Date());
   gtag('config', 'G-00XHYRHCX4');
 </script>
-<meta name="description" content="27 open-source Claude Code skills and 3 specialized agents for paid media audits, brand intelligence, content creation, and analytics. 150+ weighted audit checks with A-F health grades. Free, no subscriptions.">
+<meta name="description" content="50+ open-source Claude Code skills and 3 specialized agents for paid media audits, brand intelligence, content creation, and analytics. 150+ weighted audit checks with A-F health grades. Free, no subscriptions.">
 <meta property="og:title" content="claude-marketing — Marketing expertise layer for Claude Code">
-<meta property="og:description" content="27 open-source Claude Code skills and 3 specialized agents for paid media audits, brand intelligence, content creation, and analytics. 150+ weighted audit checks with A-F health grades. Free, no subscriptions.">
+<meta property="og:description" content="50+ open-source Claude Code skills and 3 specialized agents for paid media audits, brand intelligence, content creation, and analytics. 150+ weighted audit checks with A-F health grades. Free, no subscriptions.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="claude-marketing — Marketing expertise layer for Claude Code">
-<meta name="twitter:description" content="27 open-source Claude Code skills and 3 specialized agents for paid media audits, brand intelligence, content creation, and analytics. 150+ weighted audit checks with A-F health grades.">
+<meta name="twitter:description" content="50+ open-source Claude Code skills and 3 specialized agents for paid media audits, brand intelligence, content creation, and analytics. 150+ weighted audit checks with A-F health grades.">
 <link rel="canonical" href="https://thatrebeccarae.github.io/claude-marketing/">
 <script type="application/ld+json">
 [
@@ -26,7 +26,7 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "claude-marketing — Marketing expertise layer for Claude Code",
-    "description": "27 open-source Claude Code skills and 3 specialized agents for paid media audits, brand intelligence, content creation, and analytics. 150+ weighted audit checks with A-F health grades. Free, no subscriptions.",
+    "description": "50+ open-source Claude Code skills and 3 specialized agents for paid media audits, brand intelligence, content creation, and analytics. 150+ weighted audit checks with A-F health grades. Free, no subscriptions.",
     "url": "https://thatrebeccarae.github.io/claude-marketing/",
     "inLanguage": "en",
     "isPartOf": {
@@ -39,7 +39,7 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "claude-marketing",
-    "description": "27 open-source Claude Code skills and 3 specialized agents for paid media audits, brand intelligence, content creation, and analytics.",
+    "description": "50+ open-source Claude Code skills and 3 specialized agents for paid media audits, brand intelligence, content creation, and analytics.",
     "url": "https://github.com/thatrebeccarae/claude-marketing",
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "Marketing Tools",
@@ -53,11 +53,13 @@
       "priceCurrency": "USD"
     },
     "featureList": [
+      "50+ marketing skills across 11 categories",
       "150+ weighted audit checks with A-F health grades",
-      "Cross-platform paid media audits (Google, Meta, Microsoft)",
-      "Brand DNA extraction from any URL",
-      "Klaviyo, Shopify, GA4, Braze, and Looker Studio expertise",
-      "SEO content creation and email composition",
+      "AI search optimization (AEO/GEO) for ChatGPT, Perplexity, Google AI Overviews",
+      "Cross-platform paid media audits (Google, Meta, Microsoft, LinkedIn, TikTok)",
+      "CRO auditing, A/B testing, and conversion optimization frameworks",
+      "Klaviyo, Shopify, GA4, Braze, GTM, and Looker Studio expertise",
+      "Multi-tool support: Cursor, Aider, Windsurf, GitHub Copilot, Gemini CLI",
       "GA4-to-GTM autonomous agent pipeline"
     ],
     "author": {
@@ -523,30 +525,31 @@ a {
 .cap-grid {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   column-gap: 12px;
-  row-gap: 22px;
+  row-gap: 12px;
 }
 
 .cap-card {
-  padding: 1.5rem 2.5rem;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
   border: 1px solid var(--theme-color);
-  min-height: 150px;
+  min-height: auto;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
   transition: border-color 0.4s var(--ease);
 }
 
 .cap-card-name {
-  font-size: clamp(1.25rem, 2.3vw, 2.125rem);
+  font-size: clamp(1rem, 1.5vw, 1.375rem);
   font-weight: 700;
   letter-spacing: 0.03em;
 }
 
 .cap-card-count {
   font-family: 'Cartograph CF', monospace;
-  font-size: 1rem;
+  font-size: 0.75rem;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: -0.02em;
@@ -554,17 +557,24 @@ a {
 }
 
 .cap-card-desc {
-  font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+  font-size: clamp(0.8rem, 1vw, 0.9rem);
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.45;
   letter-spacing: 0.02em;
 }
 
 .cap-card-skills {
   font-family: 'Cartograph CF', monospace;
-  font-size: 1rem;
+  font-size: 0.75rem;
+  margin-top: auto;
   opacity: 0.5;
-  line-height: 1.8;
+  line-height: 1.5;
+}
+
+#capabilities.section {
+  min-height: auto;
+  padding-top: clamp(60px, 8vw, 120px);
+  padding-bottom: clamp(60px, 8vw, 120px);
 }
 
 .cap-extra {
@@ -1083,6 +1093,7 @@ a {
     margin-bottom: 1.25rem;
   }
   .cap-card {
+  border-radius: 12px;
     padding: 1.25rem 1.5rem;
     min-height: auto;
   }
@@ -1254,6 +1265,7 @@ a {
   }
 
   .cap-card {
+  border-radius: 12px;
     padding: 1rem 1.25rem;
   }
   .cap-card-name {
@@ -1315,7 +1327,7 @@ a {
     <div class="hero-text">
       <p class="section-label" data-reveal>Open source</p>
       <h1 class="display" data-reveal>The marketing expertise <br>layer for Claude Code</h1>
-      <p class="subtitle" data-reveal>27 skills, 3 specialized agents, and a complete GA4-to-GTM <br>pipeline. Paid media audits, brand intelligence, content creation, and <br>analytics — all inside your terminal.</p>
+      <p class="subtitle" data-reveal>50+ skills, 3 specialized agents, and a complete GA4-to-GTM <br>pipeline. Paid media audits, brand intelligence, content creation, and <br>analytics — all inside your terminal.</p>
     </div>
     <div class="hero-terminal" data-reveal>
       <div class="terminal" id="heroTerminal">
@@ -1339,31 +1351,67 @@ a {
     </div>
     <div class="cap-grid" data-reveal data-reveal-stagger>
       <div class="cap-card" data-shuffle>
-        <div class="cap-card-name">Paid Media Audits</div>
-        <div class="cap-card-count">7 skills</div>
-        <div class="cap-card-desc">Scored audits with 150+ weighted checks, A-F health grades, Quick Wins, and cross-platform orchestration.</div>
-        <div class="cap-card-skills">Google Ads · Meta Ads · Microsoft Ads · Cross-Platform Audit · Account Structure · Competitor Ads · Wasted Spend</div>
+        <div class="cap-card-name">Paid Media</div>
+        <div class="cap-card-count">9 skills</div>
+        <div class="cap-card-desc">Scored audits with 150+ weighted checks, A-F health grades, cross-platform orchestration, and ad library competitive intelligence.</div>
+        <div class="cap-card-skills">Google Ads · Meta Ads · Microsoft Ads · LinkedIn Ads · TikTok Ads · Cross-Platform Audit · Account Structure · Competitor Ads · Wasted Spend</div>
       </div>
       <div class="cap-card" data-shuffle>
-        <div class="cap-card-name">Brand &amp; Strategy</div>
+        <div class="cap-card-name">SEO &amp; AI Search</div>
         <div class="cap-card-count">4 skills</div>
-        <div class="cap-card-desc">Extract brand identity from any URL. Research markets, build ICPs, and synthesize intelligence from RSS and web sources.</div>
-        <div class="cap-card-skills">Brand DNA · Market Research · ICP Research · Research Digest</div>
+        <div class="cap-card-desc">AI search optimization for ChatGPT, Perplexity, and Google AI Overviews. Technical SEO audits, schema markup, and programmatic SEO at scale.</div>
+        <div class="cap-card-skills">AEO/GEO Optimizer · Technical SEO Audit · Schema Markup · Programmatic SEO</div>
       </div>
       <div class="cap-card" data-shuffle>
-        <div class="cap-card-name">Content &amp; Creative</div>
+        <div class="cap-card-name">Content</div>
+        <div class="cap-card-count">7 skills</div>
+        <div class="cap-card-desc">SEO content writing, copywriting frameworks, brand voice, multi-agent content pipelines, social media strategy, and email composition.</div>
+        <div class="cap-card-skills">SEO Content Writer · Copywriting Frameworks · Content Pipeline · Content Creator · Social Media Strategy · Email Composer · Content Workflow</div>
+      </div>
+      <div class="cap-card" data-shuffle>
+        <div class="cap-card-name">Growth &amp; Conversion</div>
+        <div class="cap-card-count">4 skills</div>
+        <div class="cap-card-desc">CRO audits with LIFT model, landing page optimization, cold outreach sequences, and churn prevention with customer health scoring.</div>
+        <div class="cap-card-skills">CRO Auditor · Landing Page Optimizer · Cold Email &amp; Outreach · Retention &amp; Churn</div>
+      </div>
+      <div class="cap-card" data-shuffle>
+        <div class="cap-card-name">Strategy &amp; Research</div>
+        <div class="cap-card-count">7 skills</div>
+        <div class="cap-card-desc">Market research reports, ICP development, pricing strategy, customer journey mapping, brand intelligence, and research synthesis.</div>
+        <div class="cap-card-skills">Market Research · ICP Research · Pricing Strategy · Customer Journey · Brand DNA · Brand Voice · Research Digest</div>
+      </div>
+      <div class="cap-card" data-shuffle>
+        <div class="cap-card-name">E-Commerce &amp; CRM</div>
         <div class="cap-card-count">6 skills</div>
-        <div class="cap-card-desc">SEO content, email composition, frontend design, technical diagrams, video production, and end-to-end content workflows.</div>
-        <div class="cap-card-skills">SEO Content Writer · Email Composer · Content Workflow · Enhanced Frontend Design · Tech Diagram · Remotion Video</div>
+        <div class="cap-card-desc">Deep Klaviyo, Shopify, GA4, Braze, and Looker Studio expertise with API-ready scripts and autonomous monitoring agents.</div>
+        <div class="cap-card-skills">Klaviyo Analyst · Klaviyo Developer · Shopify · Google Analytics · Looker Studio · Braze</div>
       </div>
       <div class="cap-card" data-shuffle>
-        <div class="cap-card-name">DTC &amp; Analytics</div>
-        <div class="cap-card-count">8 skills</div>
-        <div class="cap-card-desc">Deep Klaviyo, Shopify, GA4, Braze, and Looker Studio expertise with API-ready scripts and autonomous monitoring agents.</div>
-        <div class="cap-card-skills">Klaviyo Analyst · Klaviyo Developer · Shopify Analyst · Google Analytics · Looker Studio · HTML Report Builder + more</div>
+        <div class="cap-card-name">Analytics</div>
+        <div class="cap-card-count">2 skills</div>
+        <div class="cap-card-desc">A/B testing frameworks with statistical rigor, UTM taxonomy design, and attribution model selection for cross-channel measurement.</div>
+        <div class="cap-card-skills">A/B Testing Framework · UTM &amp; Attribution Strategy</div>
+      </div>
+      <div class="cap-card" data-shuffle>
+        <div class="cap-card-name">Creative &amp; Design</div>
+        <div class="cap-card-count">3 skills</div>
+        <div class="cap-card-desc">Production-grade web interfaces, technical architecture diagrams, and programmatic video production with Remotion.</div>
+        <div class="cap-card-skills">Frontend Design · Tech Diagram · Remotion Video</div>
+      </div>
+      <div class="cap-card" data-shuffle>
+        <div class="cap-card-name">Reporting &amp; Deliverables</div>
+        <div class="cap-card-count">4 skills</div>
+        <div class="cap-card-desc">Polished HTML slide decks, consulting reports, PPTX generation with charts, and interactive data dashboards.</div>
+        <div class="cap-card-skills">Pro Deck Builder · Pro Report Builder · Data Viz Deck · HTML Report Builder</div>
+      </div>
+      <div class="cap-card" data-shuffle>
+        <div class="cap-card-name">Developer Tools</div>
+        <div class="cap-card-count">7 skills</div>
+        <div class="cap-card-desc">MCP server development, skill creation, React performance optimization, Word document editing, GTM management, and safe deployment.</div>
+        <div class="cap-card-skills">GTM · DOCX · MCP Builder · Skill Creator · React Best Practices · Safe Push · GitHub README</div>
       </div>
     </div>
-    <div class="cap-extra" data-reveal>Plus 3 agents: GA4 Monitor · GA4 Gap Analyzer · GTM Implementer — a complete tracking-to-implementation pipeline.</div>
+    <div class="cap-extra" data-reveal>Plus 3 autonomous agents, 1 GA4-to-GTM pipeline, and multi-tool support for Cursor, Aider, Windsurf, GitHub Copilot, and Gemini CLI.</div>
     <div data-reveal style="margin-top: 1.5rem; grid-column: 1 / -1;"><a href="skills.html" class="install-btn active">View whole catalog</a></div>
   </div>
 </section>
@@ -1425,7 +1473,7 @@ a {
         <div class="number-item-label">Agents</div>
       </div>
       <div class="number-item">
-        <div class="number-item-value">27</div>
+        <div class="number-item-value">50+</div>
         <div class="number-item-label">Skills</div>
       </div>
       <div class="number-item">
@@ -1433,7 +1481,7 @@ a {
         <div class="number-item-label">Audit Checks</div>
       </div>
       <div class="number-item">
-        <div class="number-item-value">7</div>
+        <div class="number-item-value">11</div>
         <div class="number-item-label">Categories</div>
       </div>
       <div class="number-item">
@@ -1864,7 +1912,7 @@ const demo2Config = {
     'Background:  ██ #000000',
     'Text:        ██ #FFFFFF',
     '',
-    'Ready for: seo-content-writer | frontend-design | pro-deck-builder',
+    'Ready for: seo-content-writer | frontend-design | pro-deck-builder | aeo-geo-optimizer | copywriting-frameworks',
   ]
 };
 
