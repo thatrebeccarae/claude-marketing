@@ -7,7 +7,7 @@ author: Rebecca Rae Barton
 author_url: https://github.com/thatrebeccarae
 metadata:
   version: 1.0.0
-  category: content-marketing
+  category: content
   domain: content-creation
   updated: 2026-03-18
   tested: 2026-03-18
