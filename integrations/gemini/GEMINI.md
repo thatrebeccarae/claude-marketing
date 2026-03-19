@@ -145,7 +145,7 @@ Analyze Google Analytics data, review website performance metrics, identify traf
 
 Google Tag Manager expertise. Audit GTM containers, design tag and trigger architecture, debug firing issues, implement consent mode v2, and advise on server-side tagging. Use when the user asks about GTM, tag management, container audits, consent mode, server-side tagging, or tracking implementation.
 
-@./reference/gtm.md
+@./reference/google-tag-manager.md
 
 ## html-report-builder
 

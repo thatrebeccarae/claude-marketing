@@ -7,7 +7,7 @@ author: Rebecca Rae Barton
 author_url: https://github.com/thatrebeccarae
 metadata:
   version: 1.0.0
-  category: dtc-marketing
+  category: analytics
   domain: google-analytics
   updated: 2026-02-23
   tested: 2026-03-17
