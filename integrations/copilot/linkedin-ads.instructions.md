@@ -68,5 +68,7 @@ B2B advertising on LinkedIn — campaigns, targeting, creative, Lead Gen Forms, 
 | Video view rate | >25% | 15-25% | <15% |
 | Social engagement rate | >0.5% | 0.3-0.5% | <0.3% |
 
+## Audit Workflow
+
 
 (Truncated. See full skill at github.com/thatrebeccarae/claude-marketing)

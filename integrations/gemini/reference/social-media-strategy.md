@@ -98,3 +98,11 @@ Blog post (Mon) → LinkedIn carousel (Tue) → Twitter thread (Wed) → IG Reel
 - **content-pipeline** — Social distribution as the final pipeline stage
 - **copywriting-frameworks** — Apply PAS/AIDA to social copy
 - **content-workflow** — Plan and schedule social content
+
+---
+
+# Social Media Strategy Reference
+
+Reference data, benchmarks, and platform-specific details for the Social Media Strategy skill.
+
+<!-- TODO: Add platform API schemas, benchmark data, and domain-specific reference tables -->

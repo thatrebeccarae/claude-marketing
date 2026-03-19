@@ -143,3 +143,11 @@ Define how voice adapts across contexts:
 - **copywriting-frameworks** — Use frameworks within your established voice
 - **social-media-strategy** — Platform-specific tone adaptations
 - **email-composer** — Maintain voice in professional communications
+
+---
+
+# Brand Voice Guidelines Reference
+
+Reference data, benchmarks, and platform-specific details for the Brand Voice Guidelines skill.
+
+<!-- TODO: Add platform API schemas, benchmark data, and domain-specific reference tables -->

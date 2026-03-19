@@ -82,5 +82,12 @@ B — BRIDGE: Show how your product/service bridges the gap
 
 ### 4Ps — Promise, Picture, Proof, Push
 
+```
+P — PROMISE: Make a bold, specific promise
+P — PICTURE: Help them visualize the result
+P — PROOF: Back it up with evidence
+P — PUSH: Drive to action with urgency
+```
+
 
 (Truncated. See full skill at github.com/thatrebeccarae/claude-marketing)

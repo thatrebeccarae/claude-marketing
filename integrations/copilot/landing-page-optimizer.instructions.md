@@ -81,5 +81,14 @@ CTA: Specific action + anxiety reducer
 
 ## Anti-Patterns
 
+1. **Multiple competing CTAs** — one primary action per page
+2. **Feature-focused headline** — lead with benefit, not feature
+3. **Stock photos** — real product screenshots or real people
+4. **Navigation on landing pages** — remove nav for paid traffic pages
+5. **Below-fold CTA only** — always have CTA above the fold
+6. **No social proof** — every landing page needs trust signals
+7. **Slow load time** — every 100ms delay costs 1% conversion
+8. **Desktop-only design** — 60%+ traffic is mobile
+
 
 (Truncated. See full skill at github.com/thatrebeccarae/claude-marketing)

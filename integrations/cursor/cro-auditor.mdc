@@ -165,3 +165,11 @@ For each recommendation, provide:
 - **landing-page-optimizer** — Deep-dive on specific landing pages (when built)
 - **a-b-testing-framework** — Design and analyze tests for CRO recommendations (when built)
 - **pro-report-builder** — Generate professional CRO audit deliverable
+
+---
+
+# Cro Auditor Reference
+
+Reference data, benchmarks, and platform-specific details for the Cro Auditor skill.
+
+<!-- TODO: Add platform API schemas, benchmark data, and domain-specific reference tables -->

@@ -98,3 +98,11 @@ CLV:CAC ratio target: >3:1
 - **customer-journey-mapping** — Map retention and advocacy stages
 - **google-analytics** — Cohort analysis and engagement metrics
 - **cro-auditor** — Optimize cancellation flow to save more customers
+
+---
+
+# Retention Churn Prevention Reference
+
+Reference data, benchmarks, and platform-specific details for the Retention Churn Prevention skill.
+
+<!-- TODO: Add platform API schemas, benchmark data, and domain-specific reference tables -->

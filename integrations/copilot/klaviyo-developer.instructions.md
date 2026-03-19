@@ -72,5 +72,16 @@ Headers returned: `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`
 
 ## API Revision Timeline
 
+| Revision | Key Changes |
+|----------|-------------|
+| 2026-01-15 | Latest. Custom Objects Ingestion, Geofencing API (beta). |
+| 2025-10-15 | Forms API, Flow Actions API, SMS ROI reporting. |
+| 2025-07-15 | Mapped Metrics API, Custom Objects API (GA). |
+| 2025-04-15 | Web Feeds API, Custom Metrics, Push Token registration. |
+| 2025-01-15 | Reviews APIs, Flows Create API, Campaign image management. |
+| 2024-10-15 | Universal Content API, Form/Segment Reporting, Reviews API. |
+| 2024-07-15 | Forms API (retrieval), Webhooks API. |
+| 2024-02-15 | Reporting API, Create or Update Profile (upsert). |
+
 
 (Truncated. See full skill at github.com/thatrebeccarae/claude-marketing)

@@ -51,3 +51,11 @@ Create 10 evaluation questions that are independent, read-only, complex, realist
 - `reference/python_mcp_server.md` — Python/FastMCP implementation guide
 - `reference/node_mcp_server.md` — TypeScript implementation guide
 - `reference/evaluation.md` — Evaluation creation guide
+
+---
+
+# Mcp Builder Reference
+
+Reference data, benchmarks, and platform-specific details for the Mcp Builder skill.
+
+<!-- TODO: Add platform API schemas, benchmark data, and domain-specific reference tables -->

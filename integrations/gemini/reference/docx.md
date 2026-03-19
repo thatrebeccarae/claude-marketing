@@ -80,3 +80,11 @@ pdftoppm -jpeg -r 150 document.pdf page
 - **LibreOffice**: PDF conversion
 - **Poppler** (pdftoppm): PDF to image conversion
 - **defusedxml** (pip): Secure XML parsing
+
+---
+
+# Docx Reference
+
+Reference data, benchmarks, and platform-specific details for the Docx skill.
+
+<!-- TODO: Add platform API schemas, benchmark data, and domain-specific reference tables -->

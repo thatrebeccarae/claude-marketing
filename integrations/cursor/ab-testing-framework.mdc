@@ -128,3 +128,11 @@ Where:
 - **cro-auditor** — CRO audit generates test hypotheses; this skill designs the experiments
 - **google-analytics** — GA4 for experiment data and segment analysis
 - **copywriting-frameworks** — Generate variant copy using proven frameworks
+
+---
+
+# Ab Testing Framework Reference
+
+Reference data, benchmarks, and platform-specific details for the Ab Testing Framework skill.
+
+<!-- TODO: Add platform API schemas, benchmark data, and domain-specific reference tables -->

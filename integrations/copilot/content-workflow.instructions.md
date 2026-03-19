@@ -101,5 +101,10 @@ stub → draft → reviewed → approved → published → measured
 
 ## Key Principles
 
+1. **Research before writing.** Even short posts benefit from 10 minutes of source gathering.
+2. **One piece, many platforms.** Write once, adapt to each platform's format.
+3. **Human approval gate.** Never publish without explicit approval.
+4. **Measure everything.** Track performance to inform future content decisions.
+
 
 (Truncated. See full skill at github.com/thatrebeccarae/claude-marketing)

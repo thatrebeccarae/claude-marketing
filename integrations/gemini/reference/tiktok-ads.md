@@ -124,3 +124,11 @@ Hook (0-3s) → Value/Story (3-15s) → CTA (last 3s)
 - **account-structure-review** — Multi-platform structural audit
 - **wasted-spend-finder** — Identify wasted TikTok spend
 - **copywriting-frameworks** — Script ad hooks and CTAs
+
+---
+
+# Tiktok Ads Reference
+
+Reference data, benchmarks, and platform-specific details for the Tiktok Ads skill.
+
+<!-- TODO: Add platform API schemas, benchmark data, and domain-specific reference tables -->

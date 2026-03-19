@@ -174,3 +174,11 @@ B — BENEFIT: What it means for the customer (outcome/feeling)
 - **seo-content-writer** — SEO-optimized copy using these frameworks
 - **content-creator** — Brand voice consistency when writing framework-driven copy
 - **email-composer** — Email-specific applications of PAS, BAB, QUEST
+
+---
+
+# Copywriting Frameworks Reference
+
+Reference data, benchmarks, and platform-specific details for the Copywriting Frameworks skill.
+
+<!-- TODO: Add platform API schemas, benchmark data, and domain-specific reference tables -->

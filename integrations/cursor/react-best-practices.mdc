@@ -70,3 +70,11 @@ The full 40+ rules with code examples are in `references/react-performance-guide
 - **FID**: Responsiveness to user interactions
 - **CLS**: Visual stability
 - **Bundle size**: Initial JavaScript payload
+
+---
+
+# React Best Practices Reference
+
+Reference data, benchmarks, and platform-specific details for the React Best Practices skill.
+
+<!-- TODO: Add platform API schemas, benchmark data, and domain-specific reference tables -->

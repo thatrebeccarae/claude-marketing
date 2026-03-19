@@ -82,5 +82,7 @@ For each stage, document:
 | Onboarding → Retention | No clear first value, poor UX | Guided setup, time-to-value focus |
 | Retention → Advocacy | No program, not asked | Referral program, NPS follow-up |
 
+## Persona-Based Journeys
+
 
 (Truncated. See full skill at github.com/thatrebeccarae/claude-marketing)

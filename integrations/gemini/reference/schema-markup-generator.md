@@ -180,3 +180,11 @@ Generate a `<script type="application/ld+json">` block with all required and rec
 - **aeo-geo-optimizer** — Schema is a key AEO signal; implement types recommended by the AEO audit
 - **technical-seo-audit** — Audit identifies missing/broken schema; this skill generates the fixes
 - **seo-content-writer** — Content structure should align with schema structure
+
+---
+
+# Schema Markup Generator Reference
+
+Reference data, benchmarks, and platform-specific details for the Schema Markup Generator skill.
+
+<!-- TODO: Add platform API schemas, benchmark data, and domain-specific reference tables -->

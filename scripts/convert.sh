@@ -338,27 +338,19 @@ convert_copilot() {
     char_count=$(wc -c < "$tmpfile" | tr -d ' ')
 
     if [ "$char_count" -gt 3500 ]; then
-      # Truncate at last blank line before 3500 chars using awk
-      awk '
-        BEGIN { chars = 0; output = ""; last_para_end = "" }
-        {
-          line = $0 "\n"
-          chars += length(line)
-          if (chars > 3500) {
-            # We have exceeded limit; print up to last_para_end
-            printf "%s", last_para_end
-            exit
-          }
-          output = output line
-          if ($0 == "") {
-            last_para_end = output
-          }
-        }
-        END {
-          if (chars <= 3500) { printf "%s", output }
-        }
-      ' "$tmpfile" > "$outfile"
-
+      # Truncate at last blank line before 3500 bytes (python3 for cross-platform consistency)
+      python3 -c "
+import sys
+content = open(sys.argv[1]).read()
+last_break = 0
+for i, ch in enumerate(content):
+    if i >= 3500:
+        break
+    if ch == chr(10) and i + 1 < len(content) and content[i + 1] == chr(10):
+        last_break = i + 2
+out = content[:last_break] if last_break > 0 else content[:3500]
+sys.stdout.write(out)
+" "$tmpfile" > "$outfile"
       printf '\n(Truncated. See full skill at github.com/thatrebeccarae/claude-marketing)\n' >> "$outfile"
     else
       cp "$tmpfile" "$outfile"

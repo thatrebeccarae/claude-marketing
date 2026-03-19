@@ -164,3 +164,11 @@ Balanced view needed → Position-Based
 - **facebook-ads** — Meta auto-tags with fbclid; UTMs needed for GA4 attribution
 - **linkedin-ads** — LinkedIn requires manual UTM configuration
 - **tiktok-ads** — TikTok requires manual UTM configuration
+
+---
+
+# Utm Attribution Strategy Reference
+
+Reference data, benchmarks, and platform-specific details for the Utm Attribution Strategy skill.
+
+<!-- TODO: Add platform API schemas, benchmark data, and domain-specific reference tables -->
