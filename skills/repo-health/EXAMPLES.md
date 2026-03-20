@@ -4,7 +4,7 @@ Practical examples showing repo-health audit output for different scenarios.
 
 ## Example 1: New Public Repo (Low Score)
 
-**User Request**: `/repo-health ~/Popoloto/Repos.nosync/my-new-tool`
+**User Request**: `/repo-health ~/projects/my-new-tool`
 
 A freshly created public repo with only source code committed. No standard files, no GitHub configuration.
 
@@ -66,18 +66,18 @@ Overall Score: 22/100 (Grade: F)
 12.[LOW]  Add PR template — consistent pull request descriptions.
 13.[LOW]  Commit package-lock.json — ensures reproducible installs.
 
-Run /repo-health ~/Popoloto/Repos.nosync/my-new-tool --fix to auto-generate missing files.
+Run /repo-health ~/projects/my-new-tool --fix to auto-generate missing files.
 ```
 
 ## Example 2: Mature Public Repo (High Score)
 
-**User Request**: `/repo-health ~/Popoloto/Repos.nosync/aouda`
+**User Request**: `/repo-health ~/projects/my-agent`
 
 A well-maintained public repo with most standard files in place.
 
 **Output**:
 ```
-=== Repo Health Report: aouda ===
+=== Repo Health Report: my-agent ===
 Visibility: public
 Overall Score: 85/100 (Grade: B)
 
@@ -127,13 +127,13 @@ Overall Score: 85/100 (Grade: B)
 
 ## Example 3: Pre-Open-Source Audit (Private to Public)
 
-**User Request**: `/repo-health ~/Popoloto/Repos.nosync/clawclip-build`
+**User Request**: `/repo-health ~/projects/my-dashboard-dev`
 
 Auditing a private repo before making it public. The report highlights everything that needs to be added.
 
 **Output**:
 ```
-=== Repo Health Report: clawclip-build ===
+=== Repo Health Report: my-dashboard-dev ===
 Visibility: private
 Overall Score: 58/100 (Grade: F)
 
@@ -174,7 +174,6 @@ Re-run without the public flag to see private-only scoring.
   [FAIL] Tracked .env file: .env.example — review contents before open-sourcing
 
 --- Community (10%) --- Score: 25/100
-  [PASS] CONTRIBUTING.md — wait, this is missing
   [MISS] CODE_OF_CONDUCT.md
   [MISS] CONTRIBUTING.md
   [MISS] Issue templates
@@ -201,7 +200,7 @@ NICE TO HAVE:
 12.[LOW]  Add CODEOWNERS — auto-assign reviewers.
 13.[LOW]  Clean up 5 stale branches before going public.
 
-Run /repo-health ~/Popoloto/Repos.nosync/clawclip-build --fix to auto-generate missing files.
+Run /repo-health ~/projects/my-dashboard-dev --fix to auto-generate missing files.
 ```
 
 The pre-open-source audit adds a dedicated checklist section that separates "must do" (legal/security blockers) from "should do" (quality) and "nice to have" (polish). It also flags the need to run `/safe-push` to scan commit history for leaked secrets before the repo becomes publicly visible.

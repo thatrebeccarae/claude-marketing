@@ -9,29 +9,28 @@ description: "Usage examples for the social-preview skill."
 
 **User:**
 ```
-/social-preview generate ~/Popoloto/Repos.nosync/aouda
+/social-preview generate ~/projects/my-agent
 ```
 
 **What happens:**
 
-1. Skill scans the repo: name is `aouda`, description is "Autonomous AI agent framework", primary language is TypeScript, logo found at `branding/logo.png`.
+1. Skill scans the repo: name is `my-agent`, description is "Autonomous AI agent framework", primary language is TypeScript, logo found at `branding/logo.png`.
 2. Asks user for template preference. User picks **dark** (default).
 3. Generates `social-preview.html`:
 
 ```html
 <body>
   <div class="accent-bar"></div>
-  <div class="project-name">aouda</div>
+  <div class="project-name">my-agent</div>
   <div class="tagline">Autonomous AI agent framework</div>
   <div class="language-badge">TypeScript</div>
-  <div class="attribution">github.com/thatrebeccarae</div>
+  <div class="attribution">github.com/your-username</div>
 </body>
 ```
 
-4. Guides user to render via Puppeteer on REDACTED:
+4. Guides user to render via Puppeteer:
 ```bash
-ssh REDACTED
-cd ~/Popoloto/Repos.nosync/aouda
+cd ~/projects/my-agent
 node -e "const p=require('puppeteer');(async()=>{const b=await p.launch({headless:true});const pg=await b.newPage();await pg.setViewport({width:1280,height:640,deviceScaleFactor:2});await pg.goto('file://$(pwd)/social-preview.html',{waitUntil:'networkidle0'});await pg.screenshot({path:'social-preview.png',clip:{x:0,y:0,width:1280,height:640}});await b.close();})()"
 ```
 
@@ -44,12 +43,12 @@ node -e "const p=require('puppeteer');(async()=>{const b=await p.launch({headles
 
 **User:**
 ```
-/social-preview generate ~/Popoloto/Repos.nosync/ouras
+/social-preview generate ~/projects/my-tracker
 ```
 
 **What happens:**
 
-1. Skill scans the repo: name is `ouras`, description is "Time tracking with presence", primary language is TypeScript. Detects Tailwind config with custom dark palette (`#08080d` background).
+1. Skill scans the repo: name is `my-tracker`, description is "Time tracking with presence", primary language is TypeScript. Detects Tailwind config with custom dark palette (`#08080d` background).
 2. Asks user for template. User says: "Use the project's dark palette -- #08080d background, zinc text."
 3. Skill modifies the dark template to use the project's brand colors:
 
@@ -76,12 +75,12 @@ body {
 
 **User:**
 ```
-/social-preview audit ~/Popoloto/Repos.nosync/clawclip
+/social-preview audit ~/projects/my-dashboard
 ```
 
 **Output:**
 ```
-=== Social Preview Audit: clawclip ===
+=== Social Preview Audit: my-dashboard ===
 
 Custom preview set: NO (using auto-generated)
 Description:       "AI-powered agent orchestration dashboard"

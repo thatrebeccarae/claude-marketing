@@ -18,7 +18,7 @@ SKILLS_DIR = Path(__file__).parent.parent / "skills"
 CATALOG_PATH = DOCS_DIR / "catalog.json"
 OUTPUT_DIR = DOCS_DIR / "skill"
 
-GA4_ID = "G-00XHYRHCX4"
+GA4_ID = os.environ.get("GA4_ID", "")
 BASE_URL = "https://thatrebeccarae.github.io/claude-marketing"
 REPO_URL = "https://github.com/thatrebeccarae/claude-marketing"
 
