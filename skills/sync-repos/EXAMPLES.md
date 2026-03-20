@@ -2,13 +2,13 @@
 
 ## Example 1: Check Drift Between Dev and Public Repos
 
-**User Request**: "Check if aouda-dev and aouda are in sync"
+**User Request**: "Check if my-app-dev and my-app are in sync"
 
-**Invocation**: `/sync-repos check ~/Popoloto/Repos.nosync/aouda-dev ~/Popoloto/Repos.nosync/aouda`
+**Invocation**: `/sync-repos check ~/projects/my-app-dev ~/projects/my-app`
 
 **Steps Taken**:
 1. Validate both paths are git repos
-2. Locate `scripts/sync-public.sh` and `scripts/sync-public.conf` in aouda-dev
+2. Locate `scripts/sync-public.sh` and `scripts/sync-public.conf` in dev repo
 3. Parse exclusion list from `sync-public.conf`
 4. Generate file manifests for both repos, filtering exclusions
 5. Compare file hashes for files present in both
@@ -18,8 +18,8 @@
 Sync Repos — Check Report
 ==========================
 
-Dev repo:    ~/Popoloto/Repos.nosync/aouda-dev (142 files)
-Public repo: ~/Popoloto/Repos.nosync/aouda (98 files)
+Dev repo:    ~/projects/my-app-dev (142 files)
+Public repo: ~/projects/my-app (98 files)
 Sync script: scripts/sync-public.sh (found)
 
 Files only in dev (expected exclusions): 38
@@ -44,9 +44,9 @@ Recommendation: SYNC NEEDED — 3 unexpected files missing from public, 1 file d
 
 ## Example 2: Full Sync Workflow
 
-**User Request**: "Sync ouras dev repo to public"
+**User Request**: "Sync my-app dev repo to public"
 
-**Invocation**: `/sync-repos sync ~/Popoloto/Repos.nosync/v0-ouras-landing-page ~/Popoloto/Repos.nosync/ouras`
+**Invocation**: `/sync-repos sync ~/projects/my-app-dev ~/projects/my-app`
 
 **Steps Taken**:
 1. Run check (as in Example 1). Drift detected: 5 files diverged, 2 new files missing.
@@ -82,13 +82,13 @@ Next step: Review changes in the public repo, then /safe-push when ready.
 
 ## Example 3: Set Up Sync for a New Repo Pair
 
-**User Request**: "Set up sync between clawclip-build (dev) and clawclip (public)"
+**User Request**: "Set up sync between my-dashboard-dev (dev) and my-dashboard (public)"
 
-**Invocation**: `/sync-repos setup ~/Popoloto/Repos.nosync/clawclip-build ~/Popoloto/Repos.nosync/clawclip`
+**Invocation**: `/sync-repos setup ~/projects/my-dashboard-dev ~/projects/my-dashboard`
 
 **Steps Taken**:
 1. Confirm both paths exist and are git repos.
-2. Scan clawclip-build for files that should not sync:
+2. Scan dev repo for files that should not sync:
    - Found `.env` (secrets)
    - Found `data/` directory (SQLite databases)
    - Found `.claude/` directory (project config)
@@ -104,8 +104,8 @@ Next step: Review changes in the public repo, then /safe-push when ready.
 Sync Repos — Setup
 ====================
 
-Dev repo:    ~/Popoloto/Repos.nosync/clawclip-build
-Public repo: ~/Popoloto/Repos.nosync/clawclip
+Dev repo:    ~/projects/my-dashboard-dev
+Public repo: ~/projects/my-dashboard
 
 Detected exclusion patterns:
   .env, .env.*           (secrets)
