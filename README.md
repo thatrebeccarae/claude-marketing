@@ -40,7 +40,7 @@ git clone https://github.com/thatrebeccarae/claude-marketing.git
 
 ---
 
-60 open-source skills that give [Claude Code](https://docs.anthropic.com/en/docs/claude-code) real marketing expertise — diagnostic frameworks, industry benchmarks, audit checklists, and platform-specific reference data across paid media, SEO, e-commerce, content, CRO, analytics, and strategy. Also works with Cursor, Aider, Windsurf, GitHub Copilot, and Gemini CLI.
+56 open-source skills that give [Claude Code](https://docs.anthropic.com/en/docs/claude-code) real marketing expertise — diagnostic frameworks, industry benchmarks, audit checklists, and platform-specific reference data across paid media, SEO, e-commerce, content, CRO, analytics, and strategy. Also works with Cursor, Aider, Windsurf, GitHub Copilot, and Gemini CLI.
 
 Each skill ships three layers: **SKILL.md** (frameworks and decision trees), **REFERENCE.md** (benchmarks, API schemas, rate limits), and **EXAMPLES.md** (worked prompts with expected output). Not prompt templates — implementation-grade tools tested in real engagements.
 
@@ -80,7 +80,7 @@ All 56 skills live in [`skills/`](skills/) — install individually or use a [sk
 
 > **All skills tested March 2026 with Claude Code v2.1.** Each skill's SKILL.md includes a `tested` date and `tested_with` version in its frontmatter metadata.
 
-> [**View Demo**](https://thatrebeccarae.github.io/claude-marketing/skill-packs/demo/) — See skills in action with example terminal output.
+> [**Browse the Skill Catalog**](https://thatrebeccarae.github.io/claude-marketing/) — Interactive demo site with search, skill details, and install instructions.
 
 ### Paid Media
 
