@@ -6,153 +6,153 @@ origin: custom
 author: Rebecca Rae Barton
 author_url: https://github.com/thatrebeccarae
 metadata:
-  version: 1.0.0
+  version: 1.1.0
   category: devops
   domain: git
-  updated: 2026-03-13
-  tested: 2026-03-17
+  updated: 2026-03-20
+  tested: 2026-03-20
   tested_with: "Claude Code v2.1"
 ---
 
 # Safe Push
 
-Pre-push hygiene checker for GitHub repositories. Prevents accidental exposure of secrets, PII, and sensitive infrastructure details.
+Pre-push hygiene check for GitHub repositories. Use when the user asks to push code, especially to public repos.
 
-## Install
+## Trigger
 
-```bash
-git clone https://github.com/thatrebeccarae/claude-marketing.git && cp -r claude-marketing/skills/safe-push ~/.claude/skills/
-```
-
-## When to Use
-
-- Before any `git push` to a remote repository
-- Especially before pushing to public repos
-- When onboarding a new repo to ensure clean push habits
-- After bulk commits or rebases before pushing
+When the user says "push", "safe push", "push to GitHub", or runs `/safe-push`.
 
 ## Procedure
 
-### Step 1: Classify the Repo
+### 1. Classify the repo
 
 ```bash
-# Check remote URL
+# Check if public repo
 git remote -v
-
-# Check for public repo marker
+# Check for .public-repo marker
 test -f .public-repo && echo "PUBLIC" || echo "private or unmarked"
 ```
 
-**Public repos** (`.public-repo` marker or public remote): apply ALL checks below.
-**Private repos**: apply PII/secrets scan only (Step 2).
+If public (or pushing to a public remote): apply ALL checks below.
+If private: apply only the PII scan (step 2).
 
-When in doubt, treat a repo as public.
+### 2. PII and secrets scan
 
-### Step 2: PII and Secrets Scan
-
-Scan the full diff against the target branch:
+**Default mode** — scan the diff against the target branch:
 
 ```bash
 git diff origin/main...HEAD
 ```
 
-**Always blocked:**
+**Full repo mode** (`/safe-push --full`) — scan ALL tracked files, not just the diff. Use this for baseline audits, first-time pushes of existing repos, or periodic hygiene checks. Searches the entire working tree for blocked patterns:
+
+```bash
+git ls-files | xargs grep -n -E 'PATTERN' --include='*.md' --include='*.py' --include='*.js' --include='*.ts' --include='*.html' --include='*.sh' --include='*.json' --include='*.yml' --include='*.yaml'
+```
+
+Check for:
 - Email addresses (personal or client)
 - Phone numbers
-- API keys, tokens, secrets (AWS, GitHub, Slack, generic patterns)
-- Private IP addresses (RFC 1918 ranges)
-- Internal hostnames and infrastructure details
-- Private key material (RSA, SSH, PGP headers)
+- API keys, tokens, secrets (AWS, GitHub, Slack, Telegram, generic)
+- Private IP addresses, internal hostnames
+- Private key material
+- Client names or internal project codenames
 - Hardcoded credentials or passwords
-- Client names configured in `.commit-msg-blocklist`
 
-**Allowlist:** Patterns matching repo-local `.pii-allowlist` (one regex per line) are excluded from the scan.
+**Client names and internal project codenames:** Maintain a per-user blocklist at `~/.claude/safe-push-blocklist` (one pattern per line) and load it into the scan. Never hardcode real client names inside this skill file — that would defeat the purpose of the scan.
+
+**Infrastructure patterns (always blocked in public repos):**
+- Private IP ranges: Tailscale (100.64.0.0/10), RFC 1918 LAN (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16)
+- Hostnames and `.local` / `.lan` / `.internal` TLDs for any machine you run
+- Internal directory names specific to your workstation (home dir subfolders, sync folder names)
+- VLAN and network segment names
+- Self-hosted service names (reverse proxies, databases, dashboards, workflow automation, file sync tools) when appearing in infra context
+- Device and hardware serials (e.g., `^[A-Z0-9]{7,12}$`-shaped identifiers in config/doc files)
+- Hardware model names in personal-infra context
+- Docker paths, `.env` file references
+- Slack bot tokens (`xoxb-`), Slack channel IDs (`C` + 10 alphanumerics)
+- API keys and credentials for any self-hosted service
+- SSH config details, private port mappings
+- Hardcoded tracking IDs: GA4 measurement IDs (`G-XXXXXXXXXX`), GTM container IDs (`GTM-XXXXXXX`)
+
+Load your personal patterns from `~/.claude/safe-push-blocklist` rather than embedding them here.
 
 If anything is found:
 - List each finding with file, line number, and what was detected
-- Do NOT push until all findings are resolved or allowlisted
+- Ask the user to fix before proceeding
+- Do NOT push until resolved
 
-### Step 3: Commit Message Audit
+### 3. Commit message audit
 
-Review all commit messages in the push range:
+Review ALL commit messages in the push range:
 
 ```bash
 git log origin/main..HEAD --format="%h %s"
 ```
 
 For public repos, flag:
-- Client names or internal project codenames (per `.commit-msg-blocklist`)
-- Internal URLs, private IPs, hostnames
-- Infrastructure details (service names, device IDs, network names)
-- Personal information
-- Vague messages ("fix", "update", "wip") — suggest descriptive rewrites
+- Any pattern from your `~/.claude/safe-push-blocklist` (client names, internal codenames)
+- Infrastructure references: hostnames, VLAN names, internal paths, private IPs, self-hosted service names, device identifiers
+- Hardware identifiers (model numbers, serials, device IDs)
+- Internal URLs, private IPs, port numbers tied to services
+- Personal info (email, phone, address)
+- Vague messages ("fix", "update", "wip") — suggest rewrites
 
-### Step 4: Staggered Push (Rate Limiting)
+If issues found, suggest interactive rebase to clean messages (with user approval).
+
+### 4. Staggered push (rate limiting)
 
 To avoid triggering GitHub bulk action / automation abuse detection:
 
-| Scenario | Strategy |
-|----------|----------|
-| Single branch, < 50 commits | Push normally |
-| Multiple branches | One branch at a time, 5s gap between pushes |
-| > 50 commits on one branch | Batch into groups of 50, 10s gap between batches |
-| New repo, initial push | Push default branch first, wait 10s, then remaining branches with 5s gaps |
-
-Never use `git push --all` or `git push --mirror` to a public remote without staggering.
-
-### Step 5: Final Confirmation
-
-Present a summary before executing:
-- Repository name and public/private classification
-- Branch(es) being pushed
-- Number of commits
-- Any warnings from Steps 2-4
-- Push strategy (direct or staggered)
-
-Wait for explicit user confirmation.
-
-### Step 6: Push and Verify
+- If pushing a single branch with < 50 commits: push normally
+- If pushing multiple branches or > 50 commits:
+  - Push one branch at a time
+  - Wait 5 seconds between branch pushes
+  - For very large pushes (100+ commits), break into batches of 50 and wait 10 seconds between batches
+- If creating a new repo and pushing initial content with multiple branches:
+  - Push main/default branch first
+  - Wait 10 seconds
+  - Push remaining branches one at a time with 5-second gaps
+- NEVER use `git push --all` or `git push --mirror` to a public remote without staggering
 
 ```bash
+# Example staggered multi-branch push
+for branch in main develop feature/foo; do
+  git push origin "$branch"
+  sleep 5
+done
+```
+
+### 5. Final confirmation
+
+Before executing the push, present a summary:
+- Repository: name and public/private status
+- Branch(es) being pushed
+- Number of commits
+- Any warnings from steps 2-4
+- Push strategy (direct or staggered)
+
+Wait for explicit user confirmation before pushing.
+
+### 6. Push and verify
+
+After pushing:
+```bash
 git push origin <branch>
+# Verify
 git log origin/<branch> --oneline -5
 ```
 
 Report success and the remote URL.
 
-## Configuration Files
+## Configuration files
 
-### `.pii-allowlist`
+- **User-level blocklist** — `~/.claude/safe-push-blocklist`: one regex per line, personal strings that must never appear in public commits (client names, your hostnames, your internal paths). Load and scan against this list on every public push.
+- **Repo-local `.pii-allowlist`** — one regex per line, matches are excluded from the PII scan (used to allow false positives like example keys in docs)
+- **Repo-local `.commit-msg-blocklist`** — terms that should never appear in public commit messages for this repo specifically
 
-Place in repo root. One regex per line. Matches are excluded from the PII scan.
+## Notes
 
-```
-# Allow example.com emails in docs
-example\.com
-# Allow documentation IP ranges
-192\.0\.2\.\d+
-198\.51\.100\.\d+
-```
-
-### `.commit-msg-blocklist`
-
-Place in repo root. Terms that must never appear in public commit messages.
-
-```
-# Client names
-acme-corp
-bigco
-# Internal project codenames
-project-phoenix
-# Infrastructure
-staging\.internal
-```
-
-## Key Principles
-
-1. **Default to caution.** If unsure whether a repo is public, treat it as public.
-2. **Never bypass.** This skill complements pre-commit hooks — they work together.
-3. **Fix, don't suppress.** Remove the sensitive data rather than allowlisting it, when possible.
-4. **Audit the full range.** Always scan from the divergence point, not just the latest commit.
-
-For regex patterns and detection details, see [REFERENCE.md](REFERENCE.md).
+- This skill does NOT bypass the global pre-commit hook — they work together
+- For projects with a public/private repo split (dev mirror → public release): always push to the dev repo first, sync via your sync script, then safe-push the public repo
+- When in doubt, treat a repo as public
