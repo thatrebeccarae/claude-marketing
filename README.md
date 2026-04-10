@@ -5,9 +5,7 @@
 <br>
 <br>
 
-# claude-marketing
-
-**56 open-source Claude Code skills, specialized agents, and autonomous workflows for marketing teams.** Paid media, e-commerce, content, strategy, creative, reporting, and development — specialist depth without specialist headcount.
+**claude-marketing contains 56 open-source Claude Code skills, specialized agents, and autonomous workflows for marketing teams.** Paid media, e-commerce, content, strategy, creative, reporting, and development — specialist depth without specialist headcount.
 
 <br>
 <br>
@@ -30,10 +28,6 @@ git clone https://github.com/thatrebeccarae/claude-marketing.git
 <br>
 
 **Works on Mac, Windows, and Linux.**
-
-<br>
-<br>
-
 
 <br>
 <br>
