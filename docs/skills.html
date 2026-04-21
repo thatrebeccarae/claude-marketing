@@ -20,6 +20,8 @@
 <meta name="twitter:title" content="Skills — claude-marketing">
 <meta name="twitter:description" content="Browse the full catalog of claude-marketing skills for paid media, brand intelligence, content creation, and analytics.">
 <link rel="canonical" href="https://thatrebeccarae.github.io/claude-marketing/skills.html">
+<link rel="preload" as="font" type="font/woff2" href="https://framerusercontent.com/assets/QFL0NYke1cBVShP30pbS7hysGc.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="https://framerusercontent.com/assets/REECJPxYctsFxKQcUsJamXJJg.woff2" crossorigin="anonymous">
 <link href="https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700&display=swap" rel="stylesheet">
 <style>
 /* ─── FONTS ─── */
@@ -293,6 +295,23 @@ a {
   border-width: 2px;
   padding: calc(0.75rem - 1px) calc(1.25rem - 1px);
 }
+
+/* Override the native search clear — system accent (often blue) defeats the monochrome palette.
+   Render our own white × instead. */
+.search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 14px;
+  width: 14px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round'><line x1='3' y1='3' x2='11' y2='11'/><line x1='11' y1='3' x2='3' y2='11'/></svg>");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.7;
+  transition: opacity 0.15s var(--ease);
+}
+.search-input::-webkit-search-cancel-button:hover { opacity: 1; }
 
 .search-results {
   padding: 0 var(--section-pad-x) 2rem;
@@ -1014,7 +1033,7 @@ a {
 <header class="site-header" id="site-header">
   <a href="./" class="header-logo">claude-marketing</a>
   <nav class="header-nav">
-    <a href="./skills.html">Skills</a>
+    <a href="./skills.html" aria-current="page">Skills</a>
     <a href="./#capabilities">Capabilities</a>
     <a href="./#demo">Demo</a>
     <a href="./#install">Install</a>
@@ -1172,13 +1191,32 @@ a {
     filterBar.addEventListener('click', e => {
       const pill = e.target.closest('.filter-pill');
       if (!pill) return;
-      activeCategory = pill.dataset.category;
-      filterBar.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      render();
+      activateCategory(pill.dataset.category);
     });
 
+    // Allow deep-linking: /skills.html#paid-media activates that filter.
+    applyHashFilter();
+    window.addEventListener('hashchange', applyHashFilter);
+
     render();
+  }
+
+  function activateCategory(cat) {
+    activeCategory = cat;
+    filterBar.querySelectorAll('.filter-pill').forEach(p => {
+      p.classList.toggle('active', p.dataset.category === cat);
+    });
+    render();
+  }
+
+  function applyHashFilter() {
+    const raw = decodeURIComponent((location.hash || '').replace(/^#/, ''));
+    if (!raw) return;
+    // Match by category key (preferred) or by category label slugified.
+    const match = catMap[raw]
+      ? raw
+      : Object.keys(catMap).find(k => k === raw || (catMap[k] || '').toLowerCase().replace(/[^a-z0-9]+/g, '-') === raw);
+    if (match) activateCategory(match);
   }
 
   function render() {

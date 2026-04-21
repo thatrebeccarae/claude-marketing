@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quickstart — claude-marketing · install, pick a skill, browse the catalog</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-00XHYRHCX4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-00XHYRHCX4');
+</script>
+<meta name="description" content="Install claude-marketing in about two minutes, pick a skill to run first, browse the full 10-category catalog, check compatibility across Claude Code, Cursor, Aider, Windsurf, Copilot, and Gemini CLI, and troubleshoot common issues.">
+<meta property="og:title" content="Quickstart — claude-marketing">
+<meta property="og:description" content="Three steps, about two minutes. Plus the full skill catalog, compatibility matrix, and common fixes.">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Quickstart — claude-marketing">
+<meta name="twitter:description" content="Three steps, about two minutes. Plus the full skill catalog and common fixes.">
+<link rel="canonical" href="https://thatrebeccarae.github.io/claude-marketing/quickstart.html">
+<link rel="preload" as="font" type="font/woff2" href="https://framerusercontent.com/assets/QFL0NYke1cBVShP30pbS7hysGc.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="https://framerusercontent.com/assets/REECJPxYctsFxKQcUsJamXJJg.woff2" crossorigin="anonymous">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700&display=swap" rel="stylesheet">
+<style>
+/* ─── FONTS ─── */
+@font-face { font-family: 'PP Editorial New'; src: url('https://framerusercontent.com/assets/QFL0NYke1cBVShP30pbS7hysGc.woff2') format('woff2'); font-weight: 200; font-style: normal; font-display: swap; }
+@font-face { font-family: 'PP Editorial New'; src: url('https://framerusercontent.com/assets/REECJPxYctsFxKQcUsJamXJJg.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Cartograph CF'; src: url('https://framerusercontent.com/assets/jQ3VWGcEj4oWm3roGkiXoL1lA.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+
+/* ─── RESET & VARS ─── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --accent: #5B5F8D;
+  --terminal-bg: #000000;
+  --terminal-green: #57dd3f;
+  --terminal-red: #d9605b;
+  --terminal-amber: #f7f65f;
+  --terminal-text: #ffffff;
+  --terminal-cyan: #46a9ad;
+  --terminal-magenta: #ff00fa;
+  --terminal-blue: #4e5fbc;
+  --terminal-purple: #ed55e9;
+  --border-width: 2px;
+  --section-pad-y: clamp(80px, 12vw, 200px);
+  --section-pad-x: clamp(40px, 5vw, 80px);
+  --ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --grid-cols: 12;
+  --grid-gap: 20px;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 60px; -webkit-text-size-adjust: 100%; }
+html[data-theme="dark"] { --theme-bg: #000000; --theme-color: #ffffff; --theme-bg-rgb: 0,0,0; }
+html { background-color: var(--theme-bg); color: var(--theme-color); }
+
+body {
+  font-family: 'Switzer', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(15px, 1.1vw, 17px);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--theme-color); color: var(--theme-bg); }
+
+a { color: inherit; text-decoration: none; }
+
+/* ─── FOCUS ─── */
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* ─── GRID (copied from index.html) ─── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+  gap: var(--grid-gap);
+  padding-left: var(--section-pad-x);
+  padding-right: var(--section-pad-x);
+}
+
+/* ─── TYPE (copied from index.html) ─── */
+.display {
+  font-family: 'PP Editorial New', 'Georgia', serif;
+  font-size: clamp(2rem, 4.5vw, 6.5rem);
+  font-weight: 200;
+  line-height: 1.12;
+  letter-spacing: -0.014em;
+}
+.subtitle {
+  font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+  font-weight: 300;
+  line-height: 1.55;
+}
+.section-label {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  margin-bottom: 2rem;
+}
+.muted { opacity: 0.5; }
+
+/* ─── SECTION (copied from index.html) ─── */
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: clamp(100px, 15vw, 200px);
+  padding-bottom: clamp(100px, 15vw, 200px);
+}
+.section > .grid { width: 100%; }
+
+.section--short { min-height: auto; padding-top: clamp(80px, 10vw, 160px); padding-bottom: clamp(80px, 10vw, 160px); }
+
+/* ─── SITE HEADER ─── */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem var(--section-pad-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
+}
+.site-header.scrolled {
+  background: rgba(var(--theme-bg-rgb), 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.header-logo { font-weight: 600; font-size: 1rem; color: var(--theme-color); }
+.header-nav { display: flex; gap: 2.5rem; align-items: center; }
+.header-nav a {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--theme-color);
+  opacity: 0.7;
+  transition: opacity 0.2s var(--ease);
+}
+.header-nav a:hover { opacity: 1; }
+.header-nav a[aria-current="page"] { opacity: 1; }
+.header-github {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid var(--theme-color);
+  border-radius: 45px;
+  transition: background 0.2s, color 0.2s;
+}
+.header-github:hover { background: var(--theme-color); color: var(--theme-bg); }
+.hamburger { display: none; }
+.mobile-nav { display: none; }
+
+/* ─── HERO ─── */
+/* ─── HERO (copied from index.html) ─── */
+.hero-text {
+  grid-column: 1 / 7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 25vh;
+}
+.hero-text .display { margin-bottom: 1.5rem; max-width: 100%; }
+.hero-text .subtitle { margin-bottom: 3rem; }
+.hero-terminal {
+  grid-column: 7 / 13;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-terminal .terminal { transform: none; }
+
+/* ─── TERMINAL (copied from index.html) ─── */
+.terminal {
+  background: var(--terminal-bg);
+  border: 1px solid #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  font-family: 'Cartograph CF', 'SF Mono', monospace;
+  font-size: clamp(0.7rem, 1vw, 1rem);
+  line-height: 1.65;
+  width: clamp(280px, 50vw, 900px);
+  aspect-ratio: 1031 / 706;
+  margin: 0 auto;
+  box-shadow: none;
+}
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+  background: transparent;
+  border-bottom: none;
+}
+.terminal-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.terminal-dot.red { background: #ff5f57; }
+.terminal-dot.yellow { background: #febc2e; }
+.terminal-dot.green { background: #28c840; }
+.terminal-body {
+  padding: 1.25rem 1.5rem;
+  height: calc(100% - 41px);
+  overflow-y: auto;
+  color: var(--terminal-text);
+  white-space: pre;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+.terminal-body::-webkit-scrollbar { width: 4px; }
+.terminal-body::-webkit-scrollbar-track { background: transparent; }
+.terminal-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+.terminal-body .prompt { color: var(--terminal-cyan); }
+.terminal-body .ok { color: var(--terminal-green); }
+.terminal-body .placeholder { color: var(--terminal-amber); }
+.terminal-body .dim { opacity: 0.5; }
+.terminal-body .accent { color: var(--terminal-cyan); }
+
+/* ─── HERO CTA BUTTONS ─── */
+.hero-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+.hero-btn {
+  display: inline-block;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid var(--theme-color);
+  border-radius: 45px;
+  color: var(--theme-color);
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+.hero-btn:hover { background: rgba(255,255,255,0.1); }
+.hero-btn.active { background: var(--theme-color); color: var(--theme-bg); }
+.hero-btn.active:hover { opacity: 0.9; }
+
+/* ─── PICKS SECTION (heading uses default section-label spacing) ─── */
+.picks-heading { grid-column: 1 / -1; margin-bottom: 1.5rem; }
+.picks-heading .display { max-width: none; }
+.picks-sub {
+  grid-column: 1 / -1;
+  font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+  font-weight: 300;
+  line-height: 1.55;
+  opacity: 0.7;
+  max-width: 62ch;
+  margin-bottom: clamp(2rem, 3vw, 3rem);
+}
+.picks-grid {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--grid-gap);
+}
+.picks-loading {
+  grid-column: 1 / -1;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.85rem;
+  opacity: 0.4;
+  padding: 2rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+/* Skill card — reused from /skills */
+.skill-card {
+  display: flex;
+  flex-direction: column;
+  background: #000000;
+  border: 1px solid #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  text-decoration: none;
+  color: var(--theme-color);
+  transition: border-width 0.3s var(--ease), transform 0.2s var(--ease);
+  min-height: 200px;
+}
+.skill-card:hover { border-width: 2px; padding: calc(1.5rem - 1px) calc(2rem - 1px); transform: translateY(-2px); }
+.skill-card-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; line-height: 1.3; }
+.skill-card-category {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.04em;
+}
+.skill-card-desc {
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.55;
+  opacity: 0.8;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.skill-card-meta {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.skill-card-tested { font-family: 'Cartograph CF', monospace; font-size: 0.7rem; opacity: 0.55; text-transform: uppercase; }
+.skill-card-install-row { display: flex; align-items: center; gap: 0.5rem; }
+.skill-card-install {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.65rem;
+  opacity: 0.45;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+.copy-btn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: currentColor;
+  border-radius: 6px;
+  padding: 3px 5px;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.15s, border-color 0.15s;
+  display: inline-flex;
+}
+.copy-btn:hover { opacity: 1; border-color: rgba(255,255,255,0.4); }
+.copy-btn.copied { color: var(--terminal-green); border-color: var(--terminal-green); opacity: 1; }
+
+/* ─── SECTION HEADING (reusable for lower sections) ─── */
+.section-heading { grid-column: 1 / -1; margin-bottom: 1.5rem; }
+.section-heading .display { max-width: none; }
+.section-sub {
+  grid-column: 1 / -1;
+  font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+  font-weight: 300;
+  line-height: 1.55;
+  opacity: 0.7;
+  max-width: 62ch;
+  margin-bottom: clamp(2rem, 3vw, 3rem);
+}
+
+/* ─── CATEGORIES (verbatim .cap-card from index.html, with anchor wrapper) ─── */
+.cap-grid {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 12px;
+  row-gap: 12px;
+}
+.cap-card {
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--theme-color);
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.4s var(--ease), transform 0.2s var(--ease);
+}
+a.cap-card:hover { transform: translateY(-2px); }
+.cap-card-name { font-size: clamp(1rem, 1.5vw, 1.375rem); font-weight: 700; letter-spacing: 0.03em; }
+.cap-card-count { font-family: 'Cartograph CF', monospace; font-size: 0.75rem; font-weight: 400; text-transform: uppercase; letter-spacing: -0.02em; opacity: 0.6; }
+.cap-card-desc { font-size: clamp(0.8rem, 1vw, 0.9rem); font-weight: 400; line-height: 1.45; letter-spacing: 0.02em; }
+.cap-card-skills { font-family: 'Cartograph CF', monospace; font-size: 0.75rem; margin-top: auto; opacity: 0.5; line-height: 1.5; }
+
+/* ─── COMPATIBILITY MATRIX ─── */
+.matrix-wrap { grid-column: 1 / -1; overflow-x: auto; }
+.matrix { width: 100%; border-collapse: collapse; font-size: clamp(13px, 1vw, 16px); min-width: 720px; }
+.matrix thead th {
+  font-family: 'Cartograph CF', monospace;
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 1rem 0.75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  opacity: 0.8;
+}
+.matrix thead th:first-child { text-align: left; opacity: 1; }
+.matrix tbody td { padding: 1.1rem 0.75rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); font-variant-numeric: tabular-nums; }
+.matrix tbody td:first-child { text-align: left; font-weight: 500; }
+.matrix tbody tr:last-child td { border-bottom: 0; }
+.status-full { color: #ffffff; font-weight: 600; }
+.status-summary, .status-partial { color: rgba(255,255,255,0.7); font-weight: 500; }
+.status-optional { color: rgba(255,255,255,0.55); font-weight: 400; font-style: italic; }
+.status-none { color: rgba(255,255,255,0.22); }
+.matrix-note { grid-column: 1 / -1; margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.65; max-width: 62ch; }
+.matrix-note a { border-bottom: 1px solid currentColor; }
+code, .kbd { font-family: 'Cartograph CF', monospace; font-size: 0.88em; background: rgba(255,255,255,0.08); padding: 0.12em 0.4em; border-radius: 3px; }
+
+/* ─── TROUBLESHOOTING (containers right-aligned, content left-aligned, bordered cards) ─── */
+.faq-list { grid-column: 1 / -1; display: flex; flex-direction: column; gap: clamp(1rem, 1.5vw, 1.5rem); align-items: flex-end; }
+.faq-item { max-width: 62ch; width: 100%; max-width: min(62ch, 100%); text-align: left; border: 1px solid var(--theme-color); border-radius: 12px; padding: clamp(1.5rem, 2.5vw, 2.25rem) clamp(1.75rem, 3vw, 2.75rem); transition: border-color 0.4s var(--ease), transform 0.2s var(--ease); }
+.faq-q { font-family: 'Switzer', -apple-system, sans-serif; font-size: clamp(1.35rem, 1.85vw, 1.75rem); font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; margin-bottom: 0.75rem; }
+.faq-item p { opacity: 0.75; font-size: clamp(1rem, 1.15vw, 1.125rem); line-height: 1.6; }
+.faq-item p a { border-bottom: 1px solid currentColor; }
+
+/* Spacer before footer so the last section doesn't butt into it */
+.section--pad-footer { padding-bottom: clamp(120px, 16vw, 240px); }
+
+/* ─── FOOTER ─── */
+.site-footer { padding: clamp(40px, 4vw, 60px) clamp(40px, 5vw, 80px) 2rem; background: #000000; color: #ffffff; }
+.footer-handle { width: calc(100% + clamp(80px, 10vw, 160px)); margin-left: calc(-1 * clamp(40px, 5vw, 80px)); margin-bottom: 3rem; }
+.footer-handle svg { width: 100%; height: auto; display: block; }
+.footer-handle svg path { fill: #ffffff; }
+.footer-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; padding-bottom: 3rem; }
+.footer-socials { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
+.footer-socials a { font-family: 'Cartograph CF', monospace; font-size: 0.85rem; text-transform: uppercase; color: #ffffff; transition: opacity 0.2s var(--ease); }
+.footer-socials a:hover { opacity: 0.7; }
+.footer-cta { display: flex; align-items: center; justify-content: flex-end; gap: 2rem; }
+.footer-cta-text { font-family: 'PP Editorial New', 'Georgia', serif; font-size: clamp(1.5rem, 2.5vw, 2.5rem); font-weight: 200; line-height: 1.2; text-align: right; }
+.footer-cta-btn { display: inline-block; font-family: 'Cartograph CF', monospace; font-size: 1.25rem; text-transform: uppercase; padding: 1.25rem 1.75rem; border: 1px solid #ffffff; border-radius: 45px; color: #ffffff; transition: background 0.2s var(--ease), color 0.2s var(--ease); white-space: nowrap; }
+.footer-cta-btn:hover { background: #ffffff; color: #000000; }
+.footer-bar { display: flex; justify-content: space-between; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); font-family: 'Cartograph CF', monospace; font-size: 0.75rem; text-transform: uppercase; opacity: 0.5; }
+
+/* ─── REVEAL ─── */
+[data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+[data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  [data-reveal] { opacity: 1; transform: none; }
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .hero-text { grid-column: 1 / -1; padding-top: 20vh; }
+  .hero-terminal { grid-column: 1 / -1; margin-top: 2rem; }
+  .picks-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cap-grid { grid-template-columns: repeat(2, 1fr); }
+  .faq-list { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 820px) {
+  .header-nav { display: none; }
+  .header-github { display: none; }
+  .hamburger { display: flex; flex-direction: column; gap: 4px; background: none; border: 0; cursor: pointer; padding: 8px; }
+  .hamburger span { width: 22px; height: 1.5px; background: var(--theme-color); transition: transform 0.2s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: var(--theme-bg);
+    z-index: 999;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 96px var(--section-pad-x) var(--section-pad-x);
+    transform: translateX(100%);
+    transition: transform 0.3s var(--ease);
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a { font-family: 'PP Editorial New', serif; font-size: 2rem; font-weight: 200; }
+
+  .picks-grid { grid-template-columns: 1fr; }
+  .cap-grid { grid-template-columns: 1fr; }
+
+  .footer-bottom { grid-template-columns: 1fr; }
+  .footer-cta { justify-content: flex-start; }
+  .footer-cta-text { text-align: left; }
+  .footer-bar { flex-wrap: wrap; gap: 0.75rem; }
+}
+
+@media (max-width: 390px) {
+  :root { --section-pad-x: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<header class="site-header" id="siteHeader">
+  <a href="./" class="header-logo">claude-marketing</a>
+  <nav class="header-nav">
+    <a href="./skills.html">Skills</a>
+    <a href="./#capabilities">Capabilities</a>
+    <a href="./#demo">Demo</a>
+    <a href="./#install">Install</a>
+  </nav>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener" class="header-github">View on GitHub &#8599;</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<nav class="mobile-nav" id="mobileNav">
+  <a href="./skills.html" onclick="closeMobileNav()">Skills</a>
+  <a href="./#capabilities" onclick="closeMobileNav()">Capabilities</a>
+  <a href="./#demo" onclick="closeMobileNav()">Demo</a>
+  <a href="./#install" onclick="closeMobileNav()">Install</a>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener">GitHub &#8599;</a>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="section">
+  <div class="grid">
+    <div class="hero-text">
+      <p class="section-label" data-reveal>Quickstart</p>
+      <h1 class="display" data-reveal>Three steps, <br>about two minutes.</h1>
+      <p class="subtitle" data-reveal>56 open-source skills for Claude Code, Cursor, Aider, Windsurf, Copilot, and Gemini CLI. Specialist depth across paid media, SEO, email, analytics, CRO, content, strategy, creative, and DevOps — implementation-grade, not prompt templates.</p>
+      <div class="hero-buttons" data-reveal>
+        <a href="#picks" class="hero-btn active">See what to run</a>
+        <a href="./skills.html" class="hero-btn" target="_blank" rel="noopener">Browse catalog &#8599;</a>
+      </div>
+    </div>
+    <div class="hero-terminal" data-reveal>
+      <div class="terminal">
+        <div class="terminal-header">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+        </div>
+<div class="terminal-body"><span class="dim"># 01. Clone the repo</span>
+<span class="prompt">$</span> git clone https://github.com/thatrebeccarae/claude-marketing.git
+
+<span class="dim"># 02. Copy a skill — or run the installer</span>
+<span class="prompt">$</span> cp -r claude-marketing/skills/<span class="placeholder">&lt;skill-name&gt;</span> ~/.claude/skills/
+<span class="prompt">$</span> bash claude-marketing/scripts/install.sh
+
+<span class="dim"># 03. Ask Claude Code in plain English</span>
+<span class="prompt">&gt;</span> <span class="accent">"Audit my Klaviyo flows and rank</span>
+<span class="accent">  opportunities by revenue impact."</span>
+
+<span class="dim"># Works the same in Cursor, Aider, Windsurf,</span>
+<span class="dim"># Copilot, and Gemini CLI — see /integrations</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ SIX TO TRY ═══════════════════ -->
+<section class="section section--short" id="picks">
+  <div class="grid">
+    <div class="picks-heading" data-reveal>
+      <p class="section-label">Run</p>
+      <h2 class="display">Six skills worth trying first.</h2>
+    </div>
+    <p class="picks-sub" data-reveal>A mix across paid media, analytics, and lifecycle — each one runs top-to-bottom in under an hour and returns something you can act on today.</p>
+    <div class="picks-grid" id="picks-grid">
+      <div class="picks-loading">Loading picks…</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CATEGORIES ═══════════════════ -->
+<section class="section section--short" id="categories">
+  <div class="grid">
+    <div class="section-heading" data-reveal>
+      <p class="section-label">Catalog</p>
+      <h2 class="display">What's inside.</h2>
+    </div>
+    <p class="section-sub" data-reveal>Ten categories, 56 skills. Tap any category to land on a pre-filtered view of the full catalog.</p>
+    <div class="cap-grid" data-reveal data-reveal-stagger aria-label="Skill categories">
+      <a class="cap-card" href="./skills.html#paid-media">
+        <div class="cap-card-name">Paid Media</div>
+        <div class="cap-card-count">9 skills</div>
+        <div class="cap-card-desc">Scored audits with 150+ weighted checks, A-F health grades, cross-platform orchestration, and ad library competitive intelligence.</div>
+        <div class="cap-card-skills">Google Ads · Meta Ads · Microsoft Ads · LinkedIn Ads · TikTok Ads · Cross-Platform Audit · Account Structure · Competitor Ads · Wasted Spend</div>
+      </a>
+      <a class="cap-card" href="./skills.html#seo">
+        <div class="cap-card-name">SEO &amp; AI Search</div>
+        <div class="cap-card-count">6 skills</div>
+        <div class="cap-card-desc">AI search optimization for ChatGPT, Perplexity, and Google AI Overviews. Technical SEO audits, schema markup, programmatic SEO, SEO content writing, and llms.txt generation.</div>
+        <div class="cap-card-skills">AEO/GEO Optimizer · Technical SEO Audit · Schema Markup · Programmatic SEO · SEO Content Writer · llms.txt</div>
+      </a>
+      <a class="cap-card" href="./skills.html#content">
+        <div class="cap-card-name">Content</div>
+        <div class="cap-card-count">6 skills</div>
+        <div class="cap-card-desc">Copywriting frameworks, brand voice, multi-agent content pipelines, social media strategy, and email composition.</div>
+        <div class="cap-card-skills">Copywriting Frameworks · Content Pipeline · Content Creator · Social Media Strategy · Email Composer · Content Workflow</div>
+      </a>
+      <a class="cap-card" href="./skills.html#growth">
+        <div class="cap-card-name">Growth &amp; Conversion</div>
+        <div class="cap-card-count">3 skills</div>
+        <div class="cap-card-desc">CRO audits with LIFT model, landing page optimization, and churn prevention with customer health scoring and win-back campaigns.</div>
+        <div class="cap-card-skills">CRO Auditor · Landing Page Optimizer · Retention &amp; Churn Prevention</div>
+      </a>
+      <a class="cap-card" href="./skills.html#strategy">
+        <div class="cap-card-name">Strategy &amp; Research</div>
+        <div class="cap-card-count">8 skills</div>
+        <div class="cap-card-desc">Market research reports, ICP development, pricing strategy, customer journey mapping, brand intelligence, cold outreach, and research synthesis.</div>
+        <div class="cap-card-skills">Market Research · ICP Research · Pricing Strategy · Customer Journey · Brand DNA · Brand Voice · Cold Email · Research Digest</div>
+      </a>
+      <a class="cap-card" href="./skills.html#email-lifecycle">
+        <div class="cap-card-name">Email &amp; Lifecycle</div>
+        <div class="cap-card-count">3 skills</div>
+        <div class="cap-card-desc">Deep Klaviyo and Braze expertise — flow audits, segment health, deliverability diagnostics, cross-channel orchestration, and API integration.</div>
+        <div class="cap-card-skills">Klaviyo Analyst · Klaviyo Developer · Braze</div>
+      </a>
+      <a class="cap-card" href="./skills.html#analytics">
+        <div class="cap-card-name">Analytics</div>
+        <div class="cap-card-count">6 skills</div>
+        <div class="cap-card-desc">GA4 traffic analysis, Google Tag Manager audits, Looker Studio dashboards, Shopify store analytics, A/B testing, and UTM attribution strategy.</div>
+        <div class="cap-card-skills">Google Analytics · Google Tag Manager · Looker Studio · Shopify · A/B Testing · UTM &amp; Attribution</div>
+      </a>
+      <a class="cap-card" href="./skills.html#creative">
+        <div class="cap-card-name">Creative &amp; Design</div>
+        <div class="cap-card-count">3 skills</div>
+        <div class="cap-card-desc">Production-grade web interfaces, technical architecture diagrams, and programmatic video production with Remotion.</div>
+        <div class="cap-card-skills">Frontend Design · Tech Diagram · Remotion Video</div>
+      </a>
+      <a class="cap-card" href="./skills.html#reporting">
+        <div class="cap-card-name">Reporting &amp; Deliverables</div>
+        <div class="cap-card-count">4 skills</div>
+        <div class="cap-card-desc">Polished HTML slide decks, consulting reports, PPTX generation with charts, and interactive data dashboards.</div>
+        <div class="cap-card-skills">Pro Deck Builder · Pro Report Builder · Data Viz Deck · HTML Report Builder</div>
+      </a>
+      <a class="cap-card" href="./skills.html#devops">
+        <div class="cap-card-name">DevOps</div>
+        <div class="cap-card-count">8 skills</div>
+        <div class="cap-card-desc">Repo health audits, scaffolding, public/private repo sync, dependency audits, release notes, social preview images, safe push hygiene, and project-type-aware README generation.</div>
+        <div class="cap-card-skills">GitHub README · Repo Health · Repo Scaffold · Sync Repos · Dep Audit · Release Notes · Social Preview · Safe Push</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ COMPATIBILITY ═══════════════════ -->
+<section class="section section--short" id="compatibility">
+  <div class="grid">
+    <div class="section-heading" data-reveal>
+      <p class="section-label">Compatibility</p>
+      <h2 class="display">What it runs on.</h2>
+    </div>
+    <p class="section-sub" data-reveal>Skills are authored for Claude Code first and adapted down for other assistants. <strong style="font-weight:500;">Full</strong> means the skill loads with its complete <code>SKILL.md</code> and reference data. <strong style="font-weight:500;">Summary</strong> means a compressed variant.</p>
+    <div class="matrix-wrap" data-reveal>
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th scope="col">Feature</th>
+            <th scope="col">Claude Code</th>
+            <th scope="col">Cursor</th>
+            <th scope="col">Aider</th>
+            <th scope="col">Windsurf</th>
+            <th scope="col">Copilot</th>
+            <th scope="col">Gemini CLI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Core capabilities</td>
+            <td class="status-full">Full</td>
+            <td class="status-full">Full</td>
+            <td class="status-summary">Summary</td>
+            <td class="status-summary">Summary</td>
+            <td class="status-full">Full</td>
+            <td class="status-full">Full</td>
+          </tr>
+          <tr>
+            <td>Reference data</td>
+            <td class="status-full">Full</td>
+            <td class="status-partial">Partial</td>
+            <td class="status-none">—</td>
+            <td class="status-none">—</td>
+            <td class="status-none">—</td>
+            <td class="status-full">Full (@import)</td>
+          </tr>
+          <tr>
+            <td>Examples</td>
+            <td class="status-full">Full</td>
+            <td class="status-none">—</td>
+            <td class="status-none">—</td>
+            <td class="status-none">—</td>
+            <td class="status-none">—</td>
+            <td class="status-optional">Optional</td>
+          </tr>
+          <tr>
+            <td>Install command</td>
+            <td class="status-full">Full</td>
+            <td class="status-none">—</td>
+            <td class="status-none">—</td>
+            <td class="status-none">—</td>
+            <td class="status-none">—</td>
+            <td class="status-none">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="matrix-note" data-reveal>Tool-specific notes live in <a href="https://github.com/thatrebeccarae/claude-marketing/tree/main/integrations" target="_blank" rel="noopener">integrations/</a> in the repo.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ TROUBLESHOOTING ═══════════════════ -->
+<section class="section section--short section--pad-footer" id="troubleshooting">
+  <div class="grid">
+    <div class="section-heading" data-reveal>
+      <p class="section-label">If something's off</p>
+      <h2 class="display">Where to look.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item" data-reveal>
+        <h3 class="faq-q">Skills not loading in Claude Code?</h3>
+        <p>Confirm the skill folder lives at <code>~/.claude/skills/&lt;name&gt;</code> and contains a <code>SKILL.md</code>. Restart Claude Code to refresh.</p>
+      </div>
+      <div class="faq-item" data-reveal>
+        <h3 class="faq-q">API key errors on a scored audit?</h3>
+        <p>Scored audits need platform credentials (Google Ads, Meta, Klaviyo). Each skill's <code>SKILL.md</code> lists the environment variables it expects.</p>
+      </div>
+      <div class="faq-item" data-reveal>
+        <h3 class="faq-q">Python version issues?</h3>
+        <p>Skills with Python helpers expect Python 3.11 or newer. Use <code>pyenv</code> or a recent system Python.</p>
+      </div>
+      <div class="faq-item" data-reveal>
+        <h3 class="faq-q">MCP server not connecting?</h3>
+        <p>Check the MCP block in <code>claude_desktop_config.json</code>. Full walkthroughs live in the repo's <a href="https://github.com/thatrebeccarae/claude-marketing/tree/main/docs" target="_blank" rel="noopener">docs/</a> directory.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="site-footer">
+  <div class="footer-handle">
+    <svg width="3008" height="304" viewBox="0 0 3008 304" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="@thatrebeccarae">
+      <path d="M234.459 243.23C204.772 243.23 190.266 230.748 184.868 212.868C170.7 234.459 147.422 243.567 124.145 243.567C91.4221 243.567 65.4461 225.35 65.4461 191.615C65.4461 166.651 79.6148 148.097 108.29 137.977C131.904 130.217 154.507 127.856 182.507 127.519V123.133C182.507 102.892 173.398 92.4342 154.507 92.4342C136.29 92.4342 127.181 102.555 124.82 116.723H73.2051C78.6028 75.904 109.976 50.94 156.531 50.94C207.471 50.94 234.122 81.3016 234.122 123.47V191.615C234.122 205.109 239.856 215.23 252.338 215.23C273.929 215.23 288.098 192.627 288.098 145.736C288.098 73.2051 232.097 17.5423 154.844 17.5423C77.2534 17.5423 20.9158 76.2413 20.9158 152.145C20.9158 230.748 76.2413 285.736 154.844 285.736C180.82 285.736 204.097 282.363 225.688 273.254L232.435 290.122C208.82 299.905 183.182 303.616 154.844 303.616C63.422 303.616 0 239.857 0 152.145C0 64.0967 64.7714 0 154.844 0C244.579 0 309.013 61.0605 309.013 144.724C309.013 209.832 280.001 243.23 234.459 243.23ZM116.723 186.892C116.723 199.712 125.832 208.146 141.35 208.146C163.615 208.146 182.507 190.266 182.507 165.977V156.868C130.217 157.88 116.723 170.7 116.723 186.892Z" fill="currentColor"/>
+      <path d="M361.677 189.254V105.928H339.412V66.7955H361.677V24.6266H413.292V66.7955H450.4V105.928H413.292V182.844C413.292 200.386 418.015 210.17 440.28 210.17H450.063V248.965C444.328 251.664 432.858 253.688 419.027 253.688C380.231 253.688 361.677 231.423 361.677 189.254Z" fill="currentColor"/>
+      <path d="M489.343 248.29V5.39763H540.958V90.7474C552.765 70.5064 571.32 61.0605 593.585 61.0605C628.332 61.0605 654.308 82.3136 654.308 127.181V248.29H602.693V137.639C602.693 114.699 593.585 102.892 574.693 102.892C554.115 102.892 540.958 120.772 540.958 144.049V248.29H489.343Z" fill="currentColor"/>
+      <path d="M755.732 126.844H704.117C709.515 86.0245 740.888 61.0605 787.443 61.0605C839.395 61.0605 866.383 91.4221 866.383 133.591V203.085C866.383 226.7 868.407 238.844 871.443 248.29H818.142C816.455 242.218 815.443 234.459 815.106 225.688C800.937 245.254 779.346 253.688 757.756 253.688C723.346 253.688 697.708 236.146 697.708 201.399C697.708 176.772 711.876 157.88 740.551 147.76C764.166 140.001 786.768 137.639 814.768 137.302V133.254C814.768 113.35 804.985 102.892 785.081 102.892C767.539 102.892 758.093 112.675 755.732 126.844ZM749.322 198.025C749.322 210.17 758.431 217.929 773.611 217.929C796.551 217.929 814.768 199.374 814.768 174.41V167.326C762.479 168.338 749.322 181.157 749.322 198.025Z" fill="currentColor"/>
+      <path d="M925.686 189.254V105.928H903.42V66.7955H925.686V24.6266H977.3V66.7955H1014.41V105.928H977.3V182.844C977.3 200.386 982.023 210.17 1004.29 210.17H1014.07V248.965C1008.34 251.664 996.867 253.688 983.035 253.688C944.24 253.688 925.686 231.423 925.686 189.254Z" fill="currentColor"/>
+      <path d="M1053.35 248.29V66.7955H1104.97V92.0968C1116.44 70.5064 1133.98 61.0605 1152.53 61.0605C1159.95 61.0605 1166.7 63.0846 1170.41 66.7955V110.314C1164.34 108.964 1157.93 108.29 1149.83 108.29C1118.8 108.29 1104.97 125.832 1104.97 154.507V248.29H1053.35Z" fill="currentColor"/>
+      <path d="M1374.62 188.579C1365.17 230.411 1331.43 253.688 1286.9 253.688C1230.57 253.688 1195.82 217.254 1195.82 157.543C1195.82 95.8077 1230.9 61.0605 1284.88 61.0605C1339.19 61.0605 1373.27 97.1571 1373.27 156.531V168.001H1248.45C1251.14 197.013 1264.64 212.531 1286.9 212.531C1303.77 212.531 1315.24 205.109 1320.64 188.579H1374.62ZM1284.88 102.217C1265.65 102.217 1253.51 114.699 1249.46 138.314H1319.96C1315.92 114.699 1303.77 102.217 1284.88 102.217Z" fill="currentColor"/>
+      <path d="M1469 248.29H1417.39V5.39763H1469V85.3498C1480.14 69.4943 1495.65 61.0605 1514.54 61.0605C1561.44 61.0605 1590.45 97.8318 1590.45 157.206C1590.45 218.941 1560.76 253.688 1514.54 253.688C1495.32 253.688 1479.8 245.591 1469 230.411V248.29ZM1503.41 102.892C1480.81 102.892 1469 122.121 1469 157.206C1469 192.29 1481.15 211.856 1503.41 211.856C1525.68 211.856 1537.82 192.627 1537.82 157.206C1537.82 122.121 1525.68 102.892 1503.41 102.892Z" fill="currentColor"/>
+      <path d="M1804.54 188.579C1795.09 230.411 1761.36 253.688 1716.83 253.688C1660.49 253.688 1625.74 217.254 1625.74 157.543C1625.74 95.8077 1660.83 61.0605 1714.8 61.0605C1769.12 61.0605 1803.19 97.1571 1803.19 156.531V168.001H1678.37C1681.07 197.013 1694.56 212.531 1716.83 212.531C1733.7 212.531 1745.17 205.109 1750.56 188.579H1804.54ZM1714.8 102.217C1695.58 102.217 1683.43 114.699 1679.38 138.314H1749.89C1745.84 114.699 1733.7 102.217 1714.8 102.217Z" fill="currentColor"/>
+      <path d="M2009.24 132.242H1957.63C1954.25 110.988 1942.11 102.892 1927.26 102.892C1904.32 102.892 1892.52 122.121 1892.52 157.543C1892.52 192.627 1905 211.856 1928.61 211.856C1944.13 211.856 1954.93 203.085 1958.64 186.218H2010.25C2002.49 231.76 1969.77 253.688 1927.6 253.688C1873.29 253.688 1839.55 216.917 1839.55 157.543C1839.55 95.8077 1873.96 61.0605 1927.26 61.0605C1969.43 61.0605 2002.83 84.6751 2009.24 132.242Z" fill="currentColor"/>
+      <path d="M2214.16 132.242H2162.54C2159.17 110.988 2147.02 102.892 2132.18 102.892C2109.24 102.892 2097.43 122.121 2097.43 157.543C2097.43 192.627 2109.91 211.856 2133.53 211.856C2149.05 211.856 2159.84 203.085 2163.55 186.218H2215.17C2207.41 231.76 2174.69 253.688 2132.52 253.688C2078.2 253.688 2044.47 216.917 2044.47 157.543C2044.47 95.8077 2078.88 61.0605 2132.18 61.0605C2174.35 61.0605 2207.75 84.6751 2214.16 132.242Z" fill="currentColor"/>
+      <path d="M2307.74 126.844H2256.13C2261.53 86.0245 2292.9 61.0605 2339.45 61.0605C2391.41 61.0605 2418.39 91.4221 2418.39 133.591V203.085C2418.39 226.7 2420.42 238.844 2423.45 248.29H2370.15C2368.47 242.218 2367.45 234.459 2367.12 225.688C2352.95 245.254 2331.36 253.688 2309.77 253.688C2275.36 253.688 2249.72 236.146 2249.72 201.399C2249.72 176.772 2263.89 157.88 2292.56 147.76C2316.18 140.001 2338.78 137.639 2366.78 137.302V133.254C2366.78 113.35 2357 102.892 2337.09 102.892C2319.55 102.892 2310.11 112.675 2307.74 126.844ZM2301.33 198.025C2301.33 210.17 2310.44 217.929 2325.62 217.929C2348.56 217.929 2366.78 199.374 2366.78 174.41V167.326C2314.49 168.338 2301.33 181.157 2301.33 198.025Z" fill="currentColor"/>
+      <path d="M2470.95 248.29V66.7955H2522.57V92.0968C2534.04 70.5064 2551.58 61.0605 2570.13 61.0605C2577.55 61.0605 2584.3 63.0846 2588.01 66.7955V110.314C2581.94 108.964 2575.53 108.29 2567.43 108.29C2536.4 108.29 2522.57 125.832 2522.57 154.507V248.29H2470.95Z" fill="currentColor"/>
+      <path d="M2673.76 126.844H2622.14C2627.54 86.0245 2658.91 61.0605 2705.47 61.0605C2757.42 61.0605 2784.41 91.4221 2784.41 133.591V203.085C2784.41 226.7 2786.43 238.844 2789.47 248.29H2736.17C2734.48 242.218 2733.47 234.459 2733.13 225.688C2718.96 245.254 2697.37 253.688 2675.78 253.688C2641.37 253.688 2615.73 236.146 2615.73 201.399C2615.73 176.772 2629.9 157.88 2658.58 147.76C2682.19 140.001 2704.79 137.639 2732.79 137.302V133.254C2732.79 113.35 2723.01 102.892 2703.11 102.892C2685.56 102.892 2676.12 112.675 2673.76 126.844ZM2667.35 198.025C2667.35 210.17 2676.45 217.929 2691.64 217.929C2714.58 217.929 2732.79 199.374 2732.79 174.41V167.326C2680.5 168.338 2667.35 181.157 2667.35 198.025Z" fill="currentColor"/>
+      <path d="M3008 188.579C2998.55 230.411 2964.82 253.688 2920.29 253.688C2863.95 253.688 2829.2 217.254 2829.2 157.543C2829.2 95.8077 2864.29 61.0605 2918.26 61.0605C2972.58 61.0605 3006.65 97.1571 3006.65 156.531V168.001H2881.83C2884.53 197.013 2898.02 212.531 2920.29 212.531C2937.16 212.531 2948.63 205.109 2954.02 188.579H3008ZM2918.26 102.217C2899.04 102.217 2886.89 114.699 2882.84 138.314H2953.35C2949.3 114.699 2937.16 102.217 2918.26 102.217Z" fill="currentColor"/>
+    </svg>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-socials">
+      <a href="https://github.com/thatrebeccarae" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://dgtldept.substack.com" target="_blank" rel="noopener">Substack</a>
+      <a href="https://linkedin.com/in/rebeccaraebarton" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://rebeccaraebarton.com" target="_blank" rel="noopener">More Links &#8599;</a>
+    </div>
+    <div class="footer-cta">
+      <div class="footer-cta-text">Do you like<br>what you see?</div>
+      <a href="https://www.rebeccaraebarton.com/connect" target="_blank" rel="noopener" class="footer-cta-btn">Connect &#8599;</a>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <span>Brooklyn, NY</span>
+    <span>Thanks! I made it myself &#10024;</span>
+    <span>2026 &reg; Rebecca Rae Barton</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const header = document.getElementById('siteHeader');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+  });
+  window.closeMobileNav = () => { hamburger.classList.remove('open'); mobileNav.classList.remove('open'); };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+})();
+
+function copyInstall(btn) {
+  const text = btn.getAttribute('data-copy');
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+    }, 2000);
+  });
+}
+
+(function () {
+  const PICKS = ['google-analytics', 'google-tag-manager', 'account-structure-review', 'klaviyo-analyst', 'shopify', 'wasted-spend-finder'];
+  const picksGrid = document.getElementById('picks-grid');
+
+  fetch('./catalog.json')
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(data => {
+      renderPicks(data);
+    })
+    .catch(() => {
+      picksGrid.innerHTML = '<div class="picks-loading">Could not load picks. Browse <a href="./skills.html" style="color:inherit;border-bottom:1px solid">all skills</a>.</div>';
+    });
+
+  function renderPicks(data) {
+    const all = Array.isArray(data.skills) ? data.skills : [];
+    const bySlug = {};
+    all.forEach(s => { bySlug[s.slug || s.name] = s; });
+    const picks = PICKS.map(slug => bySlug[slug]).filter(Boolean);
+    if (!picks.length) return;
+
+    picksGrid.innerHTML = picks.map((skill) => {
+      const slug = skill.slug || skill.name;
+      const href = './skill/' + slug + '.html';
+      const tested = skill.tested ? 'Tested ' + skill.tested + (skill.tested_with ? ' · ' + skill.tested_with : '') : '';
+      const install = skill.install_command || ('cp -r claude-marketing/skills/' + slug + ' ~/.claude/skills/');
+      return '<a class="skill-card" href="' + href + '">'
+        + '<div class="skill-card-name">' + esc(skill.name) + '</div>'
+        + '<div class="skill-card-category">' + esc(skill.category_label || skill.category || '') + '</div>'
+        + '<div class="skill-card-desc">' + esc(skill.description || '') + '</div>'
+        + '<div class="skill-card-meta">'
+        + (tested ? '<span class="skill-card-tested">' + esc(tested) + '</span>' : '')
+        + '<div class="skill-card-install-row">'
+        + '<span class="skill-card-install">' + esc(install) + '</span>'
+        + '<button class="copy-btn" data-copy="' + esc(install).replace(/"/g, '&quot;') + '" title="Copy install command" onclick="event.preventDefault();event.stopPropagation();copyInstall(this)">'
+        + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>'
+        + '</button>'
+        + '</div>'
+        + '</div>'
+        + '</a>';
+    }).join('');
+
+    observeReveal(picksGrid.querySelectorAll('.skill-card'));
+  }
+
+  function observeReveal(nodes) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    nodes.forEach(n => { n.setAttribute('data-reveal', ''); io.observe(n); });
+  }
+
+  function esc(s) { const d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+})();
+</script>
+</body>
+</html>
