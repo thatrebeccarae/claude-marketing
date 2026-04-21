@@ -1,4 +1,4 @@
-# gtm
+# google-tag-manager
 
 
 # Google Tag Manager
@@ -105,7 +105,7 @@ Non-negotiable constraints in every recommendation:
 ## Related Tools
 
 - **`google-analytics` skill** — For GA4 data analysis after GTM implementation. GTM configures the tags; the google-analytics skill covers metrics, dimensions, reports, and attribution analysis on the data those tags collect.
-- **`gtm-implementer` agent** — For writing GTM changes via the GTM API. Handles workspace preflight, rate-limited variable/trigger/tag creation, and payload construction. The gtm skill is the analysis layer; the gtm-implementer agent is the execution layer. When a user asks to *implement* GTM changes (not just audit or advise), point them to the agent.
+- **`gtm-implementer` agent** — For writing GTM changes via the GTM API. Handles workspace preflight, rate-limited variable/trigger/tag creation, and payload construction. The google-tag-manager skill is the analysis layer; the gtm-implementer agent is the execution layer. When a user asks to *implement* GTM changes (not just audit or advise), point them to the agent.
 
 ## How to Use This Skill
 

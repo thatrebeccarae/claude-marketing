@@ -1,5 +1,5 @@
 ---
-name: gtm
+name: google-tag-manager
 description: Google Tag Manager expertise. Audit GTM containers, design tag and trigger architecture, debug firing issues, implement consent mode v2, and advise on server-side tagging. Use when the user asks about GTM, tag management, container audits, consent mode, server-side tagging, or tracking implementation.
 license: MIT
 origin: custom
@@ -21,7 +21,7 @@ Expert-level guidance for Google Tag Manager — auditing containers, designing 
 ## Install
 
 ```bash
-git clone https://github.com/thatrebeccarae/claude-marketing.git && cp -r claude-marketing/skills/gtm ~/.claude/skills/
+git clone https://github.com/thatrebeccarae/claude-marketing.git && cp -r claude-marketing/skills/google-tag-manager ~/.claude/skills/
 ```
 
 ## Core Capabilities
@@ -124,7 +124,7 @@ Non-negotiable constraints in every recommendation:
 ## Related Tools
 
 - **`google-analytics` skill** — For GA4 data analysis after GTM implementation. GTM configures the tags; the google-analytics skill covers metrics, dimensions, reports, and attribution analysis on the data those tags collect.
-- **`gtm-implementer` agent** — For writing GTM changes via the GTM API. Handles workspace preflight, rate-limited variable/trigger/tag creation, and payload construction. The gtm skill is the analysis layer; the gtm-implementer agent is the execution layer. When a user asks to *implement* GTM changes (not just audit or advise), point them to the agent.
+- **`gtm-implementer` agent** — For writing GTM changes via the GTM API. Handles workspace preflight, rate-limited variable/trigger/tag creation, and payload construction. The google-tag-manager skill is the analysis layer; the gtm-implementer agent is the execution layer. When a user asks to *implement* GTM changes (not just audit or advise), point them to the agent.
 
 ## How to Use This Skill
 
