@@ -21,6 +21,11 @@ concurrency:
 
 jobs:
   build:
+    # Only the public mirror has GitHub Pages enabled. The private dev
+    # repo (claude-marketing-dev) syncs the same workflow file but Pages
+    # is disabled there, so the deploy step would fail with "Get Pages
+    # site failed: Not Found". Self-gate to the public repo only.
+    if: github.repository == 'thatrebeccarae/claude-marketing'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -55,6 +60,7 @@ jobs:
           path: docs
 
   deploy:
+    if: github.repository == 'thatrebeccarae/claude-marketing'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

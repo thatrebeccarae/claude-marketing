@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+### Fixed
+
+- **Deploy Site CI workflow self-gates to public repo only** — `.github/workflows/deploy-site.yml` previously failed on every push to `claude-marketing-dev` because the private repo doesn't have GitHub Pages enabled. Added `if: github.repository == 'thatrebeccarae/claude-marketing'` to both jobs so the workflow no-ops on dev.
+- **`skills/github-readme/REFERENCE.md` source genericized** — dev source previously contained literal hostnames and client names as documentation examples for pre-commit hook regex patterns. Replaced with the same placeholder values the public mirror already used. Removed the corresponding entries from `sync-public.conf` EXCLUDE_PATHS so future syncs don't need a manual restore step.
+- **n8n reference workflow `Read Previous Counts` node provides multi-day history** — updated the node's JS to read `{monitoring_dir}/history/YYYY-MM-DD.json` snapshots and emit `{event_counts, history: [...]}` shape. Enables the W2 rolling_zscore anomaly detection mode to actually fire when sufficient history is present. Falls back gracefully (empty history array) when the history dir doesn't exist yet, in which case `compare-events.js` auto mode uses binary detection.
+
+### Added
+
+- **`scripts/build-skill-packs.py` regenerates root README pack list and pack docs table** — two new marker blocks in `README.md` (`<!-- PACK-LIST-START/END -->` and `<!-- PACK-DOCS-START/END -->`) are now populated from pack frontmatter. Eliminates the drift class that produced the dev-tools-pack count error before. CI's `--check` mode catches drift in the README sections in addition to the pack files themselves.
+
 ### Changed
 
 - **Skill packs now derive composition from a single source of truth.** Each `skill-packs/*-pack.md` file gains YAML frontmatter declaring its `skills:` list. The "What's Included" table and the compound install command are regenerated from that frontmatter by `scripts/build-skill-packs.py` between marker-bounded sections. Skill descriptions in pack tables are pulled from each skill's own SKILL.md frontmatter (single source of truth for descriptions too). Adding or removing a skill from a pack now requires editing one place — the pack's frontmatter — and rerunning the build script.

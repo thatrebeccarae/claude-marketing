@@ -191,12 +191,14 @@ All 56 skills live in [`skills/`](skills/) — install individually or use a [sk
 
 Grouped collections with setup wizards for installing related skills together:
 
-- **[DTC Pack](skill-packs/dtc-pack.md)** — 6 skills for e-commerce (Klaviyo Analyst, Klaviyo Developer, Shopify, Google Analytics, Looker Studio, Pro Deck Builder)
-- **[Paid Media Pack](skill-packs/paid-media-pack.md)** — 6 skills for paid advertising (Google Ads, Meta Ads, Microsoft Ads, Competitor Ads Analyst, Wasted Spend Finder, Account Structure Review)
-- **[Content Pack](skill-packs/content-pack.md)** — 3 skills for content creation (SEO Content Writer, Content Workflow, Email Composer)
-- **[Strategy & Research Pack](skill-packs/strategy-pack.md)** — 3 skills for research and strategy (Market Research, ICP Research, Research Digest)
-- **[Creative & Design Pack](skill-packs/creative-pack.md)** — 3 skills for creative production (Frontend Design, Tech Diagram, Remotion Video)
-- **[Developer Tools Pack](skill-packs/dev-tools-pack.md)** — 2 skills for pre-push security scanning and README generation (safe-push, github-readme)
+<!-- PACK-LIST-START -->
+- **[Content Pack](skill-packs/content-pack.md)** — 3 skills for SEO content, editorial pipelines, and client communication. (seo-content-writer, content-workflow, email-composer)
+- **[Creative & Design Pack](skill-packs/creative-pack.md)** — 3 skills for frontend interfaces, technical diagrams, and programmatic video. (frontend-design, tech-diagram, remotion-video)
+- **[Developer Tools Pack](skill-packs/dev-tools-pack.md)** — 2 skills for pre-push security scanning and README generation. (safe-push, github-readme)
+- **[DTC Skill Pack](skill-packs/dtc-pack.md)** — 6 skills that give Claude Code deep expertise in DTC e-commerce marketing. (klaviyo-analyst, klaviyo-developer, shopify, google-analytics, looker-studio, pro-deck-builder)
+- **[Paid Media Pack](skill-packs/paid-media-pack.md)** — 6 skills for cross-platform paid media — Google Ads, Meta Ads, Microsoft Ads, competitive analysis, waste detection, and account structure review. (google-ads, facebook-ads, microsoft-ads, competitor-ads-analyst, wasted-spend-finder, account-structure-review)
+- **[Strategy & Research Pack](skill-packs/strategy-pack.md)** — 3 skills for market research, ICP development, and research synthesis. (market-research, icp-research, research-digest)
+<!-- PACK-LIST-END -->
 
 ## Multi-Tool Support
 
@@ -489,17 +491,26 @@ On macOS, `python` may point to Python 2. Use `python3` explicitly or install vi
 
 ## Documentation
 
+### Skill Packs
+
+<!-- PACK-DOCS-START -->
+| Pack | Skills | Description |
+|------|--------|-------------|
+| [Content Pack](skill-packs/content-pack.md) | 3 | 3 skills for SEO content, editorial pipelines, and client communication. |
+| [Creative & Design Pack](skill-packs/creative-pack.md) | 3 | 3 skills for frontend interfaces, technical diagrams, and programmatic video. |
+| [Developer Tools Pack](skill-packs/dev-tools-pack.md) | 2 | 2 skills for pre-push security scanning and README generation. |
+| [DTC Skill Pack](skill-packs/dtc-pack.md) | 6 | 6 skills that give Claude Code deep expertise in DTC e-commerce marketing. |
+| [Paid Media Pack](skill-packs/paid-media-pack.md) | 6 | 6 skills for cross-platform paid media — Google Ads, Meta Ads, Microsoft Ads, competitive analysis, waste detection, and account structure review. |
+| [Strategy & Research Pack](skill-packs/strategy-pack.md) | 3 | 3 skills for market research, ICP development, and research synthesis. |
+<!-- PACK-DOCS-END -->
+
+### Other Resources
+
 | Resource | Description |
 |----------|-------------|
 | [Composing Skills](examples/) | How to chain skills together — context flow, tips, and 3 worked workflow examples |
-| [DTC Pack](skill-packs/dtc-pack.md) | 6 e-commerce skills — overview, MCP setup, example prompts, FAQ |
 | [DTC Getting Started](skill-packs/dtc-getting-started.md) | Step-by-step setup for DTC platforms |
-| [Paid Media Pack](skill-packs/paid-media-pack.md) | 6 paid media skills — overview, example prompts, FAQ |
 | [Paid Media Getting Started](skill-packs/paid-media-getting-started.md) | Step-by-step setup for paid media platforms |
-| [Content Pack](skill-packs/content-pack.md) | 3 content skills — SEO writing, editorial pipelines, client email |
-| [Strategy & Research Pack](skill-packs/strategy-pack.md) | 3 strategy skills — market research, ICP development, research synthesis |
-| [Creative & Design Pack](skill-packs/creative-pack.md) | 3 creative skills — frontend design, tech diagrams, programmatic video |
-| [Developer Tools Pack](skill-packs/dev-tools-pack.md) | 2 skills — pre-push security scanning (safe-push) and README generation (github-readme) |
 | [GA4-GTM Pipeline README](workflows/ga4-gtm-pipeline/README.md) | Pipeline architecture, agent orchestration, setup, and security model |
 | [GA4-GTM Pipeline Getting Started](workflows/ga4-gtm-pipeline/GETTING_STARTED.md) | Step-by-step n8n + GA4 + GTM setup |
 | [CHANGELOG](CHANGELOG.md) | Version history and release notes |
