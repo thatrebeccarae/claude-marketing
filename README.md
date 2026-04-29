@@ -196,7 +196,7 @@ Grouped collections with setup wizards for installing related skills together:
 - **[Content Pack](skill-packs/content-pack.md)** — 3 skills for content creation (SEO Content Writer, Content Workflow, Email Composer)
 - **[Strategy & Research Pack](skill-packs/strategy-pack.md)** — 3 skills for research and strategy (Market Research, ICP Research, Research Digest)
 - **[Creative & Design Pack](skill-packs/creative-pack.md)** — 3 skills for creative production (Frontend Design, Tech Diagram, Remotion Video)
-- **[Developer Tools Pack](skill-packs/dev-tools-pack.md)** — 8 DevOps skills for repo management, safe deployment, and documentation
+- **[Developer Tools Pack](skill-packs/dev-tools-pack.md)** — 2 skills for pre-push security scanning and README generation (safe-push, github-readme)
 
 ## Multi-Tool Support
 
@@ -499,7 +499,7 @@ On macOS, `python` may point to Python 2. Use `python3` explicitly or install vi
 | [Content Pack](skill-packs/content-pack.md) | 3 content skills — SEO writing, editorial pipelines, client email |
 | [Strategy & Research Pack](skill-packs/strategy-pack.md) | 3 strategy skills — market research, ICP development, research synthesis |
 | [Creative & Design Pack](skill-packs/creative-pack.md) | 3 creative skills — frontend design, tech diagrams, programmatic video |
-| [Developer Tools Pack](skill-packs/dev-tools-pack.md) | 8 DevOps skills — repo health, scaffolding, sync, dependency audit, release notes, safe push, and more |
+| [Developer Tools Pack](skill-packs/dev-tools-pack.md) | 2 skills — pre-push security scanning (safe-push) and README generation (github-readme) |
 | [GA4-GTM Pipeline README](workflows/ga4-gtm-pipeline/README.md) | Pipeline architecture, agent orchestration, setup, and security model |
 | [GA4-GTM Pipeline Getting Started](workflows/ga4-gtm-pipeline/GETTING_STARTED.md) | Step-by-step n8n + GA4 + GTM setup |
 | [CHANGELOG](CHANGELOG.md) | Version history and release notes |

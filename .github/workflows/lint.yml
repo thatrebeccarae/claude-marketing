@@ -232,3 +232,69 @@ jobs:
           if [ "$ERRORS" -gt 0 ]; then
             exit 1
           fi
+
+  validate-skill-packs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate pack frontmatter references real skills
+        run: |
+          python3 << 'PYEOF'
+          import sys, re
+          from pathlib import Path
+
+          pack_files = sorted(Path("skill-packs").glob("*-pack.md"))
+          if not pack_files:
+              print("No *-pack.md files found, skipping.")
+              sys.exit(0)
+
+          skills_root = Path("skills")
+          errors = []
+
+          for pack in pack_files:
+              text = pack.read_text()
+              if not text.startswith("---\n"):
+                  errors.append(f"{pack}: missing YAML frontmatter")
+                  continue
+              end = text.find("\n---\n", 4)
+              if end == -1:
+                  errors.append(f"{pack}: unterminated frontmatter")
+                  continue
+              fm = text[4:end]
+              skills = []
+              in_list = False
+              for line in fm.splitlines():
+                  if line.startswith("skills:"):
+                      in_list = True
+                      continue
+                  if in_list:
+                      if line.startswith("  - "):
+                          skills.append(line[4:].strip())
+                      elif line and not line[0].isspace():
+                          in_list = False
+              if not skills:
+                  errors.append(f"{pack}: frontmatter has no `skills:` list")
+                  continue
+              for slug in skills:
+                  skill_md = skills_root / slug / "SKILL.md"
+                  if not skill_md.exists():
+                      errors.append(f"{pack}: references non-existent skill `{slug}` (no {skill_md})")
+
+          if errors:
+              for e in errors:
+                  print(f"ERROR: {e}")
+              sys.exit(1)
+          print(f"Validated {len(pack_files)} pack file(s) — all referenced skills exist.")
+          PYEOF
+
+      - name: Drift detection — build-skill-packs.py --check
+        run: |
+          python3 scripts/build-skill-packs.py --check
+

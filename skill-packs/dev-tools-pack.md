@@ -1,3 +1,12 @@
+---
+name: dev-tools-pack
+title: Developer Tools Pack
+description: 2 skills for pre-push security scanning and README generation.
+skills:
+  - safe-push
+  - github-readme
+---
+
 <div align="center">
 
 # Developer Tools Pack
@@ -25,10 +34,12 @@ Ship clean. Ship safe.
 
 ## What's Included
 
+<!-- SKILLS-TABLE-START -->
 | Skill | What It Does | Includes |
 |-------|-------------|----------|
-| **[safe-push](../skills/safe-push/)** | Claude-powered pre-push review: scans staged commits for PII patterns, exposed API keys, and sensitive client references. Audits commit messages against a configurable blocklist. Rate-limits pushes to avoid bulk action triggers. Configurable via `.pii-allowlist` and `.commit-msg-blocklist` files. | SKILL + REFERENCE + EXAMPLES |
-| **[github-readme](../skills/github-readme/)** | Generate, audit, or update GitHub READMEs. Three modes: generate (new repos), audit (check existing against best practices), update (patch with new content). Detects repo type and selects appropriate badges, sections, and structure. | SKILL + REFERENCE + EXAMPLES |
+| **[safe-push](../skills/safe-push/)** | Pre-push hygiene check for GitHub repositories. Scans for PII, secrets, and sensitive data before pushing. Audits commit messages, enforces repo-specific blocklists, and rate-limits pushes to avoid GitHub abuse detection. Use before any git push, especially to public repos. | SKILL + REFERENCE + EXAMPLES |
+| **[github-readme](../skills/github-readme/)** | Generate, audit, or update GitHub READMEs with project-type-aware structure, voice calibration, and SEO/AEO discoverability guidance. Three modes: generate (new), audit (check existing), update (patch). Detects repo type and adapts sections, tone, and badges accordingly. | SKILL + REFERENCE + EXAMPLES |
+<!-- SKILLS-TABLE-END -->
 
 ## How the Skills Connect
 
@@ -36,12 +47,14 @@ Together they form a publish workflow: update the **README** before a release, t
 
 ## Quick Start
 
+<!-- INSTALL-CMD-START -->
 ```bash
 cd claude-marketing
 for skill in safe-push github-readme; do
   cp -r "skills/$skill" ~/.claude/skills/
 done
 ```
+<!-- INSTALL-CMD-END -->
 
 No API keys required. Safe Push uses configurable allowlist files in the repo root.
 

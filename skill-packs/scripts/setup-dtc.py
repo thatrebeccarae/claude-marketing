@@ -32,7 +32,58 @@ class Colors:
     END = "\033[0m"
 
 
-SKILLS = {
+# Path to the pack markdown file (canonical source of which skills are
+# in this pack). The wizard reads its YAML frontmatter `skills:` list at
+# startup; per-skill setup metadata lives in SKILL_METADATA below.
+PACK_FILE = (
+    Path(__file__).resolve().parent.parent / "dtc-pack.md"
+)
+
+# Default metadata used for skills that appear in the pack frontmatter
+# but have no entry in SKILL_METADATA — wizard treats them as "no API
+# key setup needed".
+DEFAULT_META: dict = {
+    "label": None,  # Falls back to skill_name in display
+    "env_vars": {},
+    "requirements": None,
+    "health_check": None,
+}
+
+
+def _load_pack_skills(pack_md: Path) -> list[str]:
+    """Parse the pack file's YAML frontmatter and return the `skills:` list.
+
+    Tiny YAML subset — handles `key: value` and `- item` lists. Avoids
+    the PyYAML dependency so this script stays runnable on a clean
+    machine without `pip install` first.
+    """
+    if not pack_md.exists():
+        raise FileNotFoundError(f"Pack file not found: {pack_md}")
+    text = pack_md.read_text()
+    if not text.startswith("---\n"):
+        raise ValueError(f"{pack_md.name} has no frontmatter")
+    end_idx = text.find("\n---\n", 4)
+    if end_idx == -1:
+        raise ValueError(f"{pack_md.name} frontmatter is unterminated")
+    raw = text[4:end_idx]
+
+    skills: list[str] = []
+    in_skills = False
+    for line in raw.splitlines():
+        if line.startswith("skills:"):
+            in_skills = True
+            continue
+        if in_skills:
+            if line.startswith("  - "):
+                skills.append(line[4:].strip())
+            elif line and not line[0].isspace():
+                in_skills = False
+    if not skills:
+        raise ValueError(f"{pack_md.name}: frontmatter `skills:` is empty")
+    return skills
+
+
+SKILL_METADATA = {
     "klaviyo-analyst": {
         "label": "Klaviyo (Analyst)",
         "env_vars": {
@@ -140,6 +191,20 @@ class SkillPackSetup:
         self.configured_skills = []
         self.skipped_skills = []
         self.errors = []
+        # Pack composition is sourced from the pack file's frontmatter
+        # (single source of truth shared with the README's generated
+        # install command). Per-skill setup metadata stays in
+        # SKILL_METADATA above.
+        self.pack_skills = _load_pack_skills(PACK_FILE)
+
+    def _meta(self, skill_name: str) -> dict:
+        """Look up per-skill metadata, falling back to defaults for skills
+        that are listed in the pack frontmatter but have no entry in
+        SKILL_METADATA (i.e., no API key setup required)."""
+        meta = SKILL_METADATA.get(skill_name, DEFAULT_META).copy()
+        if not meta.get("label"):
+            meta["label"] = skill_name
+        return meta
 
     def run(self, skip_install: bool = False):
         """Main wizard flow."""
@@ -214,9 +279,18 @@ class SkillPackSetup:
         # Reuse Klaviyo key across analyst + developer
         klaviyo_key = None
 
-        for skill_name, skill_config in SKILLS.items():
+        for skill_name in self.pack_skills:
+            skill_config = self._meta(skill_name)
             # Skip if not in filter
             if self.skills_filter and skill_name not in self.skills_filter:
+                continue
+            # Skills without env_vars don't need API key setup — mark as
+            # configured (install copies the files; no setup needed) and
+            # move on. Keeps pack-frontmatter-driven additions friction-free.
+            if not skill_config["env_vars"]:
+                self.configured_skills.append(skill_name)
+                print(f"\n{Colors.BOLD}--- {skill_config['label']} ---{Colors.END}")
+                print(f"  No API key setup required.")
                 continue
 
             skill_dir = self.pack_dir / skill_name
@@ -291,20 +365,23 @@ class SkillPackSetup:
         """Install Python packages for configured skills."""
         installed = set()
         for skill_name in self.configured_skills:
-            req_file = self.pack_dir / skill_name / SKILLS[skill_name]["requirements"]
+            meta = self._meta(skill_name)
+            if not meta["requirements"]:
+                continue
+            req_file = self.pack_dir / skill_name / meta["requirements"]
             if req_file.exists() and str(req_file) not in installed:
-                print(f"  Installing packages for {SKILLS[skill_name]['label']}...")
+                print(f"  Installing packages for {meta['label']}...")
                 try:
                     subprocess.run(
                         [sys.executable, "-m", "pip", "install", "-r", str(req_file), "-q"],
                         check=True,
                         capture_output=True,
                     )
-                    self._print_success(f"  Packages installed for {SKILLS[skill_name]['label']}")
+                    self._print_success(f"  Packages installed for {meta['label']}")
                     installed.add(str(req_file))
                 except subprocess.CalledProcessError as e:
                     self._print_error(
-                        f"  Failed to install packages for {SKILLS[skill_name]['label']}: "
+                        f"  Failed to install packages for {meta['label']}: "
                         f"{e.stderr.decode() if e.stderr else str(e)}"
                     )
                     self.errors.append(f"pip install failed for {skill_name}")
@@ -312,16 +389,17 @@ class SkillPackSetup:
     def run_health_checks(self):
         """Test API connectivity for each configured skill."""
         for skill_name in self.configured_skills:
-            health_cmd = SKILLS[skill_name]["health_check"]
+            meta = self._meta(skill_name)
+            health_cmd = meta["health_check"]
             if not health_cmd:
-                print(f"  {SKILLS[skill_name]['label']}: No CLI health check (uses MCP server)")
+                print(f"  {meta['label']}: No CLI health check (uses MCP server or no setup needed)")
                 continue
 
             skill_dir = self.pack_dir / skill_name
             cmd_parts = health_cmd.split()
             full_cmd = [sys.executable] + [str(skill_dir / cmd_parts[0])] + cmd_parts[1:]
 
-            print(f"  Testing {SKILLS[skill_name]['label']}...")
+            print(f"  Testing {meta['label']}...")
             try:
                 result = subprocess.run(
                     full_cmd,
@@ -332,16 +410,16 @@ class SkillPackSetup:
                     env={**os.environ, **self.collected_keys.get(skill_name, {})},
                 )
                 if result.returncode == 0:
-                    self._print_success(f"  {SKILLS[skill_name]['label']}: API connection OK")
+                    self._print_success(f"  {meta['label']}: API connection OK")
                 else:
                     self._print_warning(
-                        f"  {SKILLS[skill_name]['label']}: {result.stderr.strip()[:100]}"
+                        f"  {meta['label']}: {result.stderr.strip()[:100]}"
                     )
                     self.errors.append(f"Health check failed for {skill_name}")
             except subprocess.TimeoutExpired:
-                self._print_warning(f"  {SKILLS[skill_name]['label']}: Timed out (API may be slow)")
+                self._print_warning(f"  {meta['label']}: Timed out (API may be slow)")
             except Exception as e:
-                self._print_error(f"  {SKILLS[skill_name]['label']}: {e}")
+                self._print_error(f"  {meta['label']}: {e}")
                 self.errors.append(f"Health check error for {skill_name}")
 
     def print_summary(self):
@@ -353,13 +431,12 @@ class SkillPackSetup:
         if self.configured_skills:
             print(f"{Colors.GREEN}Configured:{Colors.END}")
             for skill in self.configured_skills:
-                print(f"  + {SKILLS[skill]['label']}")
+                print(f"  + {self._meta(skill)['label']}")
 
         if self.skipped_skills:
             print(f"\n{Colors.YELLOW}Skipped:{Colors.END}")
             for skill in self.skipped_skills:
-                if skill in SKILLS:
-                    print(f"  - {SKILLS[skill]['label']}")
+                print(f"  - {self._meta(skill)['label']}")
 
         if self.errors:
             print(f"\n{Colors.RED}Issues:{Colors.END}")
@@ -474,14 +551,18 @@ Examples:
     script_dir = Path(__file__).resolve().parent
     pack_dir = script_dir.parent.parent / "skills"
 
+    # Pack composition lives in dtc-pack.md frontmatter; validate the
+    # --skills filter against that list, not against SKILL_METADATA.
+    pack_skills = _load_pack_skills(PACK_FILE)
+
     # Parse skills filter
     skills_filter = None
     if args.skills:
         skills_filter = [s.strip() for s in args.skills.split(",")]
-        invalid = [s for s in skills_filter if s not in SKILLS]
+        invalid = [s for s in skills_filter if s not in pack_skills]
         if invalid:
-            print(f"Unknown skills: {', '.join(invalid)}")
-            print(f"Available: {', '.join(SKILLS.keys())}")
+            print(f"Skills not in this pack: {', '.join(invalid)}")
+            print(f"Available: {', '.join(pack_skills)}")
             sys.exit(1)
 
     wizard = SkillPackSetup(

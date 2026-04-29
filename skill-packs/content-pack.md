@@ -1,3 +1,13 @@
+---
+name: content-pack
+title: Content Pack
+description: 3 skills for SEO content, editorial pipelines, and client communication.
+skills:
+  - seo-content-writer
+  - content-workflow
+  - email-composer
+---
+
 <div align="center">
 
 # Content Pack
@@ -25,11 +35,13 @@ Research, write, review, and distribute — without switching tools.
 
 ## What's Included
 
+<!-- SKILLS-TABLE-START -->
 | Skill | What It Does | Includes |
 |-------|-------------|----------|
-| **[seo-content-writer](../skills/seo-content-writer/)** | SEO-optimized content with brand voice analysis. Loads keyword research frameworks, on-page optimization checklists, and voice matching patterns. Produces drafts with target keyword placement, header structure, meta descriptions, and internal linking suggestions. | SKILL + REFERENCE + EXAMPLES |
-| **[content-workflow](../skills/content-workflow/)** | End-to-end content pipeline: research → draft/editorial review → social distribution. Configurable stages with quality gates between each phase. | SKILL + REFERENCE + EXAMPLES |
-| **[email-composer](../skills/email-composer/)** | Client outreach, deliverable handoffs, scope discussions, and follow-up sequences. Tone calibration adjusts formality based on context — cold outreach reads differently than a project update to an existing client. | SKILL + REFERENCE + EXAMPLES |
+| **[seo-content-writer](../skills/seo-content-writer/)** | SEO-optimized content creation with brand voice analysis and platform-specific frameworks. Covers blog posts, social media, email marketing, and landing pages. Includes keyword integration, readability optimization, and performance metrics. | SKILL + REFERENCE + EXAMPLES |
+| **[content-workflow](../skills/content-workflow/)** | End-to-end content creation pipeline from research through editorial review to social distribution. Orchestrates a 3-stage workflow: research, draft/edit, and distribute. Supports blog posts, LinkedIn, Twitter threads, newsletters, and essays. | SKILL + REFERENCE + EXAMPLES |
+| **[email-composer](../skills/email-composer/)** | Draft professional emails for business and marketing contexts — outreach, client communication, proposals, follow-ups, and internal updates. Includes tone calibration, subject line formulas, and follow-up cadence recommendations. | SKILL + REFERENCE + EXAMPLES |
+<!-- SKILLS-TABLE-END -->
 
 ## How the Skills Connect
 
@@ -45,12 +57,14 @@ The pipeline orchestrates stages while the writing skills handle production. Use
 
 ## Quick Start
 
+<!-- INSTALL-CMD-START -->
 ```bash
 cd claude-marketing
 for skill in seo-content-writer content-workflow email-composer; do
   cp -r "skills/$skill" ~/.claude/skills/
 done
 ```
+<!-- INSTALL-CMD-END -->
 
 No API keys required — all three skills work with text input and Claude's built-in knowledge.
 

@@ -1,3 +1,13 @@
+---
+name: creative-pack
+title: Creative & Design Pack
+description: 3 skills for frontend interfaces, technical diagrams, and programmatic video.
+skills:
+  - frontend-design
+  - tech-diagram
+  - remotion-video
+---
+
 <div align="center">
 
 # Creative & Design Pack
@@ -25,11 +35,13 @@ Design, diagram, and animate — all code, no Figma.
 
 ## What's Included
 
+<!-- SKILLS-TABLE-START -->
 | Skill | What It Does | Includes |
 |-------|-------------|----------|
-| **[frontend-design](../skills/frontend-design/)** | Distinctive, production-grade web interfaces — typography pairing, color theory, motion design, spatial composition. Commits to a specific aesthetic direction instead of defaulting to generic. Output is complete, shippable HTML/CSS ready for static hosting or further development. | SKILL + REFERENCE + EXAMPLES |
-| **[tech-diagram](../skills/tech-diagram/)** | Technical architecture diagrams as standalone HTML files — pipeline flows, layer stacks, component maps, system overviews, timelines. Dark-mode design system with consistent visual language. | SKILL + REFERENCE + EXAMPLES |
-| **[remotion-video](../skills/remotion-video/)** | Programmatic video production with Remotion — spring animations, chart animations, scene transitions, audio sync, social media formats. Requires Node.js and the Remotion package for rendering. | SKILL + REFERENCE + EXAMPLES |
+| **[frontend-design](../skills/frontend-design/)** | Create distinctive, production-grade frontend interfaces with high design quality. Covers design thinking, typography pairing, color theory, motion design, spatial composition, and code quality. Generates real working code — HTML/CSS/JS or React — with intentional aesthetic direction, not generic AI output. | SKILL + REFERENCE + EXAMPLES |
+| **[tech-diagram](../skills/tech-diagram/)** | Generate technical architecture diagrams, pipeline flows, layer/stack diagrams, and system illustrations as standalone HTML files. Uses a dark-mode design system with embedded CSS and inline SVG. Use when the user needs architecture diagrams, system illustrations, flow charts, or technical visualizations. | SKILL + REFERENCE + EXAMPLES |
+| **[remotion-video](../skills/remotion-video/)** | Remotion video production best practices — spring animations, interpolation patterns, SVG draw-on effects, scene transitions, chart animations, audio integration, and rendering. Use when building programmatic videos with Remotion, creating animated content, or producing marketing videos with code. | SKILL + REFERENCE + EXAMPLES |
+<!-- SKILLS-TABLE-END -->
 
 ## How the Skills Connect
 
@@ -43,12 +55,14 @@ They can also work together: generate architecture visuals with **Tech Diagram**
 
 ## Quick Start
 
+<!-- INSTALL-CMD-START -->
 ```bash
 cd claude-marketing
 for skill in frontend-design tech-diagram remotion-video; do
   cp -r "skills/$skill" ~/.claude/skills/
 done
 ```
+<!-- INSTALL-CMD-END -->
 
 No API keys required. Remotion Video requires Node.js and the Remotion package for rendering.
 

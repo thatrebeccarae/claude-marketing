@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- **Skill packs now derive composition from a single source of truth.** Each `skill-packs/*-pack.md` file gains YAML frontmatter declaring its `skills:` list. The "What's Included" table and the compound install command are regenerated from that frontmatter by `scripts/build-skill-packs.py` between marker-bounded sections. Skill descriptions in pack tables are pulled from each skill's own SKILL.md frontmatter (single source of truth for descriptions too). Adding or removing a skill from a pack now requires editing one place — the pack's frontmatter — and rerunning the build script.
+- **Setup wizards (`setup-dtc.py`, `setup-paid-media.py`) read pack composition from frontmatter** instead of a hardcoded `SKILLS = {...}` dict. Per-skill setup metadata (API key prompts, requirements, health checks) stays in the script as `SKILL_METADATA`. Skills listed in pack frontmatter without a `SKILL_METADATA` entry are treated as "no setup required" — wizard skips API key collection but reports them as configured.
+
+### Added
+
+- **`scripts/build-skill-packs.py`** — generator that reads each pack's frontmatter and rewrites the table + install command between `<!-- SKILLS-TABLE-START/END -->` and `<!-- INSTALL-CMD-START/END -->` markers. Supports `--check` for CI drift detection. Errors loudly when a pack references a non-existent skill.
+- **CI guard (`validate-skill-packs` job in `.github/workflows/lint.yml`)** — validates every skill in pack frontmatter exists in `skills/`, and runs `build-skill-packs.py --check` to ensure the generated sections are in sync.
+
 ## [1.8.0] - 2026-04-29
 
 Audit 2026-04 — agent-script modernization across `ga4-gap-analyzer`, `ga4-monitor`, and `gtm-implementer`. See `.planning/ROADMAP.md` plan 05-03 for the full audit context. The remaining W4 (n8n workflow JSON re-wiring) stays in the parking lot pending parallel pipeline work.

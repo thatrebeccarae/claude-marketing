@@ -1,3 +1,16 @@
+---
+name: dtc-pack
+title: DTC Skill Pack
+description: 6 skills that give Claude Code deep expertise in DTC e-commerce marketing.
+skills:
+  - klaviyo-analyst
+  - klaviyo-developer
+  - shopify
+  - google-analytics
+  - looker-studio
+  - pro-deck-builder
+---
+
 <div align="center">
 
 # DTC Skill Pack
@@ -25,14 +38,16 @@ Audit Klaviyo flows, diagnose Shopify conversion drop-offs, analyze GA4 traffic,
 
 ## What's Included
 
+<!-- SKILLS-TABLE-START -->
 | Skill | What It Does | Includes |
 |-------|-------------|----------|
-| **[klaviyo-analyst](../skills/klaviyo-analyst/)** | 4-phase deep audit of flows, segments, campaigns, deliverability, and revenue attribution. Industry benchmarks and three-tier recommendation format. | SKILL + REFERENCE + EXAMPLES + scripts |
-| **[klaviyo-developer](../skills/klaviyo-developer/)** | Event tracking, SDK integration, webhooks, rate limits, catalog sync, OAuth. Integration health audit with event schema best practices. | SKILL + REFERENCE + EXAMPLES + scripts |
-| **[shopify](../skills/shopify/)** | 12-step store audit: conversion funnels, site speed, product pages, tracking setup, marketing stack integration. | SKILL + REFERENCE + EXAMPLES + scripts |
-| **[google-analytics](../skills/google-analytics/)** | GA4 traffic analysis: sources, engagement, content performance, conversion funnels, device comparison. | SKILL + REFERENCE + EXAMPLES + scripts |
-| **[looker-studio](../skills/looker-studio/)** | Cross-platform dashboards via Google Sheets pipeline. DTC dashboard templates and calculated field library. | SKILL + REFERENCE + EXAMPLES + scripts |
-| **[pro-deck-builder](../skills/pro-deck-builder/)** | Polished HTML slide decks and PDF-ready reports. Dark cover pages, warm light content slides, data visualization palette. | SKILL + REFERENCE |
+| **[klaviyo-analyst](../skills/klaviyo-analyst/)** | Klaviyo marketing operations and analyst expertise. Audit flows, segments, campaigns, deliverability, and revenue attribution. Use when the user asks about Klaviyo marketing strategy, email/SMS automation, customer segmentation, flow optimization, or lifecycle marketing. For API integration, SDK, webhook, or developer questions, see the klaviyo-developer skill. | SKILL + REFERENCE + EXAMPLES + scripts + .env |
+| **[klaviyo-developer](../skills/klaviyo-developer/)** | Klaviyo API and developer integration expertise. Event tracking, SDKs, webhooks, rate limits, OAuth, catalog sync, and code patterns. Use when the user asks about Klaviyo API, integrating with Klaviyo, tracking events, building custom integrations, webhook handling, or developer implementation. For marketing strategy, flow optimization, and campaign auditing, see the klaviyo-analyst skill. | SKILL + REFERENCE + EXAMPLES + scripts + .env |
+| **[shopify](../skills/shopify/)** | Shopify e-commerce platform marketing expertise. Audit store performance, optimize conversion funnels, configure tracking, and integrate marketing tools. Use when the user asks about Shopify, e-commerce optimization, Shopify analytics, store conversion, product feeds, or Shopify app integrations. | SKILL + REFERENCE + EXAMPLES + scripts + .env |
+| **[google-analytics](../skills/google-analytics/)** | Analyze Google Analytics data, review website performance metrics, identify traffic patterns, and suggest data-driven improvements. Use when the user asks about analytics, website metrics, traffic analysis, conversion rates, user behavior, or performance optimization. | SKILL + REFERENCE + EXAMPLES + scripts + .env |
+| **[looker-studio](../skills/looker-studio/)** | Looker Studio (formerly Google Data Studio) expertise. Build dashboards, design data visualizations, connect data sources, and create marketing reports. Use when the user asks about Looker Studio, Data Studio, marketing dashboards, data visualization, report building, or connecting analytics data sources. | SKILL + REFERENCE + EXAMPLES + scripts + .env |
+| **[pro-deck-builder](../skills/pro-deck-builder/)** | Create polished HTML slide decks and PDF-ready documents for consulting deliverables. Uses the RRBC design system with warm light mode, dark mode cover pages, Lora/Inter/Roboto Mono typography, and data visualization palette. Trigger on 'deck', 'slides', 'presentation', 'pitch deck', 'keynote', 'report', or 'PDF'. | SKILL + REFERENCE + EXAMPLES |
+<!-- SKILLS-TABLE-END -->
 
 ## How the Skills Connect
 
@@ -69,12 +84,14 @@ The wizard checks prerequisites, walks you through API key setup, installs depen
 
 ### Option 2: Copy Skills Directly
 
+<!-- INSTALL-CMD-START -->
 ```bash
 cd claude-marketing
-for skill in klaviyo-analyst klaviyo-developer google-analytics shopify looker-studio pro-deck-builder; do
+for skill in klaviyo-analyst klaviyo-developer shopify google-analytics looker-studio pro-deck-builder; do
   cp -r "skills/$skill" ~/.claude/skills/
 done
 ```
+<!-- INSTALL-CMD-END -->
 
 > [!TIP]
 > See [dtc-getting-started.md](dtc-getting-started.md) for detailed step-by-step instructions and API key setup per platform.

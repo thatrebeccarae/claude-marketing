@@ -1,3 +1,16 @@
+---
+name: paid-media-pack
+title: Paid Media Pack
+description: 6 skills for cross-platform paid media — Google Ads, Meta Ads, Microsoft Ads, competitive analysis, waste detection, and account structure review.
+skills:
+  - google-ads
+  - facebook-ads
+  - microsoft-ads
+  - competitor-ads-analyst
+  - wasted-spend-finder
+  - account-structure-review
+---
+
 <div align="center">
 
 # Paid Media Pack
@@ -25,14 +38,16 @@ Cross-platform paid media expertise, on demand. Audit campaigns, find wasted spe
 
 ## What's Included
 
+<!-- SKILLS-TABLE-START -->
 | Skill | What It Does | Includes |
 |-------|-------------|----------|
-| **[google-ads](../skills/google-ads/)** | Full Google Ads audit: campaigns, keywords, Quality Scores, bidding, Performance Max, Shopping, conversion tracking. Industry benchmarks and GAQL query patterns. | SKILL + REFERENCE + EXAMPLES + .env |
-| **[facebook-ads](../skills/facebook-ads/)** | Meta Ads audit: campaign structure, audiences, creative fatigue, pixel/CAPI health, iOS 14.5+ attribution, Advantage+ campaign readiness. | SKILL + REFERENCE + EXAMPLES + .env |
-| **[microsoft-ads](../skills/microsoft-ads/)** | Microsoft Ads audit: Google import optimization, LinkedIn Profile Targeting, UET tracking, Shopping, Clarity integration. | SKILL + REFERENCE + EXAMPLES + .env |
-| **[competitor-ads-analyst](../skills/competitor-ads-analyst/)** | Competitor ad creative analysis from public ad libraries (Meta Ad Library, Google Ads Transparency Center, LinkedIn). Messaging pattern tracking, creative format analysis, positioning gap identification. | SKILL + REFERENCE + EXAMPLES |
-| **[wasted-spend-finder](../skills/wasted-spend-finder/)** | Systematic Google Ads and Meta waste analysis with statistical significance thresholds. Produces thematically categorized exclusion lists in uploadable CSV format. | SKILL + REFERENCE + EXAMPLES |
-| **[account-structure-review](../skills/account-structure-review/)** | Cross-platform structural audit: conversion volume thresholds, budget fragmentation, targeting overlap, consolidation roadmaps with migration plans. | SKILL + REFERENCE + EXAMPLES |
+| **[google-ads](../skills/google-ads/)** | Google Ads platform expertise. Audit campaigns, keywords, audiences, bidding, and conversion tracking. Use when the user asks about Google Ads, PPC, search advertising, Performance Max, Shopping ads, display campaigns, YouTube ads, or paid search optimization. | SKILL + REFERENCE + EXAMPLES + .env |
+| **[facebook-ads](../skills/facebook-ads/)** | Meta Ads (Facebook & Instagram) platform expertise. Audit campaigns, audiences, creative strategy, pixel tracking, and CAPI. Use when the user asks about Facebook Ads, Instagram Ads, Meta Ads, social media advertising, Advantage+ campaigns, or Meta pixel/CAPI setup. | SKILL + REFERENCE + EXAMPLES + .env |
+| **[microsoft-ads](../skills/microsoft-ads/)** | Microsoft Advertising (Bing Ads) platform expertise. Audit campaigns, keywords, audiences, and UET tracking. Use when the user asks about Microsoft Ads, Bing Ads, search advertising on Microsoft, LinkedIn audience targeting, or Performance Max campaigns on Microsoft. | SKILL + REFERENCE + EXAMPLES + .env |
+| **[competitor-ads-analyst](../skills/competitor-ads-analyst/)** | Extract and analyze competitor advertising from public ad libraries (Facebook Ad Library, Google Ads Transparency Center, TikTok, LinkedIn). Identifies messaging patterns, creative formats, pain points targeted, and positioning gaps. Use for competitive intelligence, campaign planning, and creative inspiration. | SKILL + REFERENCE + EXAMPLES |
+| **[wasted-spend-finder](../skills/wasted-spend-finder/)** | Systematic analysis of Google Ads and Meta advertising spend to identify wasted budget. Produces actionable exclusion lists with thematic categorization and statistical validation. Use when onboarding new accounts, performing monthly hygiene, or preparing for budget optimization. | SKILL + REFERENCE + EXAMPLES |
+| **[account-structure-review](../skills/account-structure-review/)** | Google and Meta paid media account structure evaluation. Audits campaign/ad set architecture against conversion volume minimums, budget thresholds, and targeting overlap. Identifies over-segmentation, under-segmentation, budget fragmentation, and structural anti-patterns blocking algorithmic learning. Provides consolidation roadmaps with migration plans. Use when inheriting accounts, quarterly health checks, or before scaling budgets. | SKILL + REFERENCE + EXAMPLES |
+<!-- SKILLS-TABLE-END -->
 
 ## How the Skills Connect
 
@@ -72,12 +87,14 @@ The wizard checks prerequisites, walks through API key setup, installs dependenc
 
 ### Option 2: Copy Skills Directly
 
+<!-- INSTALL-CMD-START -->
 ```bash
 cd claude-marketing
 for skill in google-ads facebook-ads microsoft-ads competitor-ads-analyst wasted-spend-finder account-structure-review; do
   cp -r "skills/$skill" ~/.claude/skills/
 done
 ```
+<!-- INSTALL-CMD-END -->
 
 > [!TIP]
 > See [paid-media-getting-started.md](paid-media-getting-started.md) for detailed step-by-step instructions and API key setup per platform.

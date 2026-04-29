@@ -1,3 +1,13 @@
+---
+name: strategy-pack
+title: Strategy & Research Pack
+description: 3 skills for market research, ICP development, and research synthesis.
+skills:
+  - market-research
+  - icp-research
+  - research-digest
+---
+
 <div align="center">
 
 # Strategy & Research Pack
@@ -25,11 +35,13 @@ The research team you don't have, available on demand.
 
 ## What's Included
 
+<!-- SKILLS-TABLE-START -->
 | Skill | What It Does | Includes |
 |-------|-------------|----------|
-| **[market-research](../skills/market-research/)** | Consulting-grade market research reports (50+ pages) with LaTeX formatting. Includes Porter's Five Forces, PESTLE, SWOT, TAM/SAM/SOM analysis, and competitive positioning matrices. | SKILL + REFERENCE + EXAMPLES |
-| **[icp-research](../skills/icp-research/)** | ICP development using community research (Reddit, forums, LinkedIn), pain point scoring matrices, buying trigger analysis, objection mapping, and voice-of-customer extraction. Output includes real community excerpts and channel-level recommendations. | SKILL + REFERENCE + EXAMPLES |
-| **[research-digest](../skills/research-digest/)** | Structured research briefs from RSS feeds and web sources. Source credibility framework, multi-source synthesis, and content angle identification. | SKILL + REFERENCE + EXAMPLES |
+| **[market-research](../skills/market-research/)** | Generate comprehensive market research reports (50+ pages) in the style of top consulting firms (McKinsey, BCG, Gartner). Professional LaTeX formatting, strategic analysis frameworks (Porter's Five Forces, PESTLE, SWOT, TAM/SAM/SOM, BCG Matrix), and deep research integration. | SKILL + REFERENCE + EXAMPLES |
+| **[icp-research](../skills/icp-research/)** | Build detailed ideal customer profiles with pain points, objections, buying triggers, and messaging angles. Includes community research to find where ICPs gather online and extract their exact language. Use when researching audiences, creating buyer personas, or developing targeted messaging. | SKILL + REFERENCE + EXAMPLES |
+| **[research-digest](../skills/research-digest/)** | Generate structured research briefs from RSS feeds and web sources on any topic. Synthesizes multiple sources into actionable analysis with key findings, data points, expert perspectives, and content angles. | SKILL + REFERENCE + EXAMPLES |
+<!-- SKILLS-TABLE-END -->
 
 ## How the Skills Connect
 
@@ -45,12 +57,14 @@ Research Digest (source monitoring and synthesis)
 
 ## Quick Start
 
+<!-- INSTALL-CMD-START -->
 ```bash
 cd claude-marketing
 for skill in market-research icp-research research-digest; do
   cp -r "skills/$skill" ~/.claude/skills/
 done
 ```
+<!-- INSTALL-CMD-END -->
 
 No API keys required for core functionality. Research Digest benefits from RSS feed access but works with web search alone.
 
