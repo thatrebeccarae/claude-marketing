@@ -1008,6 +1008,34 @@ a {
     padding-left: 20px;
     padding-right: 20px;
   }
+  .footer-handle {
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-bottom: 2rem;
+  }
+  .footer-bottom {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .footer-cta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    justify-content: flex-start;
+  }
+  .footer-cta-text {
+    text-align: left;
+  }
+  .footer-cta-btn {
+    font-size: 1rem;
+    padding: 0.9rem 1.4rem;
+  }
+  .footer-bar {
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: left;
+    font-size: 0.7rem;
+  }
 }
 
 /* ─── RESPONSIVE: SMALL PHONE (390px) ─── */
@@ -1023,6 +1051,11 @@ a {
 
   .skill-card {
     padding: 1rem 1.25rem;
+  }
+
+  .footer-handle {
+    width: calc(100% + 32px);
+    margin-left: -16px;
   }
 }
 </style>
