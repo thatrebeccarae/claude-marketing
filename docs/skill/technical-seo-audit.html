@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>technical-seo-audit — claude-marketing</title>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-00XHYRHCX4"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-00XHYRHCX4');
+  gtag('config', '');
 </script>
 <meta name="description" content="Deep technical SEO auditing covering crawlability, indexation, Core Web Vitals, site architecture, canonicalization, structured data validation, and performance">
 <meta property="og:title" content="technical-seo-audit — claude-marketing">
@@ -23,21 +23,21 @@
 <style>
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/QFL0NYke1cBVShP30pbS7hysGc.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Ultralight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/REECJPxYctsFxKQcUsJamXJJg.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Cartograph CF';
-  src: url('https://framerusercontent.com/assets/jQ3VWGcEj4oWm3roGkiXoL1lA.woff2') format('woff2');
+  src: url('../fonts/CartographCF-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -71,6 +71,49 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ─── SITE HEADER (matches index.html / quickstart.html / skills.html) ─── */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem clamp(20px, 5vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
+}
+.site-header.scrolled {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.header-logo { font-weight: 600; font-size: 1rem; color: #ffffff; }
+.header-nav { display: flex; gap: 2.5rem; align-items: center; }
+.header-nav a {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--ease);
+}
+.header-nav a:hover { opacity: 1; }
+.header-github {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+  transition: background 0.2s, color 0.2s;
+}
+.header-github:hover { background: #ffffff; color: #000000; }
+.hamburger { display: none; }
+.mobile-nav { display: none; }
 
 .detail-page {
   max-width: 720px;
@@ -261,17 +304,106 @@ a { color: inherit; text-decoration: none; }
   font-style: italic;
 }
 
+.detail-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0 1.5rem;
+  display: block;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.detail-body thead th {
+  text-align: left;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+.detail-body tbody td {
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  line-height: 1.55;
+  vertical-align: top;
+  opacity: 0.85;
+}
+.detail-body tbody tr:last-child td { border-bottom: 0; }
+
 @media (max-width: 700px) {
+  .header-nav { display: none; }
+  .header-github { display: none; }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .hamburger span { width: 22px; height: 1.5px; background: #ffffff; transition: transform 0.2s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #000000;
+    z-index: 999;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 96px 20px 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s var(--ease);
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a { font-family: 'PP Editorial New', serif; font-size: 2rem; font-weight: 200; }
+
+  .site-header { padding-left: 20px; padding-right: 20px; }
   .detail-page {
     padding: 100px 20px 60px;
   }
   .detail-source-links {
     flex-wrap: wrap;
   }
+  .detail-body table { font-size: 0.85rem; }
+  .detail-body thead th,
+  .detail-body tbody td { padding: 0.55rem 0.7rem; }
+}
+
+@media (max-width: 390px) {
+  .site-header { padding-left: 16px; padding-right: 16px; }
+  .detail-page { padding-left: 16px; padding-right: 16px; }
 }
 </style>
 </head>
 <body>
+<header class="site-header" id="site-header">
+  <a href="../" class="header-logo">claude-marketing</a>
+  <nav class="header-nav">
+    <a href="../skills.html">Skills</a>
+    <a href="../#capabilities">Capabilities</a>
+    <a href="../#demo">Demo</a>
+    <a href="../#install">Install</a>
+  </nav>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener" class="header-github">View on GitHub &#8599;</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="../skills.html" onclick="closeMobileNav()">Skills</a>
+  <a href="../#capabilities" onclick="closeMobileNav()">Capabilities</a>
+  <a href="../#demo" onclick="closeMobileNav()">Demo</a>
+  <a href="../#install" onclick="closeMobileNav()">Install</a>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener">GitHub &#8599;</a>
+</nav>
 <div class="detail-page" data-pagefind-body>
   <a href="../skills.html" class="detail-back">&larr; Back to skills</a>
   <h1 class="detail-name">technical-seo-audit</h1>
@@ -449,12 +581,7 @@ a { color: inherit; text-decoration: none; }
 <li>Quick wins count (easy fixes, high impact)</li>
 </ul>
 <h3>Issue Classification</h3>
-<p>| Severity | Definition | Response Time |</p>
-<p>|----------|-----------|---------------|</p>
-<p>| Critical | Blocking crawling, indexation, or rendering | Immediate |</p>
-<p>| High | Significantly impacting rankings or UX | Within 1 week |</p>
-<p>| Medium | Impacting performance or best practices | Within 1 month |</p>
-<p>| Low | Minor optimizations or future-proofing | Backlog |</p>
+<table><thead><tr><th>Severity</th><th>Definition</th><th>Response Time</th></tr></thead><tbody><tr><td>Critical</td><td>Blocking crawling, indexation, or rendering</td><td>Immediate</td></tr><tr><td>High</td><td>Significantly impacting rankings or UX</td><td>Within 1 week</td></tr><tr><td>Medium</td><td>Impacting performance or best practices</td><td>Within 1 month</td></tr><tr><td>Low</td><td>Minor optimizations or future-proofing</td><td>Backlog</td></tr></tbody></table>
 <h3>Per-Issue Format</h3>
 <pre><code>**Issue:** [What is wrong]
 **Impact:** [How it affects SEO performance]
@@ -483,15 +610,7 @@ dig example.com +short
 # Check SSL certificate
 echo | openssl s_client -servername example.com -connect example.com:443 2&gt;/dev/null | openssl x509 -noout -dates</code></pre>
 <h2>Benchmarks</h2>
-<p>| Metric | Good | Needs Work | Poor |</p>
-<p>|--------|------|------------|------|</p>
-<p>| LCP | &lt;2.5s | 2.5-4.0s | &gt;4.0s |</p>
-<p>| INP | &lt;200ms | 200-500ms | &gt;500ms |</p>
-<p>| CLS | &lt;0.1 | 0.1-0.25 | &gt;0.25 |</p>
-<p>| TTFB | &lt;800ms | 800ms-1.8s | &gt;1.8s |</p>
-<p>| Page size | &lt;1.5MB | 1.5-3MB | &gt;3MB |</p>
-<p>| Requests | &lt;50 | 50-100 | &gt;100 |</p>
-<p>| Crawl depth | &lt;=3 clicks | 4-5 clicks | &gt;5 clicks |</p>
+<table><thead><tr><th>Metric</th><th>Good</th><th>Needs Work</th><th>Poor</th></tr></thead><tbody><tr><td>LCP</td><td>&lt;2.5s</td><td>2.5-4.0s</td><td>&gt;4.0s</td></tr><tr><td>INP</td><td>&lt;200ms</td><td>200-500ms</td><td>&gt;500ms</td></tr><tr><td>CLS</td><td>&lt;0.1</td><td>0.1-0.25</td><td>&gt;0.25</td></tr><tr><td>TTFB</td><td>&lt;800ms</td><td>800ms-1.8s</td><td>&gt;1.8s</td></tr><tr><td>Page size</td><td>&lt;1.5MB</td><td>1.5-3MB</td><td>&gt;3MB</td></tr><tr><td>Requests</td><td>&lt;50</td><td>50-100</td><td>&gt;100</td></tr><tr><td>Crawl depth</td><td>&lt;=3 clicks</td><td>4-5 clicks</td><td>&gt;5 clicks</td></tr></tbody></table>
 <h2>Integration with Other Skills</h2>
 <ul>
 <li><strong>aeo-geo-optimizer</strong> — Layer AI search optimization after technical foundation is solid</li>
@@ -501,6 +620,27 @@ echo | openssl s_client -servername example.com -connect example.com:443 2&gt;/d
 </ul></div>
 </div>
 <script>
+(function () {
+  var header = document.getElementById('site-header');
+  if (header) {
+    var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 40); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+  }
+  window.closeMobileNav = function () {
+    if (hamburger) hamburger.classList.remove('open');
+    if (mobileNav) mobileNav.classList.remove('open');
+  };
+})();
+
 function copyInstall(btn) {
   var text = btn.getAttribute('data-copy');
   navigator.clipboard.writeText(text).then(function() {

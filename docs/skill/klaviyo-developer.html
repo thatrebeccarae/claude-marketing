@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>klaviyo-developer — claude-marketing</title>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-00XHYRHCX4"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-00XHYRHCX4');
+  gtag('config', '');
 </script>
 <meta name="description" content="Klaviyo API and developer integration expertise. Event tracking, SDKs, webhooks, rate limits, OAuth, catalog sync, and code patterns. Use when the user asks abo">
 <meta property="og:title" content="klaviyo-developer — claude-marketing">
@@ -23,21 +23,21 @@
 <style>
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/QFL0NYke1cBVShP30pbS7hysGc.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Ultralight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/REECJPxYctsFxKQcUsJamXJJg.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Cartograph CF';
-  src: url('https://framerusercontent.com/assets/jQ3VWGcEj4oWm3roGkiXoL1lA.woff2') format('woff2');
+  src: url('../fonts/CartographCF-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -71,6 +71,49 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ─── SITE HEADER (matches index.html / quickstart.html / skills.html) ─── */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem clamp(20px, 5vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
+}
+.site-header.scrolled {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.header-logo { font-weight: 600; font-size: 1rem; color: #ffffff; }
+.header-nav { display: flex; gap: 2.5rem; align-items: center; }
+.header-nav a {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--ease);
+}
+.header-nav a:hover { opacity: 1; }
+.header-github {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+  transition: background 0.2s, color 0.2s;
+}
+.header-github:hover { background: #ffffff; color: #000000; }
+.hamburger { display: none; }
+.mobile-nav { display: none; }
 
 .detail-page {
   max-width: 720px;
@@ -261,17 +304,106 @@ a { color: inherit; text-decoration: none; }
   font-style: italic;
 }
 
+.detail-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0 1.5rem;
+  display: block;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.detail-body thead th {
+  text-align: left;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+.detail-body tbody td {
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  line-height: 1.55;
+  vertical-align: top;
+  opacity: 0.85;
+}
+.detail-body tbody tr:last-child td { border-bottom: 0; }
+
 @media (max-width: 700px) {
+  .header-nav { display: none; }
+  .header-github { display: none; }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .hamburger span { width: 22px; height: 1.5px; background: #ffffff; transition: transform 0.2s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #000000;
+    z-index: 999;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 96px 20px 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s var(--ease);
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a { font-family: 'PP Editorial New', serif; font-size: 2rem; font-weight: 200; }
+
+  .site-header { padding-left: 20px; padding-right: 20px; }
   .detail-page {
     padding: 100px 20px 60px;
   }
   .detail-source-links {
     flex-wrap: wrap;
   }
+  .detail-body table { font-size: 0.85rem; }
+  .detail-body thead th,
+  .detail-body tbody td { padding: 0.55rem 0.7rem; }
+}
+
+@media (max-width: 390px) {
+  .site-header { padding-left: 16px; padding-right: 16px; }
+  .detail-page { padding-left: 16px; padding-right: 16px; }
 }
 </style>
 </head>
 <body>
+<header class="site-header" id="site-header">
+  <a href="../" class="header-logo">claude-marketing</a>
+  <nav class="header-nav">
+    <a href="../skills.html">Skills</a>
+    <a href="../#capabilities">Capabilities</a>
+    <a href="../#demo">Demo</a>
+    <a href="../#install">Install</a>
+  </nav>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener" class="header-github">View on GitHub &#8599;</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="../skills.html" onclick="closeMobileNav()">Skills</a>
+  <a href="../#capabilities" onclick="closeMobileNav()">Capabilities</a>
+  <a href="../#demo" onclick="closeMobileNav()">Demo</a>
+  <a href="../#install" onclick="closeMobileNav()">Install</a>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener">GitHub &#8599;</a>
+</nav>
 <div class="detail-page" data-pagefind-body>
   <a href="../skills.html" class="detail-back">&larr; Back to skills</a>
   <h1 class="detail-name">klaviyo-developer</h1>
@@ -347,31 +479,12 @@ a { color: inherit; text-decoration: none; }
 <li>ETL pipeline design for data warehouse integration</li>
 </ul>
 <h2>SDK Quick Reference</h2>
-<p>| Language | Package | Install |</p>
-<p>|----------|---------|---------|</p>
-<p>| Python | `klaviyo-api` | `pip install klaviyo-api` |</p>
-<p>| Node.js | `klaviyo-api` | `npm install klaviyo-api` |</p>
-<p>| Ruby | `klaviyo-api-sdk` | `gem install klaviyo-api-sdk` |</p>
-<p>| PHP | `klaviyo/api` | `composer require klaviyo/api` |</p>
+<table><thead><tr><th>Language</th><th>Package</th><th>Install</th></tr></thead><tbody><tr><td>Python</td><td>`klaviyo-api`</td><td>`pip install klaviyo-api`</td></tr><tr><td>Node.js</td><td>`klaviyo-api`</td><td>`npm install klaviyo-api`</td></tr><tr><td>Ruby</td><td>`klaviyo-api-sdk`</td><td>`gem install klaviyo-api-sdk`</td></tr><tr><td>PHP</td><td>`klaviyo/api`</td><td>`composer require klaviyo/api`</td></tr></tbody></table>
 <h2>Rate Limits</h2>
-<p>| Endpoint Category | Limit | Window |</p>
-<p>|-------------------|-------|--------|</p>
-<p>| Most endpoints | 75 requests | per second |</p>
-<p>| Bulk imports | 10 requests | per second |</p>
-<p>| Profile/Event create | 350 requests | per second |</p>
-<p>| Campaign send | 10 requests | per second |</p>
+<table><thead><tr><th>Endpoint Category</th><th>Limit</th><th>Window</th></tr></thead><tbody><tr><td>Most endpoints</td><td>75 requests</td><td>per second</td></tr><tr><td>Bulk imports</td><td>10 requests</td><td>per second</td></tr><tr><td>Profile/Event create</td><td>350 requests</td><td>per second</td></tr><tr><td>Campaign send</td><td>10 requests</td><td>per second</td></tr></tbody></table>
 <p>Headers returned: `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`</p>
 <h2>API Revision Timeline</h2>
-<p>| Revision | Key Changes |</p>
-<p>|----------|-------------|</p>
-<p>| 2026-01-15 | Latest. Custom Objects Ingestion, Geofencing API (beta). |</p>
-<p>| 2025-10-15 | Forms API, Flow Actions API, SMS ROI reporting. |</p>
-<p>| 2025-07-15 | Mapped Metrics API, Custom Objects API (GA). |</p>
-<p>| 2025-04-15 | Web Feeds API, Custom Metrics, Push Token registration. |</p>
-<p>| 2025-01-15 | Reviews APIs, Flows Create API, Campaign image management. |</p>
-<p>| 2024-10-15 | Universal Content API, Form/Segment Reporting, Reviews API. |</p>
-<p>| 2024-07-15 | Forms API (retrieval), Webhooks API. |</p>
-<p>| 2024-02-15 | Reporting API, Create or Update Profile (upsert). |</p>
+<table><thead><tr><th>Revision</th><th>Key Changes</th></tr></thead><tbody><tr><td>2026-01-15</td><td>Latest. Custom Objects Ingestion, Geofencing API (beta).</td></tr><tr><td>2025-10-15</td><td>Forms API, Flow Actions API, SMS ROI reporting.</td></tr><tr><td>2025-07-15</td><td>Mapped Metrics API, Custom Objects API (GA).</td></tr><tr><td>2025-04-15</td><td>Web Feeds API, Custom Metrics, Push Token registration.</td></tr><tr><td>2025-01-15</td><td>Reviews APIs, Flows Create API, Campaign image management.</td></tr><tr><td>2024-10-15</td><td>Universal Content API, Form/Segment Reporting, Reviews API.</td></tr><tr><td>2024-07-15</td><td>Forms API (retrieval), Webhooks API.</td></tr><tr><td>2024-02-15</td><td>Reporting API, Create or Update Profile (upsert).</td></tr></tbody></table>
 <p>Always include the `revision` header in API requests.</p>
 <h2>Essential Developer Checklist</h2>
 <p>1. <strong>API key management</strong> — Store private keys in environment variables, never commit to source. Rotate keys periodically.</p>
@@ -435,21 +548,10 @@ a { color: inherit; text-decoration: none; }
 <li>Prefix custom properties to avoid collision with Klaviyo-reserved names</li>
 </ul>
 <h3>Required Properties by Event</h3>
-<p>| Event | Required Properties | Revenue Property |</p>
-<p>|-------|-------------------|------------------|</p>
-<p>| Placed Order | `$value`, `OrderId`, `Items[]` (line items) | `$value` |</p>
-<p>| Started Checkout | `$value`, `CheckoutURL`, `Items[]` | `$value` |</p>
-<p>| Viewed Product | `ProductName`, `ProductID`, `URL`, `ImageURL` | — |</p>
-<p>| Added to Cart | `$value`, `AddedItemProductName`, `AddedItemProductID`, `Items[]` | `$value` |</p>
-<p>| Fulfilled Order | `$value`, `OrderId` | — |</p>
+<table><thead><tr><th>Event</th><th>Required Properties</th><th>Revenue Property</th></tr></thead><tbody><tr><td>Placed Order</td><td>`$value`, `OrderId`, `Items[]` (line items)</td><td>`$value`</td></tr><tr><td>Started Checkout</td><td>`$value`, `CheckoutURL`, `Items[]`</td><td>`$value`</td></tr><tr><td>Viewed Product</td><td>`ProductName`, `ProductID`, `URL`, `ImageURL`</td><td>—</td></tr><tr><td>Added to Cart</td><td>`$value`, `AddedItemProductName`, `AddedItemProductID`, `Items[]`</td><td>`$value`</td></tr><tr><td>Fulfilled Order</td><td>`$value`, `OrderId`</td><td>—</td></tr></tbody></table>
 <h3>Nesting Rules and Limitations</h3>
 <p>Klaviyo handles nested objects differently depending on where you access them:</p>
-<p>| Context | Access Level | Example |</p>
-<p>|---------|-------------|---------|</p>
-<p>| <strong>Email/SMS templates</strong> | Full access via Jinja — can loop over arrays, access nested properties | `{% for item in event.Items %}{{ item.ProductName }}{% endfor %}` |</p>
-<p>| <strong>Flow conditional splits</strong> | Top-level properties ONLY — cannot access nested object fields | Can split on `event.OrderId`, cannot split on `event.Items[0].ProductName` |</p>
-<p>| <strong>Segments</strong> | Top-level properties ONLY — cannot filter by nested object fields | Can segment on &quot;has done Placed Order where $value &gt; 100&quot;, cannot segment on &quot;where Items contains ProductName = X&quot; |</p>
-<p>| <strong>Flow triggers</strong> | Top-level properties for trigger filters | Same as conditional splits |</p>
+<table><thead><tr><th>Context</th><th>Access Level</th><th>Example</th></tr></thead><tbody><tr><td><strong>Email/SMS templates</strong></td><td>Full access via Jinja — can loop over arrays, access nested properties</td><td>`{% for item in event.Items %}{{ item.ProductName }}{% endfor %}`</td></tr><tr><td><strong>Flow conditional splits</strong></td><td>Top-level properties ONLY — cannot access nested object fields</td><td>Can split on `event.OrderId`, cannot split on `event.Items[0].ProductName`</td></tr><tr><td><strong>Segments</strong></td><td>Top-level properties ONLY — cannot filter by nested object fields</td><td>Can segment on &quot;has done Placed Order where $value &gt; 100&quot;, cannot segment on &quot;where Items contains ProductName = X&quot;</td></tr><tr><td><strong>Flow triggers</strong></td><td>Top-level properties for trigger filters</td><td>Same as conditional splits</td></tr></tbody></table>
 <p><strong>Workaround for nested data</strong>: If you need to segment or split on nested data, flatten it to top-level properties:</p>
 <pre><code># Instead of relying on Items[] array for segmentation:
 properties = {
@@ -463,14 +565,7 @@ properties = {
 }</code></pre>
 <h3>Custom Event Patterns (DTC / Subscription / Marketplace)</h3>
 <p>Additional events beyond the standard Shopify/e-commerce schema:</p>
-<p>| Event Name | Trigger | Key Properties |</p>
-<p>|------------|---------|----------------|</p>
-<p>| `Account Created` | New account registered | `account_type`, `referral_source`, `signup_channel` |</p>
-<p>| `Subscription Started` | Recurring order activated | `$value`, `frequency`, `product_ids`, `plan_name` |</p>
-<p>| `Subscription Cancelled` | Recurring order stopped | `reason`, `plan_name`, `lifetime_charges` |</p>
-<p>| `Reorder Placed` | Repeat purchase of consumable | `$value`, `OrderId`, `days_since_last_order`, `reorder_items` |</p>
-<p>| `Wishlist Added` | Item saved for later | `ProductName`, `ProductID`, `Categories`, `Price` |</p>
-<p>| `Catalog Browsed` | Category/search activity | `category`, `search_term`, `results_count` |</p>
+<table><thead><tr><th>Event Name</th><th>Trigger</th><th>Key Properties</th></tr></thead><tbody><tr><td>`Account Created`</td><td>New account registered</td><td>`account_type`, `referral_source`, `signup_channel`</td></tr><tr><td>`Subscription Started`</td><td>Recurring order activated</td><td>`$value`, `frequency`, `product_ids`, `plan_name`</td></tr><tr><td>`Subscription Cancelled`</td><td>Recurring order stopped</td><td>`reason`, `plan_name`, `lifetime_charges`</td></tr><tr><td>`Reorder Placed`</td><td>Repeat purchase of consumable</td><td>`$value`, `OrderId`, `days_since_last_order`, `reorder_items`</td></tr><tr><td>`Wishlist Added`</td><td>Item saved for later</td><td>`ProductName`, `ProductID`, `Categories`, `Price`</td></tr><tr><td>`Catalog Browsed`</td><td>Category/search activity</td><td>`category`, `search_term`, `results_count`</td></tr></tbody></table>
 <p>Sync key customer properties to profiles for segmentation:</p>
 <pre><code>profile_properties = {
     &quot;customer_type&quot;: &quot;Subscriber&quot;,
@@ -491,14 +586,7 @@ properties = {
 <li>&quot;Profile has the data but segment doesn't pick it up&quot;</li>
 </ul>
 <h3>Root Causes and Solutions</h3>
-<p>| Symptom | Root Cause | Solution |</p>
-<p>|---------|-----------|----------|</p>
-<p>| Can't segment on event property | Property is nested inside an array/object | Flatten to top-level property on the event |</p>
-<p>| Can't split flow on event property | Property is nested | Flatten, or use profile property instead |</p>
-<p>| Segment doesn't match profiles | Property is on events, not profiles | Sync property to profile via API or &quot;Update Profile Property&quot; flow action |</p>
-<p>| Profile property exists but segment empty | Property value format mismatch (string &quot;true&quot; vs boolean `true`) | Standardize data types in API sync |</p>
-<p>| Event tracked but no flow triggers | Metric name mismatch (case-sensitive) | Verify exact metric name in Klaviyo matches API call |</p>
-<p>| Flow triggers but filter excludes everyone | Segment used as flow filter evaluates incorrectly | Check segment conditions — may reference stale or incorrectly-typed properties |</p>
+<table><thead><tr><th>Symptom</th><th>Root Cause</th><th>Solution</th></tr></thead><tbody><tr><td>Can't segment on event property</td><td>Property is nested inside an array/object</td><td>Flatten to top-level property on the event</td></tr><tr><td>Can't split flow on event property</td><td>Property is nested</td><td>Flatten, or use profile property instead</td></tr><tr><td>Segment doesn't match profiles</td><td>Property is on events, not profiles</td><td>Sync property to profile via API or &quot;Update Profile Property&quot; flow action</td></tr><tr><td>Profile property exists but segment empty</td><td>Property value format mismatch (string &quot;true&quot; vs boolean `true`)</td><td>Standardize data types in API sync</td></tr><tr><td>Event tracked but no flow triggers</td><td>Metric name mismatch (case-sensitive)</td><td>Verify exact metric name in Klaviyo matches API call</td></tr><tr><td>Flow triggers but filter excludes everyone</td><td>Segment used as flow filter evaluates incorrectly</td><td>Check segment conditions — may reference stale or incorrectly-typed properties</td></tr></tbody></table>
 <h3>Diagnosis Workflow</h3>
 <p>1. <strong>Check metric exists</strong>: Use GET `/metrics/` to verify the event name appears</p>
 <p>2. <strong>Check event properties</strong>: Use GET `/events/?filter=...` to pull recent events and inspect property structure</p>
@@ -605,6 +693,27 @@ python scripts/dev_tools.py --tool export-data \
 <p>For marketing strategy, flow optimization, and campaign auditing, use the <strong>klaviyo-analyst</strong> skill.</p></div>
 </div>
 <script>
+(function () {
+  var header = document.getElementById('site-header');
+  if (header) {
+    var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 40); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+  }
+  window.closeMobileNav = function () {
+    if (hamburger) hamburger.classList.remove('open');
+    if (mobileNav) mobileNav.classList.remove('open');
+  };
+})();
+
 function copyInstall(btn) {
   var text = btn.getAttribute('data-copy');
   navigator.clipboard.writeText(text).then(function() {

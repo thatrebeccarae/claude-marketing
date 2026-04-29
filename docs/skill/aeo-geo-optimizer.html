@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>aeo-geo-optimizer — claude-marketing</title>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-00XHYRHCX4"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-00XHYRHCX4');
+  gtag('config', '');
 </script>
 <meta name="description" content="Answer Engine Optimization (AEO) and Generative Engine Optimization (GEO) specialist. Optimize content and websites to appear in AI-generated answers from ChatG">
 <meta property="og:title" content="aeo-geo-optimizer — claude-marketing">
@@ -23,21 +23,21 @@
 <style>
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/QFL0NYke1cBVShP30pbS7hysGc.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Ultralight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/REECJPxYctsFxKQcUsJamXJJg.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Cartograph CF';
-  src: url('https://framerusercontent.com/assets/jQ3VWGcEj4oWm3roGkiXoL1lA.woff2') format('woff2');
+  src: url('../fonts/CartographCF-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -71,6 +71,49 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ─── SITE HEADER (matches index.html / quickstart.html / skills.html) ─── */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem clamp(20px, 5vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
+}
+.site-header.scrolled {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.header-logo { font-weight: 600; font-size: 1rem; color: #ffffff; }
+.header-nav { display: flex; gap: 2.5rem; align-items: center; }
+.header-nav a {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--ease);
+}
+.header-nav a:hover { opacity: 1; }
+.header-github {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+  transition: background 0.2s, color 0.2s;
+}
+.header-github:hover { background: #ffffff; color: #000000; }
+.hamburger { display: none; }
+.mobile-nav { display: none; }
 
 .detail-page {
   max-width: 720px;
@@ -261,17 +304,106 @@ a { color: inherit; text-decoration: none; }
   font-style: italic;
 }
 
+.detail-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0 1.5rem;
+  display: block;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.detail-body thead th {
+  text-align: left;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+.detail-body tbody td {
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  line-height: 1.55;
+  vertical-align: top;
+  opacity: 0.85;
+}
+.detail-body tbody tr:last-child td { border-bottom: 0; }
+
 @media (max-width: 700px) {
+  .header-nav { display: none; }
+  .header-github { display: none; }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .hamburger span { width: 22px; height: 1.5px; background: #ffffff; transition: transform 0.2s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #000000;
+    z-index: 999;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 96px 20px 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s var(--ease);
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a { font-family: 'PP Editorial New', serif; font-size: 2rem; font-weight: 200; }
+
+  .site-header { padding-left: 20px; padding-right: 20px; }
   .detail-page {
     padding: 100px 20px 60px;
   }
   .detail-source-links {
     flex-wrap: wrap;
   }
+  .detail-body table { font-size: 0.85rem; }
+  .detail-body thead th,
+  .detail-body tbody td { padding: 0.55rem 0.7rem; }
+}
+
+@media (max-width: 390px) {
+  .site-header { padding-left: 16px; padding-right: 16px; }
+  .detail-page { padding-left: 16px; padding-right: 16px; }
 }
 </style>
 </head>
 <body>
+<header class="site-header" id="site-header">
+  <a href="../" class="header-logo">claude-marketing</a>
+  <nav class="header-nav">
+    <a href="../skills.html">Skills</a>
+    <a href="../#capabilities">Capabilities</a>
+    <a href="../#demo">Demo</a>
+    <a href="../#install">Install</a>
+  </nav>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener" class="header-github">View on GitHub &#8599;</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="../skills.html" onclick="closeMobileNav()">Skills</a>
+  <a href="../#capabilities" onclick="closeMobileNav()">Capabilities</a>
+  <a href="../#demo" onclick="closeMobileNav()">Demo</a>
+  <a href="../#install" onclick="closeMobileNav()">Install</a>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener">GitHub &#8599;</a>
+</nav>
 <div class="detail-page" data-pagefind-body>
   <a href="../skills.html" class="detail-back">&larr; Back to skills</a>
   <h1 class="detail-name">aeo-geo-optimizer</h1>
@@ -300,13 +432,7 @@ a { color: inherit; text-decoration: none; }
 <p>Traditional SEO optimizes for 10 blue links. AEO/GEO optimizes for AI-generated answers. When someone asks ChatGPT or Perplexity a question, the answer synthesizes from sources — and those sources get cited, linked, and trusted. If your content is not structured for AI consumption, you are invisible in the fastest-growing search channel.</p>
 <h2>Core Concepts</h2>
 <h3>AEO vs GEO vs Traditional SEO</h3>
-<p>| Dimension | Traditional SEO | AEO (Answer Engine) | GEO (Generative Engine) |</p>
-<p>|-----------|----------------|---------------------|------------------------|</p>
-<p>| <strong>Target</strong> | Google/Bing SERPs | Featured snippets, AI Overviews, voice assistants | ChatGPT, Perplexity, Claude citations |</p>
-<p>| <strong>Goal</strong> | Rank on page 1 | Be THE answer | Be cited in AI-generated responses |</p>
-<p>| <strong>Content format</strong> | Long-form, keyword-rich | Concise, structured Q&amp;A | Authoritative, quotable, fact-dense |</p>
-<p>| <strong>Signals</strong> | Backlinks, keywords, UX | Schema markup, direct answers, authority | E-E-A-T, data density, citation-worthiness |</p>
-<p>| <strong>Measurement</strong> | Rankings, traffic | Answer box appearance, voice search hits | AI citation tracking, brand mentions in AI |</p>
+<table><thead><tr><th>Dimension</th><th>Traditional SEO</th><th>AEO (Answer Engine)</th><th>GEO (Generative Engine)</th></tr></thead><tbody><tr><td><strong>Target</strong></td><td>Google/Bing SERPs</td><td>Featured snippets, AI Overviews, voice assistants</td><td>ChatGPT, Perplexity, Claude citations</td></tr><tr><td><strong>Goal</strong></td><td>Rank on page 1</td><td>Be THE answer</td><td>Be cited in AI-generated responses</td></tr><tr><td><strong>Content format</strong></td><td>Long-form, keyword-rich</td><td>Concise, structured Q&amp;A</td><td>Authoritative, quotable, fact-dense</td></tr><tr><td><strong>Signals</strong></td><td>Backlinks, keywords, UX</td><td>Schema markup, direct answers, authority</td><td>E-E-A-T, data density, citation-worthiness</td></tr><tr><td><strong>Measurement</strong></td><td>Rankings, traffic</td><td>Answer box appearance, voice search hits</td><td>AI citation tracking, brand mentions in AI</td></tr></tbody></table>
 <h3>The Citation Hierarchy</h3>
 <p>AI models prioritize sources based on:</p>
 <p>1. <strong>Authority signals</strong> — Domain authority, author expertise, institutional backing</p>
@@ -321,16 +447,7 @@ a { color: inherit; text-decoration: none; }
 <p>3. <strong>Evaluate content structure</strong>: Score each page on AEO readiness using the Content Scorecard below.</p>
 <h3>Step 2: Content Scorecard</h3>
 <p>Rate each piece of content (1-5) on these dimensions:</p>
-<p>| Dimension | Score 1 (Poor) | Score 5 (Excellent) |</p>
-<p>|-----------|---------------|-------------------|</p>
-<p>| <strong>Direct answers</strong> | Buried in paragraphs | Clear Q&amp;A format, first-sentence answers |</p>
-<p>| <strong>Data density</strong> | Opinions without evidence | Specific numbers, percentages, dates |</p>
-<p>| <strong>Source attribution</strong> | No citations | Named sources, linked studies |</p>
-<p>| <strong>Structure</strong> | Wall of text | H2/H3 hierarchy, lists, tables |</p>
-<p>| <strong>Schema markup</strong> | None | Article, FAQ, HowTo, or relevant type |</p>
-<p>| <strong>Freshness signals</strong> | No dates | Published date, &quot;Updated&quot; date, recent data |</p>
-<p>| <strong>Author authority</strong> | No byline | Named author with expertise credentials |</p>
-<p>| <strong>Quotability</strong> | Meandering prose | Crisp, self-contained statements AI can extract |</p>
+<table><thead><tr><th>Dimension</th><th>Score 1 (Poor)</th><th>Score 5 (Excellent)</th></tr></thead><tbody><tr><td><strong>Direct answers</strong></td><td>Buried in paragraphs</td><td>Clear Q&amp;A format, first-sentence answers</td></tr><tr><td><strong>Data density</strong></td><td>Opinions without evidence</td><td>Specific numbers, percentages, dates</td></tr><tr><td><strong>Source attribution</strong></td><td>No citations</td><td>Named sources, linked studies</td></tr><tr><td><strong>Structure</strong></td><td>Wall of text</td><td>H2/H3 hierarchy, lists, tables</td></tr><tr><td><strong>Schema markup</strong></td><td>None</td><td>Article, FAQ, HowTo, or relevant type</td></tr><tr><td><strong>Freshness signals</strong></td><td>No dates</td><td>Published date, &quot;Updated&quot; date, recent data</td></tr><tr><td><strong>Author authority</strong></td><td>No byline</td><td>Named author with expertise credentials</td></tr><tr><td><strong>Quotability</strong></td><td>Meandering prose</td><td>Crisp, self-contained statements AI can extract</td></tr></tbody></table>
 <p><strong>Scoring</strong>: 32-40 = AI-ready. 24-31 = Needs optimization. Below 24 = Major rework needed.</p>
 <h3>Step 3: Optimize for AI Citation</h3>
 <p>#### Content Structure Patterns</p>
@@ -381,15 +498,7 @@ a { color: inherit; text-decoration: none; }
 <p>5. <strong>robots.txt</strong> — Ensure AI crawlers (GPTBot, anthropic-ai, PerplexityBot) are not blocked</p>
 <h3>Step 4: Monitor AI Visibility</h3>
 <p>#### AI Crawler User Agents</p>
-<p>| Crawler | User Agent | Purpose |</p>
-<p>|---------|-----------|---------|</p>
-<p>| OpenAI | GPTBot | ChatGPT training and browsing |</p>
-<p>| Anthropic | anthropic-ai, ClaudeBot | Claude training and citations |</p>
-<p>| Perplexity | PerplexityBot | Perplexity search citations |</p>
-<p>| Google | Google-Extended | Gemini/AI Overview training |</p>
-<p>| Microsoft | Bingbot (+ AI signals) | Bing Copilot citations |</p>
-<p>| Meta | Meta-ExternalAgent | Meta AI features |</p>
-<p>| Apple | Applebot-Extended | Apple Intelligence |</p>
+<table><thead><tr><th>Crawler</th><th>User Agent</th><th>Purpose</th></tr></thead><tbody><tr><td>OpenAI</td><td>GPTBot</td><td>ChatGPT training and browsing</td></tr><tr><td>Anthropic</td><td>anthropic-ai, ClaudeBot</td><td>Claude training and citations</td></tr><tr><td>Perplexity</td><td>PerplexityBot</td><td>Perplexity search citations</td></tr><tr><td>Google</td><td>Google-Extended</td><td>Gemini/AI Overview training</td></tr><tr><td>Microsoft</td><td>Bingbot (+ AI signals)</td><td>Bing Copilot citations</td></tr><tr><td>Meta</td><td>Meta-ExternalAgent</td><td>Meta AI features</td></tr><tr><td>Apple</td><td>Applebot-Extended</td><td>Apple Intelligence</td></tr></tbody></table>
 <p>#### robots.txt Recommendations</p>
 <pre><code># Allow AI crawlers for maximum AI search visibility
 User-agent: GPTBot
@@ -408,13 +517,7 @@ User-agent: Google-Extended
 Allow: /</code></pre>
 <p><strong>Decision framework:</strong> If your goal is AI visibility (AEO/GEO), allow all AI crawlers. If you have licensing concerns about training data, selectively block training-only crawlers while allowing search/citation crawlers.</p>
 <p>#### Measurement Approaches</p>
-<p>| Method | What It Tracks | Tools |</p>
-<p>|--------|---------------|-------|</p>
-<p>| <strong>Manual citation checks</strong> | Query AI platforms, document citations | ChatGPT, Perplexity, Google |</p>
-<p>| <strong>Server log analysis</strong> | AI crawler frequency and pages crawled | Log analyzers, custom scripts |</p>
-<p>| <strong>Brand mention monitoring</strong> | Your brand/content mentioned in AI answers | Manual checks, brand monitoring tools |</p>
-<p>| <strong>Referral traffic</strong> | Traffic from AI platforms | GA4 (check referral sources for chat.openai.com, perplexity.ai) |</p>
-<p>| <strong>Schema validation</strong> | Structured data coverage and errors | Google Search Console, Rich Results Test |</p>
+<table><thead><tr><th>Method</th><th>What It Tracks</th><th>Tools</th></tr></thead><tbody><tr><td><strong>Manual citation checks</strong></td><td>Query AI platforms, document citations</td><td>ChatGPT, Perplexity, Google</td></tr><tr><td><strong>Server log analysis</strong></td><td>AI crawler frequency and pages crawled</td><td>Log analyzers, custom scripts</td></tr><tr><td><strong>Brand mention monitoring</strong></td><td>Your brand/content mentioned in AI answers</td><td>Manual checks, brand monitoring tools</td></tr><tr><td><strong>Referral traffic</strong></td><td>Traffic from AI platforms</td><td>GA4 (check referral sources for chat.openai.com, perplexity.ai)</td></tr><tr><td><strong>Schema validation</strong></td><td>Structured data coverage and errors</td><td>Google Search Console, Rich Results Test</td></tr></tbody></table>
 <h2>Content Types and AI Optimization</h2>
 <h3>Blog Posts / Articles</h3>
 <ul>
@@ -462,6 +565,27 @@ Allow: /</code></pre>
 </ul></div>
 </div>
 <script>
+(function () {
+  var header = document.getElementById('site-header');
+  if (header) {
+    var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 40); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+  }
+  window.closeMobileNav = function () {
+    if (hamburger) hamburger.classList.remove('open');
+    if (mobileNav) mobileNav.classList.remove('open');
+  };
+})();
+
 function copyInstall(btn) {
   var text = btn.getAttribute('data-copy');
   navigator.clipboard.writeText(text).then(function() {

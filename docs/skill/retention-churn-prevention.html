@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>retention-churn-prevention — claude-marketing</title>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-00XHYRHCX4"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-00XHYRHCX4');
+  gtag('config', '');
 </script>
 <meta name="description" content="Customer retention analysis, churn prediction, cohort analysis, win-back campaigns, and loyalty program design. Use when the user asks about churn, retention, c">
 <meta property="og:title" content="retention-churn-prevention — claude-marketing">
@@ -23,21 +23,21 @@
 <style>
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/QFL0NYke1cBVShP30pbS7hysGc.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Ultralight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/REECJPxYctsFxKQcUsJamXJJg.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Cartograph CF';
-  src: url('https://framerusercontent.com/assets/jQ3VWGcEj4oWm3roGkiXoL1lA.woff2') format('woff2');
+  src: url('../fonts/CartographCF-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -71,6 +71,49 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ─── SITE HEADER (matches index.html / quickstart.html / skills.html) ─── */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem clamp(20px, 5vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
+}
+.site-header.scrolled {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.header-logo { font-weight: 600; font-size: 1rem; color: #ffffff; }
+.header-nav { display: flex; gap: 2.5rem; align-items: center; }
+.header-nav a {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--ease);
+}
+.header-nav a:hover { opacity: 1; }
+.header-github {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+  transition: background 0.2s, color 0.2s;
+}
+.header-github:hover { background: #ffffff; color: #000000; }
+.hamburger { display: none; }
+.mobile-nav { display: none; }
 
 .detail-page {
   max-width: 720px;
@@ -261,17 +304,106 @@ a { color: inherit; text-decoration: none; }
   font-style: italic;
 }
 
+.detail-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0 1.5rem;
+  display: block;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.detail-body thead th {
+  text-align: left;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+.detail-body tbody td {
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  line-height: 1.55;
+  vertical-align: top;
+  opacity: 0.85;
+}
+.detail-body tbody tr:last-child td { border-bottom: 0; }
+
 @media (max-width: 700px) {
+  .header-nav { display: none; }
+  .header-github { display: none; }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .hamburger span { width: 22px; height: 1.5px; background: #ffffff; transition: transform 0.2s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #000000;
+    z-index: 999;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 96px 20px 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s var(--ease);
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a { font-family: 'PP Editorial New', serif; font-size: 2rem; font-weight: 200; }
+
+  .site-header { padding-left: 20px; padding-right: 20px; }
   .detail-page {
     padding: 100px 20px 60px;
   }
   .detail-source-links {
     flex-wrap: wrap;
   }
+  .detail-body table { font-size: 0.85rem; }
+  .detail-body thead th,
+  .detail-body tbody td { padding: 0.55rem 0.7rem; }
+}
+
+@media (max-width: 390px) {
+  .site-header { padding-left: 16px; padding-right: 16px; }
+  .detail-page { padding-left: 16px; padding-right: 16px; }
 }
 </style>
 </head>
 <body>
+<header class="site-header" id="site-header">
+  <a href="../" class="header-logo">claude-marketing</a>
+  <nav class="header-nav">
+    <a href="../skills.html">Skills</a>
+    <a href="../#capabilities">Capabilities</a>
+    <a href="../#demo">Demo</a>
+    <a href="../#install">Install</a>
+  </nav>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener" class="header-github">View on GitHub &#8599;</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="../skills.html" onclick="closeMobileNav()">Skills</a>
+  <a href="../#capabilities" onclick="closeMobileNav()">Capabilities</a>
+  <a href="../#demo" onclick="closeMobileNav()">Demo</a>
+  <a href="../#install" onclick="closeMobileNav()">Install</a>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener">GitHub &#8599;</a>
+</nav>
 <div class="detail-page" data-pagefind-body>
   <a href="../skills.html" class="detail-back">&larr; Back to skills</a>
   <h1 class="detail-name">retention-churn-prevention</h1>
@@ -298,46 +430,20 @@ a { color: inherit; text-decoration: none; }
 <pre><code>git clone https://github.com/thatrebeccarae/claude-marketing.git &amp;&amp; cp -r claude-marketing/skills/retention-churn-prevention ~/.claude/skills/</code></pre>
 <h2>Churn Analysis Framework</h2>
 <h3>Churn Types</h3>
-<p>| Type | Definition | Signal |</p>
-<p>|------|-----------|--------|</p>
-<p>| <strong>Voluntary</strong> | Customer actively cancels | Cancellation request, downgrade |</p>
-<p>| <strong>Involuntary</strong> | Payment failure, card expiry | Failed charge, dunning |</p>
-<p>| <strong>Silent</strong> | Stops using but does not cancel | Usage decline, no logins |</p>
+<table><thead><tr><th>Type</th><th>Definition</th><th>Signal</th></tr></thead><tbody><tr><td><strong>Voluntary</strong></td><td>Customer actively cancels</td><td>Cancellation request, downgrade</td></tr><tr><td><strong>Involuntary</strong></td><td>Payment failure, card expiry</td><td>Failed charge, dunning</td></tr><tr><td><strong>Silent</strong></td><td>Stops using but does not cancel</td><td>Usage decline, no logins</td></tr></tbody></table>
 <h3>Churn Rate Calculation</h3>
 <pre><code>Monthly churn rate = Customers lost / Customers at start of month
 Annual churn rate = 1 - (1 - monthly rate)^12
 Net revenue retention = (Start MRR + Expansion - Contraction - Churn) / Start MRR</code></pre>
 <h3>Benchmarks</h3>
-<p>| Metric | Excellent | Good | Concerning |</p>
-<p>|--------|----------|------|-----------|</p>
-<p>| Monthly churn (SaaS) | &lt;1% | 1-2% | &gt;3% |</p>
-<p>| Annual churn (SaaS) | &lt;5% | 5-10% | &gt;15% |</p>
-<p>| Net revenue retention | &gt;120% | 100-120% | &lt;100% |</p>
+<table><thead><tr><th>Metric</th><th>Excellent</th><th>Good</th><th>Concerning</th></tr></thead><tbody><tr><td>Monthly churn (SaaS)</td><td>&lt;1%</td><td>1-2%</td><td>&gt;3%</td></tr><tr><td>Annual churn (SaaS)</td><td>&lt;5%</td><td>5-10%</td><td>&gt;15%</td></tr><tr><td>Net revenue retention</td><td>&gt;120%</td><td>100-120%</td><td>&lt;100%</td></tr></tbody></table>
 <h2>Customer Health Scoring</h2>
-<p>| Signal | Weight | Healthy | At Risk |</p>
-<p>|--------|--------|---------|---------|</p>
-<p>| Product usage | 25% | Daily/weekly | Monthly or less |</p>
-<p>| Feature adoption | 20% | 5+ features | 1-2 features |</p>
-<p>| Support sentiment | 15% | Positive/none | Negative |</p>
-<p>| Billing health | 15% | On time, expanding | Late, downgrading |</p>
-<p>| Engagement | 15% | Opens, clicks | Ignores |</p>
-<p>| NPS/CSAT | 10% | Promoter (9-10) | Detractor (0-6) |</p>
+<table><thead><tr><th>Signal</th><th>Weight</th><th>Healthy</th><th>At Risk</th></tr></thead><tbody><tr><td>Product usage</td><td>25%</td><td>Daily/weekly</td><td>Monthly or less</td></tr><tr><td>Feature adoption</td><td>20%</td><td>5+ features</td><td>1-2 features</td></tr><tr><td>Support sentiment</td><td>15%</td><td>Positive/none</td><td>Negative</td></tr><tr><td>Billing health</td><td>15%</td><td>On time, expanding</td><td>Late, downgrading</td></tr><tr><td>Engagement</td><td>15%</td><td>Opens, clicks</td><td>Ignores</td></tr><tr><td>NPS/CSAT</td><td>10%</td><td>Promoter (9-10)</td><td>Detractor (0-6)</td></tr></tbody></table>
 <h2>Early Warning Signals</h2>
-<p>| Timeframe | Signal | Action |</p>
-<p>|-----------|--------|--------|</p>
-<p>| 7 days | Login frequency drops 50%+ | In-app nudge, value reminder |</p>
-<p>| 14 days | Key feature usage stops | CS outreach, usage tips |</p>
-<p>| 30 days | No logins for 2+ weeks | Personal CS email, re-engagement |</p>
-<p>| 60 days | NPS detractor, unresolved ticket | Executive escalation, save offer |</p>
-<p>| 90 days | Cancellation signals | Retention call, custom offer |</p>
+<table><thead><tr><th>Timeframe</th><th>Signal</th><th>Action</th></tr></thead><tbody><tr><td>7 days</td><td>Login frequency drops 50%+</td><td>In-app nudge, value reminder</td></tr><tr><td>14 days</td><td>Key feature usage stops</td><td>CS outreach, usage tips</td></tr><tr><td>30 days</td><td>No logins for 2+ weeks</td><td>Personal CS email, re-engagement</td></tr><tr><td>60 days</td><td>NPS detractor, unresolved ticket</td><td>Executive escalation, save offer</td></tr><tr><td>90 days</td><td>Cancellation signals</td><td>Retention call, custom offer</td></tr></tbody></table>
 <h2>Win-Back Campaigns</h2>
 <h3>Timing</h3>
-<p>| Post-Churn Period | Response Rate | Approach |</p>
-<p>|------------------|---------------|----------|</p>
-<p>| 0-7 days | 15-25% | Immediate save, address exit reason |</p>
-<p>| 7-30 days | 8-15% | New feature announcement, incentive |</p>
-<p>| 30-90 days | 3-8% | Major update, significant discount |</p>
-<p>| 90+ days | &lt;3% | Annual check-in |</p>
+<table><thead><tr><th>Post-Churn Period</th><th>Response Rate</th><th>Approach</th></tr></thead><tbody><tr><td>0-7 days</td><td>15-25%</td><td>Immediate save, address exit reason</td></tr><tr><td>7-30 days</td><td>8-15%</td><td>New feature announcement, incentive</td></tr><tr><td>30-90 days</td><td>3-8%</td><td>Major update, significant discount</td></tr><tr><td>90+ days</td><td>&lt;3%</td><td>Annual check-in</td></tr></tbody></table>
 <h3>Win-Back Sequence</h3>
 <pre><code>Email 1 (Day 1): Address exit reason, offer to help
 Email 2 (Day 7): New features since they left
@@ -363,6 +469,27 @@ CLV:CAC ratio target: &gt;3:1</code></pre>
 </ul></div>
 </div>
 <script>
+(function () {
+  var header = document.getElementById('site-header');
+  if (header) {
+    var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 40); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+  }
+  window.closeMobileNav = function () {
+    if (hamburger) hamburger.classList.remove('open');
+    if (mobileNav) mobileNav.classList.remove('open');
+  };
+})();
+
 function copyInstall(btn) {
   var text = btn.getAttribute('data-copy');
   navigator.clipboard.writeText(text).then(function() {

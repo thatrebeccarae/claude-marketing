@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>looker-studio — claude-marketing</title>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-00XHYRHCX4"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-00XHYRHCX4');
+  gtag('config', '');
 </script>
 <meta name="description" content="Looker Studio (formerly Google Data Studio) expertise. Build dashboards, design data visualizations, connect data sources, and create marketing reports. Use whe">
 <meta property="og:title" content="looker-studio — claude-marketing">
@@ -23,21 +23,21 @@
 <style>
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/QFL0NYke1cBVShP30pbS7hysGc.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Ultralight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/REECJPxYctsFxKQcUsJamXJJg.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Cartograph CF';
-  src: url('https://framerusercontent.com/assets/jQ3VWGcEj4oWm3roGkiXoL1lA.woff2') format('woff2');
+  src: url('../fonts/CartographCF-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -71,6 +71,49 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ─── SITE HEADER (matches index.html / quickstart.html / skills.html) ─── */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem clamp(20px, 5vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
+}
+.site-header.scrolled {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.header-logo { font-weight: 600; font-size: 1rem; color: #ffffff; }
+.header-nav { display: flex; gap: 2.5rem; align-items: center; }
+.header-nav a {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--ease);
+}
+.header-nav a:hover { opacity: 1; }
+.header-github {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+  transition: background 0.2s, color 0.2s;
+}
+.header-github:hover { background: #ffffff; color: #000000; }
+.hamburger { display: none; }
+.mobile-nav { display: none; }
 
 .detail-page {
   max-width: 720px;
@@ -261,17 +304,106 @@ a { color: inherit; text-decoration: none; }
   font-style: italic;
 }
 
+.detail-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0 1.5rem;
+  display: block;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.detail-body thead th {
+  text-align: left;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+.detail-body tbody td {
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  line-height: 1.55;
+  vertical-align: top;
+  opacity: 0.85;
+}
+.detail-body tbody tr:last-child td { border-bottom: 0; }
+
 @media (max-width: 700px) {
+  .header-nav { display: none; }
+  .header-github { display: none; }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .hamburger span { width: 22px; height: 1.5px; background: #ffffff; transition: transform 0.2s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #000000;
+    z-index: 999;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 96px 20px 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s var(--ease);
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a { font-family: 'PP Editorial New', serif; font-size: 2rem; font-weight: 200; }
+
+  .site-header { padding-left: 20px; padding-right: 20px; }
   .detail-page {
     padding: 100px 20px 60px;
   }
   .detail-source-links {
     flex-wrap: wrap;
   }
+  .detail-body table { font-size: 0.85rem; }
+  .detail-body thead th,
+  .detail-body tbody td { padding: 0.55rem 0.7rem; }
+}
+
+@media (max-width: 390px) {
+  .site-header { padding-left: 16px; padding-right: 16px; }
+  .detail-page { padding-left: 16px; padding-right: 16px; }
 }
 </style>
 </head>
 <body>
+<header class="site-header" id="site-header">
+  <a href="../" class="header-logo">claude-marketing</a>
+  <nav class="header-nav">
+    <a href="../skills.html">Skills</a>
+    <a href="../#capabilities">Capabilities</a>
+    <a href="../#demo">Demo</a>
+    <a href="../#install">Install</a>
+  </nav>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener" class="header-github">View on GitHub &#8599;</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="../skills.html" onclick="closeMobileNav()">Skills</a>
+  <a href="../#capabilities" onclick="closeMobileNav()">Capabilities</a>
+  <a href="../#demo" onclick="closeMobileNav()">Demo</a>
+  <a href="../#install" onclick="closeMobileNav()">Install</a>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener">GitHub &#8599;</a>
+</nav>
 <div class="detail-page" data-pagefind-body>
   <a href="../skills.html" class="detail-back">&larr; Back to skills</a>
   <h1 class="detail-name">looker-studio</h1>
@@ -323,7 +455,7 @@ a { color: inherit; text-decoration: none; }
 </ul>
 <p>#### Formula Syntax Rules</p>
 <ul>
-<li><strong>No comments allowed</strong> — Looker Studio formulas do not support `--`, `//`, or `/* */` style comments. Never include comments in formulas. Add context in the field description instead.</li>
+<li><strong>No comments allowed</strong> — Looker Studio formulas do not support `--`, `//`, or `/<em> </em>/` style comments. Never include comments in formulas. Add context in the field description instead.</li>
 <li><strong>No inline flags in simple cases</strong> — prefer `CONTAINS_TEXT()`, `LOWER()`, or exact match over regex when possible</li>
 <li><strong>RE2 regex engine</strong> — supports `(?i)` for case-insensitive, but does NOT support lookaheads/lookbehinds</li>
 <li><strong>String escaping</strong> — use `\\` for literal backslash in regex patterns within string literals (e.g., `&quot;\\s&quot;` for whitespace, `&quot;\\|&quot;` for literal pipe)</li>
@@ -387,16 +519,7 @@ Page 2: Customer Acquisition
 |- Top landing pages
 |- Device + country breakdown</code></pre>
 <h2>Key Visualization Guidelines</h2>
-<p>| Data Type | Best Chart | Avoid |</p>
-<p>|-----------|-----------|-------|</p>
-<p>| KPI with comparison | Scorecard with delta | Pie chart |</p>
-<p>| Trend over time | Line chart or area chart | Bar chart (if &gt;7 periods) |</p>
-<p>| Category comparison | Horizontal bar chart | 3D charts |</p>
-<p>| Part of whole | Stacked bar or donut | Pie with &gt;6 slices |</p>
-<p>| Distribution | Histogram or heatmap | Scatter (if not correlation) |</p>
-<p>| Geographic | Geo map or heatmap | Tables for location data |</p>
-<p>| Funnel | Custom funnel (shapes) | Bar chart |</p>
-<p>| Table data | Table with heatmap bars | Unsorted tables |</p>
+<table><thead><tr><th>Data Type</th><th>Best Chart</th><th>Avoid</th></tr></thead><tbody><tr><td>KPI with comparison</td><td>Scorecard with delta</td><td>Pie chart</td></tr><tr><td>Trend over time</td><td>Line chart or area chart</td><td>Bar chart (if &gt;7 periods)</td></tr><tr><td>Category comparison</td><td>Horizontal bar chart</td><td>3D charts</td></tr><tr><td>Part of whole</td><td>Stacked bar or donut</td><td>Pie with &gt;6 slices</td></tr><tr><td>Distribution</td><td>Histogram or heatmap</td><td>Scatter (if not correlation)</td></tr><tr><td>Geographic</td><td>Geo map or heatmap</td><td>Tables for location data</td></tr><tr><td>Funnel</td><td>Custom funnel (shapes)</td><td>Bar chart</td></tr><tr><td>Table data</td><td>Table with heatmap bars</td><td>Unsorted tables</td></tr></tbody></table>
 <h2>Workflow: Build a Dashboard</h2>
 <p>When asked to create a Looker Studio dashboard:</p>
 <p>1. <strong>Define Purpose</strong> — Who views it? How often? What decisions does it inform?</p>
@@ -564,7 +687,7 @@ python scripts/data_pipeline.py --action list-templates</code></pre>
 <p><strong>Data not refreshing</strong>: Google Sheets data in Looker Studio caches for ~15 minutes. Force refresh with the &quot;Refresh data&quot; button in Looker Studio, or set the data source cache to 1 minute in report settings.</p>
 <p><strong>Calculated field errors</strong>: Common causes:</p>
 <ul>
-<li><strong>Comments in formulas</strong> — Looker Studio does NOT support `--`, `//`, or `/* */` comments. Never include comments in calculated field formulas. Use the field description for documentation instead.</li>
+<li><strong>Comments in formulas</strong> — Looker Studio does NOT support `--`, `//`, or `/<em> </em>/` comments. Never include comments in calculated field formulas. Use the field description for documentation instead.</li>
 <li><strong>Type mismatches</strong> — Ensure date fields are typed as Date (not Text) in the data source config. Use CAST() to convert between types.</li>
 <li><strong>Regex escaping</strong> — Patterns are inside string literals, so backslashes need double-escaping (e.g., `&quot;\\s&quot;` for whitespace, `&quot;\\|&quot;` for literal pipe).</li>
 </ul>
@@ -582,6 +705,27 @@ python scripts/data_pipeline.py --action list-templates</code></pre>
 </ul></div>
 </div>
 <script>
+(function () {
+  var header = document.getElementById('site-header');
+  if (header) {
+    var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 40); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+  }
+  window.closeMobileNav = function () {
+    if (hamburger) hamburger.classList.remove('open');
+    if (mobileNav) mobileNav.classList.remove('open');
+  };
+})();
+
 function copyInstall(btn) {
   var text = btn.getAttribute('data-copy');
   navigator.clipboard.writeText(text).then(function() {

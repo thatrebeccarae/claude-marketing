@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>klaviyo-analyst — claude-marketing</title>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-00XHYRHCX4"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-00XHYRHCX4');
+  gtag('config', '');
 </script>
 <meta name="description" content="Klaviyo marketing operations and analyst expertise. Audit flows, segments, campaigns, deliverability, and revenue attribution. Use when the user asks about Klav">
 <meta property="og:title" content="klaviyo-analyst — claude-marketing">
@@ -23,21 +23,21 @@
 <style>
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/QFL0NYke1cBVShP30pbS7hysGc.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Ultralight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/REECJPxYctsFxKQcUsJamXJJg.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Cartograph CF';
-  src: url('https://framerusercontent.com/assets/jQ3VWGcEj4oWm3roGkiXoL1lA.woff2') format('woff2');
+  src: url('../fonts/CartographCF-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -71,6 +71,49 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ─── SITE HEADER (matches index.html / quickstart.html / skills.html) ─── */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem clamp(20px, 5vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
+}
+.site-header.scrolled {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.header-logo { font-weight: 600; font-size: 1rem; color: #ffffff; }
+.header-nav { display: flex; gap: 2.5rem; align-items: center; }
+.header-nav a {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--ease);
+}
+.header-nav a:hover { opacity: 1; }
+.header-github {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+  transition: background 0.2s, color 0.2s;
+}
+.header-github:hover { background: #ffffff; color: #000000; }
+.hamburger { display: none; }
+.mobile-nav { display: none; }
 
 .detail-page {
   max-width: 720px;
@@ -261,17 +304,106 @@ a { color: inherit; text-decoration: none; }
   font-style: italic;
 }
 
+.detail-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0 1.5rem;
+  display: block;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.detail-body thead th {
+  text-align: left;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+.detail-body tbody td {
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  line-height: 1.55;
+  vertical-align: top;
+  opacity: 0.85;
+}
+.detail-body tbody tr:last-child td { border-bottom: 0; }
+
 @media (max-width: 700px) {
+  .header-nav { display: none; }
+  .header-github { display: none; }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .hamburger span { width: 22px; height: 1.5px; background: #ffffff; transition: transform 0.2s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #000000;
+    z-index: 999;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 96px 20px 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s var(--ease);
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a { font-family: 'PP Editorial New', serif; font-size: 2rem; font-weight: 200; }
+
+  .site-header { padding-left: 20px; padding-right: 20px; }
   .detail-page {
     padding: 100px 20px 60px;
   }
   .detail-source-links {
     flex-wrap: wrap;
   }
+  .detail-body table { font-size: 0.85rem; }
+  .detail-body thead th,
+  .detail-body tbody td { padding: 0.55rem 0.7rem; }
+}
+
+@media (max-width: 390px) {
+  .site-header { padding-left: 16px; padding-right: 16px; }
+  .detail-page { padding-left: 16px; padding-right: 16px; }
 }
 </style>
 </head>
 <body>
+<header class="site-header" id="site-header">
+  <a href="../" class="header-logo">claude-marketing</a>
+  <nav class="header-nav">
+    <a href="../skills.html">Skills</a>
+    <a href="../#capabilities">Capabilities</a>
+    <a href="../#demo">Demo</a>
+    <a href="../#install">Install</a>
+  </nav>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener" class="header-github">View on GitHub &#8599;</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="../skills.html" onclick="closeMobileNav()">Skills</a>
+  <a href="../#capabilities" onclick="closeMobileNav()">Capabilities</a>
+  <a href="../#demo" onclick="closeMobileNav()">Demo</a>
+  <a href="../#install" onclick="closeMobileNav()">Install</a>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener">GitHub &#8599;</a>
+</nav>
 <div class="detail-page" data-pagefind-body>
   <a href="../skills.html" class="detail-back">&larr; Back to skills</a>
   <h1 class="detail-name">klaviyo-analyst</h1>
@@ -354,15 +486,7 @@ a { color: inherit; text-decoration: none; }
 <li>Recommend property flattening strategies for nested data accessibility</li>
 </ul>
 <h2>Key Benchmarks</h2>
-<p>| Metric | Good | Great | Warning |</p>
-<p>|--------|------|-------|---------|</p>
-<p>| Open Rate (email) | 20-25% | 30%+ | &lt;15% |</p>
-<p>| Click Rate (email) | 2-3% | 4%+ | &lt;1.5% |</p>
-<p>| Unsubscribe Rate | &lt;0.3% | &lt;0.1% | &gt;0.5% |</p>
-<p>| Spam Complaint Rate | &lt;0.05% | &lt;0.02% | &gt;0.1% |</p>
-<p>| Flow Revenue % of Total | 30-40% | 50%+ | &lt;20% |</p>
-<p>| SMS Click Rate | 8-12% | 15%+ | &lt;5% |</p>
-<p>| List Growth Rate (monthly) | 3-5% | 8%+ | &lt;1% |</p>
+<table><thead><tr><th>Metric</th><th>Good</th><th>Great</th><th>Warning</th></tr></thead><tbody><tr><td>Open Rate (email)</td><td>20-25%</td><td>30%+</td><td>&lt;15%</td></tr><tr><td>Click Rate (email)</td><td>2-3%</td><td>4%+</td><td>&lt;1.5%</td></tr><tr><td>Unsubscribe Rate</td><td>&lt;0.3%</td><td>&lt;0.1%</td><td>&gt;0.5%</td></tr><tr><td>Spam Complaint Rate</td><td>&lt;0.05%</td><td>&lt;0.02%</td><td>&gt;0.1%</td></tr><tr><td>Flow Revenue % of Total</td><td>30-40%</td><td>50%+</td><td>&lt;20%</td></tr><tr><td>SMS Click Rate</td><td>8-12%</td><td>15%+</td><td>&lt;5%</td></tr><tr><td>List Growth Rate (monthly)</td><td>3-5%</td><td>8%+</td><td>&lt;1%</td></tr></tbody></table>
 <h2>Essential Flows Checklist</h2>
 <p>1. <strong>Welcome Series</strong> (3-5 emails + optional SMS) — triggers on list subscribe</p>
 <p>2. <strong>Abandoned Cart</strong> (2-3 emails + 1 SMS) — triggers on Started Checkout</p>
@@ -406,42 +530,14 @@ a { color: inherit; text-decoration: none; }
 <p>15. <strong>Implementation Roadmap</strong> — Phased timeline with dependencies mapped</p>
 <h2>Industry-Specific Benchmarks</h2>
 <h3>B2B / Wholesale E-Commerce</h3>
-<p>| Metric | Good | Great | Warning | Notes |</p>
-<p>|--------|------|-------|---------|-------|</p>
-<p>| Open Rate | 25-35% | 40%+ | &lt;20% | Higher than DTC due to professional relevance |</p>
-<p>| Click Rate | 3-5% | 6%+ | &lt;2% | Product-focused CTAs perform well |</p>
-<p>| CTOR | 10-15% | 18%+ | &lt;8% | Key diagnostic — content relevance signal |</p>
-<p>| Flow Revenue % | 25-35% | 40%+ | &lt;15% | Reorder flows are high-value in B2B |</p>
-<p>| Avg Order Value | Varies | — | — | Track by segment (industry, company size) |</p>
-<p>| Reorder Rate | 60-70% | 80%+ | &lt;50% | Critical for consumable categories |</p>
+<table><thead><tr><th>Metric</th><th>Good</th><th>Great</th><th>Warning</th><th>Notes</th></tr></thead><tbody><tr><td>Open Rate</td><td>25-35%</td><td>40%+</td><td>&lt;20%</td><td>Higher than DTC due to professional relevance</td></tr><tr><td>Click Rate</td><td>3-5%</td><td>6%+</td><td>&lt;2%</td><td>Product-focused CTAs perform well</td></tr><tr><td>CTOR</td><td>10-15%</td><td>18%+</td><td>&lt;8%</td><td>Key diagnostic — content relevance signal</td></tr><tr><td>Flow Revenue %</td><td>25-35%</td><td>40%+</td><td>&lt;15%</td><td>Reorder flows are high-value in B2B</td></tr><tr><td>Avg Order Value</td><td>Varies</td><td>—</td><td>—</td><td>Track by segment (industry, company size)</td></tr><tr><td>Reorder Rate</td><td>60-70%</td><td>80%+</td><td>&lt;50%</td><td>Critical for consumable categories</td></tr></tbody></table>
 <h3>DTC (Direct-to-Consumer)</h3>
-<p>| Metric | Good | Great | Warning |</p>
-<p>|--------|------|-------|---------|</p>
-<p>| Open Rate | 20-25% | 30%+ | &lt;15% |</p>
-<p>| Click Rate | 2-3% | 4%+ | &lt;1.5% |</p>
-<p>| Flow Revenue % | 30-40% | 50%+ | &lt;20% |</p>
-<p>| Welcome Series Conv. | 3-5% | 8%+ | &lt;2% |</p>
-<p>| Cart Recovery Rate | 5-10% | 15%+ | &lt;3% |</p>
+<table><thead><tr><th>Metric</th><th>Good</th><th>Great</th><th>Warning</th></tr></thead><tbody><tr><td>Open Rate</td><td>20-25%</td><td>30%+</td><td>&lt;15%</td></tr><tr><td>Click Rate</td><td>2-3%</td><td>4%+</td><td>&lt;1.5%</td></tr><tr><td>Flow Revenue %</td><td>30-40%</td><td>50%+</td><td>&lt;20%</td></tr><tr><td>Welcome Series Conv.</td><td>3-5%</td><td>8%+</td><td>&lt;2%</td></tr><tr><td>Cart Recovery Rate</td><td>5-10%</td><td>15%+</td><td>&lt;3%</td></tr></tbody></table>
 <h3>Subscription / Recurring Revenue</h3>
-<p>| Metric | Good | Great | Warning |</p>
-<p>|--------|------|-------|---------|</p>
-<p>| Churn Rate (monthly) | &lt;5% | &lt;3% | &gt;8% |</p>
-<p>| Reactivation Rate | 5-10% | 15%+ | &lt;3% |</p>
-<p>| Replenishment Flow Conv. | 8-12% | 15%+ | &lt;5% |</p>
-<p>| Subscription Upgrade Rate | 3-5% | 8%+ | &lt;1% |</p>
+<table><thead><tr><th>Metric</th><th>Good</th><th>Great</th><th>Warning</th></tr></thead><tbody><tr><td>Churn Rate (monthly)</td><td>&lt;5%</td><td>&lt;3%</td><td>&gt;8%</td></tr><tr><td>Reactivation Rate</td><td>5-10%</td><td>15%+</td><td>&lt;3%</td></tr><tr><td>Replenishment Flow Conv.</td><td>8-12%</td><td>15%+</td><td>&lt;5%</td></tr><tr><td>Subscription Upgrade Rate</td><td>3-5%</td><td>8%+</td><td>&lt;1%</td></tr></tbody></table>
 <h2>SMS Platform Comparison Framework</h2>
 <p>When evaluating Klaviyo SMS vs Attentive (common in audits):</p>
-<p>| Capability | Klaviyo SMS | Attentive |</p>
-<p>|------------|------------|-----------|</p>
-<p>| Email + SMS unified | Yes (native) | No (separate platform) |</p>
-<p>| Shared segments | Yes | Requires sync |</p>
-<p>| Unified attribution | Yes | Separate reporting |</p>
-<p>| Conversational SMS | Limited | Strong (two-way) |</p>
-<p>| Sign-up units | Basic (popup, form) | Advanced (two-tap, link-based) |</p>
-<p>| AI features | Predictive analytics, smart send time | AI journeys, smart sending |</p>
-<p>| Compliance | Built-in TCPA, quiet hours | Built-in + compliance team |</p>
-<p>| Cost | Included in Klaviyo plan (per SMS) | Separate platform fee + per SMS |</p>
-<p>| Best for | Unified email+SMS, simplicity | SMS-first strategy, high volume SMS |</p>
+<table><thead><tr><th>Capability</th><th>Klaviyo SMS</th><th>Attentive</th></tr></thead><tbody><tr><td>Email + SMS unified</td><td>Yes (native)</td><td>No (separate platform)</td></tr><tr><td>Shared segments</td><td>Yes</td><td>Requires sync</td></tr><tr><td>Unified attribution</td><td>Yes</td><td>Separate reporting</td></tr><tr><td>Conversational SMS</td><td>Limited</td><td>Strong (two-way)</td></tr><tr><td>Sign-up units</td><td>Basic (popup, form)</td><td>Advanced (two-tap, link-based)</td></tr><tr><td>AI features</td><td>Predictive analytics, smart send time</td><td>AI journeys, smart sending</td></tr><tr><td>Compliance</td><td>Built-in TCPA, quiet hours</td><td>Built-in + compliance team</td></tr><tr><td>Cost</td><td>Included in Klaviyo plan (per SMS)</td><td>Separate platform fee + per SMS</td></tr><tr><td>Best for</td><td>Unified email+SMS, simplicity</td><td>SMS-first strategy, high volume SMS</td></tr></tbody></table>
 <p><strong>Recommendation framework</strong>: Use Klaviyo SMS when email is the primary channel and SMS is supplementary (most B2B and mid-market DTC). Consider Attentive when SMS is a primary revenue channel (high-frequency DTC, mobile-first brands).</p>
 <h2>Repeatable Audit Workflow (MCP Tool Sequence)</h2>
 <p>When auditing an account via the Klaviyo MCP tools, follow this sequence:</p>
@@ -560,6 +656,27 @@ python scripts/analyze.py --analysis-type revenue-attribution</code></pre>
 <p>For API integration, SDK usage, and developer patterns, use the <strong>klaviyo-developer</strong> skill.</p></div>
 </div>
 <script>
+(function () {
+  var header = document.getElementById('site-header');
+  if (header) {
+    var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 40); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+  }
+  window.closeMobileNav = function () {
+    if (hamburger) hamburger.classList.remove('open');
+    if (mobileNav) mobileNav.classList.remove('open');
+  };
+})();
+
 function copyInstall(btn) {
   var text = btn.getAttribute('data-copy');
   navigator.clipboard.writeText(text).then(function() {

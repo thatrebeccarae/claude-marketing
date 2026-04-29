@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>social-media-strategy — claude-marketing</title>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-00XHYRHCX4"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-00XHYRHCX4');
+  gtag('config', '');
 </script>
 <meta name="description" content="Platform-specific organic social media strategy, content calendars, engagement tactics, community building, and performance measurement. Use when the user asks ">
 <meta property="og:title" content="social-media-strategy — claude-marketing">
@@ -23,21 +23,21 @@
 <style>
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/QFL0NYke1cBVShP30pbS7hysGc.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Ultralight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/REECJPxYctsFxKQcUsJamXJJg.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Cartograph CF';
-  src: url('https://framerusercontent.com/assets/jQ3VWGcEj4oWm3roGkiXoL1lA.woff2') format('woff2');
+  src: url('../fonts/CartographCF-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -71,6 +71,49 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ─── SITE HEADER (matches index.html / quickstart.html / skills.html) ─── */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem clamp(20px, 5vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
+}
+.site-header.scrolled {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.header-logo { font-weight: 600; font-size: 1rem; color: #ffffff; }
+.header-nav { display: flex; gap: 2.5rem; align-items: center; }
+.header-nav a {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--ease);
+}
+.header-nav a:hover { opacity: 1; }
+.header-github {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+  transition: background 0.2s, color 0.2s;
+}
+.header-github:hover { background: #ffffff; color: #000000; }
+.hamburger { display: none; }
+.mobile-nav { display: none; }
 
 .detail-page {
   max-width: 720px;
@@ -261,17 +304,106 @@ a { color: inherit; text-decoration: none; }
   font-style: italic;
 }
 
+.detail-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0 1.5rem;
+  display: block;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.detail-body thead th {
+  text-align: left;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+.detail-body tbody td {
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  line-height: 1.55;
+  vertical-align: top;
+  opacity: 0.85;
+}
+.detail-body tbody tr:last-child td { border-bottom: 0; }
+
 @media (max-width: 700px) {
+  .header-nav { display: none; }
+  .header-github { display: none; }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .hamburger span { width: 22px; height: 1.5px; background: #ffffff; transition: transform 0.2s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #000000;
+    z-index: 999;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 96px 20px 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s var(--ease);
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a { font-family: 'PP Editorial New', serif; font-size: 2rem; font-weight: 200; }
+
+  .site-header { padding-left: 20px; padding-right: 20px; }
   .detail-page {
     padding: 100px 20px 60px;
   }
   .detail-source-links {
     flex-wrap: wrap;
   }
+  .detail-body table { font-size: 0.85rem; }
+  .detail-body thead th,
+  .detail-body tbody td { padding: 0.55rem 0.7rem; }
+}
+
+@media (max-width: 390px) {
+  .site-header { padding-left: 16px; padding-right: 16px; }
+  .detail-page { padding-left: 16px; padding-right: 16px; }
 }
 </style>
 </head>
 <body>
+<header class="site-header" id="site-header">
+  <a href="../" class="header-logo">claude-marketing</a>
+  <nav class="header-nav">
+    <a href="../skills.html">Skills</a>
+    <a href="../#capabilities">Capabilities</a>
+    <a href="../#demo">Demo</a>
+    <a href="../#install">Install</a>
+  </nav>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener" class="header-github">View on GitHub &#8599;</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="../skills.html" onclick="closeMobileNav()">Skills</a>
+  <a href="../#capabilities" onclick="closeMobileNav()">Capabilities</a>
+  <a href="../#demo" onclick="closeMobileNav()">Demo</a>
+  <a href="../#install" onclick="closeMobileNav()">Install</a>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener">GitHub &#8599;</a>
+</nav>
 <div class="detail-page" data-pagefind-body>
   <a href="../skills.html" class="detail-back">&larr; Back to skills</a>
   <h1 class="detail-name">social-media-strategy</h1>
@@ -297,22 +429,10 @@ a { color: inherit; text-decoration: none; }
 <h2>Install</h2>
 <pre><code>git clone https://github.com/thatrebeccarae/claude-marketing.git &amp;&amp; cp -r claude-marketing/skills/social-media-strategy ~/.claude/skills/</code></pre>
 <h2>Platform Strategy Matrix</h2>
-<p>| Platform | Best Audience | Content Style | Post Frequency | Key Metric |</p>
-<p>|----------|--------------|--------------|----------------|------------|</p>
-<p>| <strong>LinkedIn</strong> | B2B, professionals, recruiters | Thought leadership, case studies, industry insights | 3-5x/week | Engagement rate |</p>
-<p>| <strong>Twitter/X</strong> | Tech, media, real-time conversations | Hot takes, threads, commentary, launches | 1-3x/day | Impressions, replies |</p>
-<p>| <strong>Instagram</strong> | DTC, lifestyle, visual brands | Reels, carousels, Stories, aesthetic | 3-5x/week + daily Stories | Reach, saves |</p>
-<p>| <strong>TikTok</strong> | Gen Z/Millennial, entertainment-first | Short-form video, trends, behind-scenes | 1-3x/day | Views, shares |</p>
-<p>| <strong>YouTube</strong> | Long-form education, tutorials | Tutorials, vlogs, podcasts, reviews | 1-2x/week | Watch time, subscribers |</p>
-<p>| <strong>Threads</strong> | Text-first, early adopter | Conversational, casual, community | 3-5x/week | Engagement |</p>
+<table><thead><tr><th>Platform</th><th>Best Audience</th><th>Content Style</th><th>Post Frequency</th><th>Key Metric</th></tr></thead><tbody><tr><td><strong>LinkedIn</strong></td><td>B2B, professionals, recruiters</td><td>Thought leadership, case studies, industry insights</td><td>3-5x/week</td><td>Engagement rate</td></tr><tr><td><strong>Twitter/X</strong></td><td>Tech, media, real-time conversations</td><td>Hot takes, threads, commentary, launches</td><td>1-3x/day</td><td>Impressions, replies</td></tr><tr><td><strong>Instagram</strong></td><td>DTC, lifestyle, visual brands</td><td>Reels, carousels, Stories, aesthetic</td><td>3-5x/week + daily Stories</td><td>Reach, saves</td></tr><tr><td><strong>TikTok</strong></td><td>Gen Z/Millennial, entertainment-first</td><td>Short-form video, trends, behind-scenes</td><td>1-3x/day</td><td>Views, shares</td></tr><tr><td><strong>YouTube</strong></td><td>Long-form education, tutorials</td><td>Tutorials, vlogs, podcasts, reviews</td><td>1-2x/week</td><td>Watch time, subscribers</td></tr><tr><td><strong>Threads</strong></td><td>Text-first, early adopter</td><td>Conversational, casual, community</td><td>3-5x/week</td><td>Engagement</td></tr></tbody></table>
 <h2>Content Pillar Framework</h2>
 <h3>40/25/25/10 Rule</h3>
-<p>| Pillar | % of Content | Examples |</p>
-<p>|--------|-------------|---------|</p>
-<p>| <strong>Educational</strong> | 40% | How-tos, tutorials, tips, frameworks, guides |</p>
-<p>| <strong>Thought Leadership</strong> | 25% | Opinions, predictions, industry analysis, hot takes |</p>
-<p>| <strong>Social Proof</strong> | 25% | Case studies, testimonials, results, behind-the-scenes |</p>
-<p>| <strong>Promotional</strong> | 10% | Product launches, offers, CTAs, announcements |</p>
+<table><thead><tr><th>Pillar</th><th>% of Content</th><th>Examples</th></tr></thead><tbody><tr><td><strong>Educational</strong></td><td>40%</td><td>How-tos, tutorials, tips, frameworks, guides</td></tr><tr><td><strong>Thought Leadership</strong></td><td>25%</td><td>Opinions, predictions, industry analysis, hot takes</td></tr><tr><td><strong>Social Proof</strong></td><td>25%</td><td>Case studies, testimonials, results, behind-the-scenes</td></tr><tr><td><strong>Promotional</strong></td><td>10%</td><td>Product launches, offers, CTAs, announcements</td></tr></tbody></table>
 <h2>Platform-Specific Best Practices</h2>
 <h3>LinkedIn</h3>
 <ul>
@@ -362,16 +482,7 @@ Blog post (Mon) → LinkedIn carousel (Tue) → Twitter thread (Wed) → IG Reel
 <p>5. <strong>DM engagement</strong> — thoughtful DMs to new followers builds community</p>
 <p>6. <strong>User-generated content</strong> — reshare and credit customer/community content</p>
 <h2>Metrics and KPIs</h2>
-<p>| Metric | What It Measures | Good Benchmark |</p>
-<p>|--------|-----------------|----------------|</p>
-<p>| Engagement rate | Interactions / reach | &gt;3% (LinkedIn), &gt;1% (Instagram) |</p>
-<p>| Reach | Unique viewers | Growing month-over-month |</p>
-<p>| Impressions | Total views | 5-10x follower count |</p>
-<p>| Follower growth | Net new followers | 2-5% monthly growth |</p>
-<p>| Click-through rate | Link clicks / impressions | &gt;1% |</p>
-<p>| Saves/bookmarks | Content value signal | Growing trend |</p>
-<p>| Share rate | Shares / reach | &gt;1% = viral potential |</p>
-<p>| Reply rate | Comments / impressions | &gt;0.5% |</p>
+<table><thead><tr><th>Metric</th><th>What It Measures</th><th>Good Benchmark</th></tr></thead><tbody><tr><td>Engagement rate</td><td>Interactions / reach</td><td>&gt;3% (LinkedIn), &gt;1% (Instagram)</td></tr><tr><td>Reach</td><td>Unique viewers</td><td>Growing month-over-month</td></tr><tr><td>Impressions</td><td>Total views</td><td>5-10x follower count</td></tr><tr><td>Follower growth</td><td>Net new followers</td><td>2-5% monthly growth</td></tr><tr><td>Click-through rate</td><td>Link clicks / impressions</td><td>&gt;1%</td></tr><tr><td>Saves/bookmarks</td><td>Content value signal</td><td>Growing trend</td></tr><tr><td>Share rate</td><td>Shares / reach</td><td>&gt;1% = viral potential</td></tr><tr><td>Reply rate</td><td>Comments / impressions</td><td>&gt;0.5%</td></tr></tbody></table>
 <h2>Integration with Other Skills</h2>
 <ul>
 <li><strong>content-creator</strong> — Brand voice and content frameworks for social</li>
@@ -381,6 +492,27 @@ Blog post (Mon) → LinkedIn carousel (Tue) → Twitter thread (Wed) → IG Reel
 </ul></div>
 </div>
 <script>
+(function () {
+  var header = document.getElementById('site-header');
+  if (header) {
+    var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 40); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+  }
+  window.closeMobileNav = function () {
+    if (hamburger) hamburger.classList.remove('open');
+    if (mobileNav) mobileNav.classList.remove('open');
+  };
+})();
+
 function copyInstall(btn) {
   var text = btn.getAttribute('data-copy');
   navigator.clipboard.writeText(text).then(function() {

@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>safe-push — claude-marketing</title>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-00XHYRHCX4"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-00XHYRHCX4');
+  gtag('config', '');
 </script>
 <meta name="description" content="Pre-push hygiene check for GitHub repositories. Scans for PII, secrets, and sensitive data before pushing. Audits commit messages, enforces repo-specific blockl">
 <meta property="og:title" content="safe-push — claude-marketing">
@@ -23,21 +23,21 @@
 <style>
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/QFL0NYke1cBVShP30pbS7hysGc.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Ultralight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/REECJPxYctsFxKQcUsJamXJJg.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Cartograph CF';
-  src: url('https://framerusercontent.com/assets/jQ3VWGcEj4oWm3roGkiXoL1lA.woff2') format('woff2');
+  src: url('../fonts/CartographCF-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -71,6 +71,49 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ─── SITE HEADER (matches index.html / quickstart.html / skills.html) ─── */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem clamp(20px, 5vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
+}
+.site-header.scrolled {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.header-logo { font-weight: 600; font-size: 1rem; color: #ffffff; }
+.header-nav { display: flex; gap: 2.5rem; align-items: center; }
+.header-nav a {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--ease);
+}
+.header-nav a:hover { opacity: 1; }
+.header-github {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+  transition: background 0.2s, color 0.2s;
+}
+.header-github:hover { background: #ffffff; color: #000000; }
+.hamburger { display: none; }
+.mobile-nav { display: none; }
 
 .detail-page {
   max-width: 720px;
@@ -261,17 +304,106 @@ a { color: inherit; text-decoration: none; }
   font-style: italic;
 }
 
+.detail-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0 1.5rem;
+  display: block;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.detail-body thead th {
+  text-align: left;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+.detail-body tbody td {
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  line-height: 1.55;
+  vertical-align: top;
+  opacity: 0.85;
+}
+.detail-body tbody tr:last-child td { border-bottom: 0; }
+
 @media (max-width: 700px) {
+  .header-nav { display: none; }
+  .header-github { display: none; }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .hamburger span { width: 22px; height: 1.5px; background: #ffffff; transition: transform 0.2s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #000000;
+    z-index: 999;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 96px 20px 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s var(--ease);
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a { font-family: 'PP Editorial New', serif; font-size: 2rem; font-weight: 200; }
+
+  .site-header { padding-left: 20px; padding-right: 20px; }
   .detail-page {
     padding: 100px 20px 60px;
   }
   .detail-source-links {
     flex-wrap: wrap;
   }
+  .detail-body table { font-size: 0.85rem; }
+  .detail-body thead th,
+  .detail-body tbody td { padding: 0.55rem 0.7rem; }
+}
+
+@media (max-width: 390px) {
+  .site-header { padding-left: 16px; padding-right: 16px; }
+  .detail-page { padding-left: 16px; padding-right: 16px; }
 }
 </style>
 </head>
 <body>
+<header class="site-header" id="site-header">
+  <a href="../" class="header-logo">claude-marketing</a>
+  <nav class="header-nav">
+    <a href="../skills.html">Skills</a>
+    <a href="../#capabilities">Capabilities</a>
+    <a href="../#demo">Demo</a>
+    <a href="../#install">Install</a>
+  </nav>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener" class="header-github">View on GitHub &#8599;</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="../skills.html" onclick="closeMobileNav()">Skills</a>
+  <a href="../#capabilities" onclick="closeMobileNav()">Capabilities</a>
+  <a href="../#demo" onclick="closeMobileNav()">Demo</a>
+  <a href="../#install" onclick="closeMobileNav()">Install</a>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener">GitHub &#8599;</a>
+</nav>
 <div class="detail-page" data-pagefind-body>
   <a href="../skills.html" class="detail-back">&larr; Back to skills</a>
   <h1 class="detail-name">safe-push</h1>
@@ -283,7 +415,7 @@ a { color: inherit; text-decoration: none; }
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
     </button>
   </div>
-  <div class="detail-tested">Tested 2026-03-17 &middot; Claude Code v2.1</div>
+  <div class="detail-tested">Tested 2026-03-20 &middot; Claude Code v2.1</div>
   
   <div class="detail-sources">
 <h2>Source Files</h2>
@@ -293,105 +425,142 @@ a { color: inherit; text-decoration: none; }
 <a href="https://github.com/thatrebeccarae/claude-marketing/tree/main/skills/safe-push/EXAMPLES.md" target="_blank" rel="noopener">EXAMPLES.md</a>
 </div>
 </div>
-  <div class="detail-body"><p>Pre-push hygiene checker for GitHub repositories. Prevents accidental exposure of secrets, PII, and sensitive infrastructure details.</p>
-<h2>Install</h2>
-<pre><code>git clone https://github.com/thatrebeccarae/claude-marketing.git &amp;&amp; cp -r claude-marketing/skills/safe-push ~/.claude/skills/</code></pre>
-<h2>When to Use</h2>
-<ul>
-<li>Before any `git push` to a remote repository</li>
-<li>Especially before pushing to public repos</li>
-<li>When onboarding a new repo to ensure clean push habits</li>
-<li>After bulk commits or rebases before pushing</li>
-</ul>
+  <div class="detail-body"><p>Pre-push hygiene check for GitHub repositories. Use when the user asks to push code, especially to public repos.</p>
+<h2>Trigger</h2>
+<p>When the user says &quot;push&quot;, &quot;safe push&quot;, &quot;push to GitHub&quot;, or runs `/safe-push`.</p>
 <h2>Procedure</h2>
-<h3>Step 1: Classify the Repo</h3>
-<pre><code># Check remote URL
+<h3>1. Classify the repo</h3>
+<pre><code># Check if public repo
 git remote -v
-
-# Check for public repo marker
+# Check for .public-repo marker
 test -f .public-repo &amp;&amp; echo &quot;PUBLIC&quot; || echo &quot;private or unmarked&quot;</code></pre>
-<p><strong>Public repos</strong> (`.public-repo` marker or public remote): apply ALL checks below.</p>
-<p><strong>Private repos</strong>: apply PII/secrets scan only (Step 2).</p>
-<p>When in doubt, treat a repo as public.</p>
-<h3>Step 2: PII and Secrets Scan</h3>
-<p>Scan the full diff against the target branch:</p>
+<p>If public (or pushing to a public remote): apply ALL checks below.</p>
+<p>If private: apply only the PII scan (step 2).</p>
+<h3>2. PII and secrets scan</h3>
+<p><strong>Default mode</strong> — scan the diff against the target branch:</p>
 <pre><code>git diff origin/main...HEAD</code></pre>
-<p><strong>Always blocked:</strong></p>
+<p><strong>Full repo mode</strong> (`/safe-push --full`) — scan ALL tracked files, not just the diff. Use this for baseline audits, first-time pushes of existing repos, or periodic hygiene checks. Searches the entire working tree for blocked patterns:</p>
+<pre><code>git ls-files | xargs grep -n -E 'PATTERN' --include='*.md' --include='*.py' --include='*.js' --include='*.ts' --include='*.html' --include='*.sh' --include='*.json' --include='*.yml' --include='*.yaml'</code></pre>
+<p>Check for:</p>
 <ul>
 <li>Email addresses (personal or client)</li>
 <li>Phone numbers</li>
-<li>API keys, tokens, secrets (AWS, GitHub, Slack, generic patterns)</li>
-<li>Private IP addresses (RFC 1918 ranges)</li>
-<li>Internal hostnames and infrastructure details</li>
-<li>Private key material (RSA, SSH, PGP headers)</li>
+<li>API keys, tokens, secrets (AWS, GitHub, Slack, Telegram, generic)</li>
+<li>Private IP addresses, internal hostnames</li>
+<li>Private key material</li>
+<li>Client names or internal project codenames</li>
 <li>Hardcoded credentials or passwords</li>
-<li>Client names configured in `.commit-msg-blocklist`</li>
 </ul>
-<p><strong>Allowlist:</strong> Patterns matching repo-local `.pii-allowlist` (one regex per line) are excluded from the scan.</p>
+<p><strong>Client names and internal project codenames:</strong> Maintain a per-user blocklist at `~/.claude/safe-push-blocklist` (one pattern per line) and load it into the scan. Never hardcode real client names inside this skill file — that would defeat the purpose of the scan.</p>
+<p><strong>Infrastructure patterns (always blocked in public repos):</strong></p>
+<ul>
+<li>Private IP ranges: Tailscale (100.64.0.0/10), RFC 1918 LAN (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16)</li>
+<li>Hostnames and `.local` / `.lan` / `.internal` TLDs for any machine you run</li>
+<li>Internal directory names specific to your workstation (home dir subfolders, sync folder names)</li>
+<li>VLAN and network segment names</li>
+<li>Self-hosted service names (reverse proxies, databases, dashboards, workflow automation, file sync tools) when appearing in infra context</li>
+<li>Device and hardware serials (e.g., `^[A-Z0-9]{7,12}$`-shaped identifiers in config/doc files)</li>
+<li>Hardware model names in personal-infra context</li>
+<li>Docker paths, `.env` file references</li>
+<li>Slack bot tokens (`xoxb-`), Slack channel IDs (`C` + 10 alphanumerics)</li>
+<li>API keys and credentials for any self-hosted service</li>
+<li>SSH config details, private port mappings</li>
+<li>Hardcoded tracking IDs: GA4 measurement IDs (`G-XXXXXXXXXX`), GTM container IDs (`GTM-XXXXXXX`)</li>
+</ul>
+<p>Load your personal patterns from `~/.claude/safe-push-blocklist` rather than embedding them here.</p>
 <p>If anything is found:</p>
 <ul>
 <li>List each finding with file, line number, and what was detected</li>
-<li>Do NOT push until all findings are resolved or allowlisted</li>
+<li>Ask the user to fix before proceeding</li>
+<li>Do NOT push until resolved</li>
 </ul>
-<h3>Step 3: Commit Message Audit</h3>
-<p>Review all commit messages in the push range:</p>
+<h3>3. Commit message audit</h3>
+<p>Review ALL commit messages in the push range:</p>
 <pre><code>git log origin/main..HEAD --format=&quot;%h %s&quot;</code></pre>
 <p>For public repos, flag:</p>
 <ul>
-<li>Client names or internal project codenames (per `.commit-msg-blocklist`)</li>
-<li>Internal URLs, private IPs, hostnames</li>
-<li>Infrastructure details (service names, device IDs, network names)</li>
-<li>Personal information</li>
-<li>Vague messages (&quot;fix&quot;, &quot;update&quot;, &quot;wip&quot;) — suggest descriptive rewrites</li>
+<li>Any pattern from your `~/.claude/safe-push-blocklist` (client names, internal codenames)</li>
+<li>Infrastructure references: hostnames, VLAN names, internal paths, private IPs, self-hosted service names, device identifiers</li>
+<li>Hardware identifiers (model numbers, serials, device IDs)</li>
+<li>Internal URLs, private IPs, port numbers tied to services</li>
+<li>Personal info (email, phone, address)</li>
+<li>Vague messages (&quot;fix&quot;, &quot;update&quot;, &quot;wip&quot;) — suggest rewrites</li>
 </ul>
-<h3>Step 4: Staggered Push (Rate Limiting)</h3>
+<p>If issues found, suggest interactive rebase to clean messages (with user approval).</p>
+<h3>4. Staggered push (rate limiting)</h3>
 <p>To avoid triggering GitHub bulk action / automation abuse detection:</p>
-<p>| Scenario | Strategy |</p>
-<p>|----------|----------|</p>
-<p>| Single branch, &lt; 50 commits | Push normally |</p>
-<p>| Multiple branches | One branch at a time, 5s gap between pushes |</p>
-<p>| &gt; 50 commits on one branch | Batch into groups of 50, 10s gap between batches |</p>
-<p>| New repo, initial push | Push default branch first, wait 10s, then remaining branches with 5s gaps |</p>
-<p>Never use `git push --all` or `git push --mirror` to a public remote without staggering.</p>
-<h3>Step 5: Final Confirmation</h3>
-<p>Present a summary before executing:</p>
 <ul>
-<li>Repository name and public/private classification</li>
+<li>If pushing a single branch with &lt; 50 commits: push normally</li>
+<li>If pushing multiple branches or &gt; 50 commits:</li>
+</ul>
+<p>  - Push one branch at a time</p>
+<p>  - Wait 5 seconds between branch pushes</p>
+<p>  - For very large pushes (100+ commits), break into batches of 50 and wait 10 seconds between batches</p>
+<ul>
+<li>If creating a new repo and pushing initial content with multiple branches:</li>
+</ul>
+<p>  - Push main/default branch first</p>
+<p>  - Wait 10 seconds</p>
+<p>  - Push remaining branches one at a time with 5-second gaps</p>
+<ul>
+<li>NEVER use `git push --all` or `git push --mirror` to a public remote without staggering</li>
+</ul>
+<pre><code># Example staggered multi-branch push
+for branch in main develop feature/foo; do
+  git push origin &quot;$branch&quot;
+  sleep 5
+done</code></pre>
+<h3>5. Final confirmation</h3>
+<p>Before executing the push, present a summary:</p>
+<ul>
+<li>Repository: name and public/private status</li>
 <li>Branch(es) being pushed</li>
 <li>Number of commits</li>
-<li>Any warnings from Steps 2-4</li>
+<li>Any warnings from steps 2-4</li>
 <li>Push strategy (direct or staggered)</li>
 </ul>
-<p>Wait for explicit user confirmation.</p>
-<h3>Step 6: Push and Verify</h3>
+<p>Wait for explicit user confirmation before pushing.</p>
+<h3>6. Push and verify</h3>
+<p>After pushing:</p>
 <pre><code>git push origin &lt;branch&gt;
+# Verify
 git log origin/&lt;branch&gt; --oneline -5</code></pre>
 <p>Report success and the remote URL.</p>
-<h2>Configuration Files</h2>
-<h3>`.pii-allowlist`</h3>
-<p>Place in repo root. One regex per line. Matches are excluded from the PII scan.</p>
-<pre><code># Allow example.com emails in docs
-example\.com
-# Allow documentation IP ranges
-192\.0\.2\.\d+
-198\.51\.100\.\d+</code></pre>
-<h3>`.commit-msg-blocklist`</h3>
-<p>Place in repo root. Terms that must never appear in public commit messages.</p>
-<pre><code># Client names
-acme-corp
-bigco
-# Internal project codenames
-project-phoenix
-# Infrastructure
-staging\.internal</code></pre>
-<h2>Key Principles</h2>
-<p>1. <strong>Default to caution.</strong> If unsure whether a repo is public, treat it as public.</p>
-<p>2. <strong>Never bypass.</strong> This skill complements pre-commit hooks — they work together.</p>
-<p>3. <strong>Fix, don't suppress.</strong> Remove the sensitive data rather than allowlisting it, when possible.</p>
-<p>4. <strong>Audit the full range.</strong> Always scan from the divergence point, not just the latest commit.</p>
-<p>For regex patterns and detection details, see [REFERENCE.md](REFERENCE.md).</p></div>
+<h2>Configuration files</h2>
+<ul>
+<li><strong>User-level blocklist</strong> — `~/.claude/safe-push-blocklist`: one regex per line, personal strings that must never appear in public commits (client names, your hostnames, your internal paths). Load and scan against this list on every public push.</li>
+<li><strong>Repo-local `.pii-allowlist`</strong> — one regex per line, matches are excluded from the PII scan (used to allow false positives like example keys in docs)</li>
+<li><strong>Repo-local `.commit-msg-blocklist`</strong> — terms that should never appear in public commit messages for this repo specifically</li>
+</ul>
+<h2>Notes</h2>
+<ul>
+<li>This skill does NOT bypass the global pre-commit hook — they work together</li>
+<li>For projects with a public/private repo split (dev mirror → public release): always push to the dev repo first, sync via your sync script, then safe-push the public repo</li>
+<li>When in doubt, treat a repo as public</li>
+</ul></div>
 </div>
 <script>
+(function () {
+  var header = document.getElementById('site-header');
+  if (header) {
+    var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 40); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+  }
+  window.closeMobileNav = function () {
+    if (hamburger) hamburger.classList.remove('open');
+    if (mobileNav) mobileNav.classList.remove('open');
+  };
+})();
+
 function copyInstall(btn) {
   var text = btn.getAttribute('data-copy');
   navigator.clipboard.writeText(text).then(function() {

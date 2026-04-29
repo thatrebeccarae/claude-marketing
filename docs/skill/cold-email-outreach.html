@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>cold-email-outreach — claude-marketing</title>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-00XHYRHCX4"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-00XHYRHCX4');
+  gtag('config', '');
 </script>
 <meta name="description" content="Cold email and outreach sequence design with personalization, deliverability optimization, follow-up cadence, and compliance (CAN-SPAM/GDPR). Use when the user ">
 <meta property="og:title" content="cold-email-outreach — claude-marketing">
@@ -23,21 +23,21 @@
 <style>
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/QFL0NYke1cBVShP30pbS7hysGc.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Ultralight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/REECJPxYctsFxKQcUsJamXJJg.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Cartograph CF';
-  src: url('https://framerusercontent.com/assets/jQ3VWGcEj4oWm3roGkiXoL1lA.woff2') format('woff2');
+  src: url('../fonts/CartographCF-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -71,6 +71,49 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ─── SITE HEADER (matches index.html / quickstart.html / skills.html) ─── */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem clamp(20px, 5vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
+}
+.site-header.scrolled {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.header-logo { font-weight: 600; font-size: 1rem; color: #ffffff; }
+.header-nav { display: flex; gap: 2.5rem; align-items: center; }
+.header-nav a {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--ease);
+}
+.header-nav a:hover { opacity: 1; }
+.header-github {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+  transition: background 0.2s, color 0.2s;
+}
+.header-github:hover { background: #ffffff; color: #000000; }
+.hamburger { display: none; }
+.mobile-nav { display: none; }
 
 .detail-page {
   max-width: 720px;
@@ -261,17 +304,106 @@ a { color: inherit; text-decoration: none; }
   font-style: italic;
 }
 
+.detail-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0 1.5rem;
+  display: block;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.detail-body thead th {
+  text-align: left;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+.detail-body tbody td {
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  line-height: 1.55;
+  vertical-align: top;
+  opacity: 0.85;
+}
+.detail-body tbody tr:last-child td { border-bottom: 0; }
+
 @media (max-width: 700px) {
+  .header-nav { display: none; }
+  .header-github { display: none; }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .hamburger span { width: 22px; height: 1.5px; background: #ffffff; transition: transform 0.2s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #000000;
+    z-index: 999;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 96px 20px 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s var(--ease);
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a { font-family: 'PP Editorial New', serif; font-size: 2rem; font-weight: 200; }
+
+  .site-header { padding-left: 20px; padding-right: 20px; }
   .detail-page {
     padding: 100px 20px 60px;
   }
   .detail-source-links {
     flex-wrap: wrap;
   }
+  .detail-body table { font-size: 0.85rem; }
+  .detail-body thead th,
+  .detail-body tbody td { padding: 0.55rem 0.7rem; }
+}
+
+@media (max-width: 390px) {
+  .site-header { padding-left: 16px; padding-right: 16px; }
+  .detail-page { padding-left: 16px; padding-right: 16px; }
 }
 </style>
 </head>
 <body>
+<header class="site-header" id="site-header">
+  <a href="../" class="header-logo">claude-marketing</a>
+  <nav class="header-nav">
+    <a href="../skills.html">Skills</a>
+    <a href="../#capabilities">Capabilities</a>
+    <a href="../#demo">Demo</a>
+    <a href="../#install">Install</a>
+  </nav>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener" class="header-github">View on GitHub &#8599;</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="../skills.html" onclick="closeMobileNav()">Skills</a>
+  <a href="../#capabilities" onclick="closeMobileNav()">Capabilities</a>
+  <a href="../#demo" onclick="closeMobileNav()">Demo</a>
+  <a href="../#install" onclick="closeMobileNav()">Install</a>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener">GitHub &#8599;</a>
+</nav>
 <div class="detail-page" data-pagefind-body>
   <a href="../skills.html" class="detail-back">&larr; Back to skills</a>
   <h1 class="detail-name">cold-email-outreach</h1>
@@ -298,28 +430,13 @@ a { color: inherit; text-decoration: none; }
 <pre><code>git clone https://github.com/thatrebeccarae/claude-marketing.git &amp;&amp; cp -r claude-marketing/skills/cold-email-outreach ~/.claude/skills/</code></pre>
 <h2>Deliverability Fundamentals</h2>
 <h3>Authentication (Required)</h3>
-<p>| Record | Purpose | Check |</p>
-<p>|--------|---------|-------|</p>
-<p>| SPF | Authorizes sending servers | `dig TXT domain.com` |</p>
-<p>| DKIM | Cryptographic message signing | DKIM selector lookup |</p>
-<p>| DMARC | Policy for failed auth | `dig TXT _dmarc.domain.com` |</p>
+<table><thead><tr><th>Record</th><th>Purpose</th><th>Check</th></tr></thead><tbody><tr><td>SPF</td><td>Authorizes sending servers</td><td>`dig TXT domain.com`</td></tr><tr><td>DKIM</td><td>Cryptographic message signing</td><td>DKIM selector lookup</td></tr><tr><td>DMARC</td><td>Policy for failed auth</td><td>`dig TXT _dmarc.domain.com`</td></tr></tbody></table>
 <h3>Domain Warming</h3>
 <p>New domains or IPs need gradual volume ramp:</p>
-<p>| Week | Daily Volume | Notes |</p>
-<p>|------|-------------|-------|</p>
-<p>| 1 | 5-10 | Known contacts only |</p>
-<p>| 2 | 15-25 | Mix of known and new |</p>
-<p>| 3 | 30-50 | Monitor bounce/spam rates |</p>
-<p>| 4 | 50-100 | Scale if rates healthy |</p>
-<p>| 5+ | 100-200 | Max per domain/day |</p>
+<table><thead><tr><th>Week</th><th>Daily Volume</th><th>Notes</th></tr></thead><tbody><tr><td>1</td><td>5-10</td><td>Known contacts only</td></tr><tr><td>2</td><td>15-25</td><td>Mix of known and new</td></tr><tr><td>3</td><td>30-50</td><td>Monitor bounce/spam rates</td></tr><tr><td>4</td><td>50-100</td><td>Scale if rates healthy</td></tr><tr><td>5+</td><td>100-200</td><td>Max per domain/day</td></tr></tbody></table>
 <p><strong>Dedicated sending domain:</strong> Use a subdomain (outreach.company.com) to protect your primary domain reputation.</p>
 <h3>Health Benchmarks</h3>
-<p>| Metric | Healthy | Warning | Critical |</p>
-<p>|--------|---------|---------|----------|</p>
-<p>| Bounce rate | &lt;2% | 2-5% | &gt;5% |</p>
-<p>| Spam complaint | &lt;0.1% | 0.1-0.3% | &gt;0.3% |</p>
-<p>| Open rate | &gt;40% | 20-40% | &lt;20% |</p>
-<p>| Reply rate | &gt;5% | 2-5% | &lt;2% |</p>
+<table><thead><tr><th>Metric</th><th>Healthy</th><th>Warning</th><th>Critical</th></tr></thead><tbody><tr><td>Bounce rate</td><td>&lt;2%</td><td>2-5%</td><td>&gt;5%</td></tr><tr><td>Spam complaint</td><td>&lt;0.1%</td><td>0.1-0.3%</td><td>&gt;0.3%</td></tr><tr><td>Open rate</td><td>&gt;40%</td><td>20-40%</td><td>&lt;20%</td></tr><tr><td>Reply rate</td><td>&gt;5%</td><td>2-5%</td><td>&lt;2%</td></tr></tbody></table>
 <h2>Sequence Design</h2>
 <h3>Optimal Sequence Structure</h3>
 <pre><code>Email 1 (Day 0)  — Value-first introduction
@@ -334,13 +451,7 @@ Email 4 (Day 14) — Breakup email (last attempt)</code></pre>
 <li><strong>Follow-up spacing:</strong> 3-5 days between emails (never daily)</li>
 </ul>
 <h3>Subject Line Formulas</h3>
-<p>| Formula | Example | Open Rate |</p>
-<p>|---------|---------|-----------|</p>
-<p>| Question | &quot;Quick question about [company] growth?&quot; | High |</p>
-<p>| Mutual connection | &quot;Saw your talk at [event]&quot; | Very high |</p>
-<p>| Specific result | &quot;[Company] could save $40K/year on [X]&quot; | High |</p>
-<p>| Curiosity | &quot;Idea for [specific initiative]&quot; | Medium-high |</p>
-<p>| Direct | &quot;15-min call about [pain point]?&quot; | Medium |</p>
+<table><thead><tr><th>Formula</th><th>Example</th><th>Open Rate</th></tr></thead><tbody><tr><td>Question</td><td>&quot;Quick question about [company] growth?&quot;</td><td>High</td></tr><tr><td>Mutual connection</td><td>&quot;Saw your talk at [event]&quot;</td><td>Very high</td></tr><tr><td>Specific result</td><td>&quot;[Company] could save $40K/year on [X]&quot;</td><td>High</td></tr><tr><td>Curiosity</td><td>&quot;Idea for [specific initiative]&quot;</td><td>Medium-high</td></tr><tr><td>Direct</td><td>&quot;15-min call about [pain point]?&quot;</td><td>Medium</td></tr></tbody></table>
 <p><strong>Rules:</strong> Under 50 characters. No ALL CAPS. No spam triggers (free, guarantee, act now). Personalized &gt; generic.</p>
 <h3>Email Body Framework</h3>
 <pre><code>Line 1: Personalized opener (research-based, NOT &quot;I hope this finds you well&quot;)
@@ -349,11 +460,7 @@ Line 4-5: How you solve it (one sentence, with social proof)
 Line 6: Low-friction CTA (question, not demand)</code></pre>
 <p><strong>Length:</strong> 50-125 words. 3-5 sentences max. Mobile-readable.</p>
 <h3>Personalization Tiers</h3>
-<p>| Tier | Effort | When | Example |</p>
-<p>|------|--------|------|---------|</p>
-<p>| <strong>Researched</strong> | High (5+ min/email) | Top 50 accounts | Reference specific blog post, recent funding, or LinkedIn activity |</p>
-<p>| <strong>Templated</strong> | Medium (1 min) | Mid-tier prospects | Company name, industry pain point, role-specific angle |</p>
-<p>| <strong>Dynamic</strong> | Low (automated) | Scale outreach | First name, company name, industry via merge fields |</p>
+<table><thead><tr><th>Tier</th><th>Effort</th><th>When</th><th>Example</th></tr></thead><tbody><tr><td><strong>Researched</strong></td><td>High (5+ min/email)</td><td>Top 50 accounts</td><td>Reference specific blog post, recent funding, or LinkedIn activity</td></tr><tr><td><strong>Templated</strong></td><td>Medium (1 min)</td><td>Mid-tier prospects</td><td>Company name, industry pain point, role-specific angle</td></tr><tr><td><strong>Dynamic</strong></td><td>Low (automated)</td><td>Scale outreach</td><td>First name, company name, industry via merge fields</td></tr></tbody></table>
 <h2>Compliance</h2>
 <h3>CAN-SPAM (US)</h3>
 <ul>
@@ -397,6 +504,27 @@ Line 6: Low-friction CTA (question, not demand)</code></pre>
 </ul></div>
 </div>
 <script>
+(function () {
+  var header = document.getElementById('site-header');
+  if (header) {
+    var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 40); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+  }
+  window.closeMobileNav = function () {
+    if (hamburger) hamburger.classList.remove('open');
+    if (mobileNav) mobileNav.classList.remove('open');
+  };
+})();
+
 function copyInstall(btn) {
   var text = btn.getAttribute('data-copy');
   navigator.clipboard.writeText(text).then(function() {

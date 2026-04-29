@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>pro-report-builder — claude-marketing</title>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-00XHYRHCX4"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-00XHYRHCX4');
+  gtag('config', '');
 </script>
 <meta name="description" content="Create polished HTML technical reports and multi-page documents for consulting deliverables. Includes a customizable design system with dark cover page, warm cr">
 <meta property="og:title" content="pro-report-builder — claude-marketing">
@@ -23,21 +23,21 @@
 <style>
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/QFL0NYke1cBVShP30pbS7hysGc.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Ultralight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/REECJPxYctsFxKQcUsJamXJJg.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Cartograph CF';
-  src: url('https://framerusercontent.com/assets/jQ3VWGcEj4oWm3roGkiXoL1lA.woff2') format('woff2');
+  src: url('../fonts/CartographCF-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -71,6 +71,49 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ─── SITE HEADER (matches index.html / quickstart.html / skills.html) ─── */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem clamp(20px, 5vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
+}
+.site-header.scrolled {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.header-logo { font-weight: 600; font-size: 1rem; color: #ffffff; }
+.header-nav { display: flex; gap: 2.5rem; align-items: center; }
+.header-nav a {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--ease);
+}
+.header-nav a:hover { opacity: 1; }
+.header-github {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+  transition: background 0.2s, color 0.2s;
+}
+.header-github:hover { background: #ffffff; color: #000000; }
+.hamburger { display: none; }
+.mobile-nav { display: none; }
 
 .detail-page {
   max-width: 720px;
@@ -261,17 +304,106 @@ a { color: inherit; text-decoration: none; }
   font-style: italic;
 }
 
+.detail-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0 1.5rem;
+  display: block;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.detail-body thead th {
+  text-align: left;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+.detail-body tbody td {
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  line-height: 1.55;
+  vertical-align: top;
+  opacity: 0.85;
+}
+.detail-body tbody tr:last-child td { border-bottom: 0; }
+
 @media (max-width: 700px) {
+  .header-nav { display: none; }
+  .header-github { display: none; }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .hamburger span { width: 22px; height: 1.5px; background: #ffffff; transition: transform 0.2s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #000000;
+    z-index: 999;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 96px 20px 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s var(--ease);
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a { font-family: 'PP Editorial New', serif; font-size: 2rem; font-weight: 200; }
+
+  .site-header { padding-left: 20px; padding-right: 20px; }
   .detail-page {
     padding: 100px 20px 60px;
   }
   .detail-source-links {
     flex-wrap: wrap;
   }
+  .detail-body table { font-size: 0.85rem; }
+  .detail-body thead th,
+  .detail-body tbody td { padding: 0.55rem 0.7rem; }
+}
+
+@media (max-width: 390px) {
+  .site-header { padding-left: 16px; padding-right: 16px; }
+  .detail-page { padding-left: 16px; padding-right: 16px; }
 }
 </style>
 </head>
 <body>
+<header class="site-header" id="site-header">
+  <a href="../" class="header-logo">claude-marketing</a>
+  <nav class="header-nav">
+    <a href="../skills.html">Skills</a>
+    <a href="../#capabilities">Capabilities</a>
+    <a href="../#demo">Demo</a>
+    <a href="../#install">Install</a>
+  </nav>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener" class="header-github">View on GitHub &#8599;</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="../skills.html" onclick="closeMobileNav()">Skills</a>
+  <a href="../#capabilities" onclick="closeMobileNav()">Capabilities</a>
+  <a href="../#demo" onclick="closeMobileNav()">Demo</a>
+  <a href="../#install" onclick="closeMobileNav()">Install</a>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener">GitHub &#8599;</a>
+</nav>
 <div class="detail-page" data-pagefind-body>
   <a href="../skills.html" class="detail-back">&larr; Back to skills</a>
   <h1 class="detail-name">pro-report-builder</h1>
@@ -297,19 +429,9 @@ a { color: inherit; text-decoration: none; }
 <h2>Install</h2>
 <pre><code>git clone https://github.com/thatrebeccarae/claude-marketing.git &amp;&amp; cp -r claude-marketing/skills/pro-report-builder ~/.claude/skills/</code></pre>
 <h2>Quick Reference</h2>
-<p>| Task | Approach |</p>
-<p>|------|----------|</p>
-<p>| Create report from scratch | Read [REFERENCE.md](REFERENCE.md) for CSS + HTML patterns |</p>
-<p>| Add a new component type | Compose from existing components in REFERENCE.md |</p>
-<p>| Export to PDF | Chrome headless `--print-to-pdf` (see Export section) |</p>
-<p>| Customize brand tokens | Edit CSS custom properties in `:root` block |</p>
+<table><thead><tr><th>Task</th><th>Approach</th></tr></thead><tbody><tr><td>Create report from scratch</td><td>Read [REFERENCE.md](REFERENCE.md) for CSS + HTML patterns</td></tr><tr><td>Add a new component type</td><td>Compose from existing components in REFERENCE.md</td></tr><tr><td>Export to PDF</td><td>Chrome headless `--print-to-pdf` (see Export section)</td></tr><tr><td>Customize brand tokens</td><td>Edit CSS custom properties in `:root` block</td></tr></tbody></table>
 <h3>When to Use This Skill vs pro-deck-builder</h3>
-<p>| | pro-report-builder | pro-deck-builder |</p>
-<p>|---|---|---|</p>
-<p>| <strong>Format</strong> | 8.5x11&quot; portrait pages | 16:9 landscape slides |</p>
-<p>| <strong>Content flow</strong> | Multi-page, flowing text | Single-slide compositions |</p>
-<p>| <strong>Export</strong> | Chrome headless `--print-to-pdf` | Puppeteer |</p>
-<p>| <strong>Use for</strong> | Audit reports, assessments, written deliverables | Presentation decks, pitch slides |</p>
+<table><thead><tr><th></th><th>pro-report-builder</th><th>pro-deck-builder</th></tr></thead><tbody><tr><td><strong>Format</strong></td><td>8.5x11&quot; portrait pages</td><td>16:9 landscape slides</td></tr><tr><td><strong>Content flow</strong></td><td>Multi-page, flowing text</td><td>Single-slide compositions</td></tr><tr><td><strong>Export</strong></td><td>Chrome headless `--print-to-pdf`</td><td>Puppeteer</td></tr><tr><td><strong>Use for</strong></td><td>Audit reports, assessments, written deliverables</td><td>Presentation decks, pitch slides</td></tr></tbody></table>
 <p>---</p>
 <h2>Before You Start</h2>
 <h3>Step 1: Understand the Brief</h3>
@@ -376,21 +498,7 @@ a { color: inherit; text-decoration: none; }
 <li>Callout tints (blue/green/red/amber) for left-bordered callout boxes matching their severity.</li>
 </ul>
 <h3>Typography</h3>
-<p>| Role | Font | Weight | Size | Tracking | Notes |</p>
-<p>|------|------|--------|------|----------|-------|</p>
-<p>| Cover title | Switzer | Light (300) | 36pt | -0.03em | Document name on dark cover. |</p>
-<p>| Cover subtitle | Switzer | Regular (400) | 16pt | normal | Below cover title. Color: `--dark-muted`. |</p>
-<p>| Cover tag | Cartograph CF | Regular (400) | 8pt | +0.15em | ALL CAPS. Color: `--accent`. Above title. |</p>
-<p>| Section title | Switzer | Regular (400) | 18pt | -0.02em | Content page h2. Followed by accent rule. |</p>
-<p>| Subsection title | Switzer | SemiBold (600) | 12.5pt | normal | Content page h3. |</p>
-<p>| Body text | Switzer | Regular (400) | 9.5pt | normal | Paragraphs, descriptions. Line-height: 1.6. |</p>
-<p>| Table header | Cartograph CF | SemiBold (600) | 7.5pt | +0.05em | ALL CAPS. White text on accent bg. |</p>
-<p>| Table body | Switzer | Regular (400) | 8.5pt | normal | Alternating row backgrounds. |</p>
-<p>| KPI value | Cartograph CF | SemiBold (600) | 16pt | -0.02em | KPI card numbers. |</p>
-<p>| KPI label | Cartograph CF | Regular (400) | 6.5pt | +0.06em | ALL CAPS. Below KPI values. |</p>
-<p>| Rec-card label | Cartograph CF | SemiBold (600) | 7.5pt | +0.04em | ALL CAPS. Field labels. |</p>
-<p>| Priority banner | Cartograph CF | SemiBold (600) | 9pt | +0.08em | ALL CAPS. Priority tier labels. |</p>
-<p>| Page footer | Switzer | Regular (400) | 7pt | +0.03em | Centered. Color: `--text-muted`. |</p>
+<table><thead><tr><th>Role</th><th>Font</th><th>Weight</th><th>Size</th><th>Tracking</th><th>Notes</th></tr></thead><tbody><tr><td>Cover title</td><td>Switzer</td><td>Light (300)</td><td>36pt</td><td>-0.03em</td><td>Document name on dark cover.</td></tr><tr><td>Cover subtitle</td><td>Switzer</td><td>Regular (400)</td><td>16pt</td><td>normal</td><td>Below cover title. Color: `--dark-muted`.</td></tr><tr><td>Cover tag</td><td>Cartograph CF</td><td>Regular (400)</td><td>8pt</td><td>+0.15em</td><td>ALL CAPS. Color: `--accent`. Above title.</td></tr><tr><td>Section title</td><td>Switzer</td><td>Regular (400)</td><td>18pt</td><td>-0.02em</td><td>Content page h2. Followed by accent rule.</td></tr><tr><td>Subsection title</td><td>Switzer</td><td>SemiBold (600)</td><td>12.5pt</td><td>normal</td><td>Content page h3.</td></tr><tr><td>Body text</td><td>Switzer</td><td>Regular (400)</td><td>9.5pt</td><td>normal</td><td>Paragraphs, descriptions. Line-height: 1.6.</td></tr><tr><td>Table header</td><td>Cartograph CF</td><td>SemiBold (600)</td><td>7.5pt</td><td>+0.05em</td><td>ALL CAPS. White text on accent bg.</td></tr><tr><td>Table body</td><td>Switzer</td><td>Regular (400)</td><td>8.5pt</td><td>normal</td><td>Alternating row backgrounds.</td></tr><tr><td>KPI value</td><td>Cartograph CF</td><td>SemiBold (600)</td><td>16pt</td><td>-0.02em</td><td>KPI card numbers.</td></tr><tr><td>KPI label</td><td>Cartograph CF</td><td>Regular (400)</td><td>6.5pt</td><td>+0.06em</td><td>ALL CAPS. Below KPI values.</td></tr><tr><td>Rec-card label</td><td>Cartograph CF</td><td>SemiBold (600)</td><td>7.5pt</td><td>+0.04em</td><td>ALL CAPS. Field labels.</td></tr><tr><td>Priority banner</td><td>Cartograph CF</td><td>SemiBold (600)</td><td>9pt</td><td>+0.08em</td><td>ALL CAPS. Priority tier labels.</td></tr><tr><td>Page footer</td><td>Switzer</td><td>Regular (400)</td><td>7pt</td><td>+0.03em</td><td>Centered. Color: `--text-muted`.</td></tr></tbody></table>
 <p><strong>Critical typography rules:</strong></p>
 <p>1. <strong>Cover title uses Light (300), NOT Bold.</strong> Light at large sizes = confident, premium.</p>
 <p>2. <strong>Monospace font for ALL numeric/data content.</strong> KPI values, table headers, rec-card labels, priority banners.</p>
@@ -406,44 +514,18 @@ a { color: inherit; text-decoration: none; }
 Height:  11in
 Orientation: Portrait</code></pre>
 <h3>Spacing</h3>
-<p>| Zone | Value |</p>
-<p>|------|-------|</p>
-<p>| Content padding | `0.6in 0.75in 0.7in` |</p>
-<p>| Cover page padding | `0 1in 1in` (bottom-aligned) |</p>
-<p>| Page footer | Absolute positioned, `bottom: 0`, `padding: 10px 0.75in 14px` |</p>
-<p>| Section title margin-bottom | `4px` (then accent rule adds `20px` below) |</p>
-<p>| Subsection title margin | `20px top, 8px bottom` |</p>
+<table><thead><tr><th>Zone</th><th>Value</th></tr></thead><tbody><tr><td>Content padding</td><td>`0.6in 0.75in 0.7in`</td></tr><tr><td>Cover page padding</td><td>`0 1in 1in` (bottom-aligned)</td></tr><tr><td>Page footer</td><td>Absolute positioned, `bottom: 0`, `padding: 10px 0.75in 14px`</td></tr><tr><td>Section title margin-bottom</td><td>`4px` (then accent rule adds `20px` below)</td></tr><tr><td>Subsection title margin</td><td>`20px top, 8px bottom`</td></tr></tbody></table>
 <p>---</p>
 <h2>Component Library</h2>
 <p>All components are documented with full HTML + CSS in [REFERENCE.md](REFERENCE.md). Here is what is available:</p>
 <h3>Page Structure</h3>
-<p>| Component | Class | Use |</p>
-<p>|-----------|-------|-----|</p>
-<p>| Page Container | `.page` | 8.5x11&quot; page with shadow. |</p>
-<p>| Cover Page | `.cover-page` | Dark cover with bottom-aligned content. |</p>
-<p>| Content Area | `.content` | Padded content region within a page. |</p>
-<p>| Page Footer | `.page-footer` | Centered footer with doc name + page number. |</p>
-<p>| Section Title | `.section-title` + `.accent-rule` | Section heading with accent underline. |</p>
-<p>| Section Continued | `.section-continued` | &quot;(continued)&quot; tag for multi-page sections. |</p>
+<table><thead><tr><th>Component</th><th>Class</th><th>Use</th></tr></thead><tbody><tr><td>Page Container</td><td>`.page`</td><td>8.5x11&quot; page with shadow.</td></tr><tr><td>Cover Page</td><td>`.cover-page`</td><td>Dark cover with bottom-aligned content.</td></tr><tr><td>Content Area</td><td>`.content`</td><td>Padded content region within a page.</td></tr><tr><td>Page Footer</td><td>`.page-footer`</td><td>Centered footer with doc name + page number.</td></tr><tr><td>Section Title</td><td>`.section-title` + `.accent-rule`</td><td>Section heading with accent underline.</td></tr><tr><td>Section Continued</td><td>`.section-continued`</td><td>&quot;(continued)&quot; tag for multi-page sections.</td></tr></tbody></table>
 <h3>Data Display</h3>
-<p>| Component | Class | Use |</p>
-<p>|-----------|-------|-----|</p>
-<p>| KPI Row | `.kpi-row` / `.kpi-card` | 4-column grid of big-number cards. |</p>
-<p>| KPI Card (Risk) | `.kpi-card--risk` | Red-tinted variant for risk/negative KPIs. |</p>
-<p>| Data Table | `table` with severity classes | Striped rows, accent headers, severity colors. |</p>
+<table><thead><tr><th>Component</th><th>Class</th><th>Use</th></tr></thead><tbody><tr><td>KPI Row</td><td>`.kpi-row` / `.kpi-card`</td><td>4-column grid of big-number cards.</td></tr><tr><td>KPI Card (Risk)</td><td>`.kpi-card--risk`</td><td>Red-tinted variant for risk/negative KPIs.</td></tr><tr><td>Data Table</td><td>`table` with severity classes</td><td>Striped rows, accent headers, severity colors.</td></tr></tbody></table>
 <h3>Content Blocks</h3>
-<p>| Component | Class | Use |</p>
-<p>|-----------|-------|-----|</p>
-<p>| Callout Box | `.callout` + `.callout-{color}` | Left-bordered insight box (blue/green/red/amber). |</p>
-<p>| Body Text | `.body-text` | Standard paragraph text. |</p>
-<p>| Bullet List | `.bullet-list` | Accent-colored dot bullets. |</p>
-<p>| Numbered List | `.numbered-list` | Mono-font accent markers. |</p>
+<table><thead><tr><th>Component</th><th>Class</th><th>Use</th></tr></thead><tbody><tr><td>Callout Box</td><td>`.callout` + `.callout-{color}`</td><td>Left-bordered insight box (blue/green/red/amber).</td></tr><tr><td>Body Text</td><td>`.body-text`</td><td>Standard paragraph text.</td></tr><tr><td>Bullet List</td><td>`.bullet-list`</td><td>Accent-colored dot bullets.</td></tr><tr><td>Numbered List</td><td>`.numbered-list`</td><td>Mono-font accent markers.</td></tr></tbody></table>
 <h3>Recommendations</h3>
-<p>| Component | Class | Use |</p>
-<p>|-----------|-------|-----|</p>
-<p>| Priority Banner | `.priority-banner` + level class | Tier label (CRITICAL/HIGH/MEDIUM/LOW). |</p>
-<p>| Recommendation Card | `.rec-card` + level class | Multi-field card with left accent stripe. |</p>
-<p>| Quick Wins Table | Table with `.qw-num` | Numbered action items table. |</p>
+<table><thead><tr><th>Component</th><th>Class</th><th>Use</th></tr></thead><tbody><tr><td>Priority Banner</td><td>`.priority-banner` + level class</td><td>Tier label (CRITICAL/HIGH/MEDIUM/LOW).</td></tr><tr><td>Recommendation Card</td><td>`.rec-card` + level class</td><td>Multi-field card with left accent stripe.</td></tr><tr><td>Quick Wins Table</td><td>Table with `.qw-num`</td><td>Numbered action items table.</td></tr></tbody></table>
 <p>---</p>
 <h2>Document Compositions</h2>
 <h3>Mandatory Pages</h3>
@@ -453,13 +535,7 @@ Orientation: Portrait</code></pre>
 <p>3. <strong>Recommendations</strong> -- Prioritized rec-cards grouped by priority tier</p>
 <p>4. <strong>Quick Wins</strong> -- Short action table for immediate wins</p>
 <h3>Content Page Types</h3>
-<p>| Type | When to Use | Key Components |</p>
-<p>|------|-------------|----------------|</p>
-<p>| Data Table + Narrative | Inventory, benchmarking | Table + `.body-text` + `.bullet-list` |</p>
-<p>| Callout Stack | Deep-dive on specific items | Multiple `.callout` boxes (green/red/amber) |</p>
-<p>| Table + Callout | Performance data with insight | Table + single callout summary |</p>
-<p>| Rec-Card Stack | Prioritized recommendations | `.priority-banner` + `.rec-card` stack |</p>
-<p>| Mixed Analysis | Multi-part section | Tables + callouts + bullets + subsections |</p>
+<table><thead><tr><th>Type</th><th>When to Use</th><th>Key Components</th></tr></thead><tbody><tr><td>Data Table + Narrative</td><td>Inventory, benchmarking</td><td>Table + `.body-text` + `.bullet-list`</td></tr><tr><td>Callout Stack</td><td>Deep-dive on specific items</td><td>Multiple `.callout` boxes (green/red/amber)</td></tr><tr><td>Table + Callout</td><td>Performance data with insight</td><td>Table + single callout summary</td></tr><tr><td>Rec-Card Stack</td><td>Prioritized recommendations</td><td>`.priority-banner` + `.rec-card` stack</td></tr><tr><td>Mixed Analysis</td><td>Multi-part section</td><td>Tables + callouts + bullets + subsections</td></tr></tbody></table>
 <p>---</p>
 <h2>Narrative Rules</h2>
 <p>1. <strong>One section per page when possible.</strong> If a section spans multiple pages, use &quot;(continued)&quot; on subsequent pages.</p>
@@ -475,19 +551,9 @@ Orientation: Portrait</code></pre>
 <h2>Page Overflow Prevention</h2>
 <p>Pages are fixed at 11in tall. Content that exceeds the page container overflows visibly in the PDF. <strong>Every page must be budgeted before building.</strong></p>
 <h3>Height Budget</h3>
-<p>| Zone | Height |</p>
-<p>|------|--------|</p>
-<p>| Content padding (top + bottom) | ~1.3in |</p>
-<p>| Page footer | ~0.4in |</p>
-<p>| <strong>Usable content area</strong> | <strong>~9.3in</strong> |</p>
+<table><thead><tr><th>Zone</th><th>Height</th></tr></thead><tbody><tr><td>Content padding (top + bottom)</td><td>~1.3in</td></tr><tr><td>Page footer</td><td>~0.4in</td></tr><tr><td><strong>Usable content area</strong></td><td><strong>~9.3in</strong></td></tr></tbody></table>
 <h3>Component Density Limits</h3>
-<p>| Component | Max items per page | Dense mode override |</p>
-<p>|-----------|-------------------|---------------------|</p>
-<p>| <strong>Rec-cards (full fields)</strong> | 3 cards | For 4+: drop optional fields |</p>
-<p>| <strong>Rec-cards (minimal)</strong> | 4-5 cards | Reduce margin to `8px 0 12px` |</p>
-<p>| <strong>Data tables</strong> | 10-12 rows | For 13+: reduce font to `7.5pt`, padding to `3px 8px` |</p>
-<p>| <strong>Callout boxes</strong> | 3-4 per page | Reduce padding to `10px 14px` |</p>
-<p>| <strong>Bullet lists</strong> | 6-8 items | Shorten descriptions |</p>
+<table><thead><tr><th>Component</th><th>Max items per page</th><th>Dense mode override</th></tr></thead><tbody><tr><td><strong>Rec-cards (full fields)</strong></td><td>3 cards</td><td>For 4+: drop optional fields</td></tr><tr><td><strong>Rec-cards (minimal)</strong></td><td>4-5 cards</td><td>Reduce margin to `8px 0 12px`</td></tr><tr><td><strong>Data tables</strong></td><td>10-12 rows</td><td>For 13+: reduce font to `7.5pt`, padding to `3px 8px`</td></tr><tr><td><strong>Callout boxes</strong></td><td>3-4 per page</td><td>Reduce padding to `10px 14px`</td></tr><tr><td><strong>Bullet lists</strong></td><td>6-8 items</td><td>Shorten descriptions</td></tr></tbody></table>
 <h3>Page Break Strategy</h3>
 <p>1. <strong>Test every page in the browser</strong> before exporting to PDF</p>
 <p>2. <strong>Redistribute content</strong> across pages when overflow occurs</p>
@@ -572,6 +638,27 @@ Orientation: Portrait</code></pre>
 </ul></div>
 </div>
 <script>
+(function () {
+  var header = document.getElementById('site-header');
+  if (header) {
+    var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 40); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+  }
+  window.closeMobileNav = function () {
+    if (hamburger) hamburger.classList.remove('open');
+    if (mobileNav) mobileNav.classList.remove('open');
+  };
+})();
+
 function copyInstall(btn) {
   var text = btn.getAttribute('data-copy');
   navigator.clipboard.writeText(text).then(function() {

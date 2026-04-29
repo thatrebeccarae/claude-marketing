@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>linkedin-ads — claude-marketing</title>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-00XHYRHCX4"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-00XHYRHCX4');
+  gtag('config', '');
 </script>
 <meta name="description" content="LinkedIn Ads platform expertise. Audit campaigns, optimize targeting (job title, company, seniority, industry), creative strategy, Lead Gen Forms, conversion tr">
 <meta property="og:title" content="linkedin-ads — claude-marketing">
@@ -23,21 +23,21 @@
 <style>
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/QFL0NYke1cBVShP30pbS7hysGc.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Ultralight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/REECJPxYctsFxKQcUsJamXJJg.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Cartograph CF';
-  src: url('https://framerusercontent.com/assets/jQ3VWGcEj4oWm3roGkiXoL1lA.woff2') format('woff2');
+  src: url('../fonts/CartographCF-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -71,6 +71,49 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ─── SITE HEADER (matches index.html / quickstart.html / skills.html) ─── */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem clamp(20px, 5vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
+}
+.site-header.scrolled {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.header-logo { font-weight: 600; font-size: 1rem; color: #ffffff; }
+.header-nav { display: flex; gap: 2.5rem; align-items: center; }
+.header-nav a {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--ease);
+}
+.header-nav a:hover { opacity: 1; }
+.header-github {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+  transition: background 0.2s, color 0.2s;
+}
+.header-github:hover { background: #ffffff; color: #000000; }
+.hamburger { display: none; }
+.mobile-nav { display: none; }
 
 .detail-page {
   max-width: 720px;
@@ -261,17 +304,106 @@ a { color: inherit; text-decoration: none; }
   font-style: italic;
 }
 
+.detail-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0 1.5rem;
+  display: block;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.detail-body thead th {
+  text-align: left;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+.detail-body tbody td {
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  line-height: 1.55;
+  vertical-align: top;
+  opacity: 0.85;
+}
+.detail-body tbody tr:last-child td { border-bottom: 0; }
+
 @media (max-width: 700px) {
+  .header-nav { display: none; }
+  .header-github { display: none; }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .hamburger span { width: 22px; height: 1.5px; background: #ffffff; transition: transform 0.2s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #000000;
+    z-index: 999;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 96px 20px 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s var(--ease);
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a { font-family: 'PP Editorial New', serif; font-size: 2rem; font-weight: 200; }
+
+  .site-header { padding-left: 20px; padding-right: 20px; }
   .detail-page {
     padding: 100px 20px 60px;
   }
   .detail-source-links {
     flex-wrap: wrap;
   }
+  .detail-body table { font-size: 0.85rem; }
+  .detail-body thead th,
+  .detail-body tbody td { padding: 0.55rem 0.7rem; }
+}
+
+@media (max-width: 390px) {
+  .site-header { padding-left: 16px; padding-right: 16px; }
+  .detail-page { padding-left: 16px; padding-right: 16px; }
 }
 </style>
 </head>
 <body>
+<header class="site-header" id="site-header">
+  <a href="../" class="header-logo">claude-marketing</a>
+  <nav class="header-nav">
+    <a href="../skills.html">Skills</a>
+    <a href="../#capabilities">Capabilities</a>
+    <a href="../#demo">Demo</a>
+    <a href="../#install">Install</a>
+  </nav>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener" class="header-github">View on GitHub &#8599;</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="../skills.html" onclick="closeMobileNav()">Skills</a>
+  <a href="../#capabilities" onclick="closeMobileNav()">Capabilities</a>
+  <a href="../#demo" onclick="closeMobileNav()">Demo</a>
+  <a href="../#install" onclick="closeMobileNav()">Install</a>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener">GitHub &#8599;</a>
+</nav>
 <div class="detail-page" data-pagefind-body>
   <a href="../skills.html" class="detail-back">&larr; Back to skills</a>
   <h1 class="detail-name">linkedin-ads</h1>
@@ -297,57 +429,16 @@ a { color: inherit; text-decoration: none; }
 <h2>Install</h2>
 <pre><code>git clone https://github.com/thatrebeccarae/claude-marketing.git &amp;&amp; cp -r claude-marketing/skills/linkedin-ads ~/.claude/skills/</code></pre>
 <h2>Campaign Types</h2>
-<p>| Type | Objective | Best For |</p>
-<p>|------|-----------|----------|</p>
-<p>| Sponsored Content | Brand awareness, engagement, conversions | Thought leadership, content promotion |</p>
-<p>| Message Ads | Direct outreach at scale | Event invites, demo requests, high-value offers |</p>
-<p>| Text Ads | Cost-efficient clicks | Always-on brand visibility |</p>
-<p>| Dynamic Ads | Personalized (follower, spotlight, jobs) | Follower growth, personalized CTAs |</p>
-<p>| Document Ads | Lead gen through gated content | Whitepapers, reports, guides |</p>
-<p>| Video Ads | Brand awareness, engagement | Product demos, testimonials, thought leadership |</p>
-<p>| Conversation Ads | Multi-CTA interactive messages | Complex offers, event + content combos |</p>
-<p>| Lead Gen Forms | In-platform lead capture | Gated content, demo requests, newsletter signups |</p>
+<table><thead><tr><th>Type</th><th>Objective</th><th>Best For</th></tr></thead><tbody><tr><td>Sponsored Content</td><td>Brand awareness, engagement, conversions</td><td>Thought leadership, content promotion</td></tr><tr><td>Message Ads</td><td>Direct outreach at scale</td><td>Event invites, demo requests, high-value offers</td></tr><tr><td>Text Ads</td><td>Cost-efficient clicks</td><td>Always-on brand visibility</td></tr><tr><td>Dynamic Ads</td><td>Personalized (follower, spotlight, jobs)</td><td>Follower growth, personalized CTAs</td></tr><tr><td>Document Ads</td><td>Lead gen through gated content</td><td>Whitepapers, reports, guides</td></tr><tr><td>Video Ads</td><td>Brand awareness, engagement</td><td>Product demos, testimonials, thought leadership</td></tr><tr><td>Conversation Ads</td><td>Multi-CTA interactive messages</td><td>Complex offers, event + content combos</td></tr><tr><td>Lead Gen Forms</td><td>In-platform lead capture</td><td>Gated content, demo requests, newsletter signups</td></tr></tbody></table>
 <h2>Targeting Capabilities</h2>
 <h3>Professional Targeting (LinkedIn-Exclusive)</h3>
-<p>| Dimension | Examples | Use Case |</p>
-<p>|-----------|---------|----------|</p>
-<p>| Job Title | VP Marketing, CMO, Head of Growth | Role-specific targeting |</p>
-<p>| Job Function | Marketing, Sales, Engineering | Broad function targeting |</p>
-<p>| Seniority | C-Suite, VP, Director, Manager, Entry | Decision-maker targeting |</p>
-<p>| Company Name | Specific company lists | ABM campaigns |</p>
-<p>| Company Size | 1-10, 11-50, 51-200, 201-500, 500+ | Segment by org size |</p>
-<p>| Company Industry | SaaS, Healthcare, Finance, etc. | Vertical targeting |</p>
-<p>| Skills | Digital Marketing, SEO, Data Analysis | Interest/expertise targeting |</p>
-<p>| Groups | LinkedIn Group membership | Community targeting |</p>
-<p>| Years of Experience | 1-2, 3-5, 6-10, 10+ | Career stage |</p>
-<p>| Education | Degree, field of study, school | Academic targeting |</p>
+<table><thead><tr><th>Dimension</th><th>Examples</th><th>Use Case</th></tr></thead><tbody><tr><td>Job Title</td><td>VP Marketing, CMO, Head of Growth</td><td>Role-specific targeting</td></tr><tr><td>Job Function</td><td>Marketing, Sales, Engineering</td><td>Broad function targeting</td></tr><tr><td>Seniority</td><td>C-Suite, VP, Director, Manager, Entry</td><td>Decision-maker targeting</td></tr><tr><td>Company Name</td><td>Specific company lists</td><td>ABM campaigns</td></tr><tr><td>Company Size</td><td>1-10, 11-50, 51-200, 201-500, 500+</td><td>Segment by org size</td></tr><tr><td>Company Industry</td><td>SaaS, Healthcare, Finance, etc.</td><td>Vertical targeting</td></tr><tr><td>Skills</td><td>Digital Marketing, SEO, Data Analysis</td><td>Interest/expertise targeting</td></tr><tr><td>Groups</td><td>LinkedIn Group membership</td><td>Community targeting</td></tr><tr><td>Years of Experience</td><td>1-2, 3-5, 6-10, 10+</td><td>Career stage</td></tr><tr><td>Education</td><td>Degree, field of study, school</td><td>Academic targeting</td></tr></tbody></table>
 <h3>Matched Audiences</h3>
-<p>| Type | Source | Use Case |</p>
-<p>|------|--------|----------|</p>
-<p>| Contact Targeting | Email lists (300+ match) | CRM retargeting, ABM |</p>
-<p>| Company Targeting | Company name lists | ABM account lists |</p>
-<p>| Website Retargeting | Insight Tag pixel | Site visitor retargeting |</p>
-<p>| Lookalike Audiences | Expand from any source | Scale proven audiences |</p>
-<p>| Engagement Retargeting | Ad/page engagers | Warm audience nurturing |</p>
-<p>| Event Retargeting | LinkedIn Event attendees | Post-event follow-up |</p>
+<table><thead><tr><th>Type</th><th>Source</th><th>Use Case</th></tr></thead><tbody><tr><td>Contact Targeting</td><td>Email lists (300+ match)</td><td>CRM retargeting, ABM</td></tr><tr><td>Company Targeting</td><td>Company name lists</td><td>ABM account lists</td></tr><tr><td>Website Retargeting</td><td>Insight Tag pixel</td><td>Site visitor retargeting</td></tr><tr><td>Lookalike Audiences</td><td>Expand from any source</td><td>Scale proven audiences</td></tr><tr><td>Engagement Retargeting</td><td>Ad/page engagers</td><td>Warm audience nurturing</td></tr><tr><td>Event Retargeting</td><td>LinkedIn Event attendees</td><td>Post-event follow-up</td></tr></tbody></table>
 <h3>Audience Size Guidelines</h3>
-<p>| Campaign Type | Minimum | Recommended | Maximum |</p>
-<p>|--------------|---------|-------------|---------|</p>
-<p>| Sponsored Content | 50,000 | 100,000-300,000 | 500,000+ |</p>
-<p>| Message Ads | 15,000 | 30,000-100,000 | 200,000 |</p>
-<p>| Lead Gen Forms | 50,000 | 100,000-300,000 | 500,000+ |</p>
-<p>| ABM (Company List) | 300 companies | 500-1,000 companies | 5,000 |</p>
+<table><thead><tr><th>Campaign Type</th><th>Minimum</th><th>Recommended</th><th>Maximum</th></tr></thead><tbody><tr><td>Sponsored Content</td><td>50,000</td><td>100,000-300,000</td><td>500,000+</td></tr><tr><td>Message Ads</td><td>15,000</td><td>30,000-100,000</td><td>200,000</td></tr><tr><td>Lead Gen Forms</td><td>50,000</td><td>100,000-300,000</td><td>500,000+</td></tr><tr><td>ABM (Company List)</td><td>300 companies</td><td>500-1,000 companies</td><td>5,000</td></tr></tbody></table>
 <h2>Benchmarks</h2>
-<p>| Metric | Good | Average | Poor |</p>
-<p>|--------|------|---------|------|</p>
-<p>| CTR (Sponsored Content) | &gt;0.8% | 0.4-0.8% | &lt;0.4% |</p>
-<p>| CTR (Message Ads) | &gt;3% | 1-3% | &lt;1% |</p>
-<p>| CPC (Sponsored Content) | &lt;$5 | $5-10 | &gt;$10 |</p>
-<p>| CPM | &lt;$30 | $30-60 | &gt;$60 |</p>
-<p>| Cost per Lead (Lead Gen) | &lt;$50 | $50-150 | &gt;$150 |</p>
-<p>| Lead Gen Form completion | &gt;15% | 10-15% | &lt;10% |</p>
-<p>| Video view rate | &gt;25% | 15-25% | &lt;15% |</p>
-<p>| Social engagement rate | &gt;0.5% | 0.3-0.5% | &lt;0.3% |</p>
+<table><thead><tr><th>Metric</th><th>Good</th><th>Average</th><th>Poor</th></tr></thead><tbody><tr><td>CTR (Sponsored Content)</td><td>&gt;0.8%</td><td>0.4-0.8%</td><td>&lt;0.4%</td></tr><tr><td>CTR (Message Ads)</td><td>&gt;3%</td><td>1-3%</td><td>&lt;1%</td></tr><tr><td>CPC (Sponsored Content)</td><td>&lt;$5</td><td>$5-10</td><td>&gt;$10</td></tr><tr><td>CPM</td><td>&lt;$30</td><td>$30-60</td><td>&gt;$60</td></tr><tr><td>Cost per Lead (Lead Gen)</td><td>&lt;$50</td><td>$50-150</td><td>&gt;$150</td></tr><tr><td>Lead Gen Form completion</td><td>&gt;15%</td><td>10-15%</td><td>&lt;10%</td></tr><tr><td>Video view rate</td><td>&gt;25%</td><td>15-25%</td><td>&lt;15%</td></tr><tr><td>Social engagement rate</td><td>&gt;0.5%</td><td>0.3-0.5%</td><td>&lt;0.3%</td></tr></tbody></table>
 <h2>Audit Workflow</h2>
 <h3>Step 1: Account Structure</h3>
 <ul>
@@ -416,6 +507,27 @@ a { color: inherit; text-decoration: none; }
 </ul></div>
 </div>
 <script>
+(function () {
+  var header = document.getElementById('site-header');
+  if (header) {
+    var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 40); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+  }
+  window.closeMobileNav = function () {
+    if (hamburger) hamburger.classList.remove('open');
+    if (mobileNav) mobileNav.classList.remove('open');
+  };
+})();
+
 function copyInstall(btn) {
   var text = btn.getAttribute('data-copy');
   navigator.clipboard.writeText(text).then(function() {

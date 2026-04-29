@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>utm-attribution-strategy — claude-marketing</title>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-00XHYRHCX4"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-00XHYRHCX4');
+  gtag('config', '');
 </script>
 <meta name="description" content="UTM parameter strategy, campaign tracking, and marketing attribution modeling. Build consistent UTM taxonomies, configure attribution models, measure cross-chan">
 <meta property="og:title" content="utm-attribution-strategy — claude-marketing">
@@ -23,21 +23,21 @@
 <style>
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/QFL0NYke1cBVShP30pbS7hysGc.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Ultralight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/REECJPxYctsFxKQcUsJamXJJg.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Cartograph CF';
-  src: url('https://framerusercontent.com/assets/jQ3VWGcEj4oWm3roGkiXoL1lA.woff2') format('woff2');
+  src: url('../fonts/CartographCF-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -71,6 +71,49 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ─── SITE HEADER (matches index.html / quickstart.html / skills.html) ─── */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem clamp(20px, 5vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
+}
+.site-header.scrolled {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.header-logo { font-weight: 600; font-size: 1rem; color: #ffffff; }
+.header-nav { display: flex; gap: 2.5rem; align-items: center; }
+.header-nav a {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--ease);
+}
+.header-nav a:hover { opacity: 1; }
+.header-github {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+  transition: background 0.2s, color 0.2s;
+}
+.header-github:hover { background: #ffffff; color: #000000; }
+.hamburger { display: none; }
+.mobile-nav { display: none; }
 
 .detail-page {
   max-width: 720px;
@@ -261,17 +304,106 @@ a { color: inherit; text-decoration: none; }
   font-style: italic;
 }
 
+.detail-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0 1.5rem;
+  display: block;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.detail-body thead th {
+  text-align: left;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+.detail-body tbody td {
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  line-height: 1.55;
+  vertical-align: top;
+  opacity: 0.85;
+}
+.detail-body tbody tr:last-child td { border-bottom: 0; }
+
 @media (max-width: 700px) {
+  .header-nav { display: none; }
+  .header-github { display: none; }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .hamburger span { width: 22px; height: 1.5px; background: #ffffff; transition: transform 0.2s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #000000;
+    z-index: 999;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 96px 20px 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s var(--ease);
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a { font-family: 'PP Editorial New', serif; font-size: 2rem; font-weight: 200; }
+
+  .site-header { padding-left: 20px; padding-right: 20px; }
   .detail-page {
     padding: 100px 20px 60px;
   }
   .detail-source-links {
     flex-wrap: wrap;
   }
+  .detail-body table { font-size: 0.85rem; }
+  .detail-body thead th,
+  .detail-body tbody td { padding: 0.55rem 0.7rem; }
+}
+
+@media (max-width: 390px) {
+  .site-header { padding-left: 16px; padding-right: 16px; }
+  .detail-page { padding-left: 16px; padding-right: 16px; }
 }
 </style>
 </head>
 <body>
+<header class="site-header" id="site-header">
+  <a href="../" class="header-logo">claude-marketing</a>
+  <nav class="header-nav">
+    <a href="../skills.html">Skills</a>
+    <a href="../#capabilities">Capabilities</a>
+    <a href="../#demo">Demo</a>
+    <a href="../#install">Install</a>
+  </nav>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener" class="header-github">View on GitHub &#8599;</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="../skills.html" onclick="closeMobileNav()">Skills</a>
+  <a href="../#capabilities" onclick="closeMobileNav()">Capabilities</a>
+  <a href="../#demo" onclick="closeMobileNav()">Demo</a>
+  <a href="../#install" onclick="closeMobileNav()">Install</a>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener">GitHub &#8599;</a>
+</nav>
 <div class="detail-page" data-pagefind-body>
   <a href="../skills.html" class="detail-back">&larr; Back to skills</a>
   <h1 class="detail-name">utm-attribution-strategy</h1>
@@ -298,13 +430,7 @@ a { color: inherit; text-decoration: none; }
 <pre><code>git clone https://github.com/thatrebeccarae/claude-marketing.git &amp;&amp; cp -r claude-marketing/skills/utm-attribution-strategy ~/.claude/skills/</code></pre>
 <h2>UTM Parameter Reference</h2>
 <h3>The 5 Standard UTM Parameters</h3>
-<p>| Parameter | Purpose | Required | Example |</p>
-<p>|-----------|---------|----------|---------|</p>
-<p>| `utm_source` | Where traffic comes from | Yes | google, linkedin, newsletter |</p>
-<p>| `utm_medium` | Marketing medium/channel | Yes | cpc, email, social, referral |</p>
-<p>| `utm_campaign` | Campaign name | Yes | spring-sale, product-launch-q1 |</p>
-<p>| `utm_term` | Paid keyword (search ads) | No | email+marketing+software |</p>
-<p>| `utm_content` | Differentiate ad variants | No | cta-button, sidebar-banner, video-ad |</p>
+<table><thead><tr><th>Parameter</th><th>Purpose</th><th>Required</th><th>Example</th></tr></thead><tbody><tr><td>`utm_source`</td><td>Where traffic comes from</td><td>Yes</td><td>google, linkedin, newsletter</td></tr><tr><td>`utm_medium`</td><td>Marketing medium/channel</td><td>Yes</td><td>cpc, email, social, referral</td></tr><tr><td>`utm_campaign`</td><td>Campaign name</td><td>Yes</td><td>spring-sale, product-launch-q1</td></tr><tr><td>`utm_term`</td><td>Paid keyword (search ads)</td><td>No</td><td>email+marketing+software</td></tr><tr><td>`utm_content`</td><td>Differentiate ad variants</td><td>No</td><td>cta-button, sidebar-banner, video-ad</td></tr></tbody></table>
 <h3>UTM Naming Convention</h3>
 <p><strong>Rules:</strong></p>
 <ul>
@@ -316,34 +442,9 @@ a { color: inherit; text-decoration: none; }
 </ul>
 <h3>Recommended Taxonomy</h3>
 <p>#### utm_source</p>
-<p>| Value | When to Use |</p>
-<p>|-------|------------|</p>
-<p>| `google` | Google Ads, Google organic |</p>
-<p>| `facebook` | Meta/Facebook ads and organic |</p>
-<p>| `instagram` | Instagram ads and organic |</p>
-<p>| `linkedin` | LinkedIn ads and organic |</p>
-<p>| `tiktok` | TikTok ads |</p>
-<p>| `twitter` | Twitter/X |</p>
-<p>| `youtube` | YouTube ads and organic |</p>
-<p>| `bing` | Microsoft/Bing ads |</p>
-<p>| `newsletter` | Your email newsletter |</p>
-<p>| `email` | Transactional or one-off emails |</p>
-<p>| `partner-[name]` | Partner/affiliate traffic |</p>
-<p>| `podcast-[name]` | Podcast mentions |</p>
+<table><thead><tr><th>Value</th><th>When to Use</th></tr></thead><tbody><tr><td>`google`</td><td>Google Ads, Google organic</td></tr><tr><td>`facebook`</td><td>Meta/Facebook ads and organic</td></tr><tr><td>`instagram`</td><td>Instagram ads and organic</td></tr><tr><td>`linkedin`</td><td>LinkedIn ads and organic</td></tr><tr><td>`tiktok`</td><td>TikTok ads</td></tr><tr><td>`twitter`</td><td>Twitter/X</td></tr><tr><td>`youtube`</td><td>YouTube ads and organic</td></tr><tr><td>`bing`</td><td>Microsoft/Bing ads</td></tr><tr><td>`newsletter`</td><td>Your email newsletter</td></tr><tr><td>`email`</td><td>Transactional or one-off emails</td></tr><tr><td>`partner-[name]`</td><td>Partner/affiliate traffic</td></tr><tr><td>`podcast-[name]`</td><td>Podcast mentions</td></tr></tbody></table>
 <p>#### utm_medium</p>
-<p>| Value | When to Use |</p>
-<p>|-------|------------|</p>
-<p>| `cpc` | Paid search (cost per click) |</p>
-<p>| `paid-social` | Paid social media |</p>
-<p>| `social` | Organic social media |</p>
-<p>| `email` | Email marketing |</p>
-<p>| `referral` | Partner/affiliate referrals |</p>
-<p>| `display` | Display/banner ads |</p>
-<p>| `video` | Video ads (pre-roll, in-stream) |</p>
-<p>| `retargeting` | Retargeting/remarketing |</p>
-<p>| `influencer` | Influencer partnerships |</p>
-<p>| `organic` | Organic search (usually auto-tagged) |</p>
-<p>| `direct` | Direct traffic (usually auto-tagged) |</p>
+<table><thead><tr><th>Value</th><th>When to Use</th></tr></thead><tbody><tr><td>`cpc`</td><td>Paid search (cost per click)</td></tr><tr><td>`paid-social`</td><td>Paid social media</td></tr><tr><td>`social`</td><td>Organic social media</td></tr><tr><td>`email`</td><td>Email marketing</td></tr><tr><td>`referral`</td><td>Partner/affiliate referrals</td></tr><tr><td>`display`</td><td>Display/banner ads</td></tr><tr><td>`video`</td><td>Video ads (pre-roll, in-stream)</td></tr><tr><td>`retargeting`</td><td>Retargeting/remarketing</td></tr><tr><td>`influencer`</td><td>Influencer partnerships</td></tr><tr><td>`organic`</td><td>Organic search (usually auto-tagged)</td></tr><tr><td>`direct`</td><td>Direct traffic (usually auto-tagged)</td></tr></tbody></table>
 <p>#### utm_campaign</p>
 <p><strong>Pattern:</strong> `[initiative]-[audience]-[date]`</p>
 <p>Examples:</p>
@@ -368,24 +469,10 @@ a { color: inherit; text-decoration: none; }
 <h3>URL Structure</h3>
 <pre><code>https://example.com/landing-page?utm_source=linkedin&amp;utm_medium=paid-social&amp;utm_campaign=product-launch-q1&amp;utm_content=video-demo-feed</code></pre>
 <h3>Common UTM Templates</h3>
-<p>| Channel | Full UTM String |</p>
-<p>|---------|----------------|</p>
-<p>| Google Search Ad | `?utm_source=google&amp;utm_medium=cpc&amp;utm_campaign=[campaign]&amp;utm_term=[keyword]&amp;utm_content=[ad-group]` |</p>
-<p>| Facebook Ad | `?utm_source=facebook&amp;utm_medium=paid-social&amp;utm_campaign=[campaign]&amp;utm_content=[ad-name]` |</p>
-<p>| LinkedIn Ad | `?utm_source=linkedin&amp;utm_medium=paid-social&amp;utm_campaign=[campaign]&amp;utm_content=[creative-type]` |</p>
-<p>| Email Newsletter | `?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=[newsletter-name]-[date]&amp;utm_content=[link-position]` |</p>
-<p>| Organic LinkedIn Post | `?utm_source=linkedin&amp;utm_medium=social&amp;utm_campaign=[post-topic]` |</p>
-<p>| Partner Referral | `?utm_source=partner-[name]&amp;utm_medium=referral&amp;utm_campaign=[initiative]` |</p>
+<table><thead><tr><th>Channel</th><th>Full UTM String</th></tr></thead><tbody><tr><td>Google Search Ad</td><td>`?utm_source=google&amp;utm_medium=cpc&amp;utm_campaign=[campaign]&amp;utm_term=[keyword]&amp;utm_content=[ad-group]`</td></tr><tr><td>Facebook Ad</td><td>`?utm_source=facebook&amp;utm_medium=paid-social&amp;utm_campaign=[campaign]&amp;utm_content=[ad-name]`</td></tr><tr><td>LinkedIn Ad</td><td>`?utm_source=linkedin&amp;utm_medium=paid-social&amp;utm_campaign=[campaign]&amp;utm_content=[creative-type]`</td></tr><tr><td>Email Newsletter</td><td>`?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=[newsletter-name]-[date]&amp;utm_content=[link-position]`</td></tr><tr><td>Organic LinkedIn Post</td><td>`?utm_source=linkedin&amp;utm_medium=social&amp;utm_campaign=[post-topic]`</td></tr><tr><td>Partner Referral</td><td>`?utm_source=partner-[name]&amp;utm_medium=referral&amp;utm_campaign=[initiative]`</td></tr></tbody></table>
 <h2>Attribution Models</h2>
 <h3>Model Comparison</h3>
-<p>| Model | How It Works | Best For | Limitation |</p>
-<p>|-------|-------------|----------|-----------|</p>
-<p>| <strong>Last Click</strong> | 100% credit to last touchpoint | Short sales cycles, direct response | Ignores awareness/consideration |</p>
-<p>| <strong>First Click</strong> | 100% credit to first touchpoint | Brand awareness measurement | Ignores conversion-driving touches |</p>
-<p>| <strong>Linear</strong> | Equal credit to all touchpoints | Simple multi-touch view | Over-credits low-impact touches |</p>
-<p>| <strong>Time Decay</strong> | More credit to recent touches | Long sales cycles with clear momentum | Under-values early awareness |</p>
-<p>| <strong>Position-Based</strong> | 40% first, 40% last, 20% middle | Balanced view of full funnel | Arbitrary weight distribution |</p>
-<p>| <strong>Data-Driven</strong> | ML-based credit allocation | Large datasets (1000+ conversions) | Black box, requires volume |</p>
+<table><thead><tr><th>Model</th><th>How It Works</th><th>Best For</th><th>Limitation</th></tr></thead><tbody><tr><td><strong>Last Click</strong></td><td>100% credit to last touchpoint</td><td>Short sales cycles, direct response</td><td>Ignores awareness/consideration</td></tr><tr><td><strong>First Click</strong></td><td>100% credit to first touchpoint</td><td>Brand awareness measurement</td><td>Ignores conversion-driving touches</td></tr><tr><td><strong>Linear</strong></td><td>Equal credit to all touchpoints</td><td>Simple multi-touch view</td><td>Over-credits low-impact touches</td></tr><tr><td><strong>Time Decay</strong></td><td>More credit to recent touches</td><td>Long sales cycles with clear momentum</td><td>Under-values early awareness</td></tr><tr><td><strong>Position-Based</strong></td><td>40% first, 40% last, 20% middle</td><td>Balanced view of full funnel</td><td>Arbitrary weight distribution</td></tr><tr><td><strong>Data-Driven</strong></td><td>ML-based credit allocation</td><td>Large datasets (1000+ conversions)</td><td>Black box, requires volume</td></tr></tbody></table>
 <h3>GA4 Attribution</h3>
 <p>GA4 uses data-driven attribution by default. Key settings:</p>
 <ul>
@@ -432,6 +519,27 @@ Balanced view needed → Position-Based
 </ul></div>
 </div>
 <script>
+(function () {
+  var header = document.getElementById('site-header');
+  if (header) {
+    var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 40); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+  }
+  window.closeMobileNav = function () {
+    if (hamburger) hamburger.classList.remove('open');
+    if (mobileNav) mobileNav.classList.remove('open');
+  };
+})();
+
 function copyInstall(btn) {
   var text = btn.getAttribute('data-copy');
   navigator.clipboard.writeText(text).then(function() {

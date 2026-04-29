@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>pro-deck-builder — claude-marketing</title>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-00XHYRHCX4"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-00XHYRHCX4');
+  gtag('config', '');
 </script>
 <meta name="description" content="Create polished HTML slide decks and PDF-ready documents for consulting deliverables. Uses the RRBC design system with warm light mode, dark mode cover pages, L">
 <meta property="og:title" content="pro-deck-builder — claude-marketing">
@@ -23,21 +23,21 @@
 <style>
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/QFL0NYke1cBVShP30pbS7hysGc.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Ultralight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'PP Editorial New';
-  src: url('https://framerusercontent.com/assets/REECJPxYctsFxKQcUsJamXJJg.woff2') format('woff2');
+  src: url('../fonts/PPEditorialNew-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Cartograph CF';
-  src: url('https://framerusercontent.com/assets/jQ3VWGcEj4oWm3roGkiXoL1lA.woff2') format('woff2');
+  src: url('../fonts/CartographCF-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -71,6 +71,49 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ─── SITE HEADER (matches index.html / quickstart.html / skills.html) ─── */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem clamp(20px, 5vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
+}
+.site-header.scrolled {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.header-logo { font-weight: 600; font-size: 1rem; color: #ffffff; }
+.header-nav { display: flex; gap: 2.5rem; align-items: center; }
+.header-nav a {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--ease);
+}
+.header-nav a:hover { opacity: 1; }
+.header-github {
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+  transition: background 0.2s, color 0.2s;
+}
+.header-github:hover { background: #ffffff; color: #000000; }
+.hamburger { display: none; }
+.mobile-nav { display: none; }
 
 .detail-page {
   max-width: 720px;
@@ -261,17 +304,106 @@ a { color: inherit; text-decoration: none; }
   font-style: italic;
 }
 
+.detail-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0 1.5rem;
+  display: block;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.detail-body thead th {
+  text-align: left;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+.detail-body tbody td {
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  line-height: 1.55;
+  vertical-align: top;
+  opacity: 0.85;
+}
+.detail-body tbody tr:last-child td { border-bottom: 0; }
+
 @media (max-width: 700px) {
+  .header-nav { display: none; }
+  .header-github { display: none; }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .hamburger span { width: 22px; height: 1.5px; background: #ffffff; transition: transform 0.2s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #000000;
+    z-index: 999;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 96px 20px 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s var(--ease);
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a { font-family: 'PP Editorial New', serif; font-size: 2rem; font-weight: 200; }
+
+  .site-header { padding-left: 20px; padding-right: 20px; }
   .detail-page {
     padding: 100px 20px 60px;
   }
   .detail-source-links {
     flex-wrap: wrap;
   }
+  .detail-body table { font-size: 0.85rem; }
+  .detail-body thead th,
+  .detail-body tbody td { padding: 0.55rem 0.7rem; }
+}
+
+@media (max-width: 390px) {
+  .site-header { padding-left: 16px; padding-right: 16px; }
+  .detail-page { padding-left: 16px; padding-right: 16px; }
 }
 </style>
 </head>
 <body>
+<header class="site-header" id="site-header">
+  <a href="../" class="header-logo">claude-marketing</a>
+  <nav class="header-nav">
+    <a href="../skills.html">Skills</a>
+    <a href="../#capabilities">Capabilities</a>
+    <a href="../#demo">Demo</a>
+    <a href="../#install">Install</a>
+  </nav>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener" class="header-github">View on GitHub &#8599;</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="../skills.html" onclick="closeMobileNav()">Skills</a>
+  <a href="../#capabilities" onclick="closeMobileNav()">Capabilities</a>
+  <a href="../#demo" onclick="closeMobileNav()">Demo</a>
+  <a href="../#install" onclick="closeMobileNav()">Install</a>
+  <a href="https://github.com/thatrebeccarae/claude-marketing" target="_blank" rel="noopener">GitHub &#8599;</a>
+</nav>
 <div class="detail-page" data-pagefind-body>
   <a href="../skills.html" class="detail-back">&larr; Back to skills</a>
   <h1 class="detail-name">pro-deck-builder</h1>
@@ -297,12 +429,7 @@ a { color: inherit; text-decoration: none; }
 <h2>Install</h2>
 <pre><code>git clone https://github.com/thatrebeccarae/claude-marketing.git &amp;&amp; cp -r claude-marketing/skills/pro-deck-builder ~/.claude/skills/</code></pre>
 <h2>Quick Reference</h2>
-<p>| Task | Approach |</p>
-<p>|------|----------|</p>
-<p>| Create from scratch | Read [REFERENCE.md](REFERENCE.md), use PptxGenJS |</p>
-<p>| Edit existing / use template | Read [editing.md](editing.md) |</p>
-<p>| Read/extract content | `python -m markitdown presentation.pptx` |</p>
-<p>| Visual overview | `python scripts/thumbnail.py presentation.pptx` |</p>
+<table><thead><tr><th>Task</th><th>Approach</th></tr></thead><tbody><tr><td>Create from scratch</td><td>Read [REFERENCE.md](REFERENCE.md), use PptxGenJS</td></tr><tr><td>Edit existing / use template</td><td>Read [editing.md](editing.md)</td></tr><tr><td>Read/extract content</td><td>`python -m markitdown presentation.pptx`</td></tr><tr><td>Visual overview</td><td>`python scripts/thumbnail.py presentation.pptx`</td></tr></tbody></table>
 <p>---</p>
 <h2>Before You Start (Required Steps)</h2>
 <h3>Step 1: Ask the User</h3>
@@ -340,44 +467,14 @@ ls ~/Library/Fonts/ /Library/Fonts/ /System/Library/Fonts/Supplemental/ 2&gt;/de
 <p>---</p>
 <h2>Color System</h2>
 <h3>Dark Mode (Default — Premium/Keynote)</h3>
-<p>| Token | Value | Use |</p>
-<p>|-------|-------|-----|</p>
-<p>| `bg-primary` | `0A0A0C` | Slide backgrounds (deep space black) |</p>
-<p>| `bg-surface` | `17181A` | Cards, panels (deep slate) |</p>
-<p>| `bg-elevated` | `1E1F23` | Elevated surfaces, hover states |</p>
-<p>| `bg-glass` | `FFFFFF` at 4% opacity | Translucent overlays |</p>
-<p>| `text-primary` | `FFFFFF` | Headlines, key content |</p>
-<p>| `text-secondary` | `A0A0A0` | Body text, descriptions |</p>
-<p>| `text-muted` | `5A5A5E` | Captions, metadata, labels |</p>
-<p>| `border-subtle` | `FFFFFF` at 8% opacity | Card borders |</p>
+<table><thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead><tbody><tr><td>`bg-primary`</td><td>`0A0A0C`</td><td>Slide backgrounds (deep space black)</td></tr><tr><td>`bg-surface`</td><td>`17181A`</td><td>Cards, panels (deep slate)</td></tr><tr><td>`bg-elevated`</td><td>`1E1F23`</td><td>Elevated surfaces, hover states</td></tr><tr><td>`bg-glass`</td><td>`FFFFFF` at 4% opacity</td><td>Translucent overlays</td></tr><tr><td>`text-primary`</td><td>`FFFFFF`</td><td>Headlines, key content</td></tr><tr><td>`text-secondary`</td><td>`A0A0A0`</td><td>Body text, descriptions</td></tr><tr><td>`text-muted`</td><td>`5A5A5E`</td><td>Captions, metadata, labels</td></tr><tr><td>`border-subtle`</td><td>`FFFFFF` at 8% opacity</td><td>Card borders</td></tr></tbody></table>
 <h3>Light Mode (Reports/Data-Heavy)</h3>
-<p>| Token | Value | Use |</p>
-<p>|-------|-------|-----|</p>
-<p>| `bg-primary` | `FFFFFF` | Slide backgrounds |</p>
-<p>| `bg-surface` | `F8F9FA` | Cards, panels |</p>
-<p>| `bg-elevated` | `FFFFFF` | Elevated surfaces (use shadow) |</p>
-<p>| `text-primary` | `111111` | Headlines, key content |</p>
-<p>| `text-secondary` | `555555` | Body text, descriptions |</p>
-<p>| `text-muted` | `999999` | Captions, metadata, labels |</p>
-<p>| `border-subtle` | `E8E8E8` | Card borders |</p>
+<table><thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead><tbody><tr><td>`bg-primary`</td><td>`FFFFFF`</td><td>Slide backgrounds</td></tr><tr><td>`bg-surface`</td><td>`F8F9FA`</td><td>Cards, panels</td></tr><tr><td>`bg-elevated`</td><td>`FFFFFF`</td><td>Elevated surfaces (use shadow)</td></tr><tr><td>`text-primary`</td><td>`111111`</td><td>Headlines, key content</td></tr><tr><td>`text-secondary`</td><td>`555555`</td><td>Body text, descriptions</td></tr><tr><td>`text-muted`</td><td>`999999`</td><td>Captions, metadata, labels</td></tr><tr><td>`border-subtle`</td><td>`E8E8E8`</td><td>Card borders</td></tr></tbody></table>
 <p>---</p>
 <h2>Palette System</h2>
 <p>Each palette defines one accent color (used at 10%) plus semantic status colors. The accent is the personality — everything else is neutral.</p>
 <h3>Built-In Palettes</h3>
-<p>| Name | Accent | Hex | Best For |</p>
-<p>|------|--------|-----|----------|</p>
-<p>| <strong>Electric Blue</strong> | Intense azure | `0055FF` | SaaS, tech, product |</p>
-<p>| <strong>Neon Lime</strong> | Acid green | `39FF14` | Dev tools, performance |</p>
-<p>| <strong>Hot Coral</strong> | Warm energy | `FF6B6B` | Marketing, creative |</p>
-<p>| <strong>Indigo</strong> | Deep purple | `6366F1` | Startups, AI/ML |</p>
-<p>| <strong>Teal Trust</strong> | Cool confidence | `0D9488` | Healthcare, finance |</p>
-<p>| <strong>Amber Signal</strong> | Warm authority | `F59E0B` | Consulting, strategy |</p>
-<p>| <strong>Rose</strong> | Refined pink | `F43F5E` | Design, brand, luxury |</p>
-<p>| <strong>Emerald</strong> | Growth green | `10B981` | Sustainability, success |</p>
-<p>| <strong>Cyan Edge</strong> | Sharp blue-green | `06B6D4` | Data, analytics |</p>
-<p>| <strong>Violet</strong> | Creative depth | `8B5CF6` | Education, innovation |</p>
-<p>| <strong>Slate</strong> | No accent | `64748B` | Minimal, understated |</p>
-<p>| <strong>Gold Standard</strong> | Financial premium | `D4AF37` | Investor, board decks |</p>
+<table><thead><tr><th>Name</th><th>Accent</th><th>Hex</th><th>Best For</th></tr></thead><tbody><tr><td><strong>Electric Blue</strong></td><td>Intense azure</td><td>`0055FF`</td><td>SaaS, tech, product</td></tr><tr><td><strong>Neon Lime</strong></td><td>Acid green</td><td>`39FF14`</td><td>Dev tools, performance</td></tr><tr><td><strong>Hot Coral</strong></td><td>Warm energy</td><td>`FF6B6B`</td><td>Marketing, creative</td></tr><tr><td><strong>Indigo</strong></td><td>Deep purple</td><td>`6366F1`</td><td>Startups, AI/ML</td></tr><tr><td><strong>Teal Trust</strong></td><td>Cool confidence</td><td>`0D9488`</td><td>Healthcare, finance</td></tr><tr><td><strong>Amber Signal</strong></td><td>Warm authority</td><td>`F59E0B`</td><td>Consulting, strategy</td></tr><tr><td><strong>Rose</strong></td><td>Refined pink</td><td>`F43F5E`</td><td>Design, brand, luxury</td></tr><tr><td><strong>Emerald</strong></td><td>Growth green</td><td>`10B981`</td><td>Sustainability, success</td></tr><tr><td><strong>Cyan Edge</strong></td><td>Sharp blue-green</td><td>`06B6D4`</td><td>Data, analytics</td></tr><tr><td><strong>Violet</strong></td><td>Creative depth</td><td>`8B5CF6`</td><td>Education, innovation</td></tr><tr><td><strong>Slate</strong></td><td>No accent</td><td>`64748B`</td><td>Minimal, understated</td></tr><tr><td><strong>Gold Standard</strong></td><td>Financial premium</td><td>`D4AF37`</td><td>Investor, board decks</td></tr></tbody></table>
 <h3>Custom Palette (User Brand Colors)</h3>
 <p>If the user provides brand colors, build a custom palette:</p>
 <pre><code>const palette = {
@@ -397,30 +494,11 @@ ls ~/Library/Fonts/ /Library/Fonts/ /System/Library/Fonts/Supplemental/ 2&gt;/de
 <h2>Typography</h2>
 <h3>Font Priority</h3>
 <p>Run font discovery (Step 2 above), then pick:</p>
-<p>| Priority | Header | Body | Data/Mono | Vibe |</p>
-<p>|----------|--------|------|-----------|------|</p>
-<p>| 1st | Inter 700 | Inter 400 | JetBrains Mono | Linear/Vercel |</p>
-<p>| 2nd | DM Sans 700 | DM Sans 400 | Fira Code | Geometric startup |</p>
-<p>| 3rd | Avenir Next Bold | Avenir 400 | SF Mono | Apple-adjacent |</p>
-<p>| 4th | Poppins 700 | Poppins 400 | JetBrains Mono | Friendly modern |</p>
-<p>| Safe | Calibri Bold | Calibri | Consolas | Always available |</p>
+<table><thead><tr><th>Priority</th><th>Header</th><th>Body</th><th>Data/Mono</th><th>Vibe</th></tr></thead><tbody><tr><td>1st</td><td>Inter 700</td><td>Inter 400</td><td>JetBrains Mono</td><td>Linear/Vercel</td></tr><tr><td>2nd</td><td>DM Sans 700</td><td>DM Sans 400</td><td>Fira Code</td><td>Geometric startup</td></tr><tr><td>3rd</td><td>Avenir Next Bold</td><td>Avenir 400</td><td>SF Mono</td><td>Apple-adjacent</td></tr><tr><td>4th</td><td>Poppins 700</td><td>Poppins 400</td><td>JetBrains Mono</td><td>Friendly modern</td></tr><tr><td>Safe</td><td>Calibri Bold</td><td>Calibri</td><td>Consolas</td><td>Always available</td></tr></tbody></table>
 <p>For editorial/financial decks:</p>
-<p>| Header | Body | Vibe |</p>
-<p>|--------|------|------|</p>
-<p>| DM Serif Display | DM Sans | Sophisticated editorial |</p>
-<p>| Playfair Display | Source Sans Pro | Luxury, financial |</p>
-<p>| Georgia | Calibri | Classic corporate |</p>
+<table><thead><tr><th>Header</th><th>Body</th><th>Vibe</th></tr></thead><tbody><tr><td>DM Serif Display</td><td>DM Sans</td><td>Sophisticated editorial</td></tr><tr><td>Playfair Display</td><td>Source Sans Pro</td><td>Luxury, financial</td></tr><tr><td>Georgia</td><td>Calibri</td><td>Classic corporate</td></tr></tbody></table>
 <h3>Size Scale</h3>
-<p>| Role | Size | Weight | Use |</p>
-<p>|------|------|--------|-----|</p>
-<p>| Hero title | 54-72pt | Bold (700) | Title slide only |</p>
-<p>| Slide title | 32-40pt | Bold (700) | Every content slide |</p>
-<p>| Section header | 20-24pt | Semibold (600) | Within-slide sections |</p>
-<p>| Body text | 14-16pt | Regular (400) | Paragraphs, bullets |</p>
-<p>| Captions/meta | 10-12pt | Regular (400) | Footnotes, sources |</p>
-<p>| Big KPI number | 48-72pt | Bold (700) | Dashboard callouts |</p>
-<p>| KPI label | 9-10pt | Semibold, ALL CAPS, +tracking | Below KPI numbers |</p>
-<p>| Data/numbers | 11-14pt | Mono regular | Tables, data labels |</p>
+<table><thead><tr><th>Role</th><th>Size</th><th>Weight</th><th>Use</th></tr></thead><tbody><tr><td>Hero title</td><td>54-72pt</td><td>Bold (700)</td><td>Title slide only</td></tr><tr><td>Slide title</td><td>32-40pt</td><td>Bold (700)</td><td>Every content slide</td></tr><tr><td>Section header</td><td>20-24pt</td><td>Semibold (600)</td><td>Within-slide sections</td></tr><tr><td>Body text</td><td>14-16pt</td><td>Regular (400)</td><td>Paragraphs, bullets</td></tr><tr><td>Captions/meta</td><td>10-12pt</td><td>Regular (400)</td><td>Footnotes, sources</td></tr><tr><td>Big KPI number</td><td>48-72pt</td><td>Bold (700)</td><td>Dashboard callouts</td></tr><tr><td>KPI label</td><td>9-10pt</td><td>Semibold, ALL CAPS, +tracking</td><td>Below KPI numbers</td></tr><tr><td>Data/numbers</td><td>11-14pt</td><td>Mono regular</td><td>Tables, data labels</td></tr></tbody></table>
 <h3>Typography Rules</h3>
 <ul>
 <li><strong>Left-align</strong> body text and lists — center ONLY titles and KPI values</li>
@@ -432,29 +510,14 @@ ls ~/Library/Fonts/ /Library/Fonts/ /System/Library/Fonts/Supplemental/ 2&gt;/de
 <h3>Text Fitting (Prevents Overflow)</h3>
 <p>Big numbers and titles WILL overflow if you use a fixed font size without checking content length. Use these rules:</p>
 <p><strong>Big KPI Numbers — scale font to character count:</strong></p>
-<p>| Characters | Example | Max Font Size (card) | Max Font Size (standalone) |</p>
-<p>|------------|---------|---------------------|--------------------------|</p>
-<p>| 1–4 | `$4.2M` | 48pt | 72pt |</p>
-<p>| 5–7 | `$5,307K` | 36pt | 54pt |</p>
-<p>| 8–10 | `$5,307,540` | 28pt | 44pt |</p>
-<p>| 11+ | `$12,345,678` | 22pt | 36pt |</p>
+<table><thead><tr><th>Characters</th><th>Example</th><th>Max Font Size (card)</th><th>Max Font Size (standalone)</th></tr></thead><tbody><tr><td>1–4</td><td>`$4.2M`</td><td>48pt</td><td>72pt</td></tr><tr><td>5–7</td><td>`$5,307K`</td><td>36pt</td><td>54pt</td></tr><tr><td>8–10</td><td>`$5,307,540`</td><td>28pt</td><td>44pt</td></tr><tr><td>11+</td><td>`$12,345,678`</td><td>22pt</td><td>36pt</td></tr></tbody></table>
 <p><strong>Rule: prefer abbreviated numbers.</strong> `$5.3M` &gt; `$5,307,540`. Only use full numbers in tables or footnotes where precision matters.</p>
 <p><strong>Slide Titles — max characters before wrapping:</strong></p>
-<p>| Font Size | Max Chars (~9&quot; wide) | If Longer |</p>
-<p>|-----------|---------------------|-----------|</p>
-<p>| 54pt | ~30 | Reduce to 44pt or rewrite shorter |</p>
-<p>| 44pt | ~38 | Reduce to 36pt or rewrite shorter |</p>
-<p>| 36pt | ~46 | Reduce to 32pt or rewrite shorter |</p>
-<p>| 32pt | ~52 | Use subtitle for overflow |</p>
+<table><thead><tr><th>Font Size</th><th>Max Chars (~9&quot; wide)</th><th>If Longer</th></tr></thead><tbody><tr><td>54pt</td><td>~30</td><td>Reduce to 44pt or rewrite shorter</td></tr><tr><td>44pt</td><td>~38</td><td>Reduce to 36pt or rewrite shorter</td></tr><tr><td>36pt</td><td>~46</td><td>Reduce to 32pt or rewrite shorter</td></tr><tr><td>32pt</td><td>~52</td><td>Use subtitle for overflow</td></tr></tbody></table>
 <p><strong>Rule: count characters before setting fontSize.</strong> Never let content slide titles wrap to 2 lines. Section dividers can wrap.</p>
 <p><strong>Body Text in Narrow Containers (Insight Panels, Sidebars):</strong></p>
 <p>Text overflow in narrow panels (&lt; 4&quot; wide) is a common problem. PptxGenJS does not auto-shrink text. Apply these rules:</p>
-<p>| Container Width | Max fontSize | Max chars per line (~) | Max lines at 1.25x spacing |</p>
-<p>|----------------|-------------|----------------------|---------------------------|</p>
-<p>| 4.0&quot;+ | 14pt | ~55 | Height ÷ 0.22&quot; |</p>
-<p>| 3.0-3.9&quot; | 11pt | ~45 | Height ÷ 0.18&quot; |</p>
-<p>| 2.0-2.9&quot; | 10pt | ~35 | Height ÷ 0.16&quot; |</p>
-<p>| &lt; 2.0&quot; | 9pt | ~25 | Height ÷ 0.15&quot; |</p>
+<table><thead><tr><th>Container Width</th><th>Max fontSize</th><th>Max chars per line (~)</th><th>Max lines at 1.25x spacing</th></tr></thead><tbody><tr><td>4.0&quot;+</td><td>14pt</td><td>~55</td><td>Height ÷ 0.22&quot;</td></tr><tr><td>3.0-3.9&quot;</td><td>11pt</td><td>~45</td><td>Height ÷ 0.18&quot;</td></tr><tr><td>2.0-2.9&quot;</td><td>10pt</td><td>~35</td><td>Height ÷ 0.16&quot;</td></tr><tr><td>&lt; 2.0&quot;</td><td>9pt</td><td>~25</td><td>Height ÷ 0.15&quot;</td></tr></tbody></table>
 <p><strong>Rule: estimate line count before adding text.</strong> Count characters in your text, divide by max chars per line to get line count, then verify it fits in the container height. If it doesn't fit: (1) reduce fontSize, (2) shorten the text, or (3) increase the container. Never let text silently overflow — it gets clipped or overlaps adjacent elements.</p>
 <pre><code>// ✅ CORRECT: 2.8&quot; panel → max 10pt, ~35 chars/line
 // &quot;Welcome series dominates at 62%...&quot; = 90 chars ≈ 3 lines
@@ -492,28 +555,14 @@ values: [2888000, 718000, 425000],
 valAxisLabelFormatCode: &quot;$#,##0,K&quot;,  // axis may format but data labels show 2888000
 // ❌ WRONG: numFmt (not a valid PptxGenJS property)</code></pre>
 <p><strong>OOXML conditional format reference (use with RAW values):</strong></p>
-<p>| Data Range | Format Code | Renders As |</p>
-<p>|------------|-------------|------------|</p>
-<p>| Currency (auto-scale) | `'[&gt;=1000000]&quot;$&quot;#,##0.0,,&quot;M&quot;;[&gt;=1000]&quot;$&quot;#,##0.00,&quot;K&quot;;&quot;$&quot;#,##0'` | $2.9M, $540.18K, $500 |</p>
-<p>| Plain number (auto-scale) | `'[&gt;=1000000]#,##0.0,,&quot;M&quot;;[&gt;=1000]#,##0.00,&quot;K&quot;;#,##0'` | 2.9M, 540.18K, 500 |</p>
-<p>| Percentage | `'0%'` | 50%, 85% |</p>
+<table><thead><tr><th>Data Range</th><th>Format Code</th><th>Renders As</th></tr></thead><tbody><tr><td>Currency (auto-scale)</td><td>`'[&gt;=1000000]&quot;$&quot;#,##0.0,,&quot;M&quot;;[&gt;=1000]&quot;$&quot;#,##0.00,&quot;K&quot;;&quot;$&quot;#,##0'`</td><td>$2.9M, $540.18K, $500</td></tr><tr><td>Plain number (auto-scale)</td><td>`'[&gt;=1000000]#,##0.0,,&quot;M&quot;;[&gt;=1000]#,##0.00,&quot;K&quot;;#,##0'`</td><td>2.9M, 540.18K, 500</td></tr><tr><td>Percentage</td><td>`'0%'`</td><td>50%, 85%</td></tr></tbody></table>
 <p><strong>Format code syntax:</strong> OOXML supports up to 2 conditions in brackets + a default: `[condition1]format1;[condition2]format2;defaultFormat`. Each trailing `,` divides by 1,000 (so `,,` divides by 1M).</p>
 <p><strong>IMPORTANT: `valAxisLabelFormatCode` does NOT support OOXML conditional brackets `[&gt;=1000]`.</strong> Use a simple format for the axis based on the data range:</p>
-<p>| Axis Range | `valAxisLabelFormatCode` | Renders As |</p>
-<p>|------------|----------------|------------|</p>
-<p>| Up to ~999K | `'&quot;$&quot;#,##0,&quot;K&quot;'` | $0K, $100K, $500K |</p>
-<p>| Up to ~10M+ | `'&quot;$&quot;#,##0.0,,&quot;M&quot;'` | $0.0M, $0.5M, $1.0M |</p>
-<p>| Up to ~999 | `'&quot;$&quot;#,##0'` | $0, $100, $500 |</p>
+<table><thead><tr><th>Axis Range</th><th>`valAxisLabelFormatCode`</th><th>Renders As</th></tr></thead><tbody><tr><td>Up to ~999K</td><td>`'&quot;$&quot;#,##0,&quot;K&quot;'`</td><td>$0K, $100K, $500K</td></tr><tr><td>Up to ~10M+</td><td>`'&quot;$&quot;#,##0.0,,&quot;M&quot;'`</td><td>$0.0M, $0.5M, $1.0M</td></tr><tr><td>Up to ~999</td><td>`'&quot;$&quot;#,##0'`</td><td>$0, $100, $500</td></tr></tbody></table>
 <p>Use the conditional `currFmt` for `dataLabelFormatCode` (which supports brackets), but a simple format for `valAxisLabelFormatCode`. Always set `showValue: true` with `dataLabelPosition: &quot;outEnd&quot;` on bar charts so readers can see exact values without tracing to the axis.</p>
 <p>---</p>
 <h2>Spacing</h2>
-<p>| Token | Value | Use |</p>
-<p>|-------|-------|-----|</p>
-<p>| `xs` | 0.125&quot; | Within grouped elements |</p>
-<p>| `sm` | 0.25&quot; | Label to value, icon to text |</p>
-<p>| `md` | 0.375&quot; | Between sections within a card |</p>
-<p>| `lg` | 0.5&quot; | Between cards, major sections |</p>
-<p>| `xl` | 0.75&quot; | Between content zones |</p>
+<table><thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead><tbody><tr><td>`xs`</td><td>0.125&quot;</td><td>Within grouped elements</td></tr><tr><td>`sm`</td><td>0.25&quot;</td><td>Label to value, icon to text</td></tr><tr><td>`md`</td><td>0.375&quot;</td><td>Between sections within a card</td></tr><tr><td>`lg`</td><td>0.5&quot;</td><td>Between cards, major sections</td></tr><tr><td>`xl`</td><td>0.75&quot;</td><td>Between content zones</td></tr></tbody></table>
 <h3>Layout Grid (10&quot; × 5.625&quot;)</h3>
 <pre><code>Margins:       0.5&quot; from all edges
 Content area:  9.0&quot; wide × ~4.5&quot; tall
@@ -526,12 +575,7 @@ Card gap:      0.25&quot; - 0.3&quot;</code></pre>
 <h3>Finding Logos</h3>
 <pre><code>find ~/Desktop ~/Downloads ~/Documents -maxdepth 3 -iname &quot;*logo*&quot; \( -name &quot;*.png&quot; -o -name &quot;*.svg&quot; -o -name &quot;*.jpg&quot; \) 2&gt;/dev/null</code></pre>
 <h3>Placement Patterns</h3>
-<p>| Slide Type | Position | Size | Notes |</p>
-<p>|------------|----------|------|-------|</p>
-<p>| Title slide (top-left) | `x:0.5, y:0.4` | `w:1.5, h:0.5` | Subtle brand mark |</p>
-<p>| Title slide (centered) | `x:4.0, y:0.8` | `w:2.0, h:0.7` | Above title text |</p>
-<p>| Content slides | `x:8.5, y:0.2` | `w:1.0, h:0.35` | Top-right corner, every slide |</p>
-<p>| Closing slide | `x:3.5, y:1.5` | `w:3.0, h:1.0` | Centered, hero size |</p>
+<table><thead><tr><th>Slide Type</th><th>Position</th><th>Size</th><th>Notes</th></tr></thead><tbody><tr><td>Title slide (top-left)</td><td>`x:0.5, y:0.4`</td><td>`w:1.5, h:0.5`</td><td>Subtle brand mark</td></tr><tr><td>Title slide (centered)</td><td>`x:4.0, y:0.8`</td><td>`w:2.0, h:0.7`</td><td>Above title text</td></tr><tr><td>Content slides</td><td>`x:8.5, y:0.2`</td><td>`w:1.0, h:0.35`</td><td>Top-right corner, every slide</td></tr><tr><td>Closing slide</td><td>`x:3.5, y:1.5`</td><td>`w:3.0, h:1.0`</td><td>Centered, hero size</td></tr></tbody></table>
 <h3>Logo Rules</h3>
 <ul>
 <li>Always use `sizing: { type: &quot;contain&quot;, w, h }` to preserve aspect ratio</li>
@@ -545,33 +589,14 @@ Card gap:      0.25&quot; - 0.3&quot;</code></pre>
 <h3>Pipeline: react-icons → sharp → PNG → PptxGenJS</h3>
 <pre><code>npm install -g react-icons react react-dom sharp</code></pre>
 <p><strong>Prefer Lucide (`react-icons/lu`) or Feather (`react-icons/fi`)</strong> — they match the Linear/Vercel icon language.</p>
-<p>| Package | Import | Style |</p>
-<p>|---------|--------|-------|</p>
-<p>| `react-icons/lu` | Lucide | Linear-style, clean |</p>
-<p>| `react-icons/fi` | Feather | Thin, modern |</p>
-<p>| `react-icons/hi2` | Heroicons v2 | Apple-ish |</p>
-<p>| `react-icons/tb` | Tabler | Consistent strokes |</p>
+<table><thead><tr><th>Package</th><th>Import</th><th>Style</th></tr></thead><tbody><tr><td>`react-icons/lu`</td><td>Lucide</td><td>Linear-style, clean</td></tr><tr><td>`react-icons/fi`</td><td>Feather</td><td>Thin, modern</td></tr><tr><td>`react-icons/hi2`</td><td>Heroicons v2</td><td>Apple-ish</td></tr><tr><td>`react-icons/tb`</td><td>Tabler</td><td>Consistent strokes</td></tr></tbody></table>
 <h3>Icon Sizes</h3>
-<p>| Context | Display Size | Color |</p>
-<p>|---------|-------------|-------|</p>
-<p>| KPI card icon | 0.35&quot; × 0.35&quot; | Accent on dark, muted on light |</p>
-<p>| Feature row icon | 0.4&quot; × 0.4&quot; | White inside accent circle |</p>
-<p>| Section divider | 0.5&quot; × 0.5&quot; | Accent color |</p>
-<p>| Inline bullet | 0.25&quot; × 0.25&quot; | text-secondary |</p>
+<table><thead><tr><th>Context</th><th>Display Size</th><th>Color</th></tr></thead><tbody><tr><td>KPI card icon</td><td>0.35&quot; × 0.35&quot;</td><td>Accent on dark, muted on light</td></tr><tr><td>Feature row icon</td><td>0.4&quot; × 0.4&quot;</td><td>White inside accent circle</td></tr><tr><td>Section divider</td><td>0.5&quot; × 0.5&quot;</td><td>Accent color</td></tr><tr><td>Inline bullet</td><td>0.25&quot; × 0.25&quot;</td><td>text-secondary</td></tr></tbody></table>
 <p>---</p>
 <h2>Reusable Components</h2>
 <h3>Bottom Callout Box (Standardized)</h3>
 <p>Many slides end with a highlighted callout box (recommendation, key insight, total impact). <strong>These must be visually identical across all slides:</strong></p>
-<p>| Property | Value | Notes |</p>
-<p>|----------|-------|-------|</p>
-<p>| Box height | 0.6&quot; | Always 0.6&quot; — never 0.5&quot;, 0.7&quot;, 0.9&quot; |</p>
-<p>| Text height | 0.5&quot; | Fits inside 0.6&quot; box with padding |</p>
-<p>| Font size | 11pt | Always 11pt bold — never 12pt or 13pt |</p>
-<p>| Font | `theme.font.body` | Bold, left-aligned, valign: &quot;middle&quot; |</p>
-<p>| Box x/w | `x: 0.5, w: 9.0` | Full content width |</p>
-<p>| Text x/w | `x: 0.7, w: 8.6` | Inset 0.2&quot; from box edges |</p>
-<p>| Text y offset | box y + 0.05&quot; | Centers text vertically in box |</p>
-<p>| Corner radius | 0.06&quot; | Consistent across all callouts |</p>
+<table><thead><tr><th>Property</th><th>Value</th><th>Notes</th></tr></thead><tbody><tr><td>Box height</td><td>0.6&quot;</td><td>Always 0.6&quot; — never 0.5&quot;, 0.7&quot;, 0.9&quot;</td></tr><tr><td>Text height</td><td>0.5&quot;</td><td>Fits inside 0.6&quot; box with padding</td></tr><tr><td>Font size</td><td>11pt</td><td>Always 11pt bold — never 12pt or 13pt</td></tr><tr><td>Font</td><td>`theme.font.body`</td><td>Bold, left-aligned, valign: &quot;middle&quot;</td></tr><tr><td>Box x/w</td><td>`x: 0.5, w: 9.0`</td><td>Full content width</td></tr><tr><td>Text x/w</td><td>`x: 0.7, w: 8.6`</td><td>Inset 0.2&quot; from box edges</td></tr><tr><td>Text y offset</td><td>box y + 0.05&quot;</td><td>Centers text vertically in box</td></tr><tr><td>Corner radius</td><td>0.06&quot;</td><td>Consistent across all callouts</td></tr></tbody></table>
 <pre><code>// Standard bottom callout — copy this pattern exactly
 s.addShape(pres.shapes.RECTANGLE, {
   x: 0.5, y: calloutY, w: 9.0, h: 0.6,
@@ -590,12 +615,7 @@ s.addText(&quot;Callout text here.&quot;, {
 <pre><code>tableBottom = tableY + (rowCount × rowH)
 calloutY = tableBottom + 0.15&quot;  // minimum 0.15&quot; gap</code></pre>
 <p><strong>Verify calloutY + 0.6&quot; (callout height) &lt; 5.2&quot; (footer zone).</strong> If it doesn't fit, reduce `rowH` or table font sizes — never let the callout overlap the footer.</p>
-<p>| Rows (incl header) | rowH: 0.32&quot; | rowH: 0.36&quot; | rowH: 0.42&quot; | rowH: 0.48&quot; | rowH: 0.55&quot; |</p>
-<p>|---------------------|-------------|-------------|-------------|-------------|-------------|</p>
-<p>| 6 rows | 1.92&quot; | 2.16&quot; | 2.52&quot; | 2.88&quot; | 3.30&quot; |</p>
-<p>| 7 rows | 2.24&quot; | 2.52&quot; | 2.94&quot; | 3.36&quot; | 3.85&quot; |</p>
-<p>| 8 rows | 2.56&quot; | 2.88&quot; | 3.36&quot; | 3.84&quot; | 4.40&quot; |</p>
-<p>| 11 rows | 3.52&quot; | 3.96&quot; | 4.62&quot; | — | — |</p>
+<table><thead><tr><th>Rows (incl header)</th><th>rowH: 0.32&quot;</th><th>rowH: 0.36&quot;</th><th>rowH: 0.42&quot;</th><th>rowH: 0.48&quot;</th><th>rowH: 0.55&quot;</th></tr></thead><tbody><tr><td>6 rows</td><td>1.92&quot;</td><td>2.16&quot;</td><td>2.52&quot;</td><td>2.88&quot;</td><td>3.30&quot;</td></tr><tr><td>7 rows</td><td>2.24&quot;</td><td>2.52&quot;</td><td>2.94&quot;</td><td>3.36&quot;</td><td>3.85&quot;</td></tr><tr><td>8 rows</td><td>2.56&quot;</td><td>2.88&quot;</td><td>3.36&quot;</td><td>3.84&quot;</td><td>4.40&quot;</td></tr><tr><td>11 rows</td><td>3.52&quot;</td><td>3.96&quot;</td><td>4.62&quot;</td><td>—</td><td>—</td></tr></tbody></table>
 <p>With table starting at y: 1.0&quot; and callout needing 0.75&quot; (0.15&quot; gap + 0.6&quot; box), the table height limit is <strong>3.45&quot;</strong> to stay above footer. Choose `rowH` accordingly.</p>
 <h3>Cross-Slide Consistency Rules</h3>
 <p>Repeated elements MUST use identical dimensions across all slides:</p>
@@ -609,20 +629,7 @@ calloutY = tableBottom + 0.15&quot;  // minimum 0.15&quot; gap</code></pre>
 <h2>Slide Compositions</h2>
 <h3>Vary Layouts — The #1 Rule</h3>
 <p>Never repeat the same layout more than twice consecutively. Rotate through:</p>
-<p>| Type | When | Elements |</p>
-<p>|------|------|----------|</p>
-<p>| <strong>Title Slide</strong> | Opening/closing | Hero text, subtitle, logo, date |</p>
-<p>| <strong>KPI Dashboard</strong> | Executive summary | 3-5 cards, big numbers |</p>
-<p>| <strong>Chart + Insight</strong> | Data with context | 60/40 split |</p>
-<p>| <strong>Full-Width Chart</strong> | Chart IS the story | Full span, callout overlay |</p>
-<p>| <strong>Icon Feature Grid</strong> | Features, pillars | 3-4 icon+text rows |</p>
-<p>| <strong>Data Table</strong> | Financials, comparisons | Styled rows, mono numbers |</p>
-<p>| <strong>Section Divider</strong> | Between sections | Bold title on dark/accent bg |</p>
-<p>| <strong>Quote</strong> | Testimonials | Large italic, attribution |</p>
-<p>| <strong>Big Number</strong> | Single key stat | Huge centered metric |</p>
-<p>| <strong>Comparison</strong> | Before/after, vs. | Side-by-side columns |</p>
-<p>| <strong>Image + Text</strong> | Products, case studies | Half-bleed image |</p>
-<p>| <strong>Closing</strong> | End | Logo, CTA, contact |</p>
+<table><thead><tr><th>Type</th><th>When</th><th>Elements</th></tr></thead><tbody><tr><td><strong>Title Slide</strong></td><td>Opening/closing</td><td>Hero text, subtitle, logo, date</td></tr><tr><td><strong>KPI Dashboard</strong></td><td>Executive summary</td><td>3-5 cards, big numbers</td></tr><tr><td><strong>Chart + Insight</strong></td><td>Data with context</td><td>60/40 split</td></tr><tr><td><strong>Full-Width Chart</strong></td><td>Chart IS the story</td><td>Full span, callout overlay</td></tr><tr><td><strong>Icon Feature Grid</strong></td><td>Features, pillars</td><td>3-4 icon+text rows</td></tr><tr><td><strong>Data Table</strong></td><td>Financials, comparisons</td><td>Styled rows, mono numbers</td></tr><tr><td><strong>Section Divider</strong></td><td>Between sections</td><td>Bold title on dark/accent bg</td></tr><tr><td><strong>Quote</strong></td><td>Testimonials</td><td>Large italic, attribution</td></tr><tr><td><strong>Big Number</strong></td><td>Single key stat</td><td>Huge centered metric</td></tr><tr><td><strong>Comparison</strong></td><td>Before/after, vs.</td><td>Side-by-side columns</td></tr><tr><td><strong>Image + Text</strong></td><td>Products, case studies</td><td>Half-bleed image</td></tr><tr><td><strong>Closing</strong></td><td>End</td><td>Logo, CTA, contact</td></tr></tbody></table>
 <p>---</p>
 <h2>Anti-Patterns (Never Do These)</h2>
 <p>1. <strong>NEVER add horizontal accent lines/bars under titles, subtitles, or headings</strong> — This is the #1 AI tell. No thin rectangles (h: 0.03-0.05) placed under text as decorative separators. Not on title slides, not on section dividers, not on closing slides, not anywhere. If you feel a slide needs visual separation, use whitespace or a tinted panel instead.</p>
@@ -678,6 +685,27 @@ pip install &quot;markitdown[pptx]&quot; Pillow             # Reading + QA
 <p>If `brand-profile.json` exists in the working directory, read it before building decks. Override the default RRBC palette with the brand's colors (primary, secondary, background), use brand fonts when available (fall back to system fonts), and include the brand name on title slides and headers. This profile is produced by the `brand-dna` skill.</p></div>
 </div>
 <script>
+(function () {
+  var header = document.getElementById('site-header');
+  if (header) {
+    var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 40); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+  }
+  window.closeMobileNav = function () {
+    if (hamburger) hamburger.classList.remove('open');
+    if (mobileNav) mobileNav.classList.remove('open');
+  };
+})();
+
 function copyInstall(btn) {
   var text = btn.getAttribute('data-copy');
   navigator.clipboard.writeText(text).then(function() {

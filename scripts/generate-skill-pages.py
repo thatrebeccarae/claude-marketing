@@ -39,6 +39,33 @@ def extract_skill_body(slug: str) -> str:
     return body.strip()
 
 
+def _render_inline(text: str) -> str:
+    """Escape and apply inline markdown (bold, italic) for non-code content."""
+    text = escape_html(text)
+    text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
+    text = re.sub(r'\*(.+?)\*', r'<em>\1</em>', text)
+    return text
+
+
+def _is_table_row(line: str) -> bool:
+    s = line.strip()
+    return s.startswith("|") and s.endswith("|") and s.count("|") >= 2
+
+
+def _is_table_separator(line: str) -> bool:
+    s = line.strip()
+    if not (s.startswith("|") and s.endswith("|")):
+        return False
+    cells = [c.strip() for c in s.strip("|").split("|")]
+    if not cells:
+        return False
+    return all(re.match(r"^:?-+:?$", c) for c in cells if c)
+
+
+def _parse_table_row(line: str) -> list[str]:
+    return [c.strip() for c in line.strip().strip("|").split("|")]
+
+
 def md_to_html_simple(md: str) -> str:
     """Minimal markdown to HTML conversion for skill body content."""
     lines = md.split("\n")
@@ -47,7 +74,10 @@ def md_to_html_simple(md: str) -> str:
     in_code = False
     code_block = []
 
-    for line in lines:
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+
         # Code blocks
         if line.startswith("```"):
             if in_code:
@@ -59,10 +89,31 @@ def md_to_html_simple(md: str) -> str:
                     html_lines.append("</ul>")
                     in_list = False
                 in_code = True
+            i += 1
             continue
 
         if in_code:
             code_block.append(line)
+            i += 1
+            continue
+
+        # Tables: header row followed by separator row, then body rows
+        if _is_table_row(line) and i + 1 < len(lines) and _is_table_separator(lines[i + 1]):
+            if in_list:
+                html_lines.append("</ul>")
+                in_list = False
+            header_cells = _parse_table_row(line)
+            i += 2  # skip header + separator
+            body_rows = []
+            while i < len(lines) and _is_table_row(lines[i]):
+                body_rows.append(_parse_table_row(lines[i]))
+                i += 1
+            thead = "<tr>" + "".join(f"<th>{_render_inline(c)}</th>" for c in header_cells) + "</tr>"
+            tbody = "".join(
+                "<tr>" + "".join(f"<td>{_render_inline(c)}</td>" for c in row) + "</tr>"
+                for row in body_rows
+            )
+            html_lines.append(f"<table><thead>{thead}</thead><tbody>{tbody}</tbody></table>")
             continue
 
         # Headers
@@ -71,12 +122,14 @@ def md_to_html_simple(md: str) -> str:
                 html_lines.append("</ul>")
                 in_list = False
             html_lines.append(f'<h3>{escape_html(line[4:])}</h3>')
+            i += 1
             continue
         if line.startswith("## "):
             if in_list:
                 html_lines.append("</ul>")
                 in_list = False
             html_lines.append(f'<h2>{escape_html(line[3:])}</h2>')
+            i += 1
             continue
 
         # List items
@@ -84,10 +137,8 @@ def md_to_html_simple(md: str) -> str:
             if not in_list:
                 html_lines.append("<ul>")
                 in_list = True
-            # Handle bold in list items
-            item = escape_html(line[2:])
-            item = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', item)
-            html_lines.append(f"<li>{item}</li>")
+            html_lines.append(f"<li>{_render_inline(line[2:])}</li>")
+            i += 1
             continue
 
         # Blockquotes
@@ -95,9 +146,8 @@ def md_to_html_simple(md: str) -> str:
             if in_list:
                 html_lines.append("</ul>")
                 in_list = False
-            quote = escape_html(line[2:])
-            quote = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', quote)
-            html_lines.append(f'<blockquote>{quote}</blockquote>')
+            html_lines.append(f'<blockquote>{_render_inline(line[2:])}</blockquote>')
+            i += 1
             continue
 
         # Empty line
@@ -105,16 +155,15 @@ def md_to_html_simple(md: str) -> str:
             if in_list:
                 html_lines.append("</ul>")
                 in_list = False
+            i += 1
             continue
 
         # Paragraph
         if in_list:
             html_lines.append("</ul>")
             in_list = False
-        text = escape_html(line)
-        text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
-        text = re.sub(r'\*(.+?)\*', r'<em>\1</em>', text)
-        html_lines.append(f"<p>{text}</p>")
+        html_lines.append(f"<p>{_render_inline(line)}</p>")
+        i += 1
 
     if in_list:
         html_lines.append("</ul>")
@@ -235,6 +284,49 @@ body {{
 }}
 
 a {{ color: inherit; text-decoration: none; }}
+
+/* ─── SITE HEADER (matches index.html / quickstart.html / skills.html) ─── */
+.site-header {{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem clamp(20px, 5vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
+}}
+.site-header.scrolled {{
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}}
+.header-logo {{ font-weight: 600; font-size: 1rem; color: #ffffff; }}
+.header-nav {{ display: flex; gap: 2.5rem; align-items: center; }}
+.header-nav a {{
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--ease);
+}}
+.header-nav a:hover {{ opacity: 1; }}
+.header-github {{
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+  transition: background 0.2s, color 0.2s;
+}}
+.header-github:hover {{ background: #ffffff; color: #000000; }}
+.hamburger {{ display: none; }}
+.mobile-nav {{ display: none; }}
 
 .detail-page {{
   max-width: 720px;
@@ -425,17 +517,106 @@ a {{ color: inherit; text-decoration: none; }}
   font-style: italic;
 }}
 
+.detail-body table {{
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0 1.5rem;
+  display: block;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}}
+.detail-body thead th {{
+  text-align: left;
+  font-family: 'Cartograph CF', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  opacity: 0.7;
+  white-space: nowrap;
+}}
+.detail-body tbody td {{
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  line-height: 1.55;
+  vertical-align: top;
+  opacity: 0.85;
+}}
+.detail-body tbody tr:last-child td {{ border-bottom: 0; }}
+
 @media (max-width: 700px) {{
+  .header-nav {{ display: none; }}
+  .header-github {{ display: none; }}
+  .hamburger {{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }}
+  .hamburger span {{ width: 22px; height: 1.5px; background: #ffffff; transition: transform 0.2s; }}
+  .hamburger.open span:nth-child(1) {{ transform: translateY(5.5px) rotate(45deg); }}
+  .hamburger.open span:nth-child(2) {{ opacity: 0; }}
+  .hamburger.open span:nth-child(3) {{ transform: translateY(-5.5px) rotate(-45deg); }}
+  .mobile-nav {{
+    display: flex;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #000000;
+    z-index: 999;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 96px 20px 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s var(--ease);
+  }}
+  .mobile-nav.open {{ transform: translateX(0); }}
+  .mobile-nav a {{ font-family: 'PP Editorial New', serif; font-size: 2rem; font-weight: 200; }}
+
+  .site-header {{ padding-left: 20px; padding-right: 20px; }}
   .detail-page {{
     padding: 100px 20px 60px;
   }}
   .detail-source-links {{
     flex-wrap: wrap;
   }}
+  .detail-body table {{ font-size: 0.85rem; }}
+  .detail-body thead th,
+  .detail-body tbody td {{ padding: 0.55rem 0.7rem; }}
+}}
+
+@media (max-width: 390px) {{
+  .site-header {{ padding-left: 16px; padding-right: 16px; }}
+  .detail-page {{ padding-left: 16px; padding-right: 16px; }}
 }}
 </style>
 </head>
 <body>
+<header class="site-header" id="site-header">
+  <a href="../" class="header-logo">claude-marketing</a>
+  <nav class="header-nav">
+    <a href="../skills.html">Skills</a>
+    <a href="../#capabilities">Capabilities</a>
+    <a href="../#demo">Demo</a>
+    <a href="../#install">Install</a>
+  </nav>
+  <a href="{REPO_URL}" target="_blank" rel="noopener" class="header-github">View on GitHub &#8599;</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="../skills.html" onclick="closeMobileNav()">Skills</a>
+  <a href="../#capabilities" onclick="closeMobileNav()">Capabilities</a>
+  <a href="../#demo" onclick="closeMobileNav()">Demo</a>
+  <a href="../#install" onclick="closeMobileNav()">Install</a>
+  <a href="{REPO_URL}" target="_blank" rel="noopener">GitHub &#8599;</a>
+</nav>
 <div class="detail-page" data-pagefind-body>
   <a href="../skills.html" class="detail-back">&larr; Back to skills</a>
   <h1 class="detail-name">{escape_html(name)}</h1>
@@ -453,6 +634,27 @@ a {{ color: inherit; text-decoration: none; }}
   {f'<div class="detail-body">{body_html}</div>' if body_html else ''}
 </div>
 <script>
+(function () {{
+  var header = document.getElementById('site-header');
+  if (header) {{
+    var onScroll = function () {{ header.classList.toggle('scrolled', window.scrollY > 40); }};
+    window.addEventListener('scroll', onScroll, {{ passive: true }});
+    onScroll();
+  }}
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  if (hamburger && mobileNav) {{
+    hamburger.addEventListener('click', function () {{
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    }});
+  }}
+  window.closeMobileNav = function () {{
+    if (hamburger) hamburger.classList.remove('open');
+    if (mobileNav) mobileNav.classList.remove('open');
+  }};
+}})();
+
 function copyInstall(btn) {{
   var text = btn.getAttribute('data-copy');
   navigator.clipboard.writeText(text).then(function() {{
