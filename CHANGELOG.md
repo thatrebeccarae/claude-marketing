@@ -4,6 +4,49 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.8.0] - 2026-04-29
+
+Audit 2026-04 — agent-script modernization across `ga4-gap-analyzer`, `ga4-monitor`, and `gtm-implementer`. See `.planning/ROADMAP.md` plan 05-03 for the full audit context. The remaining W4 (n8n workflow JSON re-wiring) stays in the parking lot pending parallel pipeline work.
+
+### Changed
+
+- **`ga4-gap-analyzer` modernization (W1)** — gap analysis now uses Claude Opus 4.6 with adaptive thinking (`thinking: { type: "adaptive" }`) instead of Sonnet 4.6 standard. Trades higher per-call cost for stronger root-cause reasoning on missing events. Anomaly analysis still on Haiku 4.5 (unchanged — fast pattern matching is the right shape there).
+- **`ga4-gap-analyzer` AEO awareness** — when the client config sets `aeo_tracking_enabled: true`, the gap-analysis system prompt is augmented with LLM-traffic context (~70% Direct attribution caveat, AI referrer host regex, `ai_referral` event scaffold recommendation). Default (`false` or unset) preserves baseline prompt behavior.
+
+### Added
+
+- **`agents/ga4-gap-analyzer/AB_TEST_OPUS_4_7.md`** — sidecar A/B test plan for evaluating Opus 4.7 against the Opus 4.6 baseline once initial production data is available. Covers token-efficiency, cost, latency, and quality decision criteria.
+- **Per-client model override** — `gap_analysis.model` and `gap_analysis.max_tokens` fields in the client config now flow through to the Anthropic request body, enabling A/B testing without code changes.
+
+### Documentation
+
+- **`agents/ga4-gap-analyzer/README.md`** rewritten — new "Reasoning model" section explains the Opus + adaptive thinking choice and the forced-tool-use tradeoff; new "AEO awareness" section documents the `aeo_tracking_enabled` flag; cost notes recalibrated for the new model + thinking pricing.
+- **`agents/ga4-monitor/README.md`** rewritten — new "Auto-Collected Event Exclusion List" and "Anomaly Detection" sections document the data file, the `auto`/`binary`/`rolling_zscore` method modes, and the upstream input shape required for multi-baseline detection.
+
+### Changed (W2)
+
+- **`ga4-monitor` auto-event exclusion list externalized** — moved from a 6-event hardcoded set inside `compare-events.js` to `data/ga4-auto-events.json`. The new list covers GA4's full Enhanced Measurement set (form_*, video_*, file_download, view_search_results) plus mobile-app events (first_open, screen_view, notification_*) that today get false-flagged as "unexpected." The script reads from a `Read Auto Events` n8n node when available; falls back to an embedded synced copy otherwise.
+- **`ga4-monitor` multi-baseline anomaly detection** — replaces the binary "previous count >100, now exactly 0" check with a multi-baseline approach: rolling 7-day mean + z-score, same-day-last-week, same-day-4-weeks-ago. Alerts only when ≥2 of 3 baselines flag the same event. Catches partial drops the old check missed; avoids false-fires on legitimate event deletions. Configurable via `anomaly_detection.{method,min_history_days,z_threshold,drop_floor_pct}`. Defaults to `auto` mode — uses rolling_zscore when enough history, falls back to binary otherwise.
+
+### Added (W2)
+
+- **`agents/ga4-monitor/data/ga4-auto-events.json`** — canonical GA4 auto-event exclusion list, organized by category (`automatic`, `enhanced_measurement_web`, `enhanced_measurement_mobile`).
+- **Client config schema additions** (`schemas/client-config.schema.json`):
+  - `aeo_tracking_enabled: bool` — toggles AEO context injection in W1's gap-analyzer prompt
+  - `anomaly_detection: object` — knobs for the new W2 multi-baseline detection
+  - `gap_analysis: object` — backports W1's `model` and `max_tokens` overrides into the schema (previously the script accepted these but the schema rejected them)
+- **Event spec schema** (`schemas/event-spec.schema.json`) — `trigger_type` enum bumped to include `CLICK`, `LINK_CLICK`, `FORM_SUBMISSION` (the GTM Implementer already handles these; the schema previously didn't allow them).
+
+### Changed (W3)
+
+- **`gtm-implementer` server-side container guard** — `workspace-preflight.js` now detects sGTM containers via the GTM API response and exits with `route: "unsupported_container_type"` instead of falling through to the web-container resource builders. The downstream `gaawe`/`gaawc` payloads don't apply to sGTM's resource model; this prevents creating broken resources.
+- **`gtm-implementer` AEO scaffold** — when `aeo_tracking_enabled: true` and the spec doesn't already define `ai_referral`, `build-gtm-resources.js` appends a self-contained scaffold: a Custom JS variable matching `document.referrer` against the AI host regex, a pageview trigger keyed on the variable, and a GA4 Event tag posting the matched host as an event parameter. Idempotent — the existing resource-name dedup handles re-runs.
+
+### Added (W3)
+
+- **`agents/gtm-implementer/README.md`** — new "Server-Side GTM (sGTM)" section documenting the safety guard, "AEO Scaffolding" section documenting the `ai_referral` resources, and a "Consent Mode v2" awareness note (P3 — not implemented; current US-only client base).
+- **`workflows/ga4-gtm-pipeline/architecture.md`** — model reference updated from stale `claude-sonnet-4-20250514` to current Opus 4.6 + adaptive thinking; cost table notes calibration is now per-client; tech stack row reflects Opus + Haiku split.
+
 ## [1.7.0] - 2026-04-21
 
 ### Changed

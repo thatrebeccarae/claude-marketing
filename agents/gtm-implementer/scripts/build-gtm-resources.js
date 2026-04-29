@@ -273,7 +273,95 @@ for (const ev of eventsToImplement) {
   });
 }
 
-// ── 8. Return ─────────────────────────────────────────────────────────────────
+// ── 8. AEO scaffold (ai_referral) ─────────────────────────────────────────────
+// When clientConfig.aeo_tracking_enabled is true, append a self-contained
+// scaffold for tracking LLM-referred traffic. This complements the gap
+// analyzer's recommendation: the gap analyzer flags `ai_referral` as a
+// missing event in `quick_wins`, and this builder constructs the actual
+// GTM resources (Custom JS variable matching the AI host regex, a trigger
+// keyed on referrer match, and a GA4 Event tag posting the matched host).
+//
+// Idempotent — execute-gtm-writes.js skips resources whose names already
+// exist in the workspace, so re-runs don't duplicate.
+const aeoEnabled = config?.aeo_tracking_enabled === true;
+const aeoEventName = 'ai_referral';
+
+// Skip if the spec already defines ai_referral — the spec is the source of
+// truth and the standard event-builder above would have handled it.
+const aeoAlreadyInSpec = !!specLookup[aeoEventName];
+
+if (aeoEnabled && !aeoAlreadyInSpec) {
+  // ── Custom JavaScript variable: AI Referrer Host ────────────────────────
+  // Returns the matched AI host (e.g., "chatgpt.com") or empty string.
+  // Embedded as a single-line JS source for GTM's `jsm` variable type.
+  const aiReferrerJs = [
+    'function() {',
+    '  var ref = document.referrer || "";',
+    '  var host = "";',
+    '  try { host = new URL(ref).hostname.replace(/^www\\./, ""); } catch (e) { return ""; }',
+    '  var ai = /^(chatgpt\\.com|chat\\.openai\\.com|claude\\.ai|perplexity\\.ai|gemini\\.google\\.com|copilot\\.microsoft\\.com|grok\\.com|x\\.ai|meta\\.ai|you\\.com)$/i;',
+    '  return ai.test(host) ? host : "";',
+    '}',
+  ].join('\n');
+
+  variables.push({
+    name      : 'cjs_ai_referrer_host',
+    type      : 'jsm',
+    parameter : [
+      { type: 'TEMPLATE', key: 'javascript', value: aiReferrerJs },
+    ],
+  });
+
+  // ── Trigger: fires when AI Referrer Host is non-empty (page view) ───────
+  triggers.push({
+    name   : `PV - ${aeoEventName}`,
+    type   : 'PAGEVIEW',
+    filter : [
+      {
+        type      : 'CONTAINS',
+        parameter : [
+          { type: 'TEMPLATE', key: 'arg0', value: '{{cjs_ai_referrer_host}}' },
+          { type: 'TEMPLATE', key: 'arg1', value: '.' },  // any non-empty value contains a dot (TLD)
+        ],
+      },
+    ],
+  });
+
+  // ── GA4 Event tag: ai_referral ──────────────────────────────────────────
+  if (measurementId) {
+    tags.push({
+      name      : `GA4 Event - ${aeoEventName}`,
+      type      : 'gaawe',
+      parameter : [
+        { type: 'TEMPLATE', key: 'eventName', value: aeoEventName },
+        {
+          type : 'LIST',
+          key  : 'eventParameters',
+          list : [
+            {
+              type : 'MAP',
+              map  : [
+                { type: 'TEMPLATE', key: 'name',  value: 'ai_referrer_host' },
+                { type: 'TEMPLATE', key: 'value', value: '{{cjs_ai_referrer_host}}' },
+              ],
+            },
+          ],
+        },
+        { type: 'TAG_REFERENCE', key: 'measurementId', value: 'GA4 Configuration' },
+      ],
+      _trigger_name   : `PV - ${aeoEventName}`,
+      tagFiringOption : 'ONCE_PER_EVENT',
+      _is_aeo_scaffold: true,
+    });
+  } else {
+    skippedEvents.push({
+      event_name : aeoEventName,
+      reason     : 'AEO scaffold requested but no measurement_id in client config — GA4 Configuration tag dependency unavailable',
+    });
+  }
+}
+
+// ── 9. Return ─────────────────────────────────────────────────────────────────
 const totalResources = variables.length + triggers.length + tags.length;
 
 return [{
@@ -287,6 +375,7 @@ return [{
     total_resources      : totalResources,
     estimated_seconds    : totalResources * 4,
     events_to_implement  : eventsToImplement.map(ev => ev.name),
+    aeo_scaffold_built   : aeoEnabled && !aeoAlreadyInSpec && !!measurementId,
     _skipped_events      : skippedEvents,
   },
 }];

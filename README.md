@@ -294,7 +294,7 @@ Agents are standalone analysis modules with portable logic — comparison engine
 
 Workflows are autonomous n8n pipelines that wire agents together on a schedule. n8n runs locally here to save on costs, but cloud hosting works too. Unlike skills (which respond when you ask), workflows run on a schedule and act independently.
 
-Workflows use Claude via the Anthropic API (not Claude Code) — Claude Sonnet for deep analysis, Claude Haiku for fast classification.
+Workflows use Claude via the Anthropic API (not Claude Code) — Claude Opus 4.6 with adaptive thinking for deep analysis, Claude Haiku 4.5 for fast classification.
 
 ## Agents
 
@@ -303,7 +303,7 @@ Standalone agents with portable analysis logic — usable independently or wired
 | Agent | What It Does |
 |-------|-------------|
 | **[GA4 Monitor](agents/ga4-monitor/)** | Compares GA4 event data against a tracking spec, flags gaps, unexpected events, and volume anomalies |
-| **[GA4 Gap Analyzer](agents/ga4-gap-analyzer/)** | Claude diagnoses tracking gaps (Sonnet) and anomalies (Haiku), generates GTM implementation specs |
+| **[GA4 Gap Analyzer](agents/ga4-gap-analyzer/)** | Claude diagnoses tracking gaps (Opus 4.6 + adaptive thinking) and anomalies (Haiku 4.5), generates GTM implementation specs. Optional AEO awareness recommends an `ai_referral` event when client config sets `aeo_tracking_enabled: true`. |
 | **[GTM Implementer](agents/gtm-implementer/)** | Creates GTM variables, triggers, and tags — rate-limited, idempotent, workspace-isolated |
 
 Each agent works independently. Use GA4 Monitor for one-time audits without Claude or GTM. Use GA4 Gap Analyzer to diagnose issues from any comparison data. Use GTM Implementer to provision resources from any spec.
@@ -319,7 +319,7 @@ GA4 tracking gaps cost you conversion data every day. This pipeline detects them
 | Stage | Agent | What Happens |
 |-------|-------|-------------|
 | **Monitor** | [GA4 Monitor](agents/ga4-monitor/) | Fetches all GA4 events daily, compares against your event spec |
-| **Analyze** | [GA4 Gap Analyzer](agents/ga4-gap-analyzer/) | Claude Sonnet identifies gaps and recommends GTM implementations; Claude Haiku detects anomalies |
+| **Analyze** | [GA4 Gap Analyzer](agents/ga4-gap-analyzer/) | Claude Opus (with adaptive thinking) identifies gaps and recommends GTM implementations; Claude Haiku diagnoses anomalies |
 | **Implement** | [GTM Implementer](agents/gtm-implementer/) | Creates GTM variables, triggers, and tags in an isolated workspace (unpublished until you review) |
 | **Notify** | — | Slack messages at every stage — all-clear, gaps found, anomalies detected, GTM resources created |
 

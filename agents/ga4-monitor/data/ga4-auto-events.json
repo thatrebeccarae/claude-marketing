@@ -1,0 +1,40 @@
+{
+  "_meta": {
+    "description": "GA4 auto-collected and Enhanced Measurement events. Use this list to filter out platform-default events when flagging 'unexpected' events in compare-events.js. Update when GA4 ships new auto-events.",
+    "last_updated": "2026-04-29",
+    "source_docs": [
+      "https://support.google.com/analytics/answer/9234069",
+      "https://support.google.com/analytics/answer/9216061"
+    ]
+  },
+  "automatic": [
+    "first_visit",
+    "session_start",
+    "user_engagement",
+    "page_view",
+    "first_open",
+    "screen_view",
+    "app_remove",
+    "app_update",
+    "os_update",
+    "in_app_purchase"
+  ],
+  "enhanced_measurement_web": [
+    "scroll",
+    "click",
+    "view_search_results",
+    "video_start",
+    "video_progress",
+    "video_complete",
+    "file_download",
+    "form_start",
+    "form_submit"
+  ],
+  "enhanced_measurement_mobile": [
+    "notification_foreground",
+    "notification_dismiss",
+    "notification_open",
+    "notification_receive",
+    "notification_send"
+  ]
+}

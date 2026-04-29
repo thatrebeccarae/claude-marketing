@@ -75,29 +75,62 @@ const userContent = [
   topUnexpected.map(e => `- ${e}`).join('\n'),
 ].join('\n');
 
-// ── 6. Build Anthropic messages API request body ─────────────────────────────
-const systemPrompt = [
+// ── 6. Resolve AEO awareness flag from client config ─────────────────────────
+// When `aeo_tracking_enabled: true` is set on the client config, the system
+// prompt instructs the model to consider LLM-referred traffic patterns and
+// recommend an `ai_referral` event scaffold where appropriate.
+const clientConfig = (() => {
+  try { return $('Read Config').first().json; } catch { return {}; }
+})();
+const aeoEnabled = clientConfig?.aeo_tracking_enabled === true;
+
+// ── 7. Build Anthropic messages API request body ─────────────────────────────
+const systemPromptParts = [
   'You are a GA4/GTM analytics expert.',
   'Analyze missing events and provide implementation recommendations.',
   'Focus on practical, actionable GTM configurations.',
   'Group recommendations by implementation phase.',
   'For each event, specify the exact GTM tag type, trigger configuration, and any dataLayer requirements.',
+];
+
+if (aeoEnabled) {
+  systemPromptParts.push(
+    '',
+    '## AEO / LLM-traffic context',
+    'GA4 has no native channel for LLM/AI-search referrers. ~70% of LLM-referred traffic lands as Direct in GA4 because the referrer is stripped (especially ChatGPT free tier and Google AI Mode, which emits no distinct host).',
+    'Common AI referrer hosts (regex): chatgpt\\.com|chat\\.openai\\.com|claude\\.ai|perplexity\\.ai|gemini\\.google\\.com|copilot\\.microsoft\\.com|grok\\.com|x\\.ai|meta\\.ai|you\\.com',
+    'Practitioner-default solution is a custom Channel Group "AI Assistants" plus an `ai_referral` custom event keyed off the referrer regex.',
+    'When recommending events for this client, include an `ai_referral` scaffold in `quick_wins` if it is missing from the spec — name it `ai_referral`, trigger_type `CUSTOM_EVENT` fired by a Custom JavaScript variable that matches `document.referrer` against the AI host regex.',
+  );
+}
+
+systemPromptParts.push(
   '',
-  'CRITICAL: Respond with ONLY valid JSON. No markdown fences (```), no commentary outside the JSON.',
+  'Output: valid JSON object. Markdown fences (```) are tolerated by the parser but prefer raw JSON.',
   'Be concise — max 3 events per quick_wins, max 4 phases, max 5 unexpected_event_analysis entries.',
   'Use this exact schema:',
   '',
   '{"summary":"2-3 sentences","quick_wins":[{"event_name":"str","reason":"str","gtm_config":{"tag_type":"str","trigger_type":"str","trigger_config":"str"}}],"phases":[{"phase_number":1,"group_name":"str","description":"str","events":[{"name":"str","priority":"str","trigger_type":"str","datalayer_requirements":["var"],"engineering_notes":"str"}],"engineering_effort":"str"}],"unexpected_event_analysis":[{"unexpected_event":"str","likely_spec_match":"str|null","recommendation":"str"}]}',
-].join('\n');
+);
+
+const systemPrompt = systemPromptParts.join('\n');
+
+// Opus 4.6 + adaptive thinking gives stronger root-cause reasoning on missing
+// events and unexpected-event triage. tool_choice stays at the default ("auto")
+// because adaptive thinking is incompatible with forced tool use.
+// Model can be overridden via client config (`gap_analysis.model`) for A/B testing.
+const model = clientConfig?.gap_analysis?.model ?? 'claude-opus-4-6';
+const maxTokens = clientConfig?.gap_analysis?.max_tokens ?? 16384;
 
 const anthropic_request_body = {
-  model      : 'claude-sonnet-4-6',
-  max_tokens : 8192,
+  model,
+  max_tokens : maxTokens,
+  thinking   : { type: 'adaptive' },
   system     : systemPrompt,
   messages   : [
     { role: 'user', content: userContent },
   ],
 };
 
-// ── 7. Return ────────────────────────────────────────────────────────────────
+// ── 8. Return ────────────────────────────────────────────────────────────────
 return [{ json: { anthropic_request_body } }];

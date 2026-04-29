@@ -101,7 +101,15 @@
         "tag_type": { "type": "string" },
         "trigger_type": {
           "type": "string",
-          "enum": ["CUSTOM_EVENT", "PAGEVIEW", "DOM_READY", "WINDOW_LOADED"]
+          "enum": [
+            "CUSTOM_EVENT",
+            "PAGEVIEW",
+            "DOM_READY",
+            "WINDOW_LOADED",
+            "CLICK",
+            "LINK_CLICK",
+            "FORM_SUBMISSION"
+          ]
         },
         "trigger_event_name": { "type": "string" },
         "trigger_filter": {
