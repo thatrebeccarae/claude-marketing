@@ -31,6 +31,14 @@ This pipeline flips that. It runs daily, compares your live GA4 event data again
 - Push code to any repository (dataLayer changes are flagged for eng teams)
 - Skip the human approval gate
 
+The end-to-end build walkthrough — n8n hosting choices, GCP service account, Slack app, Anthropic API key, the 10-stage workflow assembly, scheduling, and day-to-day use for the marketing team — lives on page 6 of the [**Claude Marketing — The Complete Guide**](https://thatrebeccarae.gumroad.com/l/claude-marketing). Free, in Notion. The version of this README I'd hand to an engineer setting it up for a marketing team.
+
+<div align="center">
+
+[![Get the build walkthrough](https://img.shields.io/badge/Get_the_build_walkthrough-Free-353535?style=for-the-badge)](https://thatrebeccarae.gumroad.com/l/claude-marketing)
+
+</div>
+
 ## Agents Used
 
 This workflow orchestrates three standalone agents:
@@ -38,78 +46,21 @@ This workflow orchestrates three standalone agents:
 | Agent | Role in Pipeline | Can Use Standalone? |
 |-------|-----------------|-------------------|
 | **[GA4 Monitor](../../agents/ga4-monitor/)** | Compares GA4 events against tracking spec, flags gaps and anomalies | Yes — one-time audits, validation scripts |
-| **[GA4 Gap Analyzer](../../agents/ga4-gap-analyzer/)** | Claude diagnoses gaps (Sonnet) and anomalies (Haiku) | Yes — manual analysis from any comparison data |
+| **[GA4 Gap Analyzer](../../agents/ga4-gap-analyzer/)** | Claude diagnoses gaps (Opus, adaptive thinking) and anomalies (Haiku) | Yes — manual analysis from any comparison data |
 | **[GTM Implementer](../../agents/gtm-implementer/)** | Creates GTM resources from analysis output | Yes — manual GTM provisioning from specs |
 
 ## Architecture Overview
 
-```
-Schedule Trigger (per property)
-    │
-    ▼
-Read property config JSON
-    │
-    ▼
-GA4 Data API ──► Fetch current event inventory + counts
-    │
-    ▼
-GA4 Monitor: compare events vs tracking spec
-    │
-    ├── All Clear ──► Slack: "100% coverage" ──► Write report ──► END
-    │
-    └── Issues Found
-            │
-            ├── Anomalies? ──► Slack URGENT alert
-            │                  GA4 Gap Analyzer (Haiku): root cause analysis
-            │
-            └── Gaps? ──► GA4 Gap Analyzer (Sonnet): gap analysis + GTM specs
-                           │
-                           ▼
-                      Slack: "Found N gaps. Proposed changes: ..."
-                           │
-                           ▼
-                      Wait for human approval
-                           │
-                      ┌────┴────┐
-                      │         │
-                 APPROVED   REJECTED ──► END
-                      │
-                      ▼
-                 GTM Implementer: preflight + create workspace + write resources
-                      │
-                      ▼
-                 Slack: "Workspace ready. Review in GTM UI."
-                      │
-                      ▼
-                 END
-```
+Three stages, gated by a human approval step.
+
+1. **Monitor.** A scheduled trigger fires per property, reads the property config, fetches the current GA4 event inventory, and compares it against the tracking spec.
+2. **Analyze.** If gaps or anomalies surface, GA4 Gap Analyzer runs Claude Opus (with adaptive thinking) on gap analysis and trigger / tag implementation logic, and Claude Haiku on anomaly root-cause. Slack receives the results with approve / reject controls.
+3. **Implement.** On approval, GTM Implementer preflight-checks workspace availability, then creates the workspace, variables, triggers, and tags — never published. The reviewer publishes manually in the GTM UI.
 
 ## What's Included
 
-```
-ga4-gtm-pipeline/
-├── scripts/
-│   ├── n8n-nodes/                      # n8n-specific Code node scripts
-│   │   ├── ga4-auth.js                 # GA4 service account authentication
-│   │   ├── gtm-auth.js                 # GTM service account authentication
-│   │   ├── format-slack-messages.js    # Slack notification formatting
-│   │   ├── format-gtm-slack.js         # GTM-specific Slack formatting
-│   │   ├── slack-templates.json        # Slack Block Kit templates
-│   │   ├── write-monitoring-report.js  # Daily report generation
-│   │   ├── write-implementation-prd.js # PRD generation
-│   │   └── write-gtm-implementation-doc.js  # GTM doc generation
-│   └── n8n-workflows/                  # Importable n8n workflow JSONs
-│       ├── main-pipeline.json          # Core pipeline (shared across properties)
-│       ├── triggers.json               # Per-property schedule triggers
-│       └── error-workflow.json         # Global error handler
-├── templates/
-│   ├── implementation-doc.md.tmpl      # GTM implementation doc template
-│   └── monitoring-status.md.tmpl       # Daily monitoring report template
-├── architecture.md                     # Detailed technical design
-├── GETTING_STARTED.md                  # Step-by-step setup guide
-├── project-roadmap.md                  # Feature roadmap
-└── README.md
-```
+- `scripts/n8n-nodes/` — JavaScript files for n8n Code nodes (auth, Slack formatters, report writers)
+- `templates/` — markdown templates for monitoring reports and implementation docs
 
 ## Prerequisites
 
@@ -119,7 +70,7 @@ ga4-gtm-pipeline/
 | **Google Cloud service account** | GA4 Data API (read) + GTM API (read/write)                                      |
 | **GA4 property**                 | The property you want to monitor                                                |
 | **GTM container**                | Where implementation changes are created                                        |
-| **Claude API key**               | Sonnet for gap analysis, Haiku for anomaly detection                            |
+| **Claude API key**               | Opus (adaptive thinking) for gap analysis, Haiku for anomaly detection          |
 | **Slack app**                    | Notifications, alerts, and approval requests (requires Slack admin permissions) |
 
 ### Google Cloud Setup
@@ -152,13 +103,9 @@ Define the expected events for the property following the schema in [`agents/ga4
 python agents/ga4-monitor/scripts/validate-event-spec.py path/to/event-spec.json
 ```
 
-### 3. Import n8n Workflows
+### 3. Build the workflow in n8n
 
-Import the three workflow JSONs from `scripts/n8n-workflows/` into your n8n instance:
-
-1. **main-pipeline.json** — the shared pipeline logic
-2. **triggers.json** — per-property schedule triggers (customize for your properties)
-3. **error-workflow.json** — global error handler with Slack alerts
+Follow [page 6 of the Complete Guide](https://thatrebeccarae.gumroad.com/l/claude-marketing) — node-by-node walkthrough with the Code-node JS from `scripts/n8n-nodes/` dropped into place.
 
 ### 4. Configure Credentials in n8n
 
@@ -174,48 +121,11 @@ Use [`agents/ga4-monitor/test-data/ga4-sample-response.json`](../../agents/ga4-m
 
 ## How It Works
 
-### The Daily Cycle
+A daily run hits the GA4 Data API, pulls the last 7 days of event counts, and compares them against the property's tracking spec. Match → Slack confirms 100% coverage and the pipeline writes the daily report. No match → the run branches.
 
-1. **Scheduled trigger fires** (per property, configurable cadence)
-2. **GA4 fetch** pulls the current event inventory with counts from the last 7 days
-3. **GA4 Monitor** checks events against the tracking spec — identifies missing events, unexpected events, and count anomalies (volume drops/spikes)
-4. **If all clear:** Slack gets a green status message, a monitoring report is written, done
-5. **If anomalies detected:** Slack gets an urgent alert, **GA4 Gap Analyzer** (Haiku) analyzes root cause patterns
-6. **If gaps detected:** **GA4 Gap Analyzer** (Sonnet) generates a full gap analysis with GTM implementation specs
-7. **Human reviews** the proposed changes in Slack, approves or rejects
-8. **If approved:** **GTM Implementer** runs a preflight check, creates the workspace, and writes all resources with rate limiting
-9. **Implementation docs** are generated from templates and saved alongside the monitoring report
-10. **Final Slack message** includes a direct link to the GTM workspace for review before publishing
+When the comparison surfaces anomalies, Haiku runs root-cause on the volume drops or spikes and Slack gets an urgent alert. When it surfaces gaps, Opus generates the full gap analysis and the GTM specs needed to close them, and Slack sends the proposed changes with approve / reject controls.
 
-### Multiple Properties
-
-One pipeline, many properties. The workflow logic is identical across all properties — only the configuration changes:
-
-| Per-Property | Shared |
-|--------------|--------|
-| GA4 property ID + credentials | n8n workflow logic |
-| GTM container ID + credentials | Claude analysis prompts |
-| Event spec (expected events) | GTM tag creation patterns |
-| Slack channel | Monitoring report templates |
-| Schedule cadence | Approval flow pattern |
-| Approvers list | Workspace lifecycle rules |
-
-Adding a new property = creating a config JSON + event spec + scheduling a trigger. No workflow duplication.
-
-### Claude Model Usage
-
-| Task | Model | Why | Approx. Cost |
-|------|-------|-----|-------------|
-| Gap analysis + GTM spec generation | Sonnet | Needs deep reasoning about event relationships, trigger logic, and implementation tradeoffs | ~$0.05-0.10/run |
-| Anomaly root cause analysis | Haiku | Pattern matching on volume changes, faster turnaround for urgent alerts | ~$0.01/run |
-
-### GTM Write Safety
-
-- **Rate-limited:** 4-second delays between GTM API calls (respects API quotas)
-- **Idempotent:** reruns detect existing resources by name and skip duplicates
-- **Workspace-isolated:** all changes land in a named workspace (`claude-{purpose}-{date}`), never in the default workspace
-- **Preflight checks:** verifies workspace availability before attempting creation (free GTM accounts allow 3 workspaces total)
-- **No publish permission:** the service account cannot publish containers by design
+On approval, GTM Implementer preflights workspace availability, creates the named workspace (`claude-{purpose}-{date}`), and writes the variables, triggers, and tags inside it — rate-limited, idempotent, never published. A reviewer opens GTM, checks the workspace, and clicks publish if the changes are right. The service account has no publish permission by design.
 
 ## Security Model
 
@@ -277,6 +187,8 @@ No workflow changes needed.
 
 ## Resources
 
+- [Claude Marketing — The Complete Guide](https://thatrebeccarae.gumroad.com/l/claude-marketing) — free Notion reference. Page 6 has the full n8n build walkthrough; the rest covers install, credentials, the six skills to start with, scored audits, and workflow chains
+- [The Marketing Expertise Layer for Claude Code](https://dgtldept.substack.com/p/the-marketing-expertise-layer-for-claude-code) — companion essay on dgtl dept*
 - [GA4 Data API v1 Documentation](https://developers.google.com/analytics/devguides/reporting/data/v1)
 - [Google Tag Manager API v2 Reference](https://developers.google.com/tag-platform/tag-manager/api/v2)
 - [n8n Documentation](https://docs.n8n.io/)

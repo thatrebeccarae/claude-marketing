@@ -43,6 +43,16 @@ git clone https://github.com/thatrebeccarae/claude-marketing.git
 
 Each skill ships three layers: **SKILL.md** (frameworks and decision trees), **REFERENCE.md** (benchmarks, API schemas, rate limits), and **EXAMPLES.md** (worked prompts with expected output). Not prompt templates — implementation-grade tools tested in real engagements.
 
+The catalog came out of [a client engagement where the team was drowning in meetings](https://dgtldept.substack.com/p/the-marketing-expertise-layer-for-claude-code) and grew from there. The companion essay on dgtl dept\* walks through three of the skills with the exact prompts I run on live engagements, the output they return, and what they replace.
+
+For installing and using them properly, the [**Claude Marketing — The Complete Guide**](https://thatrebeccarae.gumroad.com/l/claude-marketing) is the deeper reference — free, in Notion, six pages on install, credentials, the six skills to start with, how the scored audits work, five workflow chains I run on engagements, and the n8n pipeline build. Read it before you start, or keep it open on a second monitor while you work.
+
+<div align="center">
+
+[![Get the Complete Guide](https://img.shields.io/badge/Get_the_Complete_Guide-Free-353535?style=for-the-badge)](https://thatrebeccarae.gumroad.com/l/claude-marketing)
+
+</div>
+
 ## Quick Start
 
 ```bash
@@ -75,11 +85,15 @@ Each skill works independently — install only what you need.
 
 ## Skills
 
-All 56 skills live in [`skills/`](skills/) — install individually or use a [skill pack](skill-packs/) to set up a related group.
+All 56 skills live in [`skills/`](skills/) — install individually or use a [skill pack](skill-packs/) to set up a related group. The interactive demo site has search, skill details, and install instructions for each.
 
 > **All skills tested March 2026 with Claude Code v2.1.** Each skill's SKILL.md includes a `tested` date and `tested_with` version in its frontmatter metadata.
 
-> [**Browse the Skill Catalog**](https://thatrebeccarae.github.io/claude-marketing/) — Interactive demo site with search, skill details, and install instructions.
+<div align="center">
+
+[![View Catalog](https://img.shields.io/badge/View_Catalog-Live-353535?style=for-the-badge)](https://thatrebeccarae.github.io/claude-marketing/)
+
+</div>
 
 ### Paid Media
 
@@ -327,7 +341,7 @@ GA4 tracking gaps cost you conversion data every day. This pipeline detects them
 
 Handles multiple GA4 properties — configure once per property, runs hands-off from there.
 
-See the [GA4-GTM Pipeline README](workflows/ga4-gtm-pipeline/README.md) and [Getting Started guide](workflows/ga4-gtm-pipeline/GETTING_STARTED.md) for setup.
+See the [GA4-GTM Pipeline README](workflows/ga4-gtm-pipeline/README.md) for the architecture overview, or the [Complete Guide](https://thatrebeccarae.gumroad.com/l/claude-marketing) for the full n8n build walkthrough.
 
 ## Composing Skills
 
@@ -508,11 +522,12 @@ On macOS, `python` may point to Python 2. Use `python3` explicitly or install vi
 
 | Resource | Description |
 |----------|-------------|
+| [The Marketing Expertise Layer for Claude Code](https://dgtldept.substack.com/p/the-marketing-expertise-layer-for-claude-code) | Companion essay on dgtl dept* — three skills walked end-to-end with the prompts I actually type |
+| [Claude Marketing — The Complete Guide](https://thatrebeccarae.gumroad.com/l/claude-marketing) | Free Notion reference. Six pages: install, credentials, six skills to start with, scored audits explained, five workflow chains, the n8n pipeline build, troubleshooting |
 | [Composing Skills](examples/) | How to chain skills together — context flow, tips, and 3 worked workflow examples |
 | [DTC Getting Started](skill-packs/dtc-getting-started.md) | Step-by-step setup for DTC platforms |
 | [Paid Media Getting Started](skill-packs/paid-media-getting-started.md) | Step-by-step setup for paid media platforms |
 | [GA4-GTM Pipeline README](workflows/ga4-gtm-pipeline/README.md) | Pipeline architecture, agent orchestration, setup, and security model |
-| [GA4-GTM Pipeline Getting Started](workflows/ga4-gtm-pipeline/GETTING_STARTED.md) | Step-by-step n8n + GA4 + GTM setup |
 | [CHANGELOG](CHANGELOG.md) | Version history and release notes |
 | [SECURITY](SECURITY.md) | Security design and vulnerability reporting |
 | [CONTRIBUTING](CONTRIBUTING.md) | How to contribute skills, report bugs, submit PRs |

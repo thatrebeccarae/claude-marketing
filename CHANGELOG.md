@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+### Removed
+
+- **`workflows/ga4-gtm-pipeline/GETTING_STARTED.md`** — the n8n build walkthrough now lives on page 6 ("Deploying Workflows (n8n)") of the Claude Marketing — The Complete Guide. The Notion page goes deeper than the repo file did — adds hosting-option trade-offs (n8n Cloud vs self-hosted vs hosted-with-storage), a who-does-what split between engineering and marketing, day-to-day use guidance, and operational notes on sGTM, Consent Mode v2, and the AEO scaffold.
+
+### Changed
+
+- **Root README — Complete Guide and companion essay surfaces.** Origin and the Complete Guide are now woven into the intro prose between the three-layer skill description and Quick Start, with the companion essay linked mid-sentence and a centered `Get the Complete Guide | Free` button after the Complete Guide pitch. The inline `Browse the Skill Catalog` link in the Skills section was replaced with a centered `View Catalog | Live` button, with the demo-site description folded into the preceding paragraph. The Workflows section pointer now references the Complete Guide for the n8n build walkthrough instead of the deleted GETTING_STARTED.md, and the Other Resources table uses asset titles as link text ("The Marketing Expertise Layer for Claude Code", "Claude Marketing — The Complete Guide") instead of generic descriptors.
+- **`workflows/ga4-gtm-pipeline/README.md` trim and CTA rework.** Architecture Overview's full ASCII diagram condensed to a 3-stage prose summary. How It Works rewritten as a 3-paragraph narrative (was a 10-step list). Multi-property and Claude model cost tables removed. GTM Write Safety bullets dropped. What's Included simplified to a 2-line list. The Complete Guide CTA moved from the header badge row to the end of the What It Does section, with positioning prose ("the version of this README I'd hand to an engineer setting it up for a marketing team") and a centered `Get the build walkthrough | Free` button. Setup Step 3 trimmed to a one-sentence pointer. Resources section uses asset titles as link text. Stale Sonnet references in the Agents Used and Prerequisites tables corrected to Opus + adaptive thinking (matches the model swap shipped in 1.8.0).
+
 ### Fixed
 
 - **Deploy Site CI workflow self-gates to public repo only** — `.github/workflows/deploy-site.yml` previously failed on every push to `claude-marketing-dev` because the private repo doesn't have GitHub Pages enabled. Added `if: github.repository == 'thatrebeccarae/claude-marketing'` to both jobs so the workflow no-ops on dev.
