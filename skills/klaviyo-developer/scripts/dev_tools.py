@@ -23,6 +23,7 @@ import json
 import csv
 import time
 import argparse
+import traceback
 import hashlib
 import hmac
 from typing import Dict, List, Optional
@@ -107,11 +108,12 @@ class KlaviyoDevTools:
                 "status": "pass",
                 "detail": "Successfully connected to Klaviyo API",
             })
-        except Exception:
+        except Exception as e:
             results["checks"].append({
                 "check": "API Connectivity",
                 "status": "fail",
                 "detail": "Failed to connect. Check API key and network connection.",
+                "underlying_error": f"{type(e).__name__}: {e}",
             })
             results["status"] = "unhealthy"
             return results
@@ -124,11 +126,12 @@ class KlaviyoDevTools:
                 "status": "pass",
                 "detail": "profiles:read scope verified",
             })
-        except Exception:
+        except Exception as e:
             results["checks"].append({
                 "check": "Profile Read Scope",
                 "status": "fail",
                 "detail": "profiles:read may not be enabled. Check API key scopes.",
+                "underlying_error": f"{type(e).__name__}: {e}",
             })
 
         # Check 3: Metrics availability
@@ -172,11 +175,12 @@ class KlaviyoDevTools:
                     "detail": f"All {len(essential_events)} essential events present",
                 })
 
-        except Exception:
+        except Exception as e:
             results["checks"].append({
                 "check": "Metrics Available",
                 "status": "fail",
                 "detail": "Failed to retrieve metrics. Check API key scopes.",
+                "underlying_error": f"{type(e).__name__}: {e}",
             })
 
         # Check 4: Catalog access
@@ -188,11 +192,12 @@ class KlaviyoDevTools:
                 "status": "pass",
                 "detail": f"catalogs:read verified ({item_count} items found)",
             })
-        except Exception:
+        except Exception as e:
             results["checks"].append({
                 "check": "Catalog Access",
                 "status": "warning",
                 "detail": "catalogs:read may not be enabled. Check API key scopes.",
+                "underlying_error": f"{type(e).__name__}: {e}",
             })
 
         # Set overall status
@@ -308,9 +313,10 @@ class KlaviyoDevTools:
             results["status"] = "fail"
             results["error"] = "Connection failed. Check the webhook URL and network."
 
-        except Exception:
+        except Exception as e:
             results["status"] = "fail"
             results["error"] = "Webhook test failed. Check the URL and try again."
+            results["underlying_error"] = f"{type(e).__name__}: {e}"
 
         return results
 
@@ -364,14 +370,15 @@ class KlaviyoDevTools:
                     "status": "submitted",
                     "job_id": result.get("job_id"),
                 })
-            except Exception:
+            except Exception as e:
                 results["batches"].append({
                     "batch": batch_num,
                     "profiles": len(batch),
                     "status": "failed",
                     "error": "Batch import failed. Check API key and profile data.",
+                    "underlying_error": f"{type(e).__name__}: {e}",
                 })
-                results["errors"].append("Batch import failed. Check API key and profile data.")
+                results["errors"].append(f"Batch import failed: {type(e).__name__}: {e}")
 
         # Summary
         successful = sum(
@@ -609,6 +616,11 @@ Examples:
         "--output",
         help="Output file path (default: stdout)",
     )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Re-raise exceptions with full traceback instead of friendly error",
+    )
 
     args = parser.parse_args()
 
@@ -661,7 +673,10 @@ Examples:
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
     except Exception:
-        print("Error: Operation failed. Check your API key and network connection.", file=sys.stderr)
+        if args.debug:
+            traceback.print_exc()
+        else:
+            print("Error: Operation failed. Check your API key and network connection.", file=sys.stderr)
         sys.exit(1)
 
 

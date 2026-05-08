@@ -21,6 +21,7 @@ import sys
 import json
 import csv
 import argparse
+import traceback
 from typing import Dict, List, Optional
 
 try:
@@ -75,8 +76,9 @@ class KlaviyoDevClient:
 
         try:
             self.client = KlaviyoAPI(api_key, max_delay=60, max_retries=3)
-        except Exception:
-            raise RuntimeError("Failed to initialize Klaviyo client. Check your API key.")
+        except Exception as e:
+            print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
+            raise RuntimeError("Failed to initialize Klaviyo client. Check your API key.") from e
 
     def track_event(
         self,
@@ -102,8 +104,9 @@ class KlaviyoDevClient:
         try:
             response = self.client.Events.create_event(body)
             return {"status": "success", "event": event_name, "email": email}
-        except Exception:
-            raise RuntimeError("Failed to track event. Check your API key and event data.")
+        except Exception as e:
+            print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
+            raise RuntimeError("Failed to track event. Check your API key and event data.") from e
 
     def upsert_profile(
         self,
@@ -127,8 +130,9 @@ class KlaviyoDevClient:
         try:
             response = self.client.Profiles.create_profile(body)
             return self._parse_jsonapi_response(response)
-        except Exception:
-            raise RuntimeError("Failed to upsert profile. Check your API key and profile data.")
+        except Exception as e:
+            print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
+            raise RuntimeError("Failed to upsert profile. Check your API key and profile data.") from e
 
     def bulk_import(
         self, profiles: List[Dict], list_id: Optional[str] = None
@@ -189,8 +193,9 @@ class KlaviyoDevClient:
                 "job_id": result.get("id") if isinstance(result, dict) else None,
                 "profiles_submitted": len(profiles),
             }
-        except Exception:
-            raise RuntimeError("Failed to submit bulk import. Check your API key and profile data.")
+        except Exception as e:
+            print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
+            raise RuntimeError("Failed to submit bulk import. Check your API key and profile data.") from e
 
     def get_import_job_status(self, job_id: str) -> Dict:
         """
@@ -205,8 +210,9 @@ class KlaviyoDevClient:
         try:
             response = self.client.Profiles.get_bulk_profile_import_job(job_id)
             return self._parse_jsonapi_response(response)
-        except Exception:
-            raise RuntimeError("Failed to get import job status. Check job ID and API key.")
+        except Exception as e:
+            print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
+            raise RuntimeError("Failed to get import job status. Check job ID and API key.") from e
 
     def get_catalog_items(self, filter_str: Optional[str] = None) -> List[Dict]:
         """
@@ -225,8 +231,9 @@ class KlaviyoDevClient:
 
             response = self.client.Catalogs.get_catalog_items(**kwargs)
             return self._parse_jsonapi_response(response)
-        except Exception:
-            raise RuntimeError("Failed to fetch catalog items. Check your API key and catalog scopes.")
+        except Exception as e:
+            print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
+            raise RuntimeError("Failed to fetch catalog items. Check your API key and catalog scopes.") from e
 
     def create_catalog_item(self, item_data: Dict) -> Dict:
         """
@@ -271,8 +278,9 @@ class KlaviyoDevClient:
         try:
             response = self.client.Catalogs.create_catalog_item(body)
             return self._parse_jsonapi_response(response)
-        except Exception:
-            raise RuntimeError("Failed to create catalog item. Check your API key and item data.")
+        except Exception as e:
+            print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
+            raise RuntimeError("Failed to create catalog item. Check your API key and item data.") from e
 
     def export_profiles(
         self, page_size: int = 100, max_pages: Optional[int] = None
@@ -338,10 +346,11 @@ class KlaviyoDevClient:
                 if not cursor:
                     break
 
-            except Exception:
+            except Exception as e:
+                print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
                 raise RuntimeError(
                     "Failed to export profiles. Check your API key and profile scopes."
-                )
+                ) from e
 
         return profiles
 
@@ -355,8 +364,9 @@ class KlaviyoDevClient:
         try:
             response = self.client.Metrics.get_metrics()
             return self._parse_jsonapi_response(response)
-        except Exception:
-            raise RuntimeError("Failed to fetch metrics. Check your API key and metrics scopes.")
+        except Exception as e:
+            print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
+            raise RuntimeError("Failed to fetch metrics. Check your API key and metrics scopes.") from e
 
     def _parse_jsonapi_response(self, response) -> List[Dict]:
         """Flatten JSON:API envelope into simple dictionaries."""
@@ -520,6 +530,11 @@ Examples:
         help="Output format (default: json)",
     )
     parser.add_argument("--output", help="Output file path (default: stdout)")
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Re-raise exceptions with full traceback instead of friendly error",
+    )
 
     args = parser.parse_args()
 
@@ -604,7 +619,10 @@ Examples:
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
     except Exception:
-        print("Error: Operation failed. Check your API key and network connection.", file=sys.stderr)
+        if args.debug:
+            traceback.print_exc()
+        else:
+            print("Error: Operation failed. Check your API key and network connection.", file=sys.stderr)
         sys.exit(1)
 
 
