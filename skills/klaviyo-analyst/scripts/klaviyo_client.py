@@ -66,6 +66,22 @@ class KlaviyoAnalyticsClient:
         except Exception:
             raise RuntimeError("Failed to initialize Klaviyo client. Check your API key.")
 
+        self._conversion_metric_id: Optional[str] = None
+
+    def _get_conversion_metric_id(self, name: str = "Placed Order") -> str:
+        """Resolve a metric name to its Klaviyo metric ID. Cached after first call."""
+        if self._conversion_metric_id:
+            return self._conversion_metric_id
+        metrics = self.get_metrics()
+        for m in metrics:
+            if m.get("name") == name:
+                self._conversion_metric_id = m.get("id")
+                return self._conversion_metric_id
+        raise RuntimeError(
+            f"Conversion metric '{name}' not found in account. "
+            f"Reporting calls require an alphanumeric metric ID, not a name."
+        )
+
     def get_flows(self, filter_str: Optional[str] = None) -> List[Dict]:
         """
         List all flows with status and trigger information.
@@ -97,10 +113,8 @@ class KlaviyoAnalyticsClient:
             List of campaign dictionaries
         """
         try:
-            kwargs = {}
-            if filter_str:
-                kwargs["filter"] = filter_str
-
+            # Klaviyo API requires a filter on messages.channel; default to email.
+            kwargs = {"filter": filter_str or 'equals(messages.channel,"email")'}
             response = self.client.Campaigns.get_campaigns(**kwargs)
             return self._parse_jsonapi_response(response)
         except Exception:
@@ -149,24 +163,26 @@ class KlaviyoAnalyticsClient:
                     "attributes": {
                         "statistics": [
                             "opens",
-                            "unique_opens",
+                            "opens_unique",
                             "clicks",
-                            "unique_clicks",
+                            "clicks_unique",
                             "recipients",
-                            "deliveries",
-                            "bounces",
+                            "delivered",
+                            "bounced",
                             "unsubscribes",
                             "spam_complaints",
-                            "revenue",
+                            "conversion_value",
                         ],
                         "timeframe": {"key": "last_365_days"},
-                        "conversion_metric_id": "placed_order",
+                        "conversion_metric_id": self._get_conversion_metric_id(),
                         "filter": f"equals(flow_id,\"{flow_id}\")",
                     },
                 }
             }
             response = self.client.Reporting.query_flow_values(body)
-            return self._parse_jsonapi_response(response)
+            parsed = self._parse_jsonapi_response(response)
+            results = parsed.get("results") if isinstance(parsed, dict) else None
+            return results[0].get("statistics", {}) if results else {}
         except Exception:
             raise RuntimeError(f"Failed to fetch flow report for {flow_id}.")
 
@@ -187,24 +203,26 @@ class KlaviyoAnalyticsClient:
                     "attributes": {
                         "statistics": [
                             "opens",
-                            "unique_opens",
+                            "opens_unique",
                             "clicks",
-                            "unique_clicks",
+                            "clicks_unique",
                             "recipients",
-                            "deliveries",
-                            "bounces",
+                            "delivered",
+                            "bounced",
                             "unsubscribes",
                             "spam_complaints",
-                            "revenue",
+                            "conversion_value",
                         ],
                         "timeframe": {"key": "last_365_days"},
-                        "conversion_metric_id": "placed_order",
+                        "conversion_metric_id": self._get_conversion_metric_id(),
                         "filter": f"equals(campaign_id,\"{campaign_id}\")",
                     },
                 }
             }
             response = self.client.Reporting.query_campaign_values(body)
-            return self._parse_jsonapi_response(response)
+            parsed = self._parse_jsonapi_response(response)
+            results = parsed.get("results") if isinstance(parsed, dict) else None
+            return results[0].get("statistics", {}) if results else {}
         except Exception:
             raise RuntimeError(
                 f"Failed to fetch campaign report for {campaign_id}."
