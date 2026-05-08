@@ -97,10 +97,8 @@ class KlaviyoAnalyticsClient:
             List of campaign dictionaries
         """
         try:
-            kwargs = {}
-            if filter_str:
-                kwargs["filter"] = filter_str
-
+            # Klaviyo API requires a filter on messages.channel; default to email.
+            kwargs = {"filter": filter_str or 'equals(messages.channel,"email")'}
             response = self.client.Campaigns.get_campaigns(**kwargs)
             return self._parse_jsonapi_response(response)
         except Exception:
