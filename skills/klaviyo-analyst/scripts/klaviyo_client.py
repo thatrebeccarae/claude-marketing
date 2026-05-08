@@ -69,6 +69,8 @@ class KlaviyoAnalyticsClient:
             raise RuntimeError("Failed to initialize Klaviyo client. Check your API key.") from e
 
         self._conversion_metric_id: Optional[str] = None
+        self._flow_report_cache: Dict[str, Dict] = {}
+        self._campaign_report_cache: Dict[str, Dict] = {}
 
     def _get_conversion_metric_id(self, name: str = "Placed Order") -> str:
         """Resolve a metric name to its Klaviyo metric ID. Cached after first call."""
@@ -162,6 +164,8 @@ class KlaviyoAnalyticsClient:
         Returns:
             Dictionary with flow performance metrics
         """
+        if flow_id in self._flow_report_cache:
+            return self._flow_report_cache[flow_id]
         try:
             body = {
                 "data": {
@@ -188,7 +192,9 @@ class KlaviyoAnalyticsClient:
             response = self.client.Reporting.query_flow_values(body)
             parsed = self._parse_jsonapi_response(response)
             results = parsed.get("results") if isinstance(parsed, dict) else None
-            return results[0].get("statistics", {}) if results else {}
+            stats = results[0].get("statistics", {}) if results else {}
+            self._flow_report_cache[flow_id] = stats
+            return stats
         except Exception as e:
             print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
             raise RuntimeError(f"Failed to fetch flow report for {flow_id}.") from e
@@ -203,6 +209,8 @@ class KlaviyoAnalyticsClient:
         Returns:
             Dictionary with campaign performance metrics
         """
+        if campaign_id in self._campaign_report_cache:
+            return self._campaign_report_cache[campaign_id]
         try:
             body = {
                 "data": {
@@ -229,7 +237,9 @@ class KlaviyoAnalyticsClient:
             response = self.client.Reporting.query_campaign_values(body)
             parsed = self._parse_jsonapi_response(response)
             results = parsed.get("results") if isinstance(parsed, dict) else None
-            return results[0].get("statistics", {}) if results else {}
+            stats = results[0].get("statistics", {}) if results else {}
+            self._campaign_report_cache[campaign_id] = stats
+            return stats
         except Exception as e:
             print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
             raise RuntimeError(

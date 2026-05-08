@@ -32,6 +32,14 @@ except ImportError:
     sys.exit(1)
 
 
+# Per-phase iteration caps. Klaviyo reporting is rate-limited
+# (~2/min on standard accounts), so unbounded loops can exhaust the
+# SDK retry budget on large accounts. These match the prior implicit
+# [:20] cap; raise via code edit only.
+MAX_FLOW_REPORTS = 20
+MAX_CAMPAIGN_REPORTS = 20
+
+
 def _safe_output_path(path: str) -> str:
     """Validate output path does not escape working directory."""
     resolved = os.path.realpath(path)
@@ -243,7 +251,7 @@ class KlaviyoAnalyzer:
 
         # Attempt to get reports for recent campaigns
         campaign_data = []
-        for campaign in campaigns[:20]:
+        for campaign in campaigns[:MAX_CAMPAIGN_REPORTS]:
             campaign_id = campaign.get("id")
             if not campaign_id:
                 continue
@@ -353,7 +361,7 @@ class KlaviyoAnalyzer:
         total_delivered = 0
         campaigns_checked = 0
 
-        for campaign in campaigns[:20]:
+        for campaign in campaigns[:MAX_CAMPAIGN_REPORTS]:
             campaign_id = campaign.get("id")
             if not campaign_id:
                 continue
@@ -452,13 +460,15 @@ class KlaviyoAnalyzer:
         Returns:
             Dictionary with revenue attribution data and recommendations
         """
-        # Get flow and campaign revenue
-        flows = self.client.get_flows()
+        # Get flow and campaign revenue. Filter to live flows only —
+        # paused/archived flows can't generate new revenue and reporting
+        # on them wastes Klaviyo's rate-limited reporting budget.
+        flows = self.client.get_flows(filter_str='equals(status,"live")')
         campaigns = self.client.get_campaigns()
 
         flow_revenue = 0.0
         flow_data = []
-        for flow in flows:
+        for flow in flows[:MAX_FLOW_REPORTS]:
             flow_id = flow.get("id")
             if not flow_id:
                 continue
@@ -479,7 +489,7 @@ class KlaviyoAnalyzer:
 
         campaign_revenue = 0.0
         campaign_data = []
-        for campaign in campaigns[:20]:
+        for campaign in campaigns[:MAX_CAMPAIGN_REPORTS]:
             campaign_id = campaign.get("id")
             if not campaign_id:
                 continue
