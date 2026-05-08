@@ -147,15 +147,15 @@ class KlaviyoAnalyticsClient:
                     "attributes": {
                         "statistics": [
                             "opens",
-                            "unique_opens",
+                            "opens_unique",
                             "clicks",
-                            "unique_clicks",
+                            "clicks_unique",
                             "recipients",
-                            "deliveries",
-                            "bounces",
+                            "delivered",
+                            "bounced",
                             "unsubscribes",
                             "spam_complaints",
-                            "revenue",
+                            "conversion_value",
                         ],
                         "timeframe": {"key": "last_365_days"},
                         "conversion_metric_id": "placed_order",
@@ -164,7 +164,9 @@ class KlaviyoAnalyticsClient:
                 }
             }
             response = self.client.Reporting.query_flow_values(body)
-            return self._parse_jsonapi_response(response)
+            parsed = self._parse_jsonapi_response(response)
+            results = parsed.get("results") if isinstance(parsed, dict) else None
+            return results[0].get("statistics", {}) if results else {}
         except Exception:
             raise RuntimeError(f"Failed to fetch flow report for {flow_id}.")
 
@@ -185,15 +187,15 @@ class KlaviyoAnalyticsClient:
                     "attributes": {
                         "statistics": [
                             "opens",
-                            "unique_opens",
+                            "opens_unique",
                             "clicks",
-                            "unique_clicks",
+                            "clicks_unique",
                             "recipients",
-                            "deliveries",
-                            "bounces",
+                            "delivered",
+                            "bounced",
                             "unsubscribes",
                             "spam_complaints",
-                            "revenue",
+                            "conversion_value",
                         ],
                         "timeframe": {"key": "last_365_days"},
                         "conversion_metric_id": "placed_order",
@@ -202,7 +204,9 @@ class KlaviyoAnalyticsClient:
                 }
             }
             response = self.client.Reporting.query_campaign_values(body)
-            return self._parse_jsonapi_response(response)
+            parsed = self._parse_jsonapi_response(response)
+            results = parsed.get("results") if isinstance(parsed, dict) else None
+            return results[0].get("statistics", {}) if results else {}
         except Exception:
             raise RuntimeError(
                 f"Failed to fetch campaign report for {campaign_id}."

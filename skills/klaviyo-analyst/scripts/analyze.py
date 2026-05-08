@@ -284,12 +284,12 @@ class KlaviyoAnalyzer:
             if recipients > 0:
                 campaigns_with_data += 1
                 total_recipients += recipients
-                total_opens += stats.get("unique_opens", 0) or 0
-                total_clicks += stats.get("unique_clicks", 0) or 0
-                total_bounces += stats.get("bounces", 0) or 0
+                total_opens += stats.get("opens_unique", 0) or 0
+                total_clicks += stats.get("clicks_unique", 0) or 0
+                total_bounces += stats.get("bounced", 0) or 0
                 total_unsubscribes += stats.get("unsubscribes", 0) or 0
                 total_complaints += stats.get("spam_complaints", 0) or 0
-                total_revenue += float(stats.get("revenue", 0) or 0)
+                total_revenue += float(stats.get("conversion_value", 0) or 0)
 
         # Calculate rates
         if total_recipients > 0:
@@ -367,9 +367,9 @@ class KlaviyoAnalyzer:
                 if recipients > 0:
                     campaigns_checked += 1
                     total_sent += recipients
-                    total_bounces += stats.get("bounces", 0) or 0
+                    total_bounces += stats.get("bounced", 0) or 0
                     total_complaints += stats.get("spam_complaints", 0) or 0
-                    total_delivered += stats.get("deliveries", 0) or 0
+                    total_delivered += stats.get("delivered", 0) or 0
             except Exception:
                 continue
 
@@ -465,7 +465,7 @@ class KlaviyoAnalyzer:
                 report = self.client.get_flow_report(flow_id)
                 if report:
                     stats = report if isinstance(report, dict) else {}
-                    rev = float(stats.get("revenue", 0) or 0)
+                    rev = float(stats.get("conversion_value", 0) or 0)
                     flow_revenue += rev
                     if rev > 0:
                         flow_data.append({
@@ -486,7 +486,7 @@ class KlaviyoAnalyzer:
                 report = self.client.get_campaign_report(campaign_id)
                 if report:
                     stats = report if isinstance(report, dict) else {}
-                    rev = float(stats.get("revenue", 0) or 0)
+                    rev = float(stats.get("conversion_value", 0) or 0)
                     campaign_revenue += rev
                     if rev > 0:
                         campaign_data.append({
