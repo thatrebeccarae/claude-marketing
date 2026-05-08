@@ -22,6 +22,7 @@ import os
 import sys
 import json
 import argparse
+import traceback
 from typing import Dict, List, Optional
 
 try:
@@ -835,6 +836,11 @@ Examples:
         "--output",
         help="Output file path (default: stdout)",
     )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Re-raise exceptions with full traceback instead of friendly error",
+    )
 
     args = parser.parse_args()
 
@@ -871,7 +877,10 @@ Examples:
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
     except Exception:
-        print("Error: Analysis failed. Check your API key and network connection.", file=sys.stderr)
+        if args.debug:
+            traceback.print_exc()
+        else:
+            print("Error: Analysis failed. Check your API key and network connection.", file=sys.stderr)
         sys.exit(1)
 
 

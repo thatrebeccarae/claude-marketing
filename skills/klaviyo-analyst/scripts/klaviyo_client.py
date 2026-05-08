@@ -19,6 +19,7 @@ import os
 import sys
 import json
 import argparse
+import traceback
 from typing import Dict, List, Optional
 
 try:
@@ -63,8 +64,9 @@ class KlaviyoAnalyticsClient:
 
         try:
             self.client = KlaviyoAPI(api_key, max_delay=60, max_retries=3)
-        except Exception:
-            raise RuntimeError("Failed to initialize Klaviyo client. Check your API key.")
+        except Exception as e:
+            print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
+            raise RuntimeError("Failed to initialize Klaviyo client. Check your API key.") from e
 
         self._conversion_metric_id: Optional[str] = None
 
@@ -99,8 +101,9 @@ class KlaviyoAnalyticsClient:
 
             response = self.client.Flows.get_flows(**kwargs)
             return self._parse_jsonapi_response(response)
-        except Exception:
-            raise RuntimeError("Failed to fetch flows. Check API key scopes.")
+        except Exception as e:
+            print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
+            raise RuntimeError("Failed to fetch flows. Check API key scopes.") from e
 
     def get_campaigns(self, filter_str: Optional[str] = None) -> List[Dict]:
         """
@@ -117,8 +120,9 @@ class KlaviyoAnalyticsClient:
             kwargs = {"filter": filter_str or 'equals(messages.channel,"email")'}
             response = self.client.Campaigns.get_campaigns(**kwargs)
             return self._parse_jsonapi_response(response)
-        except Exception:
-            raise RuntimeError("Failed to fetch campaigns. Check API key scopes.")
+        except Exception as e:
+            print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
+            raise RuntimeError("Failed to fetch campaigns. Check API key scopes.") from e
 
     def get_segments(self) -> List[Dict]:
         """
@@ -130,8 +134,9 @@ class KlaviyoAnalyticsClient:
         try:
             response = self.client.Segments.get_segments()
             return self._parse_jsonapi_response(response)
-        except Exception:
-            raise RuntimeError("Failed to fetch segments. Check API key scopes.")
+        except Exception as e:
+            print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
+            raise RuntimeError("Failed to fetch segments. Check API key scopes.") from e
 
     def get_lists(self) -> List[Dict]:
         """
@@ -143,8 +148,9 @@ class KlaviyoAnalyticsClient:
         try:
             response = self.client.Lists.get_lists()
             return self._parse_jsonapi_response(response)
-        except Exception:
-            raise RuntimeError("Failed to fetch lists. Check API key scopes.")
+        except Exception as e:
+            print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
+            raise RuntimeError("Failed to fetch lists. Check API key scopes.") from e
 
     def get_flow_report(self, flow_id: str) -> Dict:
         """
@@ -183,8 +189,9 @@ class KlaviyoAnalyticsClient:
             parsed = self._parse_jsonapi_response(response)
             results = parsed.get("results") if isinstance(parsed, dict) else None
             return results[0].get("statistics", {}) if results else {}
-        except Exception:
-            raise RuntimeError(f"Failed to fetch flow report for {flow_id}.")
+        except Exception as e:
+            print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
+            raise RuntimeError(f"Failed to fetch flow report for {flow_id}.") from e
 
     def get_campaign_report(self, campaign_id: str) -> Dict:
         """
@@ -223,10 +230,11 @@ class KlaviyoAnalyticsClient:
             parsed = self._parse_jsonapi_response(response)
             results = parsed.get("results") if isinstance(parsed, dict) else None
             return results[0].get("statistics", {}) if results else {}
-        except Exception:
+        except Exception as e:
+            print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
             raise RuntimeError(
                 f"Failed to fetch campaign report for {campaign_id}."
-            )
+            ) from e
 
     def get_metrics(self) -> List[Dict]:
         """
@@ -238,8 +246,9 @@ class KlaviyoAnalyticsClient:
         try:
             response = self.client.Metrics.get_metrics()
             return self._parse_jsonapi_response(response)
-        except Exception:
-            raise RuntimeError("Failed to fetch metrics. Check API key scopes.")
+        except Exception as e:
+            print(f"  caused by: {type(e).__name__}: {e}", file=sys.stderr)
+            raise RuntimeError("Failed to fetch metrics. Check API key scopes.") from e
 
     def _parse_jsonapi_response(self, response) -> List[Dict]:
         """
@@ -376,6 +385,11 @@ Examples:
         "--output",
         help="Output file path (default: stdout)",
     )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Re-raise exceptions with full traceback instead of friendly error",
+    )
 
     args = parser.parse_args()
 
@@ -425,7 +439,10 @@ Examples:
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
     except Exception:
-        print("Error: Operation failed. Check your API key and network connection.", file=sys.stderr)
+        if args.debug:
+            traceback.print_exc()
+        else:
+            print("Error: Operation failed. Check your API key and network connection.", file=sys.stderr)
         sys.exit(1)
 
 
