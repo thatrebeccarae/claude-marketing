@@ -601,7 +601,7 @@ class KlaviyoAnalyzer:
                 "priority": flow["priority"],
                 "action": f"Create {flow['flow']} flow",
                 "reason": f"Missing essential flow (trigger: {flow['trigger']})",
-                "expected_impact": self._flow_impact_estimate(flow["name"]),
+                "expected_impact": self._flow_impact_estimate(flow["flow"]),
             })
 
         if not missing_flows:
