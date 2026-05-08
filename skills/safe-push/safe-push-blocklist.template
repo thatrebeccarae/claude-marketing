@@ -1,0 +1,50 @@
+# ~/.claude/safe-push-blocklist
+# Personal patterns blocked from public commits and diffs.
+# One regex (extended POSIX) per line. Lines starting with # are ignored.
+# Loaded by the safe-push skill on every public push.
+#
+# These patterns are scanned against BOTH diff content and commit
+# messages (title + body). Customize with values specific to YOUR
+# environment, then move this file to ~/.claude/safe-push-blocklist:
+#
+#   cp safe-push-blocklist.template ~/.claude/safe-push-blocklist
+#   $EDITOR ~/.claude/safe-push-blocklist
+#
+# Examples below are commented out. Uncomment and adapt the ones
+# relevant to you, and add your own.
+
+# === Client / customer names ===
+# acme-corp
+# globex-inc
+
+# === Personal infrastructure ===
+# Hostnames (your workstation, NAS, lab machines)
+# myhostname(\.local)?
+
+# Internal directory names (your workspace folders)
+# my-projects-dir
+
+# Private IP ranges you use (Tailscale, LAN)
+# 100\.64\..*
+# 192\.168\..*
+
+# Device identifiers / serials
+# MYDEVICEID
+
+# Hardware models (in personal-infra context)
+# Mac Studio M2
+
+# === Self-hosted service names (when they appear in infra context) ===
+# \bminiflux\b
+# \bsyncthing\b
+
+# === Universal blockers (already broadly safe to enable) ===
+# Slack tokens and channel IDs
+# xoxb-
+# \bC[A-Z0-9]{10}\b
+
+# Tracking IDs (paste the specific IDs you don't want public)
+# G-XXXXXXXXXX
+# GTM-XXXXXXX
+
+# Add more patterns specific to your environment below.

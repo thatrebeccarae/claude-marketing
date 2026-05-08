@@ -25,44 +25,45 @@ If private: apply only the PII scan (step 2).
 
 ### 2. PII and secrets scan
 
+Load your personal pattern list from `~/.claude/safe-push-blocklist` and scan against it. The same patterns apply to diff content (step 2) AND commit messages (step 3) — both run from the same source of truth.
+
 **Default mode** — scan the diff against the target branch:
 
 ```bash
+# Load personal patterns (graceful fallback if file missing):
+if [ -f ~/.claude/safe-push-blocklist ]; then
+  PATTERNS=$(grep -v '^#' ~/.claude/safe-push-blocklist | grep -v '^$' | paste -sd '|' -)
+else
+  PATTERNS=""
+  echo "WARNING: ~/.claude/safe-push-blocklist not found. Personal pattern checks skipped."
+fi
+
 git diff origin/main...HEAD
+[ -n "$PATTERNS" ] && git diff origin/main...HEAD | grep -nE "$PATTERNS" \
+  || echo "NO MATCHES IN DIFF"
 ```
 
-**Full repo mode** (`/safe-push --full`) — scan ALL tracked files, not just the diff. Use this for baseline audits, first-time pushes of existing repos, or periodic hygiene checks. Searches the entire working tree for blocked patterns:
+**Full repo mode** (`/safe-push --full`) — scan ALL tracked files, not just the diff. Use this for baseline audits, first-time pushes of existing repos, or periodic hygiene checks:
 
 ```bash
-git ls-files | xargs grep -n -E 'PATTERN' --include='*.md' --include='*.py' --include='*.js' --include='*.ts' --include='*.html' --include='*.sh' --include='*.json' --include='*.yml' --include='*.yaml'
+git ls-files | xargs grep -n -E "$PATTERNS" \
+  --include='*.md' --include='*.py' --include='*.js' --include='*.ts' \
+  --include='*.html' --include='*.sh' --include='*.json' \
+  --include='*.yml' --include='*.yaml'
 ```
 
-Check for:
-- Email addresses (personal or client)
-- Phone numbers
+Check for these categories (your `~/.claude/safe-push-blocklist` covers the regex-able ones):
+
+- Client names or internal project codenames
+- Personal infrastructure: hostnames, internal directory names, device IDs, hardware models, self-hosted service names
+- Email addresses (personal or client), phone numbers, addresses
 - API keys, tokens, secrets (AWS, GitHub, Slack, Telegram, generic)
 - Private IP addresses, internal hostnames
 - Private key material
-- Client names or internal project codenames
-- Hardcoded credentials or passwords
+- Slack tokens (`xoxb-`), Slack channel IDs
+- Tracking IDs: GA4 (`G-XXXXXXXXXX`), GTM (`GTM-XXXXXXX`)
 
-**Client names and internal project codenames:** Maintain a per-user blocklist at `~/.claude/safe-push-blocklist` (one pattern per line) and load it into the scan. Never hardcode real client names inside this skill file — that would defeat the purpose of the scan.
-
-**Infrastructure patterns (always blocked in public repos):**
-- Private IP ranges: Tailscale (100.64.0.0/10), RFC 1918 LAN (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16)
-- Hostnames and `.local` / `.lan` / `.internal` TLDs for any machine you run
-- Internal directory names specific to your workstation (home dir subfolders, sync folder names)
-- VLAN and network segment names
-- Self-hosted service names (reverse proxies, databases, dashboards, workflow automation, file sync tools) when appearing in infra context
-- Device and hardware serials (e.g., `^[A-Z0-9]{7,12}$`-shaped identifiers in config/doc files)
-- Hardware model names in personal-infra context
-- Docker paths, `.env` file references
-- Slack bot tokens (`xoxb-`), Slack channel IDs (`C` + 10 alphanumerics)
-- API keys and credentials for any self-hosted service
-- SSH config details, private port mappings
-- Hardcoded tracking IDs: GA4 measurement IDs (`G-XXXXXXXXXX`), GTM container IDs (`GTM-XXXXXXX`)
-
-Load your personal patterns from `~/.claude/safe-push-blocklist` rather than embedding them here.
+Edit `~/.claude/safe-push-blocklist` to maintain your personal patterns. Never hardcode real client names or infrastructure identifiers inside this skill file — the blocklist is the source of truth.
 
 If anything is found:
 - List each finding with file, line number, and what was detected
@@ -71,11 +72,11 @@ If anything is found:
 
 ### 3. Commit message audit
 
-Review ALL commit messages in the push range:
+Review the FULL commit message — both subject (title) and body (description) — for every commit in the push range. Sensitive patterns can hide in either:
 
 ```bash
-git log origin/main..HEAD --format="%h %s"
-```
+# Print the full message (subject + body) for every commit:
+git log origin/main..HEAD --format="===%h %s===%n%b"
 
 
 (Truncated. See full skill at github.com/thatrebeccarae/claude-marketing)

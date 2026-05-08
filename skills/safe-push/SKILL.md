@@ -6,11 +6,11 @@ origin: custom
 author: Rebecca Rae Barton
 author_url: https://github.com/thatrebeccarae
 metadata:
-  version: 1.1.0
+  version: 1.2.0
   category: devops
   domain: git
-  updated: 2026-03-20
-  tested: 2026-03-20
+  updated: 2026-05-08
+  tested: 2026-05-08
   tested_with: "Claude Code v2.1"
 ---
 
@@ -21,6 +21,19 @@ Pre-push hygiene check for GitHub repositories. Use when the user asks to push c
 ## Trigger
 
 When the user says "push", "safe push", "push to GitHub", or runs `/safe-push`.
+
+## Install
+
+The skill loads patterns from `~/.claude/safe-push-blocklist`. Copy the bundled template and customize:
+
+```bash
+cp safe-push-blocklist.template ~/.claude/safe-push-blocklist
+$EDITOR ~/.claude/safe-push-blocklist
+```
+
+The template includes commented-out examples for client names, hostnames, IP ranges, tracking IDs, and Slack token shapes. Replace them with values specific to your environment.
+
+If the file is missing, the skill runs with a warning instead of erroring — but personal pattern checks are skipped, so creating it is strongly recommended.
 
 ## Procedure
 
@@ -38,44 +51,45 @@ If private: apply only the PII scan (step 2).
 
 ### 2. PII and secrets scan
 
+Load your personal pattern list from `~/.claude/safe-push-blocklist` and scan against it. The same patterns apply to diff content (step 2) AND commit messages (step 3) — both run from the same source of truth.
+
 **Default mode** — scan the diff against the target branch:
 
 ```bash
+# Load personal patterns (graceful fallback if file missing):
+if [ -f ~/.claude/safe-push-blocklist ]; then
+  PATTERNS=$(grep -v '^#' ~/.claude/safe-push-blocklist | grep -v '^$' | paste -sd '|' -)
+else
+  PATTERNS=""
+  echo "WARNING: ~/.claude/safe-push-blocklist not found. Personal pattern checks skipped."
+fi
+
 git diff origin/main...HEAD
+[ -n "$PATTERNS" ] && git diff origin/main...HEAD | grep -nE "$PATTERNS" \
+  || echo "NO MATCHES IN DIFF"
 ```
 
-**Full repo mode** (`/safe-push --full`) — scan ALL tracked files, not just the diff. Use this for baseline audits, first-time pushes of existing repos, or periodic hygiene checks. Searches the entire working tree for blocked patterns:
+**Full repo mode** (`/safe-push --full`) — scan ALL tracked files, not just the diff. Use this for baseline audits, first-time pushes of existing repos, or periodic hygiene checks:
 
 ```bash
-git ls-files | xargs grep -n -E 'PATTERN' --include='*.md' --include='*.py' --include='*.js' --include='*.ts' --include='*.html' --include='*.sh' --include='*.json' --include='*.yml' --include='*.yaml'
+git ls-files | xargs grep -n -E "$PATTERNS" \
+  --include='*.md' --include='*.py' --include='*.js' --include='*.ts' \
+  --include='*.html' --include='*.sh' --include='*.json' \
+  --include='*.yml' --include='*.yaml'
 ```
 
-Check for:
-- Email addresses (personal or client)
-- Phone numbers
+Check for these categories (your `~/.claude/safe-push-blocklist` covers the regex-able ones):
+
+- Client names or internal project codenames
+- Personal infrastructure: hostnames, internal directory names, device IDs, hardware models, self-hosted service names
+- Email addresses (personal or client), phone numbers, addresses
 - API keys, tokens, secrets (AWS, GitHub, Slack, Telegram, generic)
 - Private IP addresses, internal hostnames
 - Private key material
-- Client names or internal project codenames
-- Hardcoded credentials or passwords
+- Slack tokens (`xoxb-`), Slack channel IDs
+- Tracking IDs: GA4 (`G-XXXXXXXXXX`), GTM (`GTM-XXXXXXX`)
 
-**Client names and internal project codenames:** Maintain a per-user blocklist at `~/.claude/safe-push-blocklist` (one pattern per line) and load it into the scan. Never hardcode real client names inside this skill file — that would defeat the purpose of the scan.
-
-**Infrastructure patterns (always blocked in public repos):**
-- Private IP ranges: Tailscale (100.64.0.0/10), RFC 1918 LAN (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16)
-- Hostnames and `.local` / `.lan` / `.internal` TLDs for any machine you run
-- Internal directory names specific to your workstation (home dir subfolders, sync folder names)
-- VLAN and network segment names
-- Self-hosted service names (reverse proxies, databases, dashboards, workflow automation, file sync tools) when appearing in infra context
-- Device and hardware serials (e.g., `^[A-Z0-9]{7,12}$`-shaped identifiers in config/doc files)
-- Hardware model names in personal-infra context
-- Docker paths, `.env` file references
-- Slack bot tokens (`xoxb-`), Slack channel IDs (`C` + 10 alphanumerics)
-- API keys and credentials for any self-hosted service
-- SSH config details, private port mappings
-- Hardcoded tracking IDs: GA4 measurement IDs (`G-XXXXXXXXXX`), GTM container IDs (`GTM-XXXXXXX`)
-
-Load your personal patterns from `~/.claude/safe-push-blocklist` rather than embedding them here.
+Edit `~/.claude/safe-push-blocklist` to maintain your personal patterns. Never hardcode real client names or infrastructure identifiers inside this skill file — the blocklist is the source of truth.
 
 If anything is found:
 - List each finding with file, line number, and what was detected
@@ -84,18 +98,27 @@ If anything is found:
 
 ### 3. Commit message audit
 
-Review ALL commit messages in the push range:
+Review the FULL commit message — both subject (title) and body (description) — for every commit in the push range. Sensitive patterns can hide in either:
 
 ```bash
-git log origin/main..HEAD --format="%h %s"
+# Print the full message (subject + body) for every commit:
+git log origin/main..HEAD --format="===%h %s===%n%b"
+
+# Programmatically scan the full message text against the same
+# blocklist used for diff content (graceful fallback if file missing):
+if [ -f ~/.claude/safe-push-blocklist ]; then
+  PATTERNS=$(grep -v '^#' ~/.claude/safe-push-blocklist | grep -v '^$' | paste -sd '|' -)
+  git log origin/main..HEAD --format="%B" | grep -nE "$PATTERNS" \
+    || echo "NO MATCHES IN MESSAGES"
+else
+  echo "WARNING: ~/.claude/safe-push-blocklist not found. Personal pattern checks skipped on commit messages."
+fi
 ```
 
-For public repos, flag:
-- Any pattern from your `~/.claude/safe-push-blocklist` (client names, internal codenames)
-- Infrastructure references: hostnames, VLAN names, internal paths, private IPs, self-hosted service names, device identifiers
-- Hardware identifiers (model numbers, serials, device IDs)
-- Internal URLs, private IPs, port numbers tied to services
-- Personal info (email, phone, address)
+The same patterns from `~/.claude/safe-push-blocklist` that block diff content (step 2) ALSO block commit messages. Apply the full blocklist to BOTH title and body — not just the diff. For public repos, also flag:
+
+- Personal info (email, phone, address) — categorical, not always pattern-matched
+- Private repo names you own (e.g., upstream dev mirrors) — soft-warn, ask user before pushing
 - Vague messages ("fix", "update", "wip") — suggest rewrites
 
 If issues found, suggest interactive rebase to clean messages (with user approval).
@@ -129,8 +152,20 @@ Before executing the push, present a summary:
 - Repository: name and public/private status
 - Branch(es) being pushed
 - Number of commits
+- **Full commit message preview** for every commit in the push range (both title and body) — even on amended commits and commits authored in this session
 - Any warnings from steps 2-4
 - Push strategy (direct or staggered)
+
+Show the full commit messages with:
+
+```bash
+git log origin/main..HEAD --format="commit %h%n%n%s%n%n%b%n---"
+```
+
+The user must visually confirm each message before push. This catches:
+- Amended commits where the original audit no longer applies
+- Body content that wasn't surfaced in step 3 because of grep gaps
+- Anything authored ad-hoc in this session that didn't go through a content review
 
 Wait for explicit user confirmation before pushing.
 
@@ -147,9 +182,9 @@ Report success and the remote URL.
 
 ## Configuration files
 
-- **User-level blocklist** — `~/.claude/safe-push-blocklist`: one regex per line, personal strings that must never appear in public commits (client names, your hostnames, your internal paths). Load and scan against this list on every public push.
-- **Repo-local `.pii-allowlist`** — one regex per line, matches are excluded from the PII scan (used to allow false positives like example keys in docs)
-- **Repo-local `.commit-msg-blocklist`** — terms that should never appear in public commit messages for this repo specifically
+- **`~/.claude/safe-push-blocklist`** — Your personal pattern blocklist. One regex per line; comments start with `#`. Loaded on every `/safe-push` invocation. Edit this file to add or remove patterns; never hardcode patterns in this skill file. See **Install** above for setup.
+- **Repo-local `.pii-allowlist`** — One regex per line, matches are excluded from PII scan (used to allow false positives like example keys in docs).
+- **Repo-local `.commit-msg-blocklist`** — Terms that should never appear in public commit messages for this specific repo.
 
 ## Notes
 
