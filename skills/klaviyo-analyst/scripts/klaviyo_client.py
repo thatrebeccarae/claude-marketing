@@ -66,6 +66,22 @@ class KlaviyoAnalyticsClient:
         except Exception:
             raise RuntimeError("Failed to initialize Klaviyo client. Check your API key.")
 
+        self._conversion_metric_id: Optional[str] = None
+
+    def _get_conversion_metric_id(self, name: str = "Placed Order") -> str:
+        """Resolve a metric name to its Klaviyo metric ID. Cached after first call."""
+        if self._conversion_metric_id:
+            return self._conversion_metric_id
+        metrics = self.get_metrics()
+        for m in metrics:
+            if m.get("name") == name:
+                self._conversion_metric_id = m.get("id")
+                return self._conversion_metric_id
+        raise RuntimeError(
+            f"Conversion metric '{name}' not found in account. "
+            f"Reporting calls require an alphanumeric metric ID, not a name."
+        )
+
     def get_flows(self, filter_str: Optional[str] = None) -> List[Dict]:
         """
         List all flows with status and trigger information.
@@ -158,7 +174,7 @@ class KlaviyoAnalyticsClient:
                             "conversion_value",
                         ],
                         "timeframe": {"key": "last_365_days"},
-                        "conversion_metric_id": "placed_order",
+                        "conversion_metric_id": self._get_conversion_metric_id(),
                         "filter": f"equals(flow_id,\"{flow_id}\")",
                     },
                 }
@@ -198,7 +214,7 @@ class KlaviyoAnalyticsClient:
                             "conversion_value",
                         ],
                         "timeframe": {"key": "last_365_days"},
-                        "conversion_metric_id": "placed_order",
+                        "conversion_metric_id": self._get_conversion_metric_id(),
                         "filter": f"equals(campaign_id,\"{campaign_id}\")",
                     },
                 }
