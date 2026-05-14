@@ -30,24 +30,37 @@ git clone https://github.com/thatrebeccarae/claude-marketing.git && cp -r claude
 
 ### Step 2 — Connect the Klaviyo MCP (recommended)
 
-This skill is designed around Klaviyo's **official MCP server**. The MCP gives Claude direct, OAuth-authenticated access to your account — no local API key, no Python install, works in Claude Code, Claude Chat, and Cowork.
+This skill is designed around Klaviyo's **official MCP server**. Connect Claude to your Klaviyo account through OAuth — no local API key, no Python install. The setup path depends on which Claude surface you're using.
 
-**Remote MCP (recommended):**
+#### For Claude Chat or Claude Cowork — use the Connector Directory
 
-```
-URL:       https://mcp.klaviyo.com/mcp
-Transport: Streamable HTTP
-Auth:      OAuth (dynamic client registration)
-Roles:     Owner, Admin, or Manager
-```
+Klaviyo is listed in Claude's Connector Directory (announced as part of the expanded Klaviyo + Anthropic integration on 2026-05-07). Setup takes about two minutes:
 
-For audit-only work, append `?read-only=true` to the URL to disable all write tools.
+1. Open Claude → **Settings → Connectors → Browse Connectors**
+2. Search for **Klaviyo**
+3. Click **Connect** and authenticate
 
-**Local MCP (alternative):**
+**Plan requirement:** Connectors are available on Claude **Pro, Max, Team, and Enterprise** plans. Free plan users will need to use Claude Code or the local install path below.
+
+#### For Claude Code — register the remote MCP
 
 ```bash
-uvx klaviyo-mcp-server@latest
+claude mcp add klaviyo --transport http https://mcp.klaviyo.com/mcp
 ```
+
+For audit-only sessions, append `?read-only=true` to disable all write tools at the protocol layer:
+
+```bash
+claude mcp add klaviyo --transport http "https://mcp.klaviyo.com/mcp?read-only=true"
+```
+
+#### For local install (CI containers, offline development)
+
+```bash
+claude mcp add klaviyo -e PRIVATE_API_KEY=pk_... -e READ_ONLY=true -- uvx klaviyo-mcp-server@latest
+```
+
+**Klaviyo-side requirement:** Owner, Admin, or Manager role to authorize the connection.
 
 The MCP exposes 40+ tools across Accounts, Campaigns, Catalogs, Events, Flows, Groups, Profiles, Reporting, Templates, and Translations. See [REFERENCE.md](REFERENCE.md#mcp-server-reference) for the full tool inventory.
 
@@ -131,7 +144,7 @@ If you need scripted CLI access for CI, cron, or headless reporting — install 
 
 ## Workflow: Full Klaviyo Audit (4-Phase Deep Framework)
 
-> **Cowork-ready:** the 4-phase audit is built for unattended execution. Connect the Klaviyo MCP (read-only mode), point Cowork at this workflow, walk away. Cowork will pull the data, run the analysis, and produce the recommendation deck while you're in other meetings.
+> **Cowork-ready:** the 4-phase audit is built for unattended execution. With the Klaviyo connector active in Cowork (read-only mode), describe the outcome — _"Audit my Klaviyo flows and tell me what's missing,"_ _"Pull last week's campaign and flow performance and write me a Monday digest,"_ _"Flag every flow with open rates under 20% and write a prioritized fix-it list"_ — then step away. Cowork pulls the data, runs the analysis, writes the doc, and saves it to the right folder while you're in other meetings.
 
 When asked to audit a Klaviyo account, follow this 4-phase framework:
 

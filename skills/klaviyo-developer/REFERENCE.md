@@ -1192,11 +1192,13 @@ Klaviyo ships an official MCP server that wraps the same REST API documented abo
 
 | Mode | Setup |
 |------|-------|
-| **Remote** | URL `https://mcp.klaviyo.com/mcp` · Transport: Streamable HTTP · Auth: OAuth (dynamic client registration) |
-| **Local** | `uvx klaviyo-mcp-server@latest` |
+| **Claude Chat / Cowork** | Settings → Connectors → Browse Connectors → search "Klaviyo" → Connect. Available on Pro, Max, Team, Enterprise plans. Listed in the Claude Connector Directory as of the expanded Klaviyo + Anthropic integration announced 2026-05-07. |
+| **Claude Code (remote)** | `claude mcp add klaviyo --transport http https://mcp.klaviyo.com/mcp` |
+| **Claude Code (local)** | `claude mcp add klaviyo -e PRIVATE_API_KEY=pk_... -- uvx klaviyo-mcp-server@latest` |
 | **Read-only mode** | Append `?read-only=true` to the remote URL — disables all write tools |
 | **API revision** | `2026-04-15` |
-| **Required role** | Owner, Admin, or Manager on the Klaviyo account |
+| **Required Klaviyo role** | Owner, Admin, or Manager |
+| **Transport** | Streamable HTTP; OAuth (dynamic client registration) |
 
 ### Tool Inventory
 

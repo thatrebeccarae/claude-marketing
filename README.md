@@ -418,19 +418,31 @@ Skills are most powerful when chained together — each skill's output becomes c
 <details>
 <summary><strong>Klaviyo MCP server setup</strong></summary>
 
-The [official Klaviyo MCP server](https://developers.klaviyo.com/en/docs/klaviyo_mcp_server) gives Claude direct access to your Klaviyo account. Two options — remote OAuth (recommended for Claude Chat and Cowork) or local via `uvx` (works well in Claude Code).
+The [official Klaviyo MCP server](https://developers.klaviyo.com/en/docs/klaviyo_mcp_server) gives Claude direct access to your Klaviyo account. The setup path depends on which Claude surface you're using.
 
-**Option A — Remote MCP via OAuth (recommended)**
+**Option A — Claude Chat or Cowork (Connector Directory, ~2 min)**
 
-In Claude Code, Claude Chat, or Cowork, add the connector at:
+Klaviyo is in Claude's Connector Directory as of the expanded Klaviyo + Anthropic integration ([announced 2026-05-07](https://www.klaviyo.com/newsroom/klaviyo-anthropic-expanded-integration)). Setup is:
 
+1. Open Claude → **Settings → Connectors → Browse Connectors**
+2. Search for **Klaviyo**
+3. Click **Connect** and authenticate
+
+Available on Claude **Pro, Max, Team, and Enterprise** plans. Free plan users need to use Claude Code or the local install path below.
+
+**Option B — Claude Code (remote MCP)**
+
+```bash
+claude mcp add klaviyo --transport http https://mcp.klaviyo.com/mcp
 ```
-https://mcp.klaviyo.com/mcp
+
+For audit-only sessions:
+
+```bash
+claude mcp add klaviyo --transport http "https://mcp.klaviyo.com/mcp?read-only=true"
 ```
 
-Append `?read-only=true` to the URL for audit-only sessions (disables all write tools). Authentication uses OAuth with dynamic client registration — no local API key required. Your Klaviyo user role must be Owner, Admin, or Manager.
-
-**Option B — Local MCP via uvx**
+**Option C — Local MCP via uvx (CI containers, offline development)**
 
 1. Install uv: `curl -LsSf https://astral.sh/uv/install.sh | sh`
 2. Add to `~/.mcp.json`:
@@ -453,7 +465,9 @@ Append `?read-only=true` to the URL for audit-only sessions (disables all write 
 
 3. Restart Claude Code and verify with `/mcp`
 
-Both options expose the same 40+ tools across Accounts, Campaigns, Catalogs, Events, Flows, Groups, Profiles, Reporting, Templates, and Translations. See the [klaviyo-analyst REFERENCE](skills/klaviyo-analyst/REFERENCE.md#mcp-server-reference) for the full tool inventory. See the [DTC Pack guide](skill-packs/dtc-pack.md) for recommended Klaviyo API scopes when using the local option.
+**Klaviyo-side requirement:** Owner, Admin, or Manager role to authorize the connection (any option above).
+
+All three options expose the same 40+ tools across Accounts, Campaigns, Catalogs, Events, Flows, Groups, Profiles, Reporting, Templates, and Translations. See the [klaviyo-analyst REFERENCE](skills/klaviyo-analyst/REFERENCE.md#mcp-server-reference) for the full tool inventory. See the [DTC Pack guide](skill-packs/dtc-pack.md) for recommended Klaviyo API scopes when using the local option.
 
 </details>
 

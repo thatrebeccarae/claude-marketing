@@ -4224,7 +4224,7 @@ Expert-level guidance for Klaviyo email and SMS marketing from the **marketing o
 
 ## Workflow: Full Klaviyo Audit (4-Phase Deep Framework)
 
-> **Cowork-ready:** the 4-phase audit is built for unattended execution. Connect the Klaviyo MCP (read-only mode), point Cowork at this workflow, walk away. Cowork will pull the data, run the analysis, and produce the recommendation deck while you're in other meetings.
+> **Cowork-ready:** the 4-phase audit is built for unattended execution. With the Klaviyo connector active in Cowork (read-only mode), describe the outcome — _"Audit my Klaviyo flows and tell me what's missing,"_ _"Pull last week's campaign and flow performance and write me a Monday digest,"_ _"Flag every flow with open rates under 20% and write a prioritized fix-it list"_ — then step away. Cowork pulls the data, runs the analysis, writes the doc, and saves it to the right folder while you're in other meetings.
 
 When asked to audit a Klaviyo account, follow this 4-phase framework:
 
