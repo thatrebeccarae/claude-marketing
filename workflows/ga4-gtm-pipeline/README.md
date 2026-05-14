@@ -31,11 +31,11 @@ This pipeline flips that. It runs daily, compares your live GA4 event data again
 - Push code to any repository (dataLayer changes are flagged for eng teams)
 - Skip the human approval gate
 
-The end-to-end build walkthrough — n8n hosting choices, GCP service account, Slack app, Anthropic API key, the 10-stage workflow assembly, scheduling, and day-to-day use for the marketing team — lives on page 6 of the [**Claude Marketing — The Complete Guide**](https://thatrebeccarae.gumroad.com/l/claude-marketing). Free, in Notion. The version of this README I'd hand to an engineer setting it up for a marketing team.
+The end-to-end build walkthrough — n8n hosting choices, GCP service account, Slack app, Anthropic API key, the 10-stage workflow assembly, scheduling, and day-to-day use for the marketing team — lives on page 6 of the [**Claude Marketing — The Complete Guide**](https://thatrebeccarae.kit.com/claude-marketing-guide). Free, in Notion. The version of this README I'd hand to an engineer setting it up for a marketing team.
 
 <div align="center">
 
-[![Get the build walkthrough](https://img.shields.io/badge/Get_the_build_walkthrough-Free-353535?style=for-the-badge)](https://thatrebeccarae.gumroad.com/l/claude-marketing)
+[![Get the build walkthrough](https://img.shields.io/badge/Get_the_build_walkthrough-Free-353535?style=for-the-badge)](https://thatrebeccarae.kit.com/claude-marketing-guide)
 
 </div>
 
@@ -105,7 +105,7 @@ python agents/ga4-monitor/scripts/validate-event-spec.py path/to/event-spec.json
 
 ### 3. Build the workflow in n8n
 
-Follow [page 6 of the Complete Guide](https://thatrebeccarae.gumroad.com/l/claude-marketing) — node-by-node walkthrough with the Code-node JS from `scripts/n8n-nodes/` dropped into place.
+Follow [page 6 of the Complete Guide](https://thatrebeccarae.kit.com/claude-marketing-guide) — node-by-node walkthrough with the Code-node JS from `scripts/n8n-nodes/` dropped into place.
 
 ### 4. Configure Credentials in n8n
 
@@ -187,7 +187,7 @@ No workflow changes needed.
 
 ## Resources
 
-- [Claude Marketing — The Complete Guide](https://thatrebeccarae.gumroad.com/l/claude-marketing) — free Notion reference. Page 6 has the full n8n build walkthrough; the rest covers install, credentials, the six skills to start with, scored audits, and workflow chains
+- [Claude Marketing — The Complete Guide](https://thatrebeccarae.kit.com/claude-marketing-guide) — free Notion reference. Page 6 has the full n8n build walkthrough; the rest covers install, credentials, the six skills to start with, scored audits, and workflow chains
 - [The Marketing Expertise Layer for Claude Code](https://dgtldept.substack.com/p/the-marketing-expertise-layer-for-claude-code) — companion essay on dgtl dept*
 - [GA4 Data API v1 Documentation](https://developers.google.com/analytics/devguides/reporting/data/v1)
 - [Google Tag Manager API v2 Reference](https://developers.google.com/tag-platform/tag-manager/api/v2)

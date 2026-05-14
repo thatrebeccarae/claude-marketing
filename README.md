@@ -45,11 +45,11 @@ Each skill ships three layers: **SKILL.md** (frameworks and decision trees), **R
 
 The catalog came out of [a client engagement where the team was drowning in meetings](https://dgtldept.substack.com/p/the-marketing-expertise-layer-for-claude-code) and grew from there. The companion essay on dgtl dept\* walks through three of the skills with the exact prompts I run on live engagements, the output they return, and what they replace.
 
-For installing and using them properly, the [**Claude Marketing — The Complete Guide**](https://thatrebeccarae.gumroad.com/l/claude-marketing) is the deeper reference — free, in Notion, six pages on install, credentials, the six skills to start with, how the scored audits work, five workflow chains I run on engagements, and the n8n pipeline build. Read it before you start, or keep it open on a second monitor while you work.
+For installing and using them properly, the [**Claude Marketing — The Complete Guide**](https://thatrebeccarae.kit.com/claude-marketing-guide) is the deeper reference — free, in Notion, six pages on install, credentials, the six skills to start with, how the scored audits work, five workflow chains I run on engagements, and the n8n pipeline build. Read it before you start, or keep it open on a second monitor while you work.
 
 <div align="center">
 
-[![Get the Complete Guide](https://img.shields.io/badge/Get_the_Complete_Guide-Free-353535?style=for-the-badge)](https://thatrebeccarae.gumroad.com/l/claude-marketing)
+[![Get the Complete Guide](https://img.shields.io/badge/Get_the_Complete_Guide-Free-353535?style=for-the-badge)](https://thatrebeccarae.kit.com/claude-marketing-guide)
 
 </div>
 
@@ -341,7 +341,7 @@ GA4 tracking gaps cost you conversion data every day. This pipeline detects them
 
 Handles multiple GA4 properties — configure once per property, runs hands-off from there.
 
-See the [GA4-GTM Pipeline README](workflows/ga4-gtm-pipeline/README.md) for the architecture overview, or the [Complete Guide](https://thatrebeccarae.gumroad.com/l/claude-marketing) for the full n8n build walkthrough.
+See the [GA4-GTM Pipeline README](workflows/ga4-gtm-pipeline/README.md) for the architecture overview, or the [Complete Guide](https://thatrebeccarae.kit.com/claude-marketing-guide) for the full n8n build walkthrough.
 
 ## Composing Skills
 
@@ -549,7 +549,7 @@ On macOS, `python` may point to Python 2. Use `python3` explicitly or install vi
 | Resource | Description |
 |----------|-------------|
 | [The Marketing Expertise Layer for Claude Code](https://dgtldept.substack.com/p/the-marketing-expertise-layer-for-claude-code) | Companion essay on dgtl dept* — three skills walked end-to-end with the prompts I actually type |
-| [Claude Marketing — The Complete Guide](https://thatrebeccarae.gumroad.com/l/claude-marketing) | Free Notion reference. Six pages: install, credentials, six skills to start with, scored audits explained, five workflow chains, the n8n pipeline build, troubleshooting |
+| [Claude Marketing — The Complete Guide](https://thatrebeccarae.kit.com/claude-marketing-guide) | Free Notion reference. Six pages: install, credentials, six skills to start with, scored audits explained, five workflow chains, the n8n pipeline build, troubleshooting |
 | [Composing Skills](examples/) | How to chain skills together — context flow, tips, and 3 worked workflow examples |
 | [DTC Getting Started](skill-packs/dtc-getting-started.md) | Step-by-step setup for DTC platforms |
 | [Paid Media Getting Started](skill-packs/paid-media-getting-started.md) | Step-by-step setup for paid media platforms |
