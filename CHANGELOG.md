@@ -19,7 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ### Fixed
 
-- **`klaviyo-analyst` "Repeatable Audit Workflow (MCP Tool Sequence)" — corrected fictional tool names.** The prior section listed invented names like `klaviyo_get_account_details` and `klaviyo_get_metrics` that did not exist in the official Klaviyo MCP server. Rewritten with the real tool names (`get_account_details`, `get_metrics`, `get_metric`, `get_flows`, `get_flow`, `get_flow_report`, `get_campaigns`, `get_campaign_report`, `get_segments`, `get_segment`, `get_lists`, `get_list`, `get_catalog_items`, `query_metric_aggregates`, `get_events`) in invocation order, with notes on the available write tools and how to gate them via `?read-only=true`.
+- **`klaviyo-analyst` "Repeatable Audit Workflow" — aligned with the canonical MCP tool names.** The prior section used a `klaviyo_*` prefix convention (SDK-style) that doesn't match the official Klaviyo MCP server's naming. Updated to reference tools by their canonical names as published in [Klaviyo's MCP docs](https://developers.klaviyo.com/en/docs/klaviyo_mcp_server): `get_account_details`, `get_metrics`, `get_metric`, `get_flows`, `get_flow`, `get_flow_report`, `get_campaigns`, `get_campaign_report`, `get_segments`, `get_segment`, `get_lists`, `get_list`, `get_catalog_items`, `query_metric_aggregates`, `get_events` — in invocation order, with notes on the available write tools and how to gate them via `?read-only=true`.
 
 ### Changed
 
