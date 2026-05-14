@@ -7,6 +7,22 @@ Expert-level guidance for building with the Klaviyo API — custom event trackin
 
 > For marketing strategy, flow auditing, segmentation, deliverability, and campaign optimization, see the **klaviyo-analyst** skill.
 
+## MCP vs. SDK: When to Use Which
+
+This skill is **SDK-first by design** — you're building production integrations against the Klaviyo API, not running ad-hoc queries. That said, Klaviyo's official MCP server is the right tool for parts of integration work, and you should know when to reach for it.
+
+| Use the **SDK** (`klaviyo-api`) when… | Use the **MCP** (`https://mcp.klaviyo.com/mcp`) when… |
+|---|---|
+| Writing production event-tracking code | Exploring an account's event schema before writing the integration |
+| Building bulk import / sync pipelines | Sanity-checking that events landed with the right property shape |
+| Implementing webhook handlers | Pulling a quick property inventory during integration design |
+| Catalog sync jobs | Inspecting flow trigger conditions while debugging why an event isn't firing a flow |
+| Anything in CI, cron, or a deployed service | Iterating on event schema design with the marketing analyst in the room |
+
+The MCP wraps the same API this skill targets, so the schema rules, rate limits, and nesting constraints below apply equally to MCP-driven calls. The MCP is currently pinned to API revision `2026-04-15` — keep that in mind if you're versioning your own SDK code against an older revision.
+
+For the full MCP tool inventory, OAuth setup, and read-only mode flag, see [REFERENCE.md](REFERENCE.md#mcp-server-reference). For audit/analyst work, see the **klaviyo-analyst** skill — it's built around the MCP.
+
 ## Core Capabilities
 
 ### API Authentication & Versioning
@@ -1541,3 +1557,54 @@ Conditions:
   - Has NOT done "Placed Order" in the last 60 days
   - Has NOT done "Opened Email" in the last 30 days
 ```
+
+---
+
+## MCP Server Reference
+
+Klaviyo ships an official MCP server that wraps the same REST API documented above. For ad-hoc data exploration during integration work — schema inspection, event inventory, flow debugging — the MCP is faster than writing SDK code. The schema rules, rate limits, and nesting constraints described in this document apply equally to MCP-driven calls.
+
+### Connection
+
+| Mode | Setup |
+|------|-------|
+| **Remote** | URL `https://mcp.klaviyo.com/mcp` · Transport: Streamable HTTP · Auth: OAuth (dynamic client registration) |
+| **Local** | `uvx klaviyo-mcp-server@latest` |
+| **Read-only mode** | Append `?read-only=true` to the remote URL — disables all write tools |
+| **API revision** | `2026-04-15` |
+| **Required role** | Owner, Admin, or Manager on the Klaviyo account |
+
+### Tool Inventory
+
+Read-only unless marked **(write)**.
+
+| Category | Tools |
+|----------|-------|
+| Accounts | `get_account_details` |
+| Campaigns | `get_campaigns`, `get_campaign`, `create_campaign` *(write)*, `assign_template_to_campaign_message` *(write)* |
+| Catalogs | `get_catalog_items` |
+| Events & Metrics | `get_events`, `create_event` *(write)*, `get_metrics`, `get_metric`, `query_metric_aggregates` |
+| Flows | `get_flows`, `get_flow` |
+| Groups | `get_lists`, `get_list`, `get_segments`, `get_segment` |
+| Images | `upload_image_from_file` *(write)*, `upload_image_from_url` *(write)* |
+| Profiles | `get_profiles`, `get_profile`, `create_profile` *(write)*, `update_profile` *(write)*, `subscribe_profile_to_marketing` *(write)*, `unsubscribe_profile_from_marketing` *(write)* |
+| Reporting | `get_campaign_report`, `get_flow_report` |
+| Templates | `get_email_template`, `create_email_template` *(write)* |
+| Translations *(beta)* | `get_translations`, `get_translation`, `create_translation` *(write)*, `update_translation` *(write)*, `delete_translation` *(write)* |
+
+### Integration debugging recipes
+
+| Problem | MCP tool sequence |
+|---------|-------------------|
+| "Why doesn't this event fire my flow?" | `get_metrics` → `get_metric` (confirm name + property schema) → `get_events` (sample recent payloads) → `get_flow` (check trigger filter) |
+| "Are my profile properties syncing?" | `get_profile` (by email or ID) → inspect `attributes.properties` |
+| "Is my catalog up to date?" | `get_catalog_items` → check `updated` timestamp and item count |
+| "What does the campaign report look like before I build it into a dashboard?" | `get_campaigns` → `get_campaign_report` for a sample ID → confirm property shape |
+| "Are nested event properties making it through?" | `get_events` filtered to metric → inspect property tree → confirm `query_metric_aggregates` can roll up the top-level fields you flattened |
+
+### When MCP is wrong for the job
+
+- **CI / cron / deployed services** — use the SDK with a scoped API key. The MCP is interactive and OAuth-bound.
+- **Bulk operations** — for jobs above a few hundred records (bulk profile imports, suppression jobs, catalog bulk sync), use the dedicated bulk-job endpoints via SDK. The MCP exposes single-record write tools, not bulk job creators.
+- **Webhook handlers** — webhooks are inbound and verified via the webhook signing secret, not an MCP concept.
+- **OAuth flows for third-party apps** — if you're building a Klaviyo integration that uses Klaviyo's OAuth on behalf of merchants, you're implementing the OAuth provider integration directly, not consuming the MCP.

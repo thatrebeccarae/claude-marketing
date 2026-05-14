@@ -7,6 +7,22 @@ Expert-level guidance for building with the Klaviyo API — custom event trackin
 
 > For marketing strategy, flow auditing, segmentation, deliverability, and campaign optimization, see the **klaviyo-analyst** skill.
 
+## MCP vs. SDK: When to Use Which
+
+This skill is **SDK-first by design** — you're building production integrations against the Klaviyo API, not running ad-hoc queries. That said, Klaviyo's official MCP server is the right tool for parts of integration work, and you should know when to reach for it.
+
+| Use the **SDK** (`klaviyo-api`) when… | Use the **MCP** (`https://mcp.klaviyo.com/mcp`) when… |
+|---|---|
+| Writing production event-tracking code | Exploring an account's event schema before writing the integration |
+| Building bulk import / sync pipelines | Sanity-checking that events landed with the right property shape |
+| Implementing webhook handlers | Pulling a quick property inventory during integration design |
+| Catalog sync jobs | Inspecting flow trigger conditions while debugging why an event isn't firing a flow |
+| Anything in CI, cron, or a deployed service | Iterating on event schema design with the marketing analyst in the room |
+
+The MCP wraps the same API this skill targets, so the schema rules, rate limits, and nesting constraints below apply equally to MCP-driven calls. The MCP is currently pinned to API revision `2026-04-15` — keep that in mind if you're versioning your own SDK code against an older revision.
+
+For the full MCP tool inventory, OAuth setup, and read-only mode flag, see [REFERENCE.md](REFERENCE.md#mcp-server-reference). For audit/analyst work, see the **klaviyo-analyst** skill — it's built around the MCP.
+
 ## Core Capabilities
 
 ### API Authentication & Versioning
@@ -43,45 +59,6 @@ Expert-level guidance for building with the Klaviyo API — custom event trackin
 - Category and variant management
 - Product feed sync architecture for recommendations
 - Handling large catalogs with bulk operations
-
-### Data Export & Warehouse Sync
-- Metric aggregation API for reporting
-- Profile and event export patterns
-- Cursor-based pagination for large datasets
-- ETL pipeline design for data warehouse integration
-
-## SDK Quick Reference
-
-| Language | Package | Install |
-|----------|---------|---------|
-| Python | `klaviyo-api` | `pip install klaviyo-api` |
-| Node.js | `klaviyo-api` | `npm install klaviyo-api` |
-| Ruby | `klaviyo-api-sdk` | `gem install klaviyo-api-sdk` |
-| PHP | `klaviyo/api` | `composer require klaviyo/api` |
-
-## Rate Limits
-
-| Endpoint Category | Limit | Window |
-|-------------------|-------|--------|
-| Most endpoints | 75 requests | per second |
-| Bulk imports | 10 requests | per second |
-| Profile/Event create | 350 requests | per second |
-| Campaign send | 10 requests | per second |
-
-Headers returned: `RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`
-
-## API Revision Timeline
-
-| Revision | Key Changes |
-|----------|-------------|
-| 2026-01-15 | Latest. Custom Objects Ingestion, Geofencing API (beta). |
-| 2025-10-15 | Forms API, Flow Actions API, SMS ROI reporting. |
-| 2025-07-15 | Mapped Metrics API, Custom Objects API (GA). |
-| 2025-04-15 | Web Feeds API, Custom Metrics, Push Token registration. |
-| 2025-01-15 | Reviews APIs, Flows Create API, Campaign image management. |
-| 2024-10-15 | Universal Content API, Form/Segment Reporting, Reviews API. |
-| 2024-07-15 | Forms API (retrieval), Webhooks API. |
-| 2024-02-15 | Reporting API, Create or Update Profile (upsert). |
 
 
 (Truncated. See full skill at github.com/thatrebeccarae/claude-marketing)

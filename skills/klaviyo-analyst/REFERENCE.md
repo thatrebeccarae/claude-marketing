@@ -493,3 +493,86 @@ When producing implementation specs (SOWs) for audit recommendations:
 ## Dependencies
 [What other SOWs must complete first]
 ```
+
+---
+
+## MCP Server Reference
+
+The official Klaviyo MCP server is the recommended way for Claude (Code, Chat, or Cowork) to interact with a Klaviyo account. It wraps the Klaviyo API behind 40+ MCP tools across ten categories.
+
+### Connection
+
+| Mode | Setup |
+|------|-------|
+| **Remote (recommended)** | URL `https://mcp.klaviyo.com/mcp` · Transport: Streamable HTTP · Auth: OAuth (dynamic client registration) |
+| **Local** | `uvx klaviyo-mcp-server@latest` |
+| **Read-only mode** | Append `?read-only=true` to the remote URL — disables all write tools |
+| **API revision** | Currently pinned to `2026-04-15` |
+
+### Required Klaviyo user role
+
+Owner, Admin, or Manager. Lower-permission users cannot authorize the MCP.
+
+### Tool Inventory
+
+#### Accounts (read-only)
+- `get_account_details` — account config, timezone, integrations
+
+#### Campaigns
+- `get_campaigns` *(read)* — list campaigns with filters
+- `get_campaign` *(read)* — fetch a single campaign
+- `create_campaign` *(write)*
+- `assign_template_to_campaign_message` *(write)*
+
+#### Catalogs (read-only)
+- `get_catalog_items` — products synced into Klaviyo's catalog
+
+#### Events & Metrics
+- `get_events` *(read)* — query event payloads with filters (use for inspecting nested property structure)
+- `create_event` *(write)* — track a custom event
+- `get_metrics` *(read)* — list all metric names + IDs
+- `get_metric` *(read)* — fetch one metric (including property schema)
+- `query_metric_aggregates` *(read)* — time-series rollups (mirrors in-app Metric Reporting)
+
+#### Flows (read-only)
+- `get_flows` — list all flows with status
+- `get_flow` — full flow definition (trigger, actions, filters)
+
+#### Groups (Lists + Segments, read-only)
+- `get_lists` / `get_list`
+- `get_segments` / `get_segment` (segment condition definitions)
+
+#### Images (write-only)
+- `upload_image_from_file`
+- `upload_image_from_url`
+
+#### Profiles
+- `get_profiles` *(read)*
+- `get_profile` *(read)*
+- `create_profile` *(write)*
+- `update_profile` *(write)*
+- `subscribe_profile_to_marketing` *(write)*
+- `unsubscribe_profile_from_marketing` *(write)*
+
+#### Reporting (read-only)
+- `get_campaign_report` — opens, clicks, unsubs, revenue per campaign
+- `get_flow_report` — revenue, conversion, engagement per flow
+
+#### Templates
+- `get_email_template` *(read)*
+- `create_email_template` *(write)*
+
+#### Translations (beta)
+- `get_translations` / `get_translation` *(read)*
+- `create_translation` / `update_translation` / `delete_translation` *(write)*
+
+### When to use the MCP vs. the script fallback
+
+| Scenario | Use |
+|----------|-----|
+| Interactive audit in Claude Code/Chat | **MCP** |
+| Unattended audit in Cowork | **MCP** (with `?read-only=true`) |
+| Building/editing campaigns or templates with Claude | **MCP** (write tools, read-write URL) |
+| Headless CI/cron data export | **Script** (`KLAVIYO_API_KEY` env var) |
+| Pipeline integration tests | **Script** |
+| Pulling data for an offline notebook | Either — MCP if available, script otherwise |

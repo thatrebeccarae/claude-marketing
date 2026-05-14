@@ -6,12 +6,12 @@ origin: custom
 author: Rebecca Rae Barton
 author_url: https://github.com/thatrebeccarae
 metadata:
-  version: 1.0.0
+  version: 1.1.0
   category: email-lifecycle
   domain: klaviyo
-  updated: 2026-02-23
-  tested: 2026-03-17
-  tested_with: "Claude Code v2.1"
+  updated: 2026-05-14
+  tested: 2026-05-14
+  tested_with: "Claude Code v2.1, Klaviyo MCP API revision 2026-04-15"
 ---
 
 # Klaviyo Marketing Analyst
@@ -22,9 +22,38 @@ Expert-level guidance for Klaviyo email and SMS marketing from the **marketing o
 
 ## Install
 
+### Step 1 — Install the skill
+
 ```bash
 git clone https://github.com/thatrebeccarae/claude-marketing.git && cp -r claude-marketing/skills/klaviyo-analyst ~/.claude/skills/
 ```
+
+### Step 2 — Connect the Klaviyo MCP (recommended)
+
+This skill is designed around Klaviyo's **official MCP server**. The MCP gives Claude direct, OAuth-authenticated access to your account — no local API key, no Python install, works in Claude Code, Claude Chat, and Cowork.
+
+**Remote MCP (recommended):**
+
+```
+URL:       https://mcp.klaviyo.com/mcp
+Transport: Streamable HTTP
+Auth:      OAuth (dynamic client registration)
+Roles:     Owner, Admin, or Manager
+```
+
+For audit-only work, append `?read-only=true` to the URL to disable all write tools.
+
+**Local MCP (alternative):**
+
+```bash
+uvx klaviyo-mcp-server@latest
+```
+
+The MCP exposes 40+ tools across Accounts, Campaigns, Catalogs, Events, Flows, Groups, Profiles, Reporting, Templates, and Translations. See [REFERENCE.md](REFERENCE.md#mcp-server-reference) for the full tool inventory.
+
+### Step 3 — Fallback: local CLI scripts (optional)
+
+If you need scripted CLI access for CI, cron, or headless reporting — install the Python requirements and provide a `KLAVIYO_API_KEY`. See the [Scripts (Fallback)](#scripts-fallback-local-cli) section below.
 
 ## Core Capabilities
 
@@ -101,6 +130,8 @@ git clone https://github.com/thatrebeccarae/claude-marketing.git && cp -r claude
 10. **VIP/Loyalty** — triggers on high-CLV segment entry
 
 ## Workflow: Full Klaviyo Audit (4-Phase Deep Framework)
+
+> **Cowork-ready:** the 4-phase audit is built for unattended execution. Connect the Klaviyo MCP (read-only mode), point Cowork at this workflow, walk away. Cowork will pull the data, run the analysis, and produce the recommendation deck while you're in other meetings.
 
 When asked to audit a Klaviyo account, follow this 4-phase framework:
 
@@ -186,22 +217,29 @@ When evaluating Klaviyo SMS vs Attentive (common in audits):
 
 **Recommendation framework**: Use Klaviyo SMS when email is the primary channel and SMS is supplementary (most B2B and mid-market DTC). Consider Attentive when SMS is a primary revenue channel (high-frequency DTC, mobile-first brands).
 
-## Repeatable Audit Workflow (MCP Tool Sequence)
+## Repeatable Audit Workflow (Klaviyo MCP Tool Sequence)
 
-When auditing an account via the Klaviyo MCP tools, follow this sequence:
+When auditing an account via the official **Klaviyo MCP server** (`https://mcp.klaviyo.com/mcp`), invoke tools in this order. All tools below are read-only and safe to run against production with the `?read-only=true` URL parameter set.
 
-1. `klaviyo_get_account_details` — Account config, timezone, integrations
-2. `klaviyo_get_metrics` — Full event inventory (all metric names and IDs)
-3. `klaviyo_get_flows` — All flows with status
-4. `klaviyo_get_flow` (per flow) — Trigger details, actions, filters for each live flow
-5. `klaviyo_get_campaigns` — Recent campaigns with send dates
-6. `klaviyo_get_campaign_report` (per campaign) — Open/click/unsub/revenue metrics
-7. `klaviyo_get_flow_report` (per flow) — Revenue, conversion, engagement per flow
-8. `klaviyo_get_segments` + `klaviyo_get_segment` — Segment inventory and condition definitions
-9. `klaviyo_get_lists` — List inventory
-10. `klaviyo_get_catalog_items` — Catalog sync health check
+| Step | MCP Tool | Purpose |
+|------|----------|---------|
+| 1 | `get_account_details` | Account config, timezone, integrations |
+| 2 | `get_metrics` | Full event inventory (all metric names and IDs) |
+| 3 | `get_metric` (per metric) | Property structure for key events (Placed Order, Started Checkout, Viewed Product) |
+| 4 | `get_flows` | All flows with status |
+| 5 | `get_flow` (per live flow) | Trigger details, actions, filters |
+| 6 | `get_flow_report` (per flow) | Revenue, conversion, engagement per flow |
+| 7 | `get_campaigns` | Recent campaigns with send dates |
+| 8 | `get_campaign_report` (per campaign) | Open/click/unsub/revenue metrics |
+| 9 | `get_segments` + `get_segment` | Segment inventory and condition definitions |
+| 10 | `get_lists` + `get_list` | List inventory |
+| 11 | `get_catalog_items` | Catalog sync health check |
+| 12 | `query_metric_aggregates` | Time-series rollups (mirrors in-app Metric Reporting) for deliverability and revenue trend analysis |
+| 13 | `get_events` (filtered) | Sample recent event payloads to inspect property structure and nested object usage |
 
-After data pull, analyze using the 4-Phase Deep Framework above.
+After the data pull, analyze using the 4-Phase Deep Framework above.
+
+**Note on write tools:** the MCP also exposes write tools (`create_campaign`, `create_profile`, `update_profile`, `create_email_template`, `subscribe_profile_to_marketing`, `assign_template_to_campaign_message`, `upload_image_from_file`, `upload_image_from_url`, `create_event`, plus translations). For pure audit work, gate these by connecting with `?read-only=true`. Only enable writes if you're acting on a confirmed recommendation (e.g., assigning a template to a campaign you're building together with the user).
 
 ## Integration Context
 
@@ -233,7 +271,9 @@ Ask me questions like:
 
 For complete analysis patterns, worked examples with sample output, and use cases, see [EXAMPLES.md](EXAMPLES.md).
 
-## Scripts
+## Scripts (Fallback: Local CLI)
+
+> **When to use these:** scripted CLI access for CI/cron, headless reporting jobs, or environments where you can't connect the Klaviyo MCP (e.g., automated pipelines using `KLAVIYO_API_KEY` env vars). For interactive analysis in Claude Code/Chat/Cowork, prefer the MCP path above — it's faster, OAuth-authenticated, and exposes the same data.
 
 The skill includes utility scripts for data fetching and analysis:
 
@@ -277,6 +317,18 @@ The scripts handle API authentication, data fetching, and analysis. I'll interpr
 
 ## Troubleshooting
 
+### MCP connection issues
+
+**MCP not appearing in Claude:** Verify the MCP is configured in your client and authenticated. For Claude Code, check `~/.claude.json` or your project-level MCP config. For Claude Chat, check Settings → Connectors.
+
+**OAuth permission denied:** Your Klaviyo user role must be Owner, Admin, or Manager. Lower-permission users cannot authorize the MCP.
+
+**Write tools failing:** Confirm the connection URL does not have `?read-only=true` set. If it does, write tools will be disabled by design — switch to a read-write URL for write actions.
+
+**Multi-account confusion:** The MCP supports multi-account setups. If Claude pulls data from the wrong account, re-authenticate or check your active account in Klaviyo's UI.
+
+### Script (fallback) errors
+
 **Authentication Error**: Verify that:
 - `KLAVIYO_API_KEY` is set as an environment variable or in a `.env` file
 - The key starts with `pk_` (private API key, not public)
@@ -298,6 +350,16 @@ pip install klaviyo-api python-dotenv pandas
 ```
 
 ## Security Notes
+
+### When using the Klaviyo MCP (recommended)
+
+- The MCP uses OAuth — there's no API key to commit, rotate, or leak
+- For audit-only work, gate with `?read-only=true` on the connection URL to disable all write tools
+- Authorization is scoped to your Klaviyo user role (Owner / Admin / Manager) — least-privilege is enforced upstream
+- Re-authentication is required if your role changes or the OAuth token expires
+- Multi-account setups: confirm the active account before running tools that include write operations
+
+### When using the script fallback
 
 - **Never hardcode** API keys in code or commit them to version control
 - Store keys in environment variables or `.env` files

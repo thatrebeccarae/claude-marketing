@@ -157,8 +157,8 @@ All 56 skills live in [`skills/`](skills/) — install individually or use a [sk
 
 | Skill | What Claude Can Do |
 |-------|-------------------|
-| **[Klaviyo Analyst](skills/klaviyo-analyst/)** | Full Klaviyo audit — 4-phase account review, flow gap analysis, segment health, deliverability diagnostics, revenue attribution with industry benchmarks |
-| **[Klaviyo Developer](skills/klaviyo-developer/)** | Event schema design, SDK integration, webhook handling, rate limit strategy, catalog sync |
+| **[Klaviyo Analyst](skills/klaviyo-analyst/)** *(MCP-first)* | Full Klaviyo audit — 4-phase account review, flow gap analysis, segment health, deliverability diagnostics, revenue attribution with industry benchmarks. Built around the official Klaviyo MCP server. |
+| **[Klaviyo Developer](skills/klaviyo-developer/)** | Event schema design, SDK integration, webhook handling, rate limit strategy, catalog sync. MCP-aware for exploration; SDK-first for production integrations. |
 | **[Braze](skills/braze/)** | Canvas audit, segmentation, cross-channel orchestration, data architecture, deliverability, IP warming |
 
 ### Analytics
@@ -418,7 +418,19 @@ Skills are most powerful when chained together — each skill's output becomes c
 <details>
 <summary><strong>Klaviyo MCP server setup</strong></summary>
 
-The [Klaviyo MCP server](https://developers.klaviyo.com/en/docs/klaviyo_mcp_server) gives Claude direct access to your Klaviyo account data.
+The [official Klaviyo MCP server](https://developers.klaviyo.com/en/docs/klaviyo_mcp_server) gives Claude direct access to your Klaviyo account. Two options — remote OAuth (recommended for Claude Chat and Cowork) or local via `uvx` (works well in Claude Code).
+
+**Option A — Remote MCP via OAuth (recommended)**
+
+In Claude Code, Claude Chat, or Cowork, add the connector at:
+
+```
+https://mcp.klaviyo.com/mcp
+```
+
+Append `?read-only=true` to the URL for audit-only sessions (disables all write tools). Authentication uses OAuth with dynamic client registration — no local API key required. Your Klaviyo user role must be Owner, Admin, or Manager.
+
+**Option B — Local MCP via uvx**
 
 1. Install uv: `curl -LsSf https://astral.sh/uv/install.sh | sh`
 2. Add to `~/.mcp.json`:
@@ -441,7 +453,7 @@ The [Klaviyo MCP server](https://developers.klaviyo.com/en/docs/klaviyo_mcp_serv
 
 3. Restart Claude Code and verify with `/mcp`
 
-See the [DTC Pack guide](skill-packs/dtc-pack.md) for recommended Klaviyo API scopes.
+Both options expose the same 40+ tools across Accounts, Campaigns, Catalogs, Events, Flows, Groups, Profiles, Reporting, Templates, and Translations. See the [klaviyo-analyst REFERENCE](skills/klaviyo-analyst/REFERENCE.md#mcp-server-reference) for the full tool inventory. See the [DTC Pack guide](skill-packs/dtc-pack.md) for recommended Klaviyo API scopes when using the local option.
 
 </details>
 
@@ -545,5 +557,10 @@ MIT — see [LICENSE](LICENSE) for details.
 ---
 
 **The expertise layer your AI agent is missing.**<br>git clone it. Install what you need. Ask in plain English.
+
+<br>
+<br>
+
+_Please don't be a jerk and steal my work._
 
 </div>

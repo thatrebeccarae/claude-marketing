@@ -6,12 +6,12 @@ origin: custom
 author: Rebecca Rae Barton
 author_url: https://github.com/thatrebeccarae
 metadata:
-  version: 1.0.0
+  version: 1.1.0
   category: email-lifecycle
   domain: klaviyo
-  updated: 2026-02-23
-  tested: 2026-03-17
-  tested_with: "Claude Code v2.1"
+  updated: 2026-05-14
+  tested: 2026-05-14
+  tested_with: "Claude Code v2.1, Klaviyo MCP API revision 2026-04-15"
 ---
 
 # Klaviyo Developer
@@ -25,6 +25,22 @@ Expert-level guidance for building with the Klaviyo API — custom event trackin
 ```bash
 git clone https://github.com/thatrebeccarae/claude-marketing.git && cp -r claude-marketing/skills/klaviyo-developer ~/.claude/skills/
 ```
+
+## MCP vs. SDK: When to Use Which
+
+This skill is **SDK-first by design** — you're building production integrations against the Klaviyo API, not running ad-hoc queries. That said, Klaviyo's official MCP server is the right tool for parts of integration work, and you should know when to reach for it.
+
+| Use the **SDK** (`klaviyo-api`) when… | Use the **MCP** (`https://mcp.klaviyo.com/mcp`) when… |
+|---|---|
+| Writing production event-tracking code | Exploring an account's event schema before writing the integration |
+| Building bulk import / sync pipelines | Sanity-checking that events landed with the right property shape |
+| Implementing webhook handlers | Pulling a quick property inventory during integration design |
+| Catalog sync jobs | Inspecting flow trigger conditions while debugging why an event isn't firing a flow |
+| Anything in CI, cron, or a deployed service | Iterating on event schema design with the marketing analyst in the room |
+
+The MCP wraps the same API this skill targets, so the schema rules, rate limits, and nesting constraints below apply equally to MCP-driven calls. The MCP is currently pinned to API revision `2026-04-15` — keep that in mind if you're versioning your own SDK code against an older revision.
+
+For the full MCP tool inventory, OAuth setup, and read-only mode flag, see [REFERENCE.md](REFERENCE.md#mcp-server-reference). For audit/analyst work, see the **klaviyo-analyst** skill — it's built around the MCP.
 
 ## Core Capabilities
 

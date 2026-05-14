@@ -83,6 +83,8 @@ Expert-level guidance for Klaviyo email and SMS marketing from the **marketing o
 
 ## Workflow: Full Klaviyo Audit (4-Phase Deep Framework)
 
+> **Cowork-ready:** the 4-phase audit is built for unattended execution. Connect the Klaviyo MCP (read-only mode), point Cowork at this workflow, walk away. Cowork will pull the data, run the analysis, and produce the recommendation deck while you're in other meetings.
+
 When asked to audit a Klaviyo account, follow this 4-phase framework:
 
 ### Phase 1: Status Inventory
@@ -167,22 +169,29 @@ When evaluating Klaviyo SMS vs Attentive (common in audits):
 
 **Recommendation framework**: Use Klaviyo SMS when email is the primary channel and SMS is supplementary (most B2B and mid-market DTC). Consider Attentive when SMS is a primary revenue channel (high-frequency DTC, mobile-first brands).
 
-## Repeatable Audit Workflow (MCP Tool Sequence)
+## Repeatable Audit Workflow (Klaviyo MCP Tool Sequence)
 
-When auditing an account via the Klaviyo MCP tools, follow this sequence:
+When auditing an account via the official **Klaviyo MCP server** (`https://mcp.klaviyo.com/mcp`), invoke tools in this order. All tools below are read-only and safe to run against production with the `?read-only=true` URL parameter set.
 
-1. `klaviyo_get_account_details` — Account config, timezone, integrations
-2. `klaviyo_get_metrics` — Full event inventory (all metric names and IDs)
-3. `klaviyo_get_flows` — All flows with status
-4. `klaviyo_get_flow` (per flow) — Trigger details, actions, filters for each live flow
-5. `klaviyo_get_campaigns` — Recent campaigns with send dates
-6. `klaviyo_get_campaign_report` (per campaign) — Open/click/unsub/revenue metrics
-7. `klaviyo_get_flow_report` (per flow) — Revenue, conversion, engagement per flow
-8. `klaviyo_get_segments` + `klaviyo_get_segment` — Segment inventory and condition definitions
-9. `klaviyo_get_lists` — List inventory
-10. `klaviyo_get_catalog_items` — Catalog sync health check
+| Step | MCP Tool | Purpose |
+|------|----------|---------|
+| 1 | `get_account_details` | Account config, timezone, integrations |
+| 2 | `get_metrics` | Full event inventory (all metric names and IDs) |
+| 3 | `get_metric` (per metric) | Property structure for key events (Placed Order, Started Checkout, Viewed Product) |
+| 4 | `get_flows` | All flows with status |
+| 5 | `get_flow` (per live flow) | Trigger details, actions, filters |
+| 6 | `get_flow_report` (per flow) | Revenue, conversion, engagement per flow |
+| 7 | `get_campaigns` | Recent campaigns with send dates |
+| 8 | `get_campaign_report` (per campaign) | Open/click/unsub/revenue metrics |
+| 9 | `get_segments` + `get_segment` | Segment inventory and condition definitions |
+| 10 | `get_lists` + `get_list` | List inventory |
+| 11 | `get_catalog_items` | Catalog sync health check |
+| 12 | `query_metric_aggregates` | Time-series rollups (mirrors in-app Metric Reporting) for deliverability and revenue trend analysis |
+| 13 | `get_events` (filtered) | Sample recent event payloads to inspect property structure and nested object usage |
 
-After data pull, analyze using the 4-Phase Deep Framework above.
+After the data pull, analyze using the 4-Phase Deep Framework above.
+
+**Note on write tools:** the MCP also exposes write tools (`create_campaign`, `create_profile`, `update_profile`, `create_email_template`, `subscribe_profile_to_marketing`, `assign_template_to_campaign_message`, `upload_image_from_file`, `upload_image_from_url`, `create_event`, plus translations). For pure audit work, gate these by connecting with `?read-only=true`. Only enable writes if you're acting on a confirmed recommendation (e.g., assigning a template to a campaign you're building together with the user).
 
 ## Integration Context
 
@@ -214,7 +223,9 @@ Ask me questions like:
 
 For complete analysis patterns, worked examples with sample output, and use cases, see [EXAMPLES.md](EXAMPLES.md).
 
-## Scripts
+## Scripts (Fallback: Local CLI)
+
+> **When to use these:** scripted CLI access for CI/cron, headless reporting jobs, or environments where you can't connect the Klaviyo MCP (e.g., automated pipelines using `KLAVIYO_API_KEY` env vars). For interactive analysis in Claude Code/Chat/Cowork, prefer the MCP path above — it's faster, OAuth-authenticated, and exposes the same data.
 
 The skill includes utility scripts for data fetching and analysis:
 
@@ -258,6 +269,18 @@ The scripts handle API authentication, data fetching, and analysis. I'll interpr
 
 ## Troubleshooting
 
+### MCP connection issues
+
+**MCP not appearing in Claude:** Verify the MCP is configured in your client and authenticated. For Claude Code, check `~/.claude.json` or your project-level MCP config. For Claude Chat, check Settings → Connectors.
+
+**OAuth permission denied:** Your Klaviyo user role must be Owner, Admin, or Manager. Lower-permission users cannot authorize the MCP.
+
+**Write tools failing:** Confirm the connection URL does not have `?read-only=true` set. If it does, write tools will be disabled by design — switch to a read-write URL for write actions.
+
+**Multi-account confusion:** The MCP supports multi-account setups. If Claude pulls data from the wrong account, re-authenticate or check your active account in Klaviyo's UI.
+
+### Script (fallback) errors
+
 **Authentication Error**: Verify that:
 - `KLAVIYO_API_KEY` is set as an environment variable or in a `.env` file
 - The key starts with `pk_` (private API key, not public)
@@ -279,6 +302,16 @@ pip install klaviyo-api python-dotenv pandas
 ```
 
 ## Security Notes
+
+### When using the Klaviyo MCP (recommended)
+
+- The MCP uses OAuth — there's no API key to commit, rotate, or leak
+- For audit-only work, gate with `?read-only=true` on the connection URL to disable all write tools
+- Authorization is scoped to your Klaviyo user role (Owner / Admin / Manager) — least-privilege is enforced upstream
+- Re-authentication is required if your role changes or the OAuth token expires
+- Multi-account setups: confirm the active account before running tools that include write operations
+
+### When using the script fallback
 
 - **Never hardcode** API keys in code or commit them to version control
 - Store keys in environment variables or `.env` files
@@ -797,3 +830,86 @@ When producing implementation specs (SOWs) for audit recommendations:
 ## Dependencies
 [What other SOWs must complete first]
 ```
+
+---
+
+## MCP Server Reference
+
+The official Klaviyo MCP server is the recommended way for Claude (Code, Chat, or Cowork) to interact with a Klaviyo account. It wraps the Klaviyo API behind 40+ MCP tools across ten categories.
+
+### Connection
+
+| Mode | Setup |
+|------|-------|
+| **Remote (recommended)** | URL `https://mcp.klaviyo.com/mcp` · Transport: Streamable HTTP · Auth: OAuth (dynamic client registration) |
+| **Local** | `uvx klaviyo-mcp-server@latest` |
+| **Read-only mode** | Append `?read-only=true` to the remote URL — disables all write tools |
+| **API revision** | Currently pinned to `2026-04-15` |
+
+### Required Klaviyo user role
+
+Owner, Admin, or Manager. Lower-permission users cannot authorize the MCP.
+
+### Tool Inventory
+
+#### Accounts (read-only)
+- `get_account_details` — account config, timezone, integrations
+
+#### Campaigns
+- `get_campaigns` *(read)* — list campaigns with filters
+- `get_campaign` *(read)* — fetch a single campaign
+- `create_campaign` *(write)*
+- `assign_template_to_campaign_message` *(write)*
+
+#### Catalogs (read-only)
+- `get_catalog_items` — products synced into Klaviyo's catalog
+
+#### Events & Metrics
+- `get_events` *(read)* — query event payloads with filters (use for inspecting nested property structure)
+- `create_event` *(write)* — track a custom event
+- `get_metrics` *(read)* — list all metric names + IDs
+- `get_metric` *(read)* — fetch one metric (including property schema)
+- `query_metric_aggregates` *(read)* — time-series rollups (mirrors in-app Metric Reporting)
+
+#### Flows (read-only)
+- `get_flows` — list all flows with status
+- `get_flow` — full flow definition (trigger, actions, filters)
+
+#### Groups (Lists + Segments, read-only)
+- `get_lists` / `get_list`
+- `get_segments` / `get_segment` (segment condition definitions)
+
+#### Images (write-only)
+- `upload_image_from_file`
+- `upload_image_from_url`
+
+#### Profiles
+- `get_profiles` *(read)*
+- `get_profile` *(read)*
+- `create_profile` *(write)*
+- `update_profile` *(write)*
+- `subscribe_profile_to_marketing` *(write)*
+- `unsubscribe_profile_from_marketing` *(write)*
+
+#### Reporting (read-only)
+- `get_campaign_report` — opens, clicks, unsubs, revenue per campaign
+- `get_flow_report` — revenue, conversion, engagement per flow
+
+#### Templates
+- `get_email_template` *(read)*
+- `create_email_template` *(write)*
+
+#### Translations (beta)
+- `get_translations` / `get_translation` *(read)*
+- `create_translation` / `update_translation` / `delete_translation` *(write)*
+
+### When to use the MCP vs. the script fallback
+
+| Scenario | Use |
+|----------|-----|
+| Interactive audit in Claude Code/Chat | **MCP** |
+| Unattended audit in Cowork | **MCP** (with `?read-only=true`) |
+| Building/editing campaigns or templates with Claude | **MCP** (write tools, read-write URL) |
+| Headless CI/cron data export | **Script** (`KLAVIYO_API_KEY` env var) |
+| Pipeline integration tests | **Script** |
+| Pulling data for an offline notebook | Either — MCP if available, script otherwise |
